@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feitosa Telecom - Em construção...</title>
+    <style>
+        /* Reset básico */
+        * {
+            font-family: "aller", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar superior */
+        .top-navbar {
+            background-image: linear-gradient(to right, #246ECC, #1515A3);
+            font-size: 10px;
+            text-align: left;
+            align-items: center;
+            color: white;
+            height: 30px;
+            display: flex; /* Para centralizar o conteúdo */
+            align-items: center; /* Centraliza verticalmente */
+            padding-left: 20px; /* Espaçamento à esquerda */
+        }
+
+        .main-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px 20px;
+            color: #000;
+            position: relative; /* Necessário para o botão de menu */
+        }
+
+        .main-navbar .logo {
+            margin-right: 20px;
+        }
+
+        .main-navbar .logo img {
+            max-height: 45px;
+            display: block;
+        }
+
+        .main-navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .main-navbar .menu a {
+            color: #10107A;
+            text-decoration: solid;
+            margin: 10px 15px;
+            padding: 0px 15px;
+            font-size: 14px;
+            line-height: 50px;
+            white-space: nowrap; /* Evita quebra de linha */
+        }
+
+        .main-navbar .menu a:hover {
+            text-decoration: solid;
+            background-image: linear-gradient(to right, #246ECC, #1515A3);
+            border: none;
+            padding: 0px 15px;
+            color: white;
+            border-radius: 100px;
+            display: inline-block;
+        }
+
+        .main-navbar .button {
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 100px;
+            padding: 20px 30px;
+            background-color: #10107A;
+            cursor: pointer;
+            display: inline-block;
+            white-space: nowrap; /* Evita quebra de linha */
+        }
+
+        .main-navbar .button:hover {
+            background-image: linear-gradient(to right, #246ECC, #1515A3);
+            padding: 20px 30px;
+            border-radius: 100px;
+        }
+
+        /* Estilo do botão de menu para telas pequenas */
+        .menu-toggle {
+            display: none;
+            background-color: #10107A;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle:hover {
+            background-image: linear-gradient(to right, #246ECC, #1515A3);
+        }
+
+        /* Esconde o menu e exibe o botão de menu em telas pequenas */
+        @media (max-width: 768px) {
+            .main-navbar {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-top: 10px;
+            }
+
+            .main-navbar .menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+
+            .main-navbar .menu a {
+                margin: 5px 0;
+            }
+
+            .main-navbar .button {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Exibe o menu ao clicar no botão de menu */
+        .main-navbar.menu-active .menu {
+            display: flex;
+        }
+
+        .slide-container {
+            width: 100%;
+            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+            margin-top: 0px;
+        }
+
+        .slide-container img {
+            width: 100%;
+            border: none;
+        }
+
+        /* Container para os logotipos */
+        .logo-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            min-height: 400px;
+            color: #10107A;
+            text-align: center;
+        }
+
+        .logo-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('bg_streaming_.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.35;
+            z-index: 1;
+        }
+
+        .logo-container h2,
+        .logo-container .logos {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .logo-container .logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-container img {
+            max-height: 100px;
+            margin: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .slide-container {
+                height: 250px;
+            }
+
+            .logo-container h2 {
+                font-size: 20px;
+            }
+
+            .logo-container img {
+                max-height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-navbar .menu a {
+                font-size: 14px;
+            }
+
+            .main-navbar .button {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+
+            .logo-container h2 {
+                font-size: 18px;
+            }
+
+            .logo-container img {
+                max-height: 35px;
+            }
+        }
+
+        /* Estilo da nova seção de planos */
+        .plans-container {
+            background: url('./bg-plans.png') no-repeat center center,
+                        linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+            background-size: cover; /* Ajusta a imagem ao tamanho do container */
+            background-position: center; /* Centraliza a imagem */
+            padding: 40px 20px;
+            color: white;
+            text-align: center;
+            width: 100%;
+            min-height: 700px; /* Define uma altura mínima */
+            max-height: 100vh; /* Define uma altura máxima de 100% da altura da viewport */
+            display: flex; /* Para centralizar o conteúdo verticalmente */
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .plans-container h1 {
+            text-align: center;
+            font-family: "Aller", sans-serif;
+            margin-bottom: 30px;
+            font-size: 50px;
+        }
+
+        .plans-container .plans {
+            display: flex;
+            justify-content: center; /* Centraliza os itens */
+            max-width: 80%; /* Define a largura máxima para o container dos planos */
+            margin: 0 auto; /* Centraliza o container dos planos na página */
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+        }
+
+        .plans-container .plan {
+            flex: 1 1 250px; /* Permite que os planos se ajustem ao container */
+            max-width: 250px;   
+            background-image: linear-gradient(to right, #1515A3, #10107A, #1515A3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .plans-container .plan h3 {
+            margin-bottom: 15px;
+            font-size: 85px;
+            font:bold;
+            padding: 0;
+        }
+
+        .plans-container .plan p {
+            font-size: 14px;
+        }
+        .plans-container .plan p1 {
+            font-size: 30px;
+        }
+
+        /* Estilo para a classe .Descrição */
+        .Descrição {
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .plans-container .plans {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .plans-container .plan {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar superior -->
+    <div class="top-navbar">
+        <span id="current-page">Você está aqui:</span>
+    </div>
+
+    <!-- Navbar com logotipo e menus -->
+    <div class="main-navbar">
+        <div class="logo">
+            <img src="./logo_top_color_.png" alt="Logotipo">
+        </div>
+        <div class="menu">
+            <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
+            <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
+            <a href="#" data-page="Fale conosco">FALE CONOSCO</a>
+            <a href="#" data-page="Sobre nós">SOBRE NÓS</a>
+            <button class="button" data-page="Área cliente">ÁREA CLIENTE</button>
+        </div>
+        <div class="menu-toggle">☰ Menu</div>
+    </div>
+
+    <!-- Div para o slide -->
+    <div class="slide-container">
+        <img src="./bg-slide-one_.png" alt="Slide 1">
+    </div>
+
+    <!-- Div para inserir logotipos lado a lado -->
+    <div class="logo-container">
+        <h2>Acesso ao melhor conteúdo do streaming!</h2>
+        <div class="logos">
+            <img src="logo1.png" alt="Logotipo 1">
+            <img src="logo2.png" alt="Logotipo 2">
+            <img src="logo3.png" alt="Logotipo 3">
+            <img src="logo4.png" alt="Logotipo 4">
+            <img src="logo5.png" alt="Logotipo 5">
+            <img src="logo6.png" alt="Logotipo 6">
+        </div>
+    </div>
+
+    <!-- Nova seção de planos -->
+    <div class="plans-container" id="plans-container">
+        <h1>Planos para sua casa</h1>
+        <div class="plans">
+            <div class="plan">
+                <h3><b>150</b><p><p1>MEGA</p1></p></h3>
+                <br>
+                <p class="Descrição">Descrição do plano básico. Ideal para quem está começando.</p>
+                <br>
+                <p>+ Wifi Turbo 5G</p>
+                <p>+ Adesão Grátis</p>
+                <p>+ App Grátis</p>
+                <br>
+                <button>Assine já!</button>
+            </div>
+            <div class="plan">
+                <h3><b>250</b><p><p1>MEGA</p1></p></h3>
+                <br>
+                <p class="Descrição">Descrição do plano básico. Ideal para quem está começando.</p>
+                <br>
+                <p>+ Wifi Turbo 5G</p>
+                <p>+ Adesão Grátis</p>
+                <p>+ App Grátis</p>
+                <br>
+                <button>Assine já!</button>
+            </div>
+            <div class="plan">
+                <h3><b>350</b><p><p1>MEGA</p1></p></h3>
+                <br>    
+                <p class="Descrição">Descrição do plano básico. Ideal para quem está começando.</p>
+                <br>
+                <p>+ Wifi Turbo 5G</p>
+                <p>+ Adesão Grátis</p>
+                <p>+ App Grátis</p>
+                <br>
+                <button>Assine já!</button>
+            </div>
+            <div class="plan">
+                <h3><b>500</b><p><p1>MEGA</p1></p></h3>
+                <br>
+                <p class="Descrição">Descrição do plano básico. Ideal para quem está começando.</p>
+                <br>    
+                <p>+ Wifi Turbo 5G</p>
+                <p>+ Adesão Grátis</p>
+                <p>+ App Grátis</p>
+                <br>
+                <button>Assine já!</button>
+            </div>
+        </div>
+        <br><br>
+        <p>Consulte mais ofertas <b>aqui</b> ou</p>
+    </div>
+
+    <!-- Scripts adicionais -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+            const currentPageText = document.getElementById('current-page');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNavbar = document.querySelector('.main-navbar');
+
+            // Atualiza o texto da navbar superior ao clicar em um link
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Impede o comportamento padrão do link
+                    
+                    const pageName = this.getAttribute('data-page');
+                    currentPageText.textContent = `Você está aqui: ${pageName}`;
+
+                    // Rolagem suave para a seção desejada
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (targetId) {
+                        document.getElementById(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Alterna a visibilidade do menu ao clicar no botão de menu
+            menuToggle.addEventListener('click', function() {
+                mainNavbar.classList.toggle('menu-active');
+            });
+        });
+    </script>
+</body>
+</html>
