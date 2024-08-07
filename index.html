@@ -179,6 +179,51 @@
                 border-right: 1px solid #ccc; /* Adiciona a borda vertical */
             }
 
+            /* Estilo do rodapé */
+            .footer {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                display: flex;
+                justify-content: center;
+                text-align: left;
+                justify-content: space-around;
+                padding: 20px;
+                color: white;
+            }
+
+            .footer-column {
+                flex: 1;
+                margin: 0 10px;
+            }
+
+            .footer-column h3 {
+                color: white;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+
+            .footer-column p, .footer-column ul {
+                color: white;
+                font-size: 14px;
+            }
+
+            .footer-column ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .footer-column ul li {
+                margin-bottom: 5px;
+            }
+
+            .footer-column ul li a {
+                text-decoration: none;
+                color: white;
+            }
+
+            .footer-column ul li a:hover {
+                text-decoration: underline;
+            }
+
             .pos-slide > div:last-child {
                 border-right: none; /* Remove a borda do último elemento */
             }              
@@ -457,6 +502,7 @@
             
         </style>
     </head>
+    
     <body>
         <!-- Navbar superior -->
         <div class="top-navbar">
@@ -591,6 +637,14 @@
             <img class="bar-lateral" src="./bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
         </div>
 
+            <div class="auto-atendimento" id="auto-atendimento">
+
+                <!--Inserir aqui os botões de auto-atendimento>
+            
+            
+        
+            </div>
+
         <!-- Scripts adicionais -->
         <script>
             document.addEventListener('DOMContentLoaded', () => {
@@ -656,5 +710,31 @@
                 });
             });
         </script>
+        <!-- Rodapé -->
+        <footer class="footer">
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <p>Telefone: (00) 0000-0000</p>
+                <p>Email: contato@feitosa.com.br</p>
+            </div>
+            <div class="footer-column">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Serviço</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Endereço</h3>
+                <p>Rua Exemplo, 123</p>
+                <p>Bairro Exemplo</p>
+                <p>Tacima/PB, 00000-000</p>
+            </div>
+            <div class="footer-column">
+                
+                <!--Inserir redes sociais aqui-->
+            </div>
+        </footer>
     </body>
     </html>
