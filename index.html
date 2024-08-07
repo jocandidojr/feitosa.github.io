@@ -2,7 +2,7 @@
     <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width   , initial-scale=1.0">
         <title>Feitosa Telecom - Em construção...</title>
         <style>
             /* Reset básico */
@@ -153,93 +153,21 @@
                 height: auto;
                 background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
             }
-
-            /* Container para os logotipos */
-            .logo-container {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center; /* Centraliza verticalmente */
-                padding: 0;
-                background-size: cover;
-                background-position: center;
-                width: auto;
-                height: 300px;
-                color: #10107A;
-                text-align: center;
-        }
-        
+                  
             .pos-slide {
                     height: 99px;
-                }               
-
-            .logo-container::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-image: url('./bg-streaming-red.png');
-                background-size: cover;
-                background-position: center;
-                opacity: 0.8;
-                z-index: 1;
-            }
-
-            .logo-container h2 {
-                position: relative;
-                z-index: 2;
-                margin-bottom: 0;
-                font-size: 30px;
-                display: flex;
-                align-items: center; /* Centraliza verticalmente o texto */
-                justify-content: center;
-                text-align: center;
-                height: auto;
-        }
-            .logo-container .logos {
-                position: relative;
-                z-index: 2;
-            }
-
-            .logo-container .logos {
-                display: flex;
-                padding: 30px;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .logo-container img {
-                max-width: 120px;
-                max-height: 120px;
-                margin-top: 0;
-            }
-
+            }               
+                       
             @media (max-width: 768px) {
                 .slide-container {
                     width: 100%;
                 }
 
-                .logo-container h2 {
-                    font-size: 25px;
+                .plans-container h2 {
+                    font-size: 20px;
                 }
 
-                .logo-container img {
-                    display: flex;
-                    max-height: 80px;
-                    align-items: center;
-                    justify-content: center;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                    
-                    
-                }
-            }
-
+            }       
             @media (max-width: 480px) {
                 .main-navbar .menu a {
                     font-size: 14px;
@@ -250,14 +178,7 @@
                     padding: 8px 15px;
                 }
 
-                .logo-container h2 {
-                    font-size: 18px;
                 }
-
-                .logo-container img {
-                    height: auto;
-                }
-            }
 
             /* Estilo da nova seção de planos */
             .plans-container {
@@ -284,14 +205,54 @@
                 font-size: 50px;
             }
 
-            .plans-container .plans {
+            .plans-container .plans{
                 display: flex;
                 justify-content: center; /* Centraliza os itens */
                 max-width: 100%; /* Define a largura máxima para o container dos planos */
                 margin: 0 auto; /* Centraliza o container dos planos na página */
                 align-items: center;
-                gap: 15px;
+                gap: 15px;  
                 flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+            }
+            
+            .plans-container .logos{
+                display: 1 1 150px;
+                justify-content: center;
+                max-width: 100%; /* Define a largura máxima para o container dos planos */
+                margin: 0 auto; /* Centraliza o container dos planos na página */
+                align-items: center;
+                flex-direction: column; 
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .plans-container .logos img:hover {
+                background-color: #F1D213;
+                transform: scale(1.05);
+                border: none;
+                opacity: 90%;
+                border-radius: 5px;
+                padding: 5px;
+                width: 75px;
+                gap: 50px;
+            }
+
+            .plans-container .logos img{
+                max-width: 70px;
+                max-height: 70px;                
+                gap: 20px;
+            }
+
+            .plans-container img {
+                max-width: 100px;
+                max-height: 100px;
+                gap: 20px;
+            }
+
+            .plans-container h2{
+                font-size: 20px;
             }
 
             .plans-container .plan {
@@ -365,16 +326,35 @@
                 background-color: #246ECC;
                 transform: scale(1.05);
             }
+                    /* Estilo para o botão de pular slide */
+            .skip-button {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                background-color: #10107A;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+
+            .skip-button:hover {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                transform: scale(1.05);
+            }
 
             .fale-conosco {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 768px;
-            background-image: white;
-            padding: 0;
-            text-align: left;
-            }
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: 768px;
+                background-image: white;
+                padding: 0;
+                text-align: left;
+                }
 
             .fale-conosco h1 {
                 text-align: left;
@@ -479,36 +459,25 @@
                 <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
                 <a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
                 <a href="#" data-page="Sobre nós">SOBRE NÓS</a>
-                <button class="button" data-page="Área cliente">ÁREA CLIENTE</button>
+                <button class="button" data-page="Área cliente">ÁREA DO CLIENTE</button>
             </div>
             <div class="menu-toggle">☰ Menu</div>
         </div>
 
         <!--<div class="image-wrapper">
             <img src="./bg-slide-one_.png" alt="Slide 1">
+            <img src="./bg-slide-two_.png" alt="Slide 2">
             <div class="overlay"></div>
         </div>--OCULTO>
 
         <!-- Div para o slide -->
         <div class="slide-container">
-            <img src="./bg-slide-one_.png" alt="Slide 1">            
+    <img src="./bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
+    <img src="./bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
+</div>
+
+<div class="pos-slide"></div>
         </div>
-        <div class="pos-slide">
-        </div>
-        <!-- Div para inserir logotipos lado a lado -->
-        <div class="logo-container">
-            
-            <div class="logos">
-                <h2>Acesso ao melhor conteúdo do streaming!</h2>
-                <img src="logo1.png" alt="Logotipo 1">
-                <img src="logo2.png" alt="Logotipo 2">
-                <img src="logo3.png" alt="Logotipo 3">
-                <img src="logo4.png" alt="Logotipo 4">
-                <img src="logo5.png" alt="Logotipo 5">
-                <img src="logo6.png" alt="Logotipo 6">
-            </div>
-        </div>
-        <!-- Nova seção de planos -->
         <div class="plans-container" id="plans-container">
             <h1>Planos para sua casa</h1>
             <div class="plans">
@@ -575,7 +544,19 @@
                 </div>
             </div>
             <br><br>
-            <p2>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></p2> 
+            <p2>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></p2>
+            <br><br>
+            <div class="logos">
+                <h2>Acesso ao melhor conteúdo do streaming!</h2>
+                <br>
+                <img src="logo1.png" alt="Logotipo 1">
+                <img src="logo2.png" alt="Logotipo 2">
+                <img src="logo3.png" alt="Logotipo 3">
+                <img src="logo4.png" alt="Logotipo 4">
+                <img src="logo5.png" alt="Logotipo 5">
+                <img src="logo6.png" alt="Logotipo 6">
+            </div>
+
         </div>
         <div class="fale-conosco" id="fale-conosco">
             <div class="form">
@@ -599,6 +580,8 @@
                 const currentPageText = document.getElementById('current-page');
                 const menuToggle = document.querySelector('.menu-toggle');
                 const mainNavbar = document.querySelector('.main-navbar');
+                const slides = document.querySelectorAll('.slide');
+                let currentSlide = 0;
 
                 // Define "Página inicial" como o texto padrão
                 currentPageText.textContent = "Você está aqui: Página inicial";
@@ -625,18 +608,34 @@
                 menuToggle.addEventListener('click', function() {
                     mainNavbar.classList.toggle('menu-active');
                 });
-            });
 
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
+                // Função para alternar os slides
+                function showSlide(index) {
+                    slides.forEach((slide, i) => {
+                        slide.style.display = i === index ? 'block' : 'none';
+                    });
                 }
-            });
 
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
+                // Configuração do intervalo para alternar os slides a cada 5 segundos
+                setInterval(() => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                }, 5000);
+
+                // Inicializa o primeiro slide
+                showSlide(currentSlide);
+
+                document.addEventListener('contextmenu', function(e) {
+                    if (e.target.tagName === 'IMG') {
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('dragstart', function(e) {
+                    if (e.target.tagName === 'IMG') {
+                        e.preventDefault();
+                    }
+                });
             });
         </script>
     </body>
