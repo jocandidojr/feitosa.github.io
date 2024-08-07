@@ -443,8 +443,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                min-height: 768px;
-                background-image: white;
+                height: 768px;
                 padding: 0;
                 text-align: left;
                 }
@@ -461,6 +460,13 @@
                 color: #10107A;
                 font-size: 22px;
                 margin-top: 10px;
+            }
+
+            .fale-conosco img{
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                border-bottom-left-radius: 300%;
+                border-top-left-radius: 300%;
+                max-height: 100%;
             }
 
             .form {
@@ -498,7 +504,7 @@
             }
 
             @media (max-width: 768px) {
-            .fale-conosco {
+                .fale-conosco {
                 flex-direction: column;
                 position: relative;
             }
