@@ -188,12 +188,12 @@
                 position: relative;
                 z-index: 2;
                 margin-bottom: 0;
-                font-size: 24px;
+                font-size: 30px;
                 display: flex;
                 align-items: center; /* Centraliza verticalmente o texto */
                 justify-content: center;
                 text-align: center;
-                height: 100%;
+                height: auto;
         }
             .logo-container .logos {
                 position: relative;
@@ -221,11 +221,17 @@
                 }
 
                 .logo-container h2 {
-                    font-size: 15px;
+                    font-size: 25px;
                 }
 
                 .logo-container img {
-                    max-height: auto;
+                    display: flex;
+                    max-height: 80px;
+                    align-items: center;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    
                     
                 }
             }
@@ -245,7 +251,7 @@
                 }
 
                 .logo-container img {
-                    height: 30px;
+                    height: auto;
                 }
             }
 
@@ -253,7 +259,7 @@
             .plans-container {
                 background: url('./bg-plans.png') no-repeat center center,
                             linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-                bposition: relative;
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -465,8 +471,9 @@
         </div>
         <!-- Div para inserir logotipos lado a lado -->
         <div class="logo-container">
-            <h2>Acesso ao melhor conteúdo do streaming!</h2>
+            
             <div class="logos">
+                <h2>Acesso ao melhor conteúdo do streaming!</h2>
                 <img src="logo1.png" alt="Logotipo 1">
                 <img src="logo2.png" alt="Logotipo 2">
                 <img src="logo3.png" alt="Logotipo 3">
