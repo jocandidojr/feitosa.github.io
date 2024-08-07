@@ -190,6 +190,7 @@
 
                 .plans-container h2 {
                     font-size: 20px;
+                    width: 100%;
                 }
 
             }       
@@ -241,7 +242,7 @@
             }
 
             .plans-container .plan:hover {
-                background-color: #F1D213 transparent 0.8;
+                background-color: #F1D213 transparent 0.8   ;
                 transform: scale(1.05);                 
             }
             
@@ -334,7 +335,8 @@
             @media (max-width: 768px) {
                 .plans-container .plans {
                     flex: 1 1 270px;
-                    width: 270px;
+                    width: 100%;
+                    max-width: 270px;
                     gap: 15px;
                 }
 
@@ -357,26 +359,7 @@
                 background-color: #246ECC;
                 transform: scale(1.05);
             }
-                    /* Estilo para o botão de pular slide */
-            .skip-button {
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px 20px;
-                background-color: #10107A;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 18px;
-            }
-
-            .skip-button:hover {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                transform: scale(1.05);
-            }
-
+            
             .fale-conosco {
                 display: flex;
                 justify-content: space-between;
