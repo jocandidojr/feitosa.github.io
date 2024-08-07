@@ -37,7 +37,7 @@
         }
 
         .main-navbar .logo {
-            margin-right: 20px;
+            margin-right: 0;
         }
 
         .main-navbar .logo img {
@@ -140,13 +140,15 @@
 
         .slide-container {
             width: 100%;
-            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-            margin-top: 0px;
+            ackground-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+            border: none;
+            
         }
 
         .slide-container img {
+            margin-top: 0;
             width: 100%;
-            border: none;
+            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
         }
 
         /* Container para os logotipos */
@@ -155,15 +157,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* Centraliza verticalmente */
             padding: 20px;
             background-size: cover;
             background-position: center;
+            margin-top: -6px;
             width: 100%;
-            height: auto;
+            height: 100%;
             color: #10107A;
             text-align: center;
-        }
-
+    }
+     
         .logo-container::before {
             content: "";
             position: absolute;
@@ -178,32 +182,41 @@
             z-index: 1;
         }
 
-        .logo-container h2,
+        .logo-container h2 {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center; /* Centraliza verticalmente o texto */
+            justify-content: center;
+            height: 100%;
+    }
         .logo-container .logos {
             position: relative;
             z-index: 2;
         }
 
-        .logo-container h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
         .logo-container .logos {
             display: flex;
+            margin-top: 0;
+            height: 100%;
+            align-items: center;
             justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
         }
 
         .logo-container img {
-            max-height: 150px;
-            margin: 10px;
+            max-width: 120px;
+            max-height: 120px;
+            margin-top: 0;
         }
 
         @media (max-width: 768px) {
             .slide-container {
-                height: 250px;
+                margin-top: 0;
+                width: 100%;
             }
 
             .logo-container h2 {
@@ -212,6 +225,7 @@
 
             .logo-container img {
                 max-height: 8%;
+                
             }
         }
 
@@ -230,7 +244,7 @@
             }
 
             .logo-container img {
-                max-height: 35px;
+                max-height: 120px;
             }
         }
 
@@ -336,7 +350,7 @@
     </div>
 
     <!-- Div para inserir logotipos lado a lado -->
-    <div class="logo-container">
+    <div class="logo-container"><br><br>
         <h2>Acesso ao melhor conteúdo do streaming!</h2>
         <div class="logos">
             <img src="logo1.png" alt="Logotipo 1">
@@ -346,7 +360,7 @@
             <img src="logo5.png" alt="Logotipo 5">
             <img src="logo6.png" alt="Logotipo 6">
         </div>
-    </div>
+    </div><br><br>
 
     <!-- Nova seção de planos -->
     <div class="plans-container" id="plans-container">
