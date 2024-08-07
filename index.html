@@ -253,6 +253,7 @@
 
                 .auto-atendimento {
                     display: flex;
+                    color: #10107A;
                     flex-wrap: wrap;
                     justify-content: left;
                     max-width: 50%;
@@ -277,7 +278,12 @@
                     background-color: #10107A; /* Cor sólida para o fundo */
                     border-radius: 8px; /* Borda arredondada opcional */
                     padding: 20px;
-            }
+                }
+
+                .auto-atendimento img:hover {
+                    background-image: linear-gradient( #F1D213);
+                    transform: scale(1.05);
+                }
 
             /* Estilo da nova seção de planos */
             .plans-container {
@@ -315,7 +321,7 @@
             }
 
             .plans-container .plan:hover {
-                background-color: #F1D213 transparent 0.8   ;
+                background-color: #F1D213 transparent 0.8;
                 transform: scale(1.05);                 
             }
             
@@ -652,7 +658,11 @@
         </div>
 
         <div class="auto-atendimento" id="auto-atendimento">
-                <div ><h1>Autoatendimento para clientes</h1></div>
+                <div>
+                    <h1>Autoatendimento para clientes</h1>
+                    <p>Selecione o serviço desejado.
+                
+                </div>
                 <br>
                 <img src="./a_cadastro_.png" alt="BCadastro">
                 <img src="./a_boleto_.png" alt="BBoleto">
