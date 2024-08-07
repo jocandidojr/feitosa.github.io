@@ -160,9 +160,11 @@
                 align-items: center;
                 height: 160px;
                 text-align: center;
+                color: #10107A;
             }
             .pos-slide h4{
                 font-size: 30px;
+                color: #10107A;
             }
 
             .pos-slide > div {
@@ -171,6 +173,7 @@
                 justify-content: center;
                 align-items: center;
                 padding: 10px;
+                width: 250px;
                 text-align: center;
                 border: 10px;
                 border-right: 1px solid #ccc; /* Adiciona a borda vertical */
@@ -297,11 +300,15 @@
                 font:bold;
             }
 
-            h4 {
+            .plans-container h4{
                 font-size: 75px;
+                margin-top: -30px;
                 font: bold;
             }        
             .plans-container .plan p2 {
+                align-items: center;
+                text-align: center;
+                justify-content: center;
                 font-size: 14px;
             }
             .plans-container .plan p1 {
@@ -310,10 +317,8 @@
 
             /* Estilo para a classe .Descrição */
             .Descrição {
-                border: 30px solid transparent;
-                border-style:solid;
-                width: 200px;
-                height: 130px;
+                border: 40px solid transparent;
+                border-style:solid; 
                 border-image: url("./border_plan_.png") 100 round;
                 padding: 0px;
                 text-align: center;
@@ -574,7 +579,8 @@
             <p2>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></p2>
             <br><br>
             <div class="logos">
-                <h2>Acesso ao melhor conteúdo do streaming!</h2>
+                <h2>Contrate banda larga e receba acesso grátis<p>
+                    ao melhor conteúdo do streaming!</h2>
                 <br>
                 <img src="logo1.png" alt="Logotipo 1">
                 <img src="logo2.png" alt="Logotipo 2">
@@ -660,7 +666,7 @@
 
                 document.addEventListener('dragstart', function(e) {
                     if (e.target.tagName === 'IMG') {
-                        e.preventDefault();
+                        e.preventDefault(); 
                     }
                 });
             });
