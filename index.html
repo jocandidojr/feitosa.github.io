@@ -155,8 +155,27 @@
             }
                   
             .pos-slide {
-                    height: 99px;
-            }               
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 160px;
+                text-align: center;
+            }
+
+            .pos-slide > div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                text-align: center;
+                border: 10px;
+                border-right: 1px solid #ccc; /* Adiciona a borda vertical */
+            }
+
+            .pos-slide > div:last-child {
+                border-right: none; /* Remove a borda do último elemento */
+            }              
                        
             @media (max-width: 768px) {
                 .slide-container {
@@ -277,7 +296,6 @@
 
             h4 {
                 font-size: 75px;
-                margin-top: -30px;
                 font: bold;
             }        
             .plans-container .plan p2 {
@@ -468,18 +486,19 @@
         <div class="slide-container">
     <img src="./bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
     <img src="./bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
-</div>
-
+    </div>
         <div class="pos-slide">
-            <div class="infor">
+            <div class="infor"> 
             <h4>INFO 1</h4><p>
                 + Wifi Turbo 5G
                 + Wifi Turbo 5G
-            </div><br>
+            </div>
+            <div  class="infor">
             <h4>INFO 2</h4><p>
                 + Wifi Turbo 5G
                 + Wifi Turbo 5G
-            </div><br>
+            </div>
+            <div  class="infor">
             <h4>INFO 3</h4><p>
                 + Wifi Turbo 5G
                 + Wifi Turbo 5G
@@ -489,8 +508,7 @@
             <h1>Planos para sua casa</h1>
             <div class="plans">
                 <div class="plan">
-                    <h3><b>150</b><h4>MEGA</h4></p></h3>
-                        
+                    <h3><b>150</b><h4>MEGA</h4></p></h3>                        
                         <p2 class="Descrição">
                             <p>por apenas</p>
                             R$:<p1> 99,99</p1>
