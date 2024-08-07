@@ -28,7 +28,7 @@
 
         .main-navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             background-color: #fff;
             padding: 20px 20px;
@@ -37,7 +37,7 @@
         }
 
         .main-navbar .logo {
-            margin-right: 0;
+            margin: 0 20px;
         }
 
         .main-navbar .logo img {
@@ -61,8 +61,8 @@
         }
 
         .main-navbar .menu a:hover {
-            text-decoration: solid;
             background-image: linear-gradient(to right, #246ECC, #1515A3);
+            transform: scale(1.05);
             border: none;
             padding: 0px 20px;
             color: white;
@@ -71,7 +71,7 @@
         }
 
         .main-navbar .button {
-            margin-left: 20px;
+            margin-left: 0px;
             font-size: 14px;
             font-weight: bold;
             color: white;
@@ -82,10 +82,12 @@
             cursor: pointer;
             display: inline-block;
             white-space: nowrap; /* Evita quebra de linha */
+            transform: scale(1.05);;
         }
 
         .main-navbar .button:hover {
             background-image: linear-gradient(to right, #246ECC, #1515A3);
+            transform: scale(1.05);
             padding: 20px 30px;
             border-radius: 100px;
         }
@@ -102,6 +104,7 @@
 
         .menu-toggle:hover {
             background-image: linear-gradient(to right, #246ECC, #1515A3);
+            
         }
 
         /* Esconde o menu e exibe o botão de menu em telas pequenas */
@@ -140,13 +143,13 @@
 
         .slide-container {
             width: 100%;
-            ackground-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
             border: none;
             
         }
 
         .slide-container img {
-            margin-top: 0;
+            margin: 0 auto;
             width: 100%;
             background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
         }
@@ -158,12 +161,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center; /* Centraliza verticalmente */
-            padding: 20px;
+            padding: 0;
             background-size: cover;
             background-position: center;
-            margin-top: -6px;
+            margin-top: -3px;
             width: 100%;
-            height: 100%;
             color: #10107A;
             text-align: center;
     }
@@ -220,7 +222,7 @@
             }
 
             .logo-container h2 {
-                font-size: 20px;
+                font-size: 15px;
             }
 
             .logo-container img {
@@ -252,15 +254,18 @@
         .plans-container {
             background: url('./bg-plans.png') no-repeat center center,
                         linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-            background-size: cover; /* Ajusta a imagem ao tamanho do container */
-            background-position: center; /* Centraliza a imagem */
-            padding: 40px 20px;
+            bposition: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centraliza verticalmente */
+            padding: 20px;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 768px;
             color: white;
             text-align: center;
-            width: 100%;
-            display: flex; /* Para centralizar o conteúdo verticalmente */
-            flex-direction: column;
-            justify-content: center;
         }
 
         .plans-container h1 {
@@ -276,13 +281,17 @@
             max-width: 100%; /* Define a largura máxima para o container dos planos */
             margin: 0 auto; /* Centraliza o container dos planos na página */
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap; /* Permite quebra de linha em telas menores */
         }
 
         .plans-container .plan {
-            flex: 1 1 220px; /* Permite que os planos se ajustem ao container */
-            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 270px;
+            margin: 0 auto;
             background-color: rgba(21, 21, 163, 0.8);
             border-radius: 10px;
             padding: 20px;
@@ -291,36 +300,64 @@
         }
 
         .plans-container .plan h3 {
-            margin-bottom: 15px;
-            font-size: 85px;
+            margin-bottom: 0px;
+            font-size: 110px;
             font:bold;
-            padding: 0;
         }
 
-        .plans-container .plan p {
+        h4 {
+            font-size: 75px;
+            margin-top: -30px;
+            font: bold;
+        }        
+        .plans-container .plan p2 {
             font-size: 14px;
         }
         .plans-container .plan p1 {
-            font-size: 30px;
+            font-size: 40px;
         }
 
         /* Estilo para a classe .Descrição */
         .Descrição {
-            border: 2px solid white;
-            padding: 10px;
-            border-radius: 5px;
+            border: 30px solid transparent;
+            border-style:solid;
+            width: 220px;
+            height: 130px;
+            border-image: url("./border_plan_.png") 100 round;
+            padding: 0px;
+            text-align: center;
+            justify-content: center;
+            display:block;
         }
 
         @media (max-width: 768px) {
             .plans-container .plans {
-                flex-direction: column;
-                gap: 10px;
+                flex: 1 1 270px;
+                width: 270px;
+                gap: 15px;
             }
 
             .plans-container .plan {
-                max-width: 80%;
+                width: 100%;                
             }
         }
+        
+        button.assine {
+            background-color: #F1D213;
+            color: #10107A;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button.assine:hover {
+            background-color: #246ECC;
+            transform: scale(1.05);
+        }
+               
     </style>
 </head>
 <body>
@@ -367,52 +404,69 @@
         <h1>Planos para sua casa</h1>
         <div class="plans">
             <div class="plan">
-                <h3><b>250</b><p><p1>MEGA</p1></p></h3>
-                <p class="Descrição">+ Wifi Turbo 5G
-                + Adesão Grátis
-                + App Grátis</p>
+                <h3><b>150</b>
+                    <h4>MEGA</p></h3>
+                    
+                    <p2 class="Descrição">
+                        <p>por apenas</p>
+                        R$:<p1> 99,99</p1>
+                        <p>/mensais</p>
+                    </p2>
+                    <br>
+                    + Wifi Turbo 5G
+                    <p>+ Adesão Grátis</p>
+                    <p>+ App Grátis</p>
                 <br>
-                <p>por</p>
-                <p1>R$99,00</p1>                
-                <br><br>
                 <button class="assine">Assine agora!</button>
             </div>
             <div class="plan">
-                <h3><b>250</b><p><p1>MEGA</p1></p></h3>
-                <p class="Descrição">+ Wifi Turbo 5G
-                + Adesão Grátis
-                + App Grátis</p>
+                <h3><b>250</b></h3><p><h4>MEGA</h4></p>
+                    
+                    <p2 class="Descrição">
+                        <p>por apenas</p>
+                        R$:<p1> 99,99</p1>
+                        <p>/mensais</p>
+                    </p2>
+                    <br>
+                    + Wifi Turbo 5G
+                    <p>+ Adesão Grátis</p>
+                    <p>+ App Grátis</p>
                 <br>
-                <p>por</p>
-                <p1>R$99,00</p1>                
-                <br><br>
                 <button class="assine">Assine agora!</button>
             </div>
             <div class="plan">
-                <h3><b>250</b><p><p1>MEGA</p1></p></h3>
-                <p class="Descrição">+ Wifi Turbo 5G
-                + Adesão Grátis
-                + App Grátis</p>
+                <h3><b>350</b></h3><p><h4>MEGA</h4></p>
+                    
+                    <p2 class="Descrição">
+                        <p>por apenas</p>
+                        R$:<p1> 99,99</p1>
+                        <p>/mensais</p>
+                    </p2>
+                    <br>
+                    + Wifi Turbo 5G
+                    <p>+ Adesão Grátis</p>
+                    <p>+ App Grátis</p>
                 <br>
-                <p>por</p>
-                <p1>R$99,00</p1>                
-                <br><br>
                 <button class="assine">Assine agora!</button>
             </div>
             <div class="plan">
-                <h3><b>250</b><p><p1>MEGA</p1></p></h3>
-                <p class="Descrição">+ Wifi Turbo 5G
-                + Adesão Grátis
-                + App Grátis</p>
+                <h3><b>500</b></h3><p><h4>MEGA</h4></p>
+                    
+                    <p2 class="Descrição">
+                        <p>por apenas</p>
+                        R$:<p1> 99,99</p1>
+                        <p>/mensais</p>
+                    </p2>
+                    <br>
+                    + Wifi Turbo 5G
+                    <p>+ Adesão Grátis</p>
+                    <p>+ App Grátis</p>
                 <br>
-                <p>por</p>
-                <p1>R$99,00</p1>                
-                <br><br>
                 <button class="assine">Assine agora!</button>
             </div>
         </div>
         <br><br>
-        <p>Consulte mais ofertas <b>aqui</b> ou</p>
+        <p2>Consulte mais ofertas <b>aqui</b> ou <button class="assine">assine agora!</button></p2> 
     </div>
 
     <!-- Scripts adicionais -->
