@@ -251,6 +251,34 @@
 
                 }
 
+                .auto-atendimento {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: left;
+                    max-width: 50%;
+                    gap: 15px; /* Espaçamento entre as imagens */
+                    padding: 70px; /* Margem de 70px */
+                    border-radius: 8px; /* Bordas arredondadas opcionais */
+                    text-align: center;
+                }
+                .auto-atendimento h1{
+                    color: #10107A;
+                    font-size: 34px;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+
+                }
+
+                .auto-atendimento img {
+                    flex-direction: column;
+                    width: 150px; /* Largura das imagens */
+                    height: auto; /* Mantém a proporção */                      
+                    background-color: #10107A; /* Cor sólida para o fundo */
+                    border-radius: 8px; /* Borda arredondada opcional */
+                    padding: 20px;
+            }
+
             /* Estilo da nova seção de planos */
             .plans-container {
                 background: url('./bg-plans.png') no-repeat center center,
@@ -498,7 +526,7 @@
             .image-wrapper {
                 position: relative;
                 display: inline-block;
-            }
+            }          
             
         </style>
     </head>
@@ -622,28 +650,33 @@
             </div>
 
         </div>
+
+        <div class="auto-atendimento" id="auto-atendimento">
+                <div ><h1>Autoatendimento para clientes</h1></div>
+                <br>
+                <img src="./a_cadastro_.png" alt="BCadastro">
+                <img src="./a_boleto_.png" alt="BBoleto">
+                <img src="./a_cartao_.png" alt="BCartao">
+                <img src="./a_outros_.png" alt="BOutros">
+                <img src="./a_plano_.png" alt="BPlano">
+                <img src="./a_suporte_.png" alt="BSuporte">
+
+        </div>
+
         <div class="fale-conosco" id="fale-conosco">
             <div class="form">
-                <h1>Fale Conosco</h1>
+                <h1>Fale conosco</h1>
                 <p>Estamos aqui para ajudar.</p>
                 <form action="#" method="POST">
                     <input type="text" name="nome" placeholder="Nome" required>
                     <input type="tel" name="celular" placeholder="Celular" required>
                     <input type="email" name="email" placeholder="E-mail" required>
-                    <textarea name="mensagem" rows="4" placeholder="Sua mensagem"></textarea>
+                    <textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
                     <button type="submit">Enviar</button>
                 </form>
             </div>
             <img class="bar-lateral" src="./bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
-        </div>
-
-            <div class="auto-atendimento" id="auto-atendimento">
-
-                <!--Inserir aqui os botões de auto-atendimento>
-            
-            
-        
-            </div>
+        </div>            
 
         <!-- Scripts adicionais -->
         <script>
