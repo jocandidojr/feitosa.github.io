@@ -1,503 +1,595 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feitosa Telecom - Em construção...</title>
-    <style>
-        /* Reset básico */
-        * {
-            font-family: "aller", Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Navbar superior */
-        .top-navbar {
-            background-image: linear-gradient(to right, #246ECC, #1515A3);
-            font-size: 10px;
-            text-align: left;
-            align-items: center;
-            color: white;
-            height: 30px;
-            display: flex; /* Para centralizar o conteúdo */
-            align-items: center; /* Centraliza verticalmente */
-            padding-left: 20px; /* Espaçamento à esquerda */
-        }
-
-        .main-navbar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            padding: 20px 20px;
-            color: #000;
-            position: relative; /* Necessário para o botão de menu */
-        }
-
-        .main-navbar .logo {
-            margin: 0 20px;
-        }
-
-        .main-navbar .logo img {
-            max-height: 45px;
-            display: block;
-        }
-
-        .main-navbar .menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .main-navbar .menu a {
-            color: #10107A;
-            text-decoration: solid;
-            margin: 10px 20px;
-            padding: 0px 20px;
-            font-size: 14px;
-            line-height: 50px;
-            white-space: nowrap; /* Evita quebra de linha */
-        }
-
-        .main-navbar .menu a:hover {
-            background-image: linear-gradient(to right, #246ECC, #1515A3);
-            transform: scale(1.05);
-            border: none;
-            padding: 0px 20px;
-            color: white;
-            border-radius: 100px;
-            display: inline-block;
-        }
-
-        .main-navbar .button {
-            margin-left: 0px;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 100px;
-            padding: 20px 30px;
-            background-color: #10107A;
-            cursor: pointer;
-            display: inline-block;
-            white-space: nowrap; /* Evita quebra de linha */
-        }
-
-        .main-navbar .button:hover {
-            background-image: linear-gradient(to right, #246ECC, #1515A3);
-            transform: scale(1.05);
-            padding: 20px 30px;
-            border-radius: 100px;
-        }
-
-        /* Estilo do botão de menu para telas pequenas */
-        .menu-toggle {
-            display: none;
-            background-color: #10107A;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle:hover {
-            background-image: linear-gradient(to right, #246ECC, #1515A3);
-            transform: scale(1.05);            
-        }
-
-        /* Esconde o menu e exibe o botão de menu em telas pequenas */
-        @media (max-width: 768px) {
-            .main-navbar {
-                flex-direction: column;
-                padding: 10px;
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Feitosa Telecom - Em construção...</title>
+        <style>
+            /* Reset básico */
+            * {
+                font-family: "aller", Helvetica, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            .menu-toggle {
+            /* Navbar superior */
+            .top-navbar {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                font-size: 10px;
+                text-align: left;
+                align-items: center;
+                color: white;
+                height: 30px;
+                display: flex; /* Para centralizar o conteúdo */
+                align-items: center; /* Centraliza verticalmente */
+                padding-left: 20px; /* Espaçamento à esquerda */
+            }
+
+            .main-navbar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100px;
+                background-color: #fff;
+                padding: 20px 20px;
+                color: #000;
+                position: relative; /* Necessário para o botão de menu */
+            }
+
+            .main-navbar .logo {
+                margin: 0 20px;
+            }
+
+            .main-navbar .logo img {
+                max-height: 45px;
                 display: block;
-                margin-top: 10px;
             }
 
             .main-navbar .menu {
+                display: flex;
+                align-items: center;
+            }
+
+            .main-navbar .menu a {
+                color: #10107A;
+                text-decoration: solid;
+                margin: 10px 20px;
+                padding: 0px 20px;
+                font-size: 14px;
+                line-height: 50px;
+                white-space: nowrap; /* Evita quebra de linha */
+            }
+
+            .main-navbar .menu a:hover {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                transform: scale(1.05);
+                border: none;
+                padding: 0px 20px;
+                color: white;
+                border-radius: 100px;
+                display: inline-block;
+            }
+
+            .main-navbar .button {
+                margin-left: 0px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                border: none;
+                border-radius: 100px;
+                padding: 20px 30px;
+                background-color: #10107A;
+                cursor: pointer;
+                display: inline-block;
+                white-space: nowrap; /* Evita quebra de linha */
+            }
+
+            .main-navbar .button:hover {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                transform: scale(1.05);
+                padding: 20px 30px;
+                border-radius: 100px;
+            }
+
+            /* Estilo do botão de menu para telas pequenas */
+            .menu-toggle {
                 display: none;
-                flex-direction: column;
+                background-color: #10107A;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .menu-toggle:hover {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                transform: scale(1.05);            
+            }
+
+            /* Esconde o menu e exibe o botão de menu em telas pequenas */
+            @media (max-width: 768px) {
+                .main-navbar {
+                    flex-direction: column;
+                    padding: 10px;
+                }
+
+                .menu-toggle {
+                    display: block;
+                    margin-top: 10px;
+                }
+
+                .main-navbar .menu {
+                    display: none;
+                    flex-direction: column;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .main-navbar .menu a {
+                    margin: 5px 0;
+                }
+
+                .main-navbar .button {
+                    width: 100%;
+                    max-width: 200px;
+                }
+            }
+
+            /* Exibe o menu ao clicar no botão de menu */
+            .main-navbar.menu-active .menu {
+                display: flex;
+            }
+
+            .slide-container {
                 width: 100%;
+                background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+                border: none;
+                
+            }
+
+            .slide-container img {
+                margin: 0 auto;
+                width: 100%;
+                background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+            }
+
+            /* Container para os logotipos */
+            .logo-container {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center; /* Centraliza verticalmente */
+                padding: 0;
+                background-size: cover;
+                background-position: center;
+                width: auto;
+                height: 300px;
+                color: #10107A;
+                text-align: center;
+        }
+        
+            .logo-container::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url('./bg-streaming-red.png');
+                background-size: cover;
+                background-position: center;
+                opacity: 0.35;
+                z-index: 1;
+            }
+
+            .logo-container h2 {
+                position: relative;
+                z-index: 2;
+                margin-bottom: 0;
+                font-size: 24px;
+                display: flex;
+                align-items: center; /* Centraliza verticalmente o texto */
+                justify-content: center;
+                text-align: center;
+                height: 100%;
+        }
+            .logo-container .logos {
+                position: relative;
+                z-index: 2;
+            }
+
+            .logo-container .logos {
+                display: flex;
+                padding: 30px;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .logo-container img {
+                max-width: 120px;
+                max-height: 120px;
+                margin-top: 0;
+            }
+
+            @media (max-width: 768px) {
+                .slide-container {
+                    width: 100%;
+                }
+
+                .logo-container h2 {
+                    font-size: 15px;
+                }
+
+                .logo-container img {
+                    max-height: auto;
+                    
+                }
+            }
+
+            @media (max-width: 480px) {
+                .main-navbar .menu a {
+                    font-size: 14px;
+                }
+
+                .main-navbar .button {
+                    font-size: 14px;
+                    padding: 8px 15px;
+                }
+
+                .logo-container h2 {
+                    font-size: 18px;
+                }
+
+                .logo-container img {
+                    height: 30px;
+                }
+            }
+
+            /* Estilo da nova seção de planos */
+            .plans-container {
+                background: url('./bg-plans.png') no-repeat center center,
+                            linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+                bposition: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center; /* Centraliza verticalmente */
+                padding: 20px;
+                background-size: cover;
+                background-position: center;
+                width: 100%;
+                min-height: 768px;
+                color: white;
                 text-align: center;
             }
 
-            .main-navbar .menu a {
-                margin: 5px 0;
+            .plans-container h1 {
+                text-align: center;
+                font-family: "Aller", sans-serif;
+                margin-bottom: 30px;
+                font-size: 50px;
             }
 
-            .main-navbar .button {
-                width: 100%;
-                max-width: 200px;
-            }
-        }
-
-        /* Exibe o menu ao clicar no botão de menu */
-        .main-navbar.menu-active .menu {
-            display: flex;
-        }
-
-        .slide-container {
-            width: 100%;
-            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-            border: none;
-            
-        }
-
-        .slide-container img {
-            margin: 0 auto;
-            width: 100%;
-            background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-        }
-
-        /* Container para os logotipos */
-        .logo-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Centraliza verticalmente */
-            padding: 0;
-            background-size: cover;
-            background-position: center;
-            margin-top: -3px;
-            width: 100%;
-            color: #10107A;
-            text-align: center;
-    }
-     
-        .logo-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('bg_streaming_.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.35;
-            z-index: 1;
-        }
-
-        .logo-container h2 {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 20px;
-            font-size: 24px;
-            display: flex;
-            align-items: center; /* Centraliza verticalmente o texto */
-            justify-content: center;
-            height: 100%;
-    }
-        .logo-container .logos {
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-container .logos {
-            display: flex;
-            margin-top: 0;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .logo-container img {
-            max-width: 120px;
-            max-height: 120px;
-            margin-top: 0;
-        }
-
-        @media (max-width: 768px) {
-            .slide-container {
-                margin-top: 0;
-                width: 100%;
-            }
-
-            .logo-container h2 {
-                font-size: 15px;
-            }
-
-            .logo-container img {
-                max-height: 8%;
-                
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-navbar .menu a {
-                font-size: 14px;
-            }
-
-            .main-navbar .button {
-                font-size: 14px;
-                padding: 8px 15px;
-            }
-
-            .logo-container h2 {
-                font-size: 18px;
-            }
-
-            .logo-container img {
-                max-height: 120px;
-            }
-        }
-
-        /* Estilo da nova seção de planos */
-        .plans-container {
-            background: url('./bg-plans.png') no-repeat center center,
-                        linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-            bposition: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Centraliza verticalmente */
-            padding: 20px;
-            background-size: cover;
-            background-position: center;
-            width: 100%;
-            min-height: 768px;
-            color: white;
-            text-align: center;
-        }
-
-        .plans-container h1 {
-            text-align: center;
-            font-family: "Aller", sans-serif;
-            margin-bottom: 30px;
-            font-size: 50px;
-        }
-
-        .plans-container .plans {
-            display: flex;
-            justify-content: center; /* Centraliza os itens */
-            max-width: 100%; /* Define a largura máxima para o container dos planos */
-            margin: 0 auto; /* Centraliza o container dos planos na página */
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap; /* Permite quebra de linha em telas menores */
-        }
-
-        .plans-container .plan {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 270px;
-            margin: 0 auto;
-            background-color: rgba(21, 21, 163, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .plans-container .plan h3 {
-            margin-bottom: 0px;
-            font-size: 110px;
-            font:bold;
-        }
-
-        h4 {
-            font-size: 75px;
-            margin-top: -30px;
-            font: bold;
-        }        
-        .plans-container .plan p2 {
-            font-size: 14px;
-        }
-        .plans-container .plan p1 {
-            font-size: 40px;
-        }
-
-        /* Estilo para a classe .Descrição */
-        .Descrição {
-            border: 30px solid transparent;
-            border-style:solid;
-            width: 200px;
-            height: 130px;
-            border-image: url("./border_plan_.png") 100 round;
-            padding: 0px;
-            text-align: center;
-            justify-content: center;
-            display:block;
-        }
-
-        @media (max-width: 768px) {
             .plans-container .plans {
-                flex: 1 1 270px;
-                width: 270px;
+                display: flex;
+                justify-content: center; /* Centraliza os itens */
+                max-width: 100%; /* Define a largura máxima para o container dos planos */
+                margin: 0 auto; /* Centraliza o container dos planos na página */
+                align-items: center;
                 gap: 15px;
+                flex-wrap: wrap; /* Permite quebra de linha em telas menores */
             }
 
             .plans-container .plan {
-                width: 100%;                
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 270px;
+                margin: 0 auto;
+                background-color: rgba(21, 21, 163, 0.8);
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                color: white;
+            }
+
+            .plans-container .plan h3 {
+                margin-bottom: 0px;
+                font-size: 110px;
+                font:bold;
+            }
+
+            h4 {
+                font-size: 75px;
+                margin-top: -30px;
+                font: bold;
+            }        
+            .plans-container .plan p2 {
+                font-size: 14px;
+            }
+            .plans-container .plan p1 {
+                font-size: 40px;
+            }
+
+            /* Estilo para a classe .Descrição */
+            .Descrição {
+                border: 30px solid transparent;
+                border-style:solid;
+                width: 200px;
+                height: 130px;
+                border-image: url("./border_plan_.png") 100 round;
+                padding: 0px;
+                text-align: center;
+                justify-content: center;
+                display:block;
+            }
+
+            @media (max-width: 768px) {
+                .plans-container .plans {
+                    flex: 1 1 270px;
+                    width: 270px;
+                    gap: 15px;
+                }
+
+                .plans-container .plan {
+                    width: 100%;                
+                }
+            }
+            
+            button.assine {
+                background-color: #F1D213;
+                color: #10107A;
+                font-size: 18px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 100px;
+                cursor: pointer;
+            }
+
+            button.assine:hover {
+                background-color: #246ECC;
+                transform: scale(1.05);
+            }
+
+            .fale-conosco {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 768px;
+            background-image: white;
+            padding: 0;
+            text-align: left;
+            }
+
+            .fale-conosco h1 {
+                text-align: left;
+                font-family: "Aller", sans-serif;
+                color: #10107A;
+                margin-bottom: 0px;
+                font-size: 50px;
+            }
+
+            .fale-conosco p {
+                color: #10107A;
+                font-size: 22px;
+                margin-top: 10px;
+            }
+
+            .form {
+            width: 50%;
+            padding: 40px;
+            padding-top: 0;
+            font-family: "Aller", sans-serif;
+            }
+
+            .form input[type="text"],
+            .form input[type="tel"],
+            .form input[type="email"],
+            .form textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-size: 18px;
+            }
+
+            .form button[type="submit"] {
+                padding: 10px 20px;
+                background-color: #10107A;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+
+            .form button[type="submit"]:hover {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                transform: scale(1.05);
+            }
+
+            .bar-lateral {
+                max-width: 342px;
+                max-height: 768px;
+            }
+
+            @media (max-width: 768px) {
+            .fale-conosco {
+                flex-direction: column;
+            }
+
+            .bar-lateral {
+                max-width: 100%;
+                margin-top: 20px;
+                margin-left: 400px;
+            }
+
+            .form {
+                width: 100%;
+                padding: 20px;
             }
         }
-        
-        button.assine {
-            background-color: #F1D213;
-            color: #10107A;
-            font-size: 18px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 100px;
-            cursor: pointer;
-        }
-
-        button.assine:hover {
-            background-color: #246ECC;
-            transform: scale(1.05);
-        }
-               
-    </style>
-</head>
-<body>
-    <!-- Navbar superior -->
-    <div class="top-navbar">
-        <span id="current-page">Você está aqui:</span>
-    </div>
-
-    <!-- Navbar com logotipo e menus -->
-    <div class="main-navbar">
-        <div class="logo">
-            <img src="./logo_top_color_.png" alt="Logotipo">
+                
+        </style>
+    </head>
+    <body>
+        <!-- Navbar superior -->
+        <div class="top-navbar">
+            <span id="current-page">Você está aqui:</span>
         </div>
-        <div class="menu">
-            <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
-            <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
-            <a href="#" data-page="Fale conosco">FALE CONOSCO</a>
-            <a href="#" data-page="Sobre nós">SOBRE NÓS</a>
-            <button class="button" data-page="Área cliente">ÁREA CLIENTE</button>
+
+        <!-- Navbar com logotipo e menus -->
+        <div class="main-navbar">
+            <div class="logo">
+                <img src="./logo_top_color_.png" alt="Logotipo">
+            </div>
+            <div class="menu">
+                <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
+                <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
+                <a href="#" data-page="Fale conosco">FALE CONOSCO</a>
+                <a href="#" data-page="Sobre nós">SOBRE NÓS</a>
+                <button class="button" data-page="Área cliente">ÁREA CLIENTE</button>
+            </div>
+            <div class="menu-toggle">☰ Menu</div>
         </div>
-        <div class="menu-toggle">☰ Menu</div>
-    </div>
 
-    <!-- Div para o slide -->
-    <div class="slide-container">
-        <img src="./bg-slide-one_.png" alt="Slide 1">
-    </div>
-
-    <!-- Div para inserir logotipos lado a lado -->
-    <div class="logo-container"><br><br>
-        <h2>Acesso ao melhor conteúdo do streaming!</h2>
-        <div class="logos">
-            <img src="logo1.png" alt="Logotipo 1">
-            <img src="logo2.png" alt="Logotipo 2">
-            <img src="logo3.png" alt="Logotipo 3">
-            <img src="logo4.png" alt="Logotipo 4">
-            <img src="logo5.png" alt="Logotipo 5">
-            <img src="logo6.png" alt="Logotipo 6">
+        <!-- Div para o slide -->
+        <div class="slide-container">
+            <img src="./bg-slide-one_.png" alt="Slide 1">            
         </div>
-    </div><br><br>
-
-    <!-- Nova seção de planos -->
-    <div class="plans-container" id="plans-container">
-        <h1>Planos para sua casa</h1>
-        <div class="plans">
-            <div class="plan">
-                <h3><b>150</b>
-                    <h4>MEGA</p></h3>
-                    
-                    <p2 class="Descrição">
-                        <p>por apenas</p>
-                        R$:<p1> 99,99</p1>
-                        <p>/mensais</p>
-                    </p2>
-                    <br>
-                    + Wifi Turbo 5G
-                    <p>+ Adesão Grátis</p>
-                    <p>+ App Grátis</p>
-                <br>
-                <button class="assine">Assine agora!</button>
-            </div>
-            <div class="plan">
-                <h3><b>250</b></h3><p><h4>MEGA</h4></p>
-                    
-                    <p2 class="Descrição">
-                        <p>por apenas</p>
-                        R$:<p1> 99,99</p1>
-                        <p>/mensais</p>
-                    </p2>
-                    <br>
-                    + Wifi Turbo 5G
-                    <p>+ Adesão Grátis</p>
-                    <p>+ App Grátis</p>
-                <br>
-                <button class="assine">Assine agora!</button>
-            </div>
-            <div class="plan">
-                <h3><b>350</b></h3><p><h4>MEGA</h4></p>
-                    
-                    <p2 class="Descrição">
-                        <p>por apenas</p>
-                        R$:<p1> 99,99</p1>
-                        <p>/mensais</p>
-                    </p2>
-                    <br>
-                    + Wifi Turbo 5G
-                    <p>+ Adesão Grátis</p>
-                    <p>+ App Grátis</p>
-                <br>
-                <button class="assine">Assine agora!</button>
-            </div>
-            <div class="plan">
-                <h3><b>500</b></h3><p><h4>MEGA</h4></p>
-                    
-                    <p2 class="Descrição">
-                        <p>por apenas</p>
-                        R$:<p1> 99,99</p1>
-                        <p>/mensais</p>
-                    </p2>
-                    <br>
-                    + Wifi Turbo 5G
-                    <p>+ Adesão Grátis</p>
-                    <p>+ App Grátis</p>
-                <br>
-                <button class="assine">Assine agora!</button>
+        <!-- Div para inserir logotipos lado a lado -->
+        <div class="logo-container">
+            <h2>Acesso ao melhor conteúdo do streaming!</h2>
+            <div class="logos">
+                <img src="logo1.png" alt="Logotipo 1">
+                <img src="logo2.png" alt="Logotipo 2">
+                <img src="logo3.png" alt="Logotipo 3">
+                <img src="logo4.png" alt="Logotipo 4">
+                <img src="logo5.png" alt="Logotipo 5">
+                <img src="logo6.png" alt="Logotipo 6">
             </div>
         </div>
-        <br><br>
-        <p2>Consulte mais ofertas <b>aqui</b> ou <button class="assine">assine agora!</button></p2> 
-    </div>
+        <!-- Nova seção de planos -->
+        <div class="plans-container" id="plans-container">
+            <h1>Planos para sua casa</h1>
+            <div class="plans">
+                <div class="plan">
+                    <h3><b>150</b>
+                        <h4>MEGA</p></h3>
+                        
+                        <p2 class="Descrição">
+                            <p>por apenas</p>
+                            R$:<p1> 99,99</p1>
+                            <p>/mensais</p>
+                        </p2>
+                        <br>
+                        + Wifi Turbo 5G
+                        <p>+ Adesão Grátis</p>
+                        <p>+ App Grátis</p>
+                    <br>
+                    <button class="assine">Assine agora!</button>
+                </div>
+                <div class="plan">
+                    <h3><b>250</b></h3><p><h4>MEGA</h4></p>
+                        
+                        <p2 class="Descrição">
+                            <p>por apenas</p>
+                            R$:<p1> 99,99</p1>
+                            <p>/mensais</p>
+                        </p2>
+                        <br>
+                        + Wifi Turbo 5G
+                        <p>+ Adesão Grátis</p>
+                        <p>+ App Grátis</p>
+                    <br>
+                    <button class="assine">Assine agora!</button>
+                </div>
+                <div class="plan">
+                    <h3><b>350</b></h3><p><h4>MEGA</h4></p>
+                        
+                        <p2 class="Descrição">
+                            <p>por apenas</p>
+                            R$:<p1> 99,99</p1>
+                            <p>/mensais</p>
+                        </p2>
+                        <br>
+                        + Wifi Turbo 5G
+                        <p>+ Adesão Grátis</p>
+                        <p>+ App Grátis</p>
+                    <br>
+                    <button class="assine">Assine agora!</button>
+                </div>
+                <div class="plan">
+                    <h3><b>500</b></h3><p><h4>MEGA</h4></p>
+                        
+                        <p2 class="Descrição">
+                            <p>por apenas</p>
+                            R$:<p1> 99,99</p1>
+                            <p>/mensais</p>
+                        </p2>
+                        <br>
+                        + Wifi Turbo 5G
+                        <p>+ Adesão Grátis</p>
+                        <p>+ App Grátis</p>
+                    <br>
+                    <button class="assine">Assine agora!</button>
+                </div>
+            </div>
+            <br><br>
+            <p2>Consulte mais ofertas <b>aqui</b> ou <button class="assine">assine agora!</button></p2> 
+        </div>
+        <div class="fale-conosco">
+            <div class="form">
+                <h1>Fale Conosco</h1>
+                <p>Estamos aqui para ajudar.</p>
+                <form action="#" method="POST">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                    <input type="tel" name="celular" placeholder="Celular" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <textarea name="mensagem" rows="4" placeholder="Sua mensagem"></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+            <img class="bar-lateral" src="./bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
+        </div>
 
-    <!-- Scripts adicionais -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuLinks = document.querySelectorAll('.menu a, .menu .button');
-            const currentPageText = document.getElementById('current-page');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNavbar = document.querySelector('.main-navbar');
+        <!-- Scripts adicionais -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+                const currentPageText = document.getElementById('current-page');
+                const menuToggle = document.querySelector('.menu-toggle');
+                const mainNavbar = document.querySelector('.main-navbar');
 
-            // Atualiza o texto da navbar superior ao clicar em um link
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Impede o comportamento padrão do link
-                    
-                    const pageName = this.getAttribute('data-page');
-                    currentPageText.textContent = `Você está aqui: ${pageName}`;
+                // Atualiza o texto da navbar superior ao clicar em um link
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault(); // Impede o comportamento padrão do link
+                        
+                        const pageName = this.getAttribute('data-page');
+                        currentPageText.textContent = `Você está aqui: ${pageName}`;
 
-                    // Rolagem suave para a seção desejada
-                    const targetId = this.getAttribute('href').substring(1);
-                    if (targetId) {
-                        document.getElementById(targetId).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
+                        // Rolagem suave para a seção desejada
+                        const targetId = this.getAttribute('href').substring(1);
+                        if (targetId) {
+                            document.getElementById(targetId).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // Alterna a visibilidade do menu ao clicar no botão de menu
+                menuToggle.addEventListener('click', function() {
+                    mainNavbar.classList.toggle('menu-active');
                 });
             });
-
-            // Alterna a visibilidade do menu ao clicar no botão de menu
-            menuToggle.addEventListener('click', function() {
-                mainNavbar.classList.toggle('menu-active');
-            });
-        });
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>
