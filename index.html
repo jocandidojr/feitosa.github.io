@@ -136,6 +136,47 @@ max-width: 200px;
 display: flex;
 }
 
+/* Esconde o menu padrão em telas pequenas */
+.menu-pc {
+    display: none;
+}
+
+/* Estilo do menu móvel */
+.menu-toggle {
+    display: none; /* Exibe o botão de menu apenas em telas pequenas */
+    font-size: 24px;
+    cursor: pointer;
+    color: #10107A;
+    padding: 10px;
+}
+
+/* Exibe o menu móvel e esconde o menu padrão em telas menores */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-navbar.menu-active .menu-pc {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-navbar.menu-active .menu-pc a,
+    .main-navbar.menu-active .menu-pc .button {
+        display: block;
+        padding: 15px;
+        color: #10107A;
+        border: none;
+        text-align: center;
+    }
+}   
+
 /* Estilo da Seção de Slides */
 
 .slide-container {
@@ -586,6 +627,8 @@ display: inline-block;
 
 <!-- Início navbar superior -->
 
+<div class="menu-toggle">☰ Menu</div>
+
 <div class="menu-pc">
 <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
 <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
@@ -806,6 +849,22 @@ ao melhor conteúdo do streaming!</h2></p>
             alert("Chat aberto!");
         });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNavbar = document.querySelector('.main-navbar');
+
+    // Alterna a classe que ativa o menu móvel
+    menuToggle.addEventListener('click', () => {
+        mainNavbar.classList.toggle('menu-active');
+    });
+
+    // Fecha o menu ao clicar fora dele
+    document.addEventListener('click', (event) => {
+        if (!mainNavbar.contains(event.target) && !menuToggle.contains(event.target)) {
+            mainNavbar.classList.remove('menu-active');
+        }
+    });
 });
 </script>
 
