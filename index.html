@@ -143,11 +143,16 @@ display: flex;
 
 /* Estilo do menu móvel */
 .menu-toggle {
-    display: none; /* Exibe o botão de menu apenas em telas pequenas */
-    font-size: 24px;
+    display: none;
+    background-color: #10107A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 7px;
     cursor: pointer;
-    color: #10107A;
-    padding: 10px;
+}
+.menu-toggle:hover {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    transform: scale(1.05); 
 }
 
 /* Exibe o menu móvel e esconde o menu padrão em telas menores */
@@ -654,15 +659,15 @@ display: inline-block;
 
 <div class="container-infor">
 <div class="infor"> 
-<h4>Cobertura</h4><p>
+<h2>Cobertura</h2><p>
 Tacima/PB</p>
 </div>
 <div  class="infor">
-<h4>Atendimento</h4><p>
+<h2>Atendimento</h2><p>
 Suporte 24/7</p>
 </div>
 <div  class="infor">
-<h4>Satisfação</h4><p>
+<h2>Satisfação</h2><p>
 + 1000 Clientes</p>
 </div>
 </div>
@@ -733,7 +738,7 @@ Suporte 24/7</p>
 </div>
 <br><br>
 
-<h6>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></h6>
+<h3>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></h3>
 
 <br><br>
 <div class="logos">
@@ -785,87 +790,79 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <!-- Scripts adicionais -->
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
-            const currentPageText = document.getElementById('current-page');
-            const mainNavbar = document.querySelector('.main-navbar');
-            const slides = document.querySelectorAll('.slide');
-            let currentSlide = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+        const currentPageText = document.getElementById('current-page');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNavbar = document.querySelector('.main-navbar');
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-            // Define "Página inicial" como o texto padrão
-            currentPageText.textContent = "Você está aqui: Página inicial";
+        // Define "Página inicial" como o texto padrão
+        currentPageText.textContent = "Você está aqui: Página inicial";
 
-            // Atualiza o texto da navbar superior ao clicar em um link
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Impede o comportamento padrão do link
-                    
-                    const pageName = this.getAttribute('data-page');
-            currentPageText.textContent = `Você está aqui: ${pageName}`;
+        // Atualiza o texto da navbar superior ao clicar em um link
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Impede o comportamento padrão do link
+                
+                const pageName = this.getAttribute('data-page');
+                currentPageText.textContent = `Você está aqui: ${pageName}`;
 
-            // Rolagem suave para a seção desejada
-            const targetId = this.getAttribute('href').substring(1);
-            if (targetId) {
-                document.getElementById(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // Rolagem suave para a seção desejada
+                const targetId = this.getAttribute('href').substring(1);
+                if (targetId) {
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Fechar o menu quando um item é clicado (para a versão desktop)
+                if (mainNavbar.classList.contains('menu-active')) {
+                    mainNavbar.classList.remove('menu-active');
+                }
+            });
+        });
+
+        // Alterna a visibilidade do menu ao clicar no botão de menu
+        menuToggle.addEventListener('click', function() {
+            mainNavbar.classList.toggle('menu-active');
+        });
+
+        // Função para alternar os slides
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'block' : 'none';
+            });
+        }
+
+        // Configuração do intervalo para alternar os slides a cada 5 segundos
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Inicializa o primeiro slide
+        showSlide(currentSlide);
+
+        // Previne o menu de contexto e o arrasto de imagens
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
             }
         });
-    });
 
-    // Função para alternar os slides
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.style.display = i === index ? 'block' : 'none';
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault(); 
+            }
         });
-    }
 
-    // Configuração do intervalo para alternar os slides a cada 5 segundos
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }, 5000);
-
-    // Inicializa o primeiro slide
-    showSlide(currentSlide);
-
-    // Desativa o clique com o botão direito e o arrastar de imagens
-    document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-        }
-    });
-
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault(); 
-        }
-    });
-
-    // Função do botão de chat
-    const chatButton = document.querySelector('.chat-button');
-    if (chatButton) {
-        chatButton.addEventListener('click', function() {
+        document.querySelector('.chat-button').addEventListener('click', function() {
+            // Código para abrir o chat
             alert("Chat aberto!");
         });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNavbar = document.querySelector('.main-navbar');
-
-    // Alterna a classe que ativa o menu móvel
-    menuToggle.addEventListener('click', () => {
-        mainNavbar.classList.toggle('menu-active');
     });
-
-    // Fecha o menu ao clicar fora dele
-    document.addEventListener('click', (event) => {
-        if (!mainNavbar.contains(event.target) && !menuToggle.contains(event.target)) {
-            mainNavbar.classList.remove('menu-active');
-        }
-    });
-});
 </script>
 
 <!-- Rodapé -->
