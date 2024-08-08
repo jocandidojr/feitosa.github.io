@@ -98,7 +98,6 @@
 .menu-toggle {
     display: flex;
     justify-content: center;
-    align-items: center;
     background-color: #10107A;
     color: white;
     padding: 10px 20px;
@@ -155,7 +154,7 @@ max-width: 200px;
 
 /* Exibe o menu ao clicar no botão de menu */
 
-.main-navbar.menu-active .menu {
+.main-navbar.menu-active .menu-pc {
 display: flex;
 }
 
@@ -767,7 +766,7 @@ ao melhor conteúdo do streaming!</h2></p>
 <!-- Scripts adicionais -->
 <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+            const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
             const currentPageText = document.getElementById('current-page');
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNavbar = document.querySelector('.main-navbar');
