@@ -238,13 +238,11 @@ display: none;
 
 }
 
-.slide,
-.slide-hidden {
+.slide {
     display: none;
 }
 
-.slide.active,
-.slide-hidden.active {
+.slide.active {
     display: block;
 }
 
@@ -816,12 +814,13 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <!-- Scripts adicionais -->
 <script>
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu a, .menu .button');
     const currentPageText = document.getElementById('current-page');
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNavbar = document.querySelector('.main-navbar');
-    const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelectorAll('.slide'); // Assumindo que a classe slide será usada para todos os slides
     const indicators = document.querySelectorAll('.slide-indicator');
     let currentSlide = 0;
 
@@ -852,7 +851,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Alterna a visibilidade do menu ao clicar no botão de menu
-    menuToggle.addEventListener('click', function() {
+    menuToggle.addEventListener('click', () => {
         mainNavbar.classList.toggle('menu-active');
     });
 
@@ -860,7 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.style.display = i === index ? 'block' : 'none';
-            indicators[i].classList.toggle('active', i === index);
+            indicators[i]?.classList.toggle('active', i === index);
         });
     }
 
@@ -887,7 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Função para rolar para o topo ao clicar no botão
-    document.querySelector('.up-button').addEventListener('click', function() {
+    document.querySelector('.up-button')?.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth' // Rola suavemente para o topo
@@ -895,41 +894,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Adiciona funcionalidade para os botões "Anterior" e "Próximo" nos slides
-    document.getElementById('nextSlide').addEventListener('click', () => {
+    document.getElementById('nextSlide')?.addEventListener('click', () => {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
     });
 
-    document.getElementById('prevSlide').addEventListener('click', () => {
+    document.getElementById('prevSlide')?.addEventListener('click', () => {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
         showSlide(currentSlide);
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-    const slides = document.querySelectorAll(".slide-hidden");
-    let currentSlide = 0;
-
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === index);
-        });
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    // Mostra o primeiro slide
-    showSlide(currentSlide);
-
-    // Troca o slide a cada 3 segundos
-    setInterval(nextSlide, 3000);
 });
 
-});
-
-</script>
+</Script>
 
 <!-- Rodapé -->
 
