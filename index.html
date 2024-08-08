@@ -352,6 +352,7 @@ padding: 20px;
 background-size: cover;
 width: 100%;
 min-height: 768px;
+height: 900px;
 color: white;
 text-align: center;
 }
@@ -359,6 +360,7 @@ text-align: center;
 .plans-container h1 {
 font-family: "Aller", sans-serif;
 margin-bottom: 30px;
+font-size: 50px;
 }
 
 .plans-container .plans,
@@ -419,7 +421,7 @@ text-align: center;
 }
 
 .plans-container .plan h5 {
-font-size: 50px;
+font-size: 40px;
 font: bold;
 }
 
@@ -429,32 +431,29 @@ font-size: 14px;
 }
 
 .plans-container .plan img{
-width: 100%;
+    width: 100%;
 
 }
 
 .Descrição {
-border: 40px solid transparent;
-border-image: url("./assets/border_plan_.png") 100 round;
-text-align: center;
-justify-content: center;
-display: inside;
+    width: 260px;
+    height: auto;
 }
 
 @media (max-width: 768px) {
-.plans-container .plans {
-flex: 1 1 100px;    
-width: 100%;
-}
+    .plans-container .plans {
+    flex: 1 1 100px;    
+    width: 100%;
+    }
 
-.plans-container .plan img{
-max-width: 200px;
-width: 100%;
-}
+    .plans-container .plan img{
+    max-width: 200px;
+    width: 100%;
+    }
 
-.plans-container .Descrição {
-width: 100%;
-}
+    .plans-container .Descrição {
+    width: 100%;
+    }
 }
 
 button.assine {
@@ -478,76 +477,78 @@ transform: scale(1.05);
 .container-auto {
 width: 100%;
 }
-
+.atm-container  {    
+    background-image: url("./assets/bg-auto_.png");
+}
 .auto-atendimento {
-display: flex;
-color: #10107A;
-flex-wrap: wrap;
-justify-content: flex-start;
-max-width: 700px;
-gap: 20px;
-padding: 70px;
-border-radius: 8px;
-text-align: center;
-cursor: pointer;
+    display: flex;
+    color: #10107A;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 700px;
+    gap: 20px;
+    padding: 70px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .auto-atendimento h1 {
-font-size: 34px;
-text-align: center;
-display: flex;
-justify-content: center;
+    font-size: 34px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .auto-atendimento img {
-width: 150px;
-height: auto;
-background-color: #10107A;
-border-radius: 8px;
-padding: 25px;
+    width: 150px;
+    height: auto;
+    background-color: #10107A;
+    border-radius: 8px;
+    padding: 25px;
 }
 
 .auto-atendimento img:hover {
-background-image: linear-gradient(#F1D213);
-transform: scale(1.05);
+    background-image: linear-gradient(#F1D213);
+    transform: scale(1.05);
 }
 
 
 /* Estilo da Seção Fale conosco */
 
 .fale-conosco {
-display: flex;
-justify-content: space-between;
-align-items: center;
-height: 768px;
-padding: 0;
-text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 768px;
+    padding: 0;
+    text-align: left;
 }
 
 .fale-conosco h1 {
-font-family: "Aller", sans-serif;
-color: #10107A;
-margin-bottom: 0;
-font-size: 50px;
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    margin-bottom: 0;
+    font-size: 50px;
 }
 
 .fale-conosco p {
-color: #10107A;
-font-size: 22px;
-margin-top: 10px;
+    color: #10107A;
+    font-size: 22px;
+    margin-top: 10px;
 }
 
 .fale-conosco img {
-background-image: linear-gradient(to right, #246ECC, #1515A3);
-border-bottom-left-radius: 300%;
-border-top-left-radius: 300%;
-max-height: 100%;
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    border-bottom-left-radius: 300%;
+    border-top-left-radius: 300%;
+    max-height: 100%;
 }
 
 .form {
-width: 50%;
-padding: 40px 40px 0;
-font-family: "Aller", sans-serif;
+    width: 50%;
+    padding: 40px 40px 0;
+    font-family: "Aller", sans-serif;
 }
 
 .form input[type="text"],
@@ -683,55 +684,28 @@ Suporte 24/7</p>
 
 <div class="plan">
 <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
-<h6 class="Descrição">
-+ Wifi Turbo 5G
-<p>+ Adesão Grátis</p>
-<p>+ App Grátis</p>   
-</h6><br>
-por apenas
-<h5>R$: 99,99</h5>
-<p>/mensais</p>
+<img src="/assets/descri_plans_.png" class="Descrição">
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
    
 <div class="plan">
 <img src="./assets/plan_250.png" class="picplan" alt="Plano 250mega">       
-<h6 class="Descrição">
-+ Wifi Turbo 5G
-<p>+ Adesão Grátis</p>
-<p>+ App Grátis</p>   
-</h6><br>
-por apenas
-<h5>R$: 99,99</h5>
-<p>/mensais</p>
+<img src="/assets/descri_plans_.png" class="Descrição">
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
 
 <div class="plan">
 <img src="./assets/plan_350.png" class="picplan" alt="Plano 350mega">      
-<h6 class="Descrição">
-+ Wifi Turbo 5G
-<p>+ Adesão Grátis</p>
-<p>+ App Grátis</p>   
-</h6><br>
-por apenas
-<h5>R$: 99,99</h5>
-<p>/mensais</p>
+<img src="/assets/descri_plans_.png" class="Descrição">
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
+
 <div class="plan">
 <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
-<h6 class="Descrição">
-+ Wifi Turbo 5G
-<p>+ Adesão Grátis</p>
-<p>+ App Grátis</p>   
-</h6><br>
-por apenas
-<h5>R$: 99,99</h5>
-<p>/mensais</p>
+<img src="/assets/descri_plans_.png" class="Descrição">
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
@@ -757,19 +731,20 @@ ao melhor conteúdo do streaming!</h2></p>
 </div>
 
 <!-- Início Seção de Autoatendimento -->
-
-<div class="auto-atendimento" id="auto-atendimento">
-<div>
-<h1>Autoatendimento para clientes</h1>
-<p>Selecione o serviço desejado.</p>
-<br>
-<img src="./assets/a_cadastro_.png" alt="BCadastro">
-<img src="./assets/a_boleto_.png" alt="BBoleto">
-<img src="./assets/a_cartao_.png" alt="BCartao">
-<img src="./assets/a_plano_.png" alt="BPlano">
-<img src="./assets/a_suporte_.png" alt="BSuporte">
-<img src="./assets/a_outros_.png" alt="BOutros">
-</div>
+<div class="atm-container" id="atm-container">
+    <div class="auto-atendimento" id="auto-atendimento">
+        <div>
+        <h1>Autoatendimento para clientes</h1>
+        <p>Selecione o serviço desejado.</p>
+        <br>
+        <img src="./assets/a_cadastro_.png" alt="BCadastro">
+        <img src="./assets/a_boleto_.png" alt="BBoleto">
+        <img src="./assets/a_cartao_.png" alt="BCartao">
+        <img src="./assets/a_plano_.png" alt="BPlano">
+        <img src="./assets/a_suporte_.png" alt="BSuporte">
+        <img src="./assets/a_outros_.png" alt="BOutros">
+        </div>
+    </div>
 </div>
 
 <!-- Início Seção Fale conosco -->
