@@ -745,7 +745,6 @@ ao melhor conteúdo do streaming!</h2></p>
         document.addEventListener('DOMContentLoaded', () => {
             const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
             const currentPageText = document.getElementById('current-page');
-            const menuToggle = document.querySelector('.menu-toggle');
             const mainNavbar = document.querySelector('.main-navbar');
             const slides = document.querySelectorAll('.slide');
             let currentSlide = 0;
@@ -770,13 +769,6 @@ ao melhor conteúdo do streaming!</h2></p>
             }
         });
     });
-
-    // Alterna a visibilidade do menu ao clicar no botão de menu
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            mainNavbar.classList.toggle('menu-active');
-        });
-    }
 
     // Função para alternar os slides
     function showSlide(index) {
