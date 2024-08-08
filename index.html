@@ -13,9 +13,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {
-            height: 2000px; /* Altura para demonstrar o efeito de scroll */
-        }
+
 
 /* Navbar superior */
 .top-navbar {
@@ -188,6 +186,7 @@ display: flex;
 /* Estilo da Seção de Slides */
 
 .slide-container {
+    display: none;
 border: none;
 margin-block-end: -6px;
 
@@ -232,6 +231,36 @@ display: block;
 display: none;
 }
 }
+
+.slide {
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.slide-indicator {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.slide-indicator.active {
+    background-color: #007bff;
+}
+
+
 
 /* Estilo da Seção de informações */
 
@@ -660,6 +689,14 @@ display: inline-block;
 <img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
 </div>
 
+<div class="slide-progress">
+    <div class="slide-indicator active"></div>
+    <div class="slide-indicator"></div>
+    <div class="slide-indicator"></div>
+    <div class="slide-indicator"></div>
+    <div class="slide-indicator"></div>
+</div>
+
 <div class="slide-container-hidden">
 <img src="./assets/bg-slide-one_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
 <img src="./assets/bg-slide-one_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
@@ -775,80 +812,98 @@ ao melhor conteúdo do streaming!</h2></p>
 <!-- Scripts adicionais -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const menuLinks = document.querySelectorAll('.menu a, .menu .button');
-        const currentPageText = document.getElementById('current-page');
-        const menuToggle = document.querySelector('.menu-toggle');
-        const mainNavbar = document.querySelector('.main-navbar');
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+    const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+    const currentPageText = document.getElementById('current-page');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNavbar = document.querySelector('.main-navbar');
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.slide-indicator');
+    let currentSlide = 0;
 
-        // Define "Página inicial" como o texto padrão
-        currentPageText.textContent = "Você está aqui: Página inicial";
+    // Define "Página inicial" como o texto padrão
+    currentPageText.textContent = "Você está aqui: Página inicial";
 
-        // Atualiza o texto da navbar superior ao clicar em um link
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Impede o comportamento padrão do link
-                
-                const pageName = this.getAttribute('data-page');
-                currentPageText.textContent = `Você está aqui: ${pageName}`;
+    // Atualiza o texto da navbar superior ao clicar em um link
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+            
+            const pageName = this.getAttribute('data-page');
+            currentPageText.textContent = `Você está aqui: ${pageName}`;
 
-                // Rolagem suave para a seção desejada
-                const targetId = this.getAttribute('href').substring(1);
-                if (targetId) {
-                    document.getElementById(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+            // Rolagem suave para a seção desejada
+            const targetId = this.getAttribute('href').substring(1);
+            if (targetId) {
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
 
-                // Fechar o menu quando um item é clicado (para a versão desktop)
-                if (mainNavbar.classList.contains('menu-active')) {
-                    mainNavbar.classList.remove('menu-active');
-                }
-            });
+            // Fechar o menu quando um item é clicado (para a versão desktop)
+            if (mainNavbar.classList.contains('menu-active')) {
+                mainNavbar.classList.remove('menu-active');
+            }
         });
+    });
 
-        // Alterna a visibilidade do menu ao clicar no botão de menu
-        menuToggle.addEventListener('click', function() {
-            mainNavbar.classList.toggle('menu-active');
+    // Alterna a visibilidade do menu ao clicar no botão de menu
+    menuToggle.addEventListener('click', function() {
+        mainNavbar.classList.toggle('menu-active');
+    });
+
+    // Função para mostrar o slide atual e atualizar o indicador
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+            indicators[i].classList.toggle('active', i === index);
         });
+    }
 
-        // Função para alternar os slides
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.style.display = i === index ? 'block' : 'none';
-            });
-        }
-
-        // Configuração do intervalo para alternar os slides a cada 5 segundos
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 5000);
-
-        // Inicializa o primeiro slide
+    // Configuração do intervalo para alternar os slides a cada 5 segundos
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
+    }, 5000);
 
-        // Previne o menu de contexto e o arrasto de imagens
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        });
+    // Inicializa o primeiro slide
+    showSlide(currentSlide);
 
-        document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault(); 
-            }
-        });
+    // Previne o menu de contexto e o arrasto de imagens
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
 
-        document.querySelector('.up-button').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // Rola suavemente para o topo
-            });
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault(); 
+        }
+    });
+
+    // Função para rolar para o topo ao clicar no botão
+    document.querySelector('.up-button').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Rola suavemente para o topo
         });
+    });
+
+    // Adiciona funcionalidade para os botões "Anterior" e "Próximo" nos slides
+    document.getElementById('nextSlide').addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    document.getElementById('prevSlide').addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    // Exibir o primeiro slide inicialmente
+    showSlide(currentSlide);
 });
+
 
 </script>
 
