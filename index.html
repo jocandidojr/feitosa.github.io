@@ -759,153 +759,63 @@ ao melhor conteúdo do streaming!</h2></p>
                     event.preventDefault(); // Impede o comportamento padrão do link
                     
                     const pageName = this.getAttribute('data-page');
-                    currentPageText.textContent = `Você está aqui: ${pageName}`;
-
-                    // Rolagem suave para a seção desejada
-                    const targetId = this.getAttribute('href').substring(1);
-                    if (targetId) {
-                        document.getElementById(targetId).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Alterna a visibilidade do menu ao clicar no botão de menu
-            menuToggle.addEventListener('click', function() {
-                mainNavbar.classList.toggle('menu-active');
-            });
-
-            // Função para alternar os slides
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.style.display = i === index ? 'block' : 'none';
-                });
-            }
-
-            // Configuração do intervalo para alternar os slides a cada 5 segundos
-            setInterval(() => {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }, 5000);
-
-            // Inicializa o primeiro slide
-            showSlide(currentSlide);
-
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
-
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault(); 
-                }
-            });
-
-            document.querySelector('.chat-button').addEventListener('click', function() {
-                 // Código para abrir o chat
-                alert("Chat aberto!");
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-    const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
-    const currentPageText = document.getElementById('current-page');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNavbar = document.querySelector('.main-navbar');
-    const menuPc = document.querySelector('.menu-pc');
-    const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
-
-    // Define "Página inicial" como o texto padrão
-    currentPageText.textContent = "Você está aqui: Página inicial";
-
-    // Atualiza o texto da navbar superior ao clicar em um link
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault(); // Impede o comportamento padrão do link
-
-            const pageName = this.getAttribute('data-page');
             currentPageText.textContent = `Você está aqui: ${pageName}`;
 
-            // Fechar o menu quando um item é clicado
-            mainNavbar.classList.remove('menu-active');
+            // Rolagem suave para a seção desejada
+            const targetId = this.getAttribute('href').substring(1);
+            if (targetId) {
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
-    // Alterna a exibição do menu quando o botão menu-toggle é clicado
-    menuToggle.addEventListener('click', () => {
-        mainNavbar.classList.toggle('menu-active');
-    });
-
-    // Função para alternar entre os slides
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.style.display = (i === index) ? 'block' : 'none';
+    // Alterna a visibilidade do menu ao clicar no botão de menu
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            mainNavbar.classList.toggle('menu-active');
         });
     }
 
-    // Alterna os slides a cada 5 segundos
+    // Função para alternar os slides
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+    }
+
+    // Configuração do intervalo para alternar os slides a cada 5 segundos
     setInterval(() => {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
     }, 5000);
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-            const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
-            const currentPageText = document.getElementById('current-page');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNavbar = document.querySelector('.main-navbar');
-            
-            // Função para atualizar o texto do navbar com o nome da página atual
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const pageName = this.getAttribute('data-page');
-                    currentPageText.textContent = `Você está aqui: ${pageName}`;
+    // Inicializa o primeiro slide
+    showSlide(currentSlide);
 
-                    const targetId = this.getAttribute('href').substring(1);
-                    if (targetId) {
-                        document.getElementById(targetId).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+    // Desativa o clique com o botão direito e o arrastar de imagens
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
 
-            // Toggle para mostrar/ocultar o menu em dispositivos móveis
-            menuToggle.addEventListener('click', function() {
-                mainNavbar.classList.toggle('menu-active');
-            });
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault(); 
+        }
+    });
 
-            // Exibe a imagem inicial do slide
-            showSlide(currentSlide);
-
-            // Evita o clique com o botão direito em imagens
-            document.addEventListener('contextmenu', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
-
-            // Evita o arrastar de imagens
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
-
-            // Ação do botão de chat
-            document.querySelector('.chat-button').addEventListener('click', function() {
-                alert("Chat aberto!");
-            });
+    // Função do botão de chat
+    const chatButton = document.querySelector('.chat-button');
+    if (chatButton) {
+        chatButton.addEventListener('click', function() {
+            alert("Chat aberto!");
         });
-
+    }
+});
 </script>
-
 
 <!-- Rodapé -->
 
