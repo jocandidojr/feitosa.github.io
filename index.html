@@ -13,6 +13,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+            height: 2000px; /* Altura para demonstrar o efeito de scroll */
+        }
 
 /* Navbar superior */
 .top-navbar {
@@ -833,8 +836,15 @@ ao melhor conteúdo do streaming!</h2></p>
                 e.preventDefault(); 
             }
         });
-
+        
+        document.querySelector('.up-button').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Rola suavemente para o topo
+            });
+        });
 });
+
 </script>
 
 <!-- Rodapé -->
@@ -866,7 +876,7 @@ ao melhor conteúdo do streaming!</h2></p>
 </div>
 </footer>
 <div class="up-button">
-<img src="./assets/up-icon.png" alt="UP">
+<img src="./assets/up-icon.png" alt="Volte ao topo">
 </div>
 </body>
 </html>
