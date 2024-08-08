@@ -1,825 +1,915 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Feitosa Telecom - Em construção...</title>
-        <style>
-            /* Reset básico */
-            * {
-                font-family: "aller", Helvetica, sans-serif;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feitosa Telecom - Em construção...</title>
 
-            /* Navbar superior */
-            .top-navbar {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                font-size: 10px;
-                text-align: left;
-                align-items: center;
-                color: white;
-                height: 30px;
-                display: flex; /* Para centralizar o conteúdo */
-                align-items: center; /* Centraliza verticalmente */
-                padding-left: 20px; /* Espaçamento à esquerda */
-            }
+<style>
+/* Reset básico */
+* {
+    font-family: "Aller", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-            .main-navbar {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100px;
-                background-color: #fff;
-                padding: 20px 20px;
-                color: #000;
-                position: relative; /* Necessário para o botão de menu */
-            }
+/* Navbar superior */
+.top-navbar {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    font-size: 10px;
+    text-align: left;
+    align-items: center;
+    color: white;
+    height: 30px;
+    display: flex; /* Para centralizar o conteúdo */
+    align-items: center; /* Centraliza verticalmente */
+    padding-left: 20px; /* Espaçamento à esquerda */
+}
 
-            .main-navbar .logo {
-                margin: 0 20px;
-            }
+.main-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    background-color: #fff;
+    padding: 20px 20px;
+    color: #000;
+    position: relative; /* Necessário para o botão de menu */
+}
 
-            .main-navbar .logo img {
-                max-height: 45px;
-                display: block;
-            }
+.main-navbar .logo {
+    margin: 0 20px;
+}
 
-            .main-navbar .menu {
-                display: flex;
-                align-items: center;
-            }
+.main-navbar .logo img {
+    max-height: 45px;
+    display: block;
+}
 
-            .main-navbar .menu a {
-                color: #10107A;
-                text-decoration: solid;
-                margin: 10px 20px;
-                padding: 0px 20px;
+.main-navbar .menu-pc {
+    display: flex;
+    align-items: center;
+}
+
+.main-navbar .menu-pc a {
+    color: #10107A;
+    text-decoration: none;
+    margin: 10px 20px;
+    padding: 0px 20px;
+    font-size: 14px;
+    line-height: 50px;
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+.main-navbar .menu-pc a:hover {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    transform: scale(1.05);
+    border: none;
+    padding: 0px 20px;
+    color: white;
+    border-radius: 100px;
+    display: inline-block;
+}
+
+.main-navbar .button {
+    margin-left: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 20px 30px;
+    background-color: #10107A;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+.main-navbar .button:hover {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    transform: scale(1.05);
+    padding: 20px 30px;
+    border-radius: 100px;
+}
+
+/* Estilo do botão de menu para telas pequenas */
+
+.menu-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #10107A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    transform: scale(1.05);    
+}
+
+@media (max-width: 480px) {
+            .main-navbar .menu-pc a {
                 font-size: 14px;
-                line-height: 50px;
-                white-space: nowrap; /* Evita quebra de linha */
-            }
-
-            .main-navbar .menu a:hover {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                transform: scale(1.05);
-                border: none;
-                padding: 0px 20px;
-                color: white;
-                border-radius: 100px;
-                display: inline-block;
             }
 
             .main-navbar .button {
-                margin-left: 0px;
                 font-size: 14px;
-                font-weight: bold;
-                color: white;
-                border: none;
-                border-radius: 100px;
-                padding: 20px 30px;
-                background-color: #10107A;
-                cursor: pointer;
-                display: inline-block;
-                white-space: nowrap; /* Evita quebra de linha */
+                padding: 8px 15px;
             }
 
-            .main-navbar .button:hover {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                transform: scale(1.05);
-                padding: 20px 30px;
-                border-radius: 100px;
             }
 
-            /* Estilo do botão de menu para telas pequenas */
-            .menu-toggle {
-                display: none;
-                background-color: #10107A;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .menu-toggle:hover {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                transform: scale(1.05);            
-            }
-
-            /* Esconde o menu e exibe o botão de menu em telas pequenas */
-            @media (max-width: 768px) {
-                .main-navbar {
-                    flex-direction: column;
-                    padding: 10px;
-                }
-
-                .menu-toggle {
-                    display: block;
-                    margin-top: 10px;
-                }
-
-                .main-navbar .menu {
-                    display: none;
-                    flex-direction: column;
-                    width: 100%;
-                    text-align: center;
-                }
-
-                .main-navbar .menu a {
-                    margin: 5px 0;
-                }
-
-                .main-navbar .button {
-                    width: 100%;
-                    max-width: 200px;
-                }
-            }
-
-            /* Exibe o menu ao clicar no botão de menu */
-            .main-navbar.menu-active .menu {
-                display: flex;
-            }
-
-            .slide-container {
-                border: none;
-                margin-block-end: -6px;
-                
-            }
-
-            .slide-container img {
-                margin: 0 auto;
-                max-width: 100%;
-                height: auto;
-                background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-            }
-                  
-            .pos-slide {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 160px;
-                text-align: center;
-                color: #10107A;
-            }
-            .pos-slide h4{
-                font-size: 30px;
-                color: #10107A;
-            }
-
-            .pos-slide > div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 10px;
-                width: 250px;
-                text-align: center;
-                border: 10px;
-                border-right: 1px solid #ccc; /* Adiciona a borda vertical */
-            }
-
-            /* Estilo do rodapé */
-            .footer {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                display: flex;
-                justify-content: center;
-                text-align: left;
-                justify-content: space-around;
-                padding: 20px;
-                color: white;
-            }
-
-            .footer-column {
-                flex: 1;
-                margin: 0 10px;
-            }
-
-            .footer-column h3 {
-                color: white;
-                margin-bottom: 10px;
-                font-size: 18px;
-            }
-
-            .footer-column p, .footer-column ul {
-                color: white;
-                font-size: 14px;
-            }
-
-            .footer-column ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            .footer-column ul li {
-                margin-bottom: 5px;
-            }
-
-            .footer-column ul li a {
-                text-decoration: none;
-                color: white;
-            }
-
-            .footer-column ul li a:hover {
-                text-decoration: underline;
-            }
-
-            .pos-slide > div:last-child {
-                border-right: none; /* Remove a borda do último elemento */
-            }              
-                       
-            @media (max-width: 768px) {
-                .slide-container {
-                    width: 100%;
-                }
-
-                .plans-container h2 {
-                    font-size: 20px;
-                    width: 100%;
-                }
-
-            }       
-            @media (max-width: 480px) {
-                .main-navbar .menu a {
-                    font-size: 14px;
-                }
-
-                .main-navbar .button {
-                    font-size: 14px;
-                    padding: 8px 15px;
-                }
-
-                }
-
-                .chat-button {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    width: 60px;
-                    height: 60px;
-                    background-color: #007bff; /* Cor de fundo */
-                    border-radius: 50%;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-                    cursor: pointer;
-                    z-index: 1000;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    transition: background-color 0.3s;
-                }
-
-                .chat-button img {
-                    width: 30px;
-                    height: 30px;
-                }
-
-                .chat-button:hover {
-                    background-color: #0056b3; /* Cor ao passar o mouse */
-                }
-                .container-auto{
-                    width: 100%;
-                }
-                
-                .auto-atendimento {
-                    display: flex;
-                    color: #10107A; 
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    max-width: 700px;
-                    gap: 20px; /* Espaçamento entre as imagens */
-                    padding: 70px; /* Margem de 70px */
-                    border-radius: 8px; /* Bordas arredondadas opcionais */
-                    text-align: center;
-                    cursor:pointer;
-                }
-                .auto-atendimento h1{
-                    color: #10107A;
-                    font-size: 34px;
-                    text-align: center;
-                    display: flex;
-                    justify-content: center;
-
-                }
-
-                .auto-atendimento img {
-                    flex-direction: column;
-                    width: 150px; /* Largura das imagens */
-                    height: auto; /* Mantém a proporção */                      
-                    background-color: #10107A; /* Cor sólida para o fundo */
-                    border-radius: 8px; /* Borda arredondada opcional */
-                    padding: 25px;
-                    flex-wrap: wrap;
-                }
-
-                .auto-atendimento img:hover {
-                    background-image: linear-gradient( #F1D213);
-                    transform: scale(1.05);
-                    gap: 10px;
-                }
-
-            /* Estilo da nova seção de planos */
-            .plans-container {
-                background: url('./bg-plans.png') no-repeat center center,
-                            linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center; /* Centraliza verticalmente */
-                padding: 20px;
-                background-size: cover;
-                background-position: center;
-                width: 100%;
-                min-height: 768px;
-                color: white;
-                text-align: center;
-            }
-
-            .plans-container h1 {
-                text-align: center;
-                font-family: "Aller", sans-serif;
-                margin-bottom: 30px;
-                font-size: 50px;
-            }
-
-            .plans-container .plans{
-                display: flex;
-                justify-content: center; /* Centraliza os itens */
-                max-width: 100%; /* Define a largura máxima para o container dos planos */
-                margin: 0 auto; /* Centraliza o container dos planos na página */
-                align-items: center;
-                gap: 15px;  
-                flex-wrap: wrap; /* Permite quebra de linha em telas menores */
-            }
-
-            .plans-container .plan:hover {
-                background-color: #F1D213 transparent 0.8;
-                transform: scale(1.05);                 
-            }
-            
-            .plans-container .logos{
-                display: 1 1 150px;
-                justify-content: center;
-                max-width: 100%; /* Define a largura máxima para o container dos planos */
-                margin: 0 auto; /* Centraliza o container dos planos na página */
-                align-items: center;
-                flex-direction: column; 
-                align-items: center;
-                text-align: center;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            .plans-container .logos img:hover {
-                background-color: #F1D213;
-                transform: scale(1.05);
-                border: none;
-                opacity: 90%;
-                border-radius: 5px;
-                padding: 5px;
-                width: 75px;
-                gap: 50px;
-            }
-
-            .plans-container .logos img{
-                max-width: 80px;
-                max-height: 8%;                
-                gap: 20px;
-            }
-
-            .plans-container img {
-                max-width: 100px;
-                max-height: 100px;
-                gap: 20px;
-            }
-
-            .plans-container h2{
-                font-size: 20px;
-            }
-
-            .plans-container .plan {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                width: 280px;
-                margin: 0 auto;
-                background-color: rgba(21, 21, 163, 0.8);
-                border-radius: 10px;
-                padding: 20px;
-                text-align: center;
-                color: white;
-            }
-
-            .plans-container .plan h3 {
-                margin-bottom: 0px;
-                font-size: 110px;
-                font:bold;
-            }
-
-            .plans-container h4{
-                font-size: 75px;
-                margin-top: -30px;
-                font: bold;
-            }        
-            .plans-container .plan p2 {
-                align-items: center;
-                text-align: center;
-                justify-content: center;
-                font-size: 14px;
-            }
-            .plans-container .plan p1 {
-                font-size: 40px;
-            }
-
-            /* Estilo para a classe .Descrição */
-            .Descrição {
-                border: 45px solid transparent;
-                border-style:solid; 
-                border-image: url("./border_plan_.png") 100 round;
-                text-align: center;
-                justify-content: center;
-                display:block;
-            }
-
-            @media (max-width: 768px) {
-                .plans-container .plans {
-                    flex: 1 1 270px;
-                    width: 100%;
-                    max-width: 270px;
-                    gap: 15px;
-                }
-
-                .plans-container .plan {
-                    width: 100%;                
-                }
-            }
-            
-            button.assine {
-                background-color: #F1D213;
-                color: #10107A;
-                font-size: 18px;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 100px;
-                cursor: pointer;
-            }
-
-            button.assine:hover {
-                background-color: #246ECC;
-                transform: scale(1.05);
-            }
-            
-            .fale-conosco {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 768px;
-                padding: 0;
-                text-align: left;
-                }
-
-            .fale-conosco h1 {
-                text-align: left;
-                font-family: "Aller", sans-serif;
-                color: #10107A;
-                margin-bottom: 0px;
-                font-size: 50px;
-            }
-
-            .fale-conosco p {
-                color: #10107A;
-                font-size: 22px;
-                margin-top: 10px;
-            }
-
-            .fale-conosco img{
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                border-bottom-left-radius: 300%;
-                border-top-left-radius: 300%;
-                max-height: 100%;
-            }
-
-            .form {
-            width: 50%;
-            padding: 40px;
-            padding-top: 0;
-            font-family: "Aller", sans-serif;
-            }
-
-            .form input[type="text"],
-            .form input[type="tel"],
-            .form input[type="email"],
-            .form textarea {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                font-size: 18px;
-            }
-
-            .form button[type="submit"] {
-                padding: 10px 20px;
-                background-color: #10107A;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 18px;
-            }
-
-            .form button[type="submit"]:hover {
-                background-image: linear-gradient(to right, #246ECC, #1515A3);
-                transform: scale(1.05);
-            }
-
-            @media (max-width: 768px) {
-                .fale-conosco {
-                flex-direction: column;
-                position: relative;
-            }
-
-            .bar-lateral {
-                max-width: 100%;
-                margin-top: -0%;
-                position: absolute;
-                top: 0;
-                right: 0;
-                z-index: -1;
-                opacity: 0.5; /* Para dar uma leve transparência */
-            }
-
-            .form {
-                width: 100%;
-                padding: 20px;
-                position: relative;
-                z-index: 1;
-            }
-            .overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: transparent;
-                cursor: not-allowed; /* Mostra que a imagem não é clicável */
-            }
-
-            .image-wrapper {
-                position: relative;
-                display: inline-block;
-            }          
-            
-        </style>
-    </head>
-    
-    <body>
-        <!-- Navbar superior -->
-        <div class="top-navbar">
-            <span id="current-page">Você está aqui:</span>
-        </div>
-
-        <!-- Navbar com logotipo e menus -->
-        <div class="main-navbar">
-            <div class="logo">
-                <img src="./logo_top_color_.png" alt="Logotipo">
-            </div>
-            <div class="menu">
-                <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
-                <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
-                <a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
-                <a href="#" data-page="Sobre nós">SOBRE NÓS</a>
-                <button href="#auto-atendimento" class="button" data-page="Área cliente">ÁREA DO CLIENTE</button>
-            </div>
-            <div class="menu-toggle">☰ Menu</div>
-        </div>
-
-        <!-- Div para o slide -->
-        <div class="slide-container">
-    <img src="./bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
-    <img src="./bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
-    </div>
-        <div class="pos-slide">
-            <div class="infor"> 
-            <h4>Cobertura</h4><p>
-                Tacima/PB</p>
-            </div>
-            <div  class="infor">
-            <h4>Atendimento</h4><p>
-                Suporte 24/7</p>
-            </div>
-            <div  class="infor">
-            <h4>Satisfação</h4><p>
-                + 1000 Clientes</p>
-            </div>
-        </div>
-        <div class="plans-container" id="plans-container">
-            <h1>Planos para sua casa</h1>
-            <div class="plans">
-                <div class="plan">
-                    <h3><b>150</b><h4>MEGA</h4></p></h3>                        
-                        <p2 class="Descrição">
-                            <p>por apenas</p>
-                            R$:<p1> 99,99</p1>
-                            <p>/mensais</p>
-                        </p2>
-                        <br>
-                        + Wifi Turbo 5G
-                        <p>+ Adesão Grátis</p>
-                        <p>+ App Grátis</p>
-                    <br>
-                    <button class="assine">Saiba mais!</button>
-                </div>
-                <div class="plan">
-                    <h3><b>250</b></h3><p><h4>MEGA</h4></p>
-                        
-                        <p2 class="Descrição">
-                            <p>por apenas</p>
-                            R$:<p1> 99,99</p1>
-                            <p>/mensais</p>
-                        </p2>
-                        <br>
-                        + Wifi Turbo 5G
-                        <p>+ Adesão Grátis</p>
-                        <p>+ App Grátis</p>
-                    <br>
-                    <button class="assine">Saiba mais!</button>
-                </div>
-                <div class="plan">
-                    <h3><b>350</b></h3><p><h4>MEGA</h4></p>
-                        
-                        <p2 class="Descrição">
-                            <p>por apenas</p>
-                            R$:<p1> 99,99</p1>
-                            <p>/mensais</p>
-                        </p2>
-                        <br>
-                        + Wifi Turbo 5G
-                        <p>+ Adesão Grátis</p>
-                        <p>+ App Grátis</p>
-                    <br>
-                    <button class="assine">Saiba mais!</button>
-                </div>
-                <div class="plan">
-                    <h3><b>500</b></h3><p><h4>MEGA</h4></p>
-                        
-                        <p2 class="Descrição">
-                            <p>por apenas</p>
-                            R$:<p1> 99,99</p1>
-                            <p>/mensais</p>
-                        </p2>
-                        <br>
-                        + Wifi Turbo 5G
-                        <p>+ Adesão Grátis</p>
-                        <p>+ App Grátis</p>
-                    <br>
-                    <button class="assine">Saiba mais!</button>
-                </div>
-            </div>
-            <br><br>
-            <p2>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></p2>
-            <br><br>
-            <div class="logos">
-                <h2>Contrate banda larga e receba acesso grátis<p>
-                    ao melhor conteúdo do streaming!</h2></p>
-                <br>
-                <img src="logo1.png" alt="Logotipo 1">
-                <img src="logo2.png" alt="Logotipo 2">
-                <img src="logo3.png" alt="Logotipo 3">
-                <img src="logo4.png" alt="Logotipo 4">
-                <img src="logo5.png" alt="Logotipo 5">
-                <img src="logo6.png" alt="Logotipo 6">
-            </div>
-
-        </div>
-            <div class="auto-atendimento" id="auto-atendimento">
-                <div>
-                    <h1>Autoatendimento para clientes</h1>
-                    <p>Selecione o serviço desejado.</p>
-                <br>
-                <img src="./a_cadastro_.png" alt="BCadastro">
-                <img src="./a_boleto_.png" alt="BBoleto">
-                <img src="./a_cartao_.png" alt="BCartao">
-                <img src="./a_plano_.png" alt="BPlano">
-                <img src="./a_suporte_.png" alt="BSuporte">
-                <img src="./a_outros_.png" alt="BOutros">                
-            </div>
-        </div>
-
-        <div class="fale-conosco" id="fale-conosco">
-            <div class="form">
-                <h1>Fale conosco</h1>
-                <p>Estamos aqui para ajudar.</p>
-                <form action="#" method="POST">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="tel" name="celular" placeholder="Celular" required>
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-            <img class="bar-lateral" src="./bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
-        </div>            
-
-        <!-- Scripts adicionais -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const menuLinks = document.querySelectorAll('.menu a, .menu .button');
-                const currentPageText = document.getElementById('current-page');
-                const menuToggle = document.querySelector('.menu-toggle');
-                const mainNavbar = document.querySelector('.main-navbar');
-                const slides = document.querySelectorAll('.slide');
-                let currentSlide = 0;
-
-                // Define "Página inicial" como o texto padrão
-                currentPageText.textContent = "Você está aqui: Página inicial";
-
-                // Atualiza o texto da navbar superior ao clicar em um link
-                menuLinks.forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault(); // Impede o comportamento padrão do link
-                        
-                        const pageName = this.getAttribute('data-page');
-                        currentPageText.textContent = `Você está aqui: ${pageName}`;
-
-                        // Rolagem suave para a seção desejada
-                        const targetId = this.getAttribute('href').substring(1);
-                        if (targetId) {
-                            document.getElementById(targetId).scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-
-                // Alterna a visibilidade do menu ao clicar no botão de menu
-                menuToggle.addEventListener('click', function() {
-                    mainNavbar.classList.toggle('menu-active');
-                });
-
-                // Função para alternar os slides
-                function showSlide(index) {
-                    slides.forEach((slide, i) => {
-                        slide.style.display = i === index ? 'block' : 'none';
-                    });
-                }
-
-                // Configuração do intervalo para alternar os slides a cada 5 segundos
-                setInterval(() => {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    showSlide(currentSlide);
-                }, 5000);
-
-                // Inicializa o primeiro slide
-                showSlide(currentSlide);
-
-                document.addEventListener('contextmenu', function(e) {
-                    if (e.target.tagName === 'IMG') {
-                        e.preventDefault();
+/* Esconde o menu e exibe o botão de menu em telas pequenas */
+
+@media (max-width: 768px) {
+.main-navbar {
+flex-direction: column;
+padding: 10px;
+}
+
+.menu-toggle {
+display: block;
+margin-top: 10px;
+}
+
+.main-navbar .menu-pc {
+display: none;
+flex-direction: column;
+width: 100%;
+text-align: center;
+}
+
+.main-navbar .menu-pc a {
+margin: 5px 0;
+}
+
+.main-navbar .button {
+width: 100%;
+max-width: 200px;
+}
+}
+
+/* Exibe o menu ao clicar no botão de menu */
+
+.main-navbar.menu-active .menu {
+display: flex;
+}
+
+/* Estilo da Seção de Slides */
+
+.slide-container {
+border: none;
+margin-block-end: -6px;
+
+}
+
+.slide-container img {
+margin: 0 auto;
+max-width: 100%;
+height: auto;
+background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+}
+
+.slide-container-hidden {
+border: none;
+margin-block-end: -6px;
+
+}
+
+.slide-container-hidden img {
+margin: 0 auto;
+max-width: 100%;
+height: auto;
+background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+}
+
+/* Ocultar .slide-container e exibir .slide-container-hidden em telas menores */
+@media (max-width: 768px) {
+.slide-container {
+display: none;
+}
+.slide-container-hidden {
+display: block;
+}
+}
+
+/* Exibir .slide-container e ocultar .slide-container-hidden em telas maiores */
+@media (min-width: 769px) {
+.slide-container {
+display: block;
+}
+.slide-container-hidden {
+display: none;
+}
+}
+
+/* Estilo da Seção de informações */
+
+.container-infor {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 160px;
+text-align: center;
+color: #10107A;
+}
+
+.container-infor h4 {
+font-size: 30px;
+color: #10107A;
+}
+
+.container-infor > div {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+width: 250px;
+text-align: center;
+border-right: 1px solid #ccc; /* Adiciona a borda vertical */
+}
+
+.container-infor > div:last-child {
+border-right: none; /* Remove a borda do último elemento */
+}
+
+
+/* Estilo do rodapé */
+
+.footer {
+background-image: linear-gradient(to right, #246ECC, #1515A3);
+display: flex;
+justify-content: center;
+text-align: left;
+justify-content: space-around;
+padding: 20px;
+color: white;
+}
+
+.footer-column {
+flex: 1;
+margin: 0 10px;
+}
+
+.footer-column h3 {
+color: white;
+margin-bottom: 10px;
+font-size: 18px;
+}
+
+.footer-column p, .footer-column ul {
+color: white;
+font-size: 14px;
+}
+
+.footer-column ul {
+list-style: none;
+padding: 0;
+}
+
+.footer-column ul li {
+margin-bottom: 5px;
+}
+
+.footer-column ul li a {
+text-decoration: none;
+color: white;
+}
+
+.footer-column ul li a:hover {
+text-decoration: underline;
+}
+
+
+
+/* Botão Chat Flutuante */
+
+.chat-button {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 60px;
+height: 60px;
+background-color: #007bff; /* Cor de fundo */
+border-radius: 50%;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+cursor: pointer;
+z-index: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background-color 0.3s;
+}
+
+.chat-button img {
+width: 30px;
+height: 30px;
+}
+
+.chat-button:hover {
+background-color: #0056b3; /* Cor ao passar o mouse */
+}
+
+/* Estilo da nova seção de planos */
+
+.plans-container {
+background: url('./assets/bg-plans.png') no-repeat center center,
+linear-gradient(to right, #1515A3, #10107A);
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background-size: cover;
+width: 100%;
+min-height: 768px;
+color: white;
+text-align: center;
+}
+
+.plans-container h1 {
+font-family: "Aller", sans-serif;
+margin-bottom: 30px;
+}
+
+.plans-container .plans,
+.plans-container .logos {
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+gap: 15px;
+flex-wrap: wrap;
+max-width: 100%;
+}
+
+.plans-container .plan {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 270px;
+margin: 0 auto;
+background-color: rgba(21, 21, 163, 0.8);
+border-radius: 10px;
+padding: 20px;
+text-align: center;
+}
+
+.plans-container .plan:hover,
+.plans-container .logos img:hover {
+transform: scale(1.05);
+}
+
+.plans-container .logos img {
+max-width: 80px;
+border-radius: 5px;
+padding: 5px;
+}
+
+.plans-container h2 {
+font-size: 20px;
+}
+
+.plans-container .plan h3 {
+margin-bottom: 0;
+font-size: 110px;
+font-weight: bold;
+}
+
+.plans-container h4 {
+font-size: 75px;
+margin-top: -30px;
+font-weight: bold;
+}
+
+.plans-container .plan p2,
+.plans-container .plan p1 {
+text-align: center;
+
+}
+
+.plans-container .plan p1 {
+font-size: 50px;
+font: bold;
+}
+
+.plans-container .plan p2 {
+font-size: 14px;
+
+}
+
+.plans-container .plan img{
+width: 100%;
+
+}
+
+.Descrição {
+border: 40px solid transparent;
+border-image: url("./assets/border_plan_.png") 100 round;
+text-align: center;
+justify-content: center;
+display: inside;
+}
+
+@media (max-width: 768px) {
+.plans-container .plans {
+flex: 1 1 100px;    
+width: 100%;
+}
+
+.plans-container .plan img{
+max-width: 200px;
+width: 100%;
+}
+
+.plans-container .Descrição {
+width: 100%;
+}
+}
+
+button.assine {
+background-color: #F1D213;
+color: #10107A;
+font-size: 18px;
+padding: 10px 20px;
+border: none;
+border-radius: 100px;
+cursor: pointer;
+}
+
+button.assine:hover {
+background-color: #246ECC;
+transform: scale(1.05);
+}
+
+/* Estilo da Seção de Autoatendimento */
+
+.container-auto {
+width: 100%;
+}
+
+.auto-atendimento {
+display: flex;
+color: #10107A;
+flex-wrap: wrap;
+justify-content: flex-start;
+max-width: 700px;
+gap: 20px;
+padding: 70px;
+border-radius: 8px;
+text-align: center;
+cursor: pointer;
+}
+
+.auto-atendimento h1 {
+font-size: 34px;
+text-align: center;
+display: flex;
+justify-content: center;
+}
+
+.auto-atendimento img {
+width: 150px;
+height: auto;
+background-color: #10107A;
+border-radius: 8px;
+padding: 25px;
+}
+
+.auto-atendimento img:hover {
+background-image: linear-gradient(#F1D213);
+transform: scale(1.05);
+}
+
+
+/* Estilo da Seção Fale conosco */
+
+.fale-conosco {
+display: flex;
+justify-content: space-between;
+align-items: center;
+height: 768px;
+padding: 0;
+text-align: left;
+}
+
+.fale-conosco h1 {
+font-family: "Aller", sans-serif;
+color: #10107A;
+margin-bottom: 0;
+font-size: 50px;
+}
+
+.fale-conosco p {
+color: #10107A;
+font-size: 22px;
+margin-top: 10px;
+}
+
+.fale-conosco img {
+background-image: linear-gradient(to right, #246ECC, #1515A3);
+border-bottom-left-radius: 300%;
+border-top-left-radius: 300%;
+max-height: 100%;
+}
+
+.form {
+width: 50%;
+padding: 40px 40px 0;
+font-family: "Aller", sans-serif;
+}
+
+.form input[type="text"],
+.form input[type="tel"],
+.form input[type="email"],
+.form textarea {
+width: 100%;
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+font-size: 18px;
+}
+
+.form button[type="submit"] {
+padding: 10px 20px;
+background-color: #10107A;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 18px;
+transition: transform 0.3s ease, background-image 0.3s ease;
+}
+
+.form button[type="submit"]:hover {
+background-image: linear-gradient(to right, #246ECC, #1515A3);
+transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+.fale-conosco {
+flex-direction: column;
+position: relative;
+}
+
+.form {
+width: 100%;
+padding: 20px;
+position: relative;
+z-index: 1;
+}
+
+.bar-lateral {
+max-width: 100%;
+margin-top: 0;
+position: absolute;
+top: 0;
+right: 0;
+z-index: -1;
+opacity: 0.5;
+}
+
+.overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: transparent;
+cursor: not-allowed;
+}
+
+.image-wrapper {
+position: relative;
+display: inline-block;
+}
+}
+</style>
+</head>
+
+<body>
+<!-- Navbar superior -->
+<div class="top-navbar">
+<span id="current-page">Você está aqui:</span>
+</div>
+
+<!-- Navbar com logotipo e menus -->
+<div class="main-navbar">
+<div class="logo">
+<img src="./assets/logo_top_color_.png" alt="Logotipo">
+</div>
+
+<!-- Início navbar superior -->
+
+<div class="menu-pc">
+<a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
+<a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
+<a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
+<a href="#" data-page="Sobre nós">SOBRE NÓS</a>
+<button href="#auto-atendimento" class="button" data-page="Área cliente">ÁREA DO CLIENTE</button>
+</div>
+<div class="menu-toggle">☰ Menu</div>
+</div>
+
+<!-- Início da Seção Slide -->
+
+<div class="slide-container">
+<img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
+<img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
+</div>
+
+<div class="slide-container-hidden">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
+</div>
+
+<!-- Início da Seção de Informações -->
+
+<div class="container-infor">
+<div class="infor"> 
+<h4>Cobertura</h4><p>
+Tacima/PB</p>
+</div>
+<div  class="infor">
+<h4>Atendimento</h4><p>
+Suporte 24/7</p>
+</div>
+<div  class="infor">
+<h4>Satisfação</h4><p>
++ 1000 Clientes</p>
+</div>
+</div>
+
+<!-- Início Seção Planos -->
+
+<div class="plans-container" id="plans-container">
+
+<h1>Planos para sua casa</h1>
+
+<div class="plans">
+
+<div class="plan">
+<img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+<p2 class="Descrição">
++ Wifi Turbo 5G
+<p>+ Adesão Grátis</p>
+<p>+ App Grátis</p>   
+</p2><br>
+<p>por apenas</p>
+R$:<p1> 99,99</p1>
+<p>/mensais</p>
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+   
+<div class="plan">
+<img src="./assets/plan_250.png" class="picplan" alt="Plano 250mega">       
+<p2 class="Descrição">
++ Wifi Turbo 5G
+<p>+ Adesão Grátis</p>
+<p>+ App Grátis</p>   
+</p2><br>
+<p>por apenas</p>
+R$:<p1> 99,99</p1>
+<p>/mensais</p>
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+
+<div class="plan">
+<img src="./assets/plan_350.png" class="picplan" alt="Plano 350mega">      
+<p2 class="Descrição">
++ Wifi Turbo 5G
+<p>+ Adesão Grátis</p>
+<p>+ App Grátis</p>   
+</p2><br>
+<p>por apenas</p>
+R$:<p1> 99,99</p1>
+<p>/mensais</p>
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+<img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+<p2 class="Descrição">
++ Wifi Turbo 5G
+<p>+ Adesão Grátis</p>
+<p>+ App Grátis</p>   
+</p2><br>
+<p>por apenas</p>
+R$:<p1> 99,99</p1>
+<p>/mensais</p>
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+
+</div>
+<br><br>
+
+<p2>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></p2>
+
+<br><br>
+<div class="logos">
+<h2>Contrate banda larga e receba acesso grátis<p>
+ao melhor conteúdo do streaming!</h2></p>
+<br>
+<img src="./assets/logo1.png" alt="Logotipo 1">
+<img src="./assets/logo2.png" alt="Logotipo 2">
+<img src="./assets/logo3.png" alt="Logotipo 3">
+<img src="./assets/logo4.png" alt="Logotipo 4">
+<img src="./assets/logo5.png" alt="Logotipo 5">
+<img src="./assets/logo6.png" alt="Logotipo 6">
+</div>
+
+</div>
+
+<!-- Início Seção de Autoatendimento -->
+
+<div class="auto-atendimento" id="auto-atendimento">
+<div>
+<h1>Autoatendimento para clientes</h1>
+<p>Selecione o serviço desejado.</p>
+<br>
+<img src="./assets/a_cadastro_.png" alt="BCadastro">
+<img src="./assets/a_boleto_.png" alt="BBoleto">
+<img src="./assets/a_cartao_.png" alt="BCartao">
+<img src="./assets/a_plano_.png" alt="BPlano">
+<img src="./assets/a_suporte_.png" alt="BSuporte">
+<img src="./assets/a_outros_.png" alt="BOutros">
+</div>
+</div>
+
+<!-- Início Seção Fale conosco -->
+
+<div class="fale-conosco" id="fale-conosco">
+<div class="form">
+<h1>Fale conosco</h1>
+<p>Estamos aqui para ajudar.</p>
+<form action="#" method="POST">
+<input type="text" name="nome" placeholder="Nome" required>
+<input type="tel" name="celular" placeholder="Celular" required>
+<input type="email" name="email" placeholder="E-mail" required>
+<textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
+<button type="submit">Enviar</button>
+</form>
+</div>
+<img class="bar-lateral" src="./assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
+</div>
+
+<!-- Scripts adicionais -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+            const currentPageText = document.getElementById('current-page');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNavbar = document.querySelector('.main-navbar');
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            // Define "Página inicial" como o texto padrão
+            currentPageText.textContent = "Você está aqui: Página inicial";
+
+            // Atualiza o texto da navbar superior ao clicar em um link
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Impede o comportamento padrão do link
+                    
+                    const pageName = this.getAttribute('data-page');
+                    currentPageText.textContent = `Você está aqui: ${pageName}`;
+
+                    // Rolagem suave para a seção desejada
+                    const targetId = this.getAttribute('href').substring(1);
+                    if (targetId) {
+                        document.getElementById(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
-                });
-
-                document.addEventListener('dragstart', function(e) {
-                    if (e.target.tagName === 'IMG') {
-                        e.preventDefault(); 
-                    }
-                });
-
-                document.querySelector('.chat-button').addEventListener('click', function() {
-                     // Código para abrir o chat
-                    alert("Chat aberto!");
                 });
             });
-        </script>
-        <!-- Rodapé -->
-        <footer class="footer">
-            <div class="footer-column">
-                <h3>Contato</h3>
-                <p>Telefone: (00) 0000-0000</p>
-                <p>Email: contato@feitosa.com.br</p>
-            </div>
-            <div class="footer-column">
-                <h3>Links Úteis</h3>
-                <ul>
-                    <li><a href="#">Política de Privacidade</a></li>
-                    <li><a href="#">Termos de Serviço</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Endereço</h3>
-                <p>Rua Exemplo, 123</p>
-                <p>Bairro Exemplo</p>
-                <p>Tacima/PB, 00000-000</p>
-            </div>
-            <div class="footer-column">
-                
-                <!--Inserir redes sociais aqui-->
-            </div>
-        </footer>
-        <div class="chat-button">
-            <img src="chat-icon.png" alt="Chat">
-        </div>
-    </body>
+
+            // Alterna a visibilidade do menu ao clicar no botão de menu
+            menuToggle.addEventListener('click', function() {
+                mainNavbar.classList.toggle('menu-active');
+            });
+
+            // Função para alternar os slides
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.style.display = i === index ? 'block' : 'none';
+                });
+            }
+
+            // Configuração do intervalo para alternar os slides a cada 5 segundos
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+
+            // Inicializa o primeiro slide
+            showSlide(currentSlide);
+
+            document.addEventListener('contextmenu', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
+            });
+
+            document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault(); 
+                }
+            });
+
+            document.querySelector('.chat-button').addEventListener('click', function() {
+                 // Código para abrir o chat
+                alert("Chat aberto!");
+            });
+        });
+    </script><script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuLinks = document.querySelectorAll('.menu-pc a, .menu-pc .button');
+    const currentPageText = document.getElementById('current-page');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNavbar = document.querySelector('.main-navbar');
+    const menuPc = document.querySelector('.menu-pc');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    // Define "Página inicial" como o texto padrão
+    currentPageText.textContent = "Você está aqui: Página inicial";
+
+    // Atualiza o texto da navbar superior ao clicar em um link
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+
+            const pageName = this.getAttribute('data-page');
+            currentPageText.textContent = `Você está aqui: ${pageName}`;
+
+            // Fechar o menu quando um item é clicado
+            mainNavbar.classList.remove('menu-active');
+        });
+    });
+
+    // Alterna a exibição do menu quando o botão menu-toggle é clicado
+    menuToggle.addEventListener('click', () => {
+        mainNavbar.classList.toggle('menu-active');
+    });
+
+    // Função para alternar entre os slides
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = (i === index) ? 'block' : 'none';
+        });
+    }
+
+    // Alterna os slides a cada 5 segundos
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }, 5000);
+});
+</script>
+
+
+<!-- Rodapé -->
+
+<footer class="footer">
+<div class="footer-column">
+<h3>Contato</h3>
+<p>Telefone: (00) 0000-0000</p>
+<p>Email: contato@feitosa.com.br</p>
+</div>
+<div class="footer-column">
+<h3>Links Úteis</h3>
+<ul>
+<li><a href="#">Política de Privacidade</a></li>
+<li><a href="#">Termos de Serviço</a></li>
+<li><a href="#">FAQ</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Endereço</h3>
+<p>Rua Exemplo, 123</p>
+<p>Bairro Exemplo</p>
+<p>Tacima/PB, 00000-000</p>
+</div>
+<div class="footer-column">
+
+<!--Inserir redes sociais aqui-->
+
+</div>
+</footer>
+<div class="chat-button">
+<img src="./assets/chat-icon.png" alt="Chat">
+</div>
+</body>
 </html>
