@@ -7,7 +7,7 @@
 
 <link rel="icon" href="./assets/ico.png" type="image/png">
 
-<link rel="preload" href="path/to/stylesheet.css" as="style">
+<!--<link rel="preload" href="path/to/stylesheet.css" as="style">-->
 
 <style>
 /* Reset básico */
@@ -189,39 +189,22 @@ display: flex;
 
 /* Estilo da Seção de Slides */
 
-.slide-container {
-    display: none;
-    border: none;
-    margin-block-end: -6px;
-
-}
-
-.slide-container img {
-margin: 0 auto;
-max-width: 100%;
-height: auto;
-background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
-}
-
+.slide-container,
 .slide-container-hidden {
     display: none;
     border: none;
-    margin-block-end: -6px;
-
+    margin-bottom: -6px;
 }
 
+.slide-container img,
 .slide-container-hidden img {
-margin: 0 auto;
-max-width: 100%;
-height: auto;
-background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, #10107A, #1515A3);
+    max-width: 100%;
+    height: auto;
+    background-image: linear-gradient(to right, #1515A3, #10107A);
 }
 
 /* Ocultar .slide-container e exibir .slide-container-hidden em telas menores */
 @media (max-width: 768px) {
-    .slide-container {
-    display: none;
-    }
     .slide-container-hidden {
     display: block;
     }
@@ -232,18 +215,7 @@ background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, 
 .slide-container {
 display: block;
 }
-.slide-container-hidden {
-display: none;
-}
 
-}
-
-.slide {
-    display: none;
-}
-
-.slide.active {
-    display: block;
 }
 
 .slide-progress {
@@ -690,11 +662,17 @@ display: inline-block;
 <div class="slide-container">
 <img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
 <img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
+<img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: none;">
+<img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
+<img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: none;">
 </div>
 
 <div class="slide-container-hidden">
 <img src="./assets/bg-slide-two_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
 <img src="./assets/bg-slide-one_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 3" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 4" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 5" class="slide-hidden" style="display: none;">
 </div>
 
 <div class="slide-progress">
