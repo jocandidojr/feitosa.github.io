@@ -191,8 +191,8 @@ display: flex;
 
 .slide-container {
     display: none;
-border: none;
-margin-block-end: -6px;
+    border: none;
+    margin-block-end: -6px;
 
 }
 
@@ -204,8 +204,9 @@ background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, 
 }
 
 .slide-container-hidden {
-border: none;
-margin-block-end: -6px;
+    display: none;
+    border: none;
+    margin-block-end: -6px;
 
 }
 
@@ -218,12 +219,12 @@ background-image: linear-gradient(to right, #1515A3, #10107A, #10107A, #10107A, 
 
 /* Ocultar .slide-container e exibir .slide-container-hidden em telas menores */
 @media (max-width: 768px) {
-.slide-container {
-display: none;
-}
-.slide-container-hidden {
-display: block;
-}
+    .slide-container {
+    display: none;
+    }
+    .slide-container-hidden {
+    display: block;
+    }
 }
 
 /* Exibir .slide-container e ocultar .slide-container-hidden em telas maiores */
@@ -237,11 +238,13 @@ display: none;
 
 }
 
-.slide {
+.slide,
+.slide-hidden {
     display: none;
 }
 
-.slide.active {
+.slide.active,
+.slide-hidden.active {
     display: block;
 }
 
@@ -692,8 +695,8 @@ display: inline-block;
 </div>
 
 <div class="slide-container-hidden">
-<img src="./assets/bg-slide-one_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
-<img src="./assets/bg-slide-two_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-slide-two_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
+<img src="./assets/bg-slide-one_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
 </div>
 
 <div class="slide-progress">
@@ -813,7 +816,7 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <!-- Scripts adicionais -->
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu a, .menu .button');
     const currentPageText = document.getElementById('current-page');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -902,10 +905,29 @@ ao melhor conteúdo do streaming!</h2></p>
         showSlide(currentSlide);
     });
 
-    // Exibir o primeiro slide inicialmente
+    document.addEventListener("DOMContentLoaded", function() {
+    const slides = document.querySelectorAll(".slide-hidden");
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === index);
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Mostra o primeiro slide
     showSlide(currentSlide);
+
+    // Troca o slide a cada 3 segundos
+    setInterval(nextSlide, 3000);
 });
 
+});
 
 </script>
 
