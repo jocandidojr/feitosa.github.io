@@ -310,31 +310,31 @@ text-decoration: underline;
 
 
 
-/* Botão Chat Flutuante */
+/* Botão UP Flutuante */
 
-.chat-button {
-position: fixed;
-bottom: 20px;
-right: 20px;
-width: 60px;
-height: 60px;
-background-color: #007bff; /* Cor de fundo */
-border-radius: 50%;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-cursor: pointer;
-z-index: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background-color 0.3s;
+.up-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #007bff; /* Cor de fundo */
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
 }
 
-.chat-button img {
-width: 30px;
-height: 30px;
+.up-button img {
+    width: 30px;
+    height: 30px;
 }
 
-.chat-button:hover {
+.up-button:hover {
 background-color: #0056b3; /* Cor ao passar o mouse */
 }
 
@@ -834,11 +834,7 @@ ao melhor conteúdo do streaming!</h2></p>
             }
         });
 
-        document.querySelector('.chat-button').addEventListener('click', function() {
-            // Código para abrir o chat
-            alert("Chat aberto!");
-        });
-    });
+});
 </script>
 
 <!-- Rodapé -->
@@ -869,8 +865,8 @@ ao melhor conteúdo do streaming!</h2></p>
 
 </div>
 </footer>
-<div class="chat-button">
-<img src="./assets/chat-icon.png" alt="Chat">
+<div class="up-button">
+<img src="./assets/up-icon.png" alt="UP">
 </div>
 </body>
 </html>
