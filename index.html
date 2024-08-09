@@ -189,6 +189,14 @@ display: flex;
 
 /* Estilo da Seção de Slides */
 
+.slide-container .slide {
+    display: none;
+}
+
+.slide-container .slide.active {
+    display: block;
+}
+
 .slide-container,
 .slide-container-hidden {
     display: none;
@@ -216,6 +224,14 @@ display: flex;
 display: block;
 }
 
+}
+
+.slide {
+    display: none;
+}
+
+.slide.active {
+    display: block;
 }
 
 .slide-progress {
@@ -662,17 +678,17 @@ display: inline-block;
 <div class="slide-container">
 <img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: block;">
 <img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
-<img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: none;">
-<img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide" style="display: none;">
-<img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide" style="display: none;">
+<img src="./assets/bg-slide-one_.png" alt="Slide 3" class="slide" style="display: none;">
+<img src="./assets/bg-slide-two_.png" alt="Slide 4" class="slide" style="display: none;">
+<img src="./assets/bg-slide-one_.png" alt="Slide 5" class="slide" style="display: none;">
 </div>
 
 <div class="slide-container-hidden">
-<img src="./assets/bg-slide-two_1_.png" alt="Slide 1" class="slide-hidden" style="display: block;">
-<img src="./assets/bg-slide-one_1_.png" alt="Slide 2" class="slide-hidden" style="display: none;">
-<img src="./assets/bg-slide-one_1_.png" alt="Slide 3" class="slide-hidden" style="display: none;">
-<img src="./assets/bg-slide-one_1_.png" alt="Slide 4" class="slide-hidden" style="display: none;">
-<img src="./assets/bg-slide-one_1_.png" alt="Slide 5" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-quadro1.png" alt="Slide 1" class="slide-hidden" style="display: block;">
+<img src="./assets/bg-quadro2.png" alt="Slide 2" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-quadro1.png" alt="Slide 3" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-quadro2.png" alt="Slide 4" class="slide-hidden" style="display: none;">
+<img src="./assets/bg-quadro1.png" alt="Slide 5" class="slide-hidden" style="display: none;">
 </div>
 
 <div class="slide-progress">
@@ -792,13 +808,12 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <!-- Scripts adicionais -->
 <script>
-
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu a, .menu .button');
     const currentPageText = document.getElementById('current-page');
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNavbar = document.querySelector('.main-navbar');
-    const slides = document.querySelectorAll('.slide'); // Assumindo que a classe slide será usada para todos os slides
+    const slides = document.querySelectorAll('.slide');
     const indicators = document.querySelectorAll('.slide-indicator');
     let currentSlide = 0;
 
@@ -881,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
         showSlide(currentSlide);
     });
-
+    
 });
 
 </Script>
