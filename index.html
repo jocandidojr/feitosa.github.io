@@ -511,7 +511,6 @@ width: 100%;
 }
 
 /* Estilo da Imagem Lateral */
-
 .about-bar-lateral {
     position: absolute;
     left: 0; /* Alinha a imagem à esquerda da página */
@@ -559,7 +558,7 @@ width: 100%;
 
 .about-text {
     width: 70%;
-    color: #10107A;    
+    color: #10107A;
     font-family: "Aller", sans-serif;
     margin-left: auto; /* Alinha o texto à esquerda */
     text-align: justify;
@@ -570,30 +569,27 @@ width: 100%;
         flex-direction: column;
         align-items: center;
         height: auto; /* Permite que a altura se ajuste ao conteúdo */
+        position: relative;
+        background: url('./assets/bar_lat_dir_fale_conosco_.png') no-repeat left top/cover; /* Coloca a imagem como background */
     }
 
     .about-text {
-        width: 100%;
-        padding: 20px;
+        width: 80%;
+        padding: 50px;
         margin: 0; /* Remove margem para centralizar no layout mobile */
         text-align: justify;
+        z-index: 2; /* Garante que o texto fique acima do background */
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.8); /* Adiciona um fundo branco semitransparente */
     }
 
-    .container-about img {
-        width: 100%;
-        margin: 20px 0; /* Adiciona espaço ao redor da imagem */
-        max-width: 100%;
-    }
-
+    .container-about img,
     .about-bar-lateral {
-        position: static;
-        width: 100%;
-        height: auto;
-        transform: none; /* Remove centralização em mobile */
-        margin-bottom: 20px; /* Adiciona espaço abaixo da imagem */
+        display: none; /* Oculta as imagens em telas menores */
     }
 }
-/*Fim estilo da Seção Sobre Nós*/    
+
+/*Fim estilo da Seção Sobre Nós*/  
 
 .fale-conosco {
     display: flex;
