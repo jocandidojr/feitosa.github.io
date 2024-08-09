@@ -290,14 +290,17 @@
 
 /* Estiliza as imagens dentro dos botões */
 .slide-nav-button img {
-    width: 50px;  /* Tamanho desejado do botão */
-    height: 50px;
+    width: 35px;  /* Tamanho desejado do botão */
+    height: 35px;
+    margin: 20px;
+    opacity: 50%;    
     transition: transform 0.3s ease;  /* Animação suave para hover */
 }
 
 /* Efeito de hover para as imagens do botão */
 .slide-nav-button:hover img {
-    transform: scale(1.1);  /* Aumenta ligeiramente o tamanho ao passar o mouse */
+    transform: scale(1.10);  /* Aumenta ligeiramente o tamanho ao passar o mouse */
+    opacity: 100%;
 }
     
 
@@ -402,7 +405,7 @@ transition: transform 0.3s ease;
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: #10107A; /* Cor de fundo */
+    background-color: #0056b3; /* Cor de fundo */
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -416,12 +419,16 @@ transition: transform 0.3s ease;
 .up-button img {
     width: 30px;
     height: 30px;
-    transition: transform 0.3s ease;
+    opacity: 50%;
 }
 
 .up-button:hover {
-    background-color: #0056b3;
     transform: scale(1.1);
+    opacity: 100%;
+}
+
+.up-button img:hover {
+    opacity: 100%;
 }
 
 /* Estilo da nova seção de planos */
@@ -655,6 +662,7 @@ width: 100%;
 
 /*Fim estilo da Seção Sobre Nós*/  
 
+/* Combinação das regras de .fale-conosco */
 .fale-conosco {
     display: flex;
     justify-content: space-between;
@@ -682,6 +690,11 @@ width: 100%;
     border-bottom-left-radius: 300%;
     border-top-left-radius: 300%;
     max-height: 100%;
+}
+
+/* Correção de sintaxe na classe plans-container */
+.plans-container .plans {
+    margin: 20px;
 }
 
 .form {
