@@ -32,6 +32,7 @@
     padding-left: 20px; /* Espaçamento à esquerda */
 }
 
+/* Estilo do Menu e Menu-Toggle */
 .main-navbar {
     display: flex;
     justify-content: center;
@@ -44,7 +45,7 @@
 }
 
 .main-navbar .logo {
-    margin: 0 20px;
+    margin: 10px;
 }
 
 .main-navbar .logo img {
@@ -69,7 +70,7 @@
 
 .main-navbar .menu-pc a:hover { 
     background-color: #0056b3;
-    transform: scale(1.05);
+    transform: scale(1.10);
     border: none;
     padding: 0px 20px;
     color: white;
@@ -93,7 +94,7 @@
 
 .main-navbar .button:hover {    
     background-color: #0056b3;
-    transform: scale(1.05);
+    transform: scale(1.10);
     padding: 20px 30px;
     border-radius: 100px;
 }
@@ -110,7 +111,7 @@
 
     .main-navbar .button:hover {
         background-color: #0056b3;
-        transform: scale(1.05);
+        transform: scale(1.10);
     }
 
 }
@@ -162,7 +163,7 @@ display: flex;
 }
 .menu-toggle:hover {
     background-color: #0056b3;
-    transform: scale(1.05); 
+    transform: scale(1.10); 
 }
 
 /* Exibe o menu móvel e esconde o menu padrão em telas menores */
@@ -193,7 +194,9 @@ display: flex;
         color: #fff;
     }
 
-}   
+}
+
+/* Fim do estilo do Menu e Menu-Toggle */
 
 /* Estilo da Seção de Slides */
 
@@ -346,7 +349,7 @@ text-decoration: underline;
 }
 
 .footer-column img:hover{
-    transform: scale(1.05);
+    transform: scale(1.10);
 }
 
 
@@ -377,7 +380,7 @@ text-decoration: underline;
 
 .up-button:hover {
     background-color: #0056b3;
-    transform: scale(1.05);
+    transform: scale(1.10);
 }
 
 /* Estilo da nova seção de planos */
@@ -409,10 +412,14 @@ font-size: 50px;
 display: flex;
 justify-content: center;
 align-items: center;
-margin: 0 auto;
+margin: 0    auto;
 gap: 15px;
 flex-wrap: wrap;
 max-width: 100%;
+}
+
+..plans-container .plans{
+    margin: 20px;
 }
 
 .plans-container .plan {
@@ -421,7 +428,7 @@ flex-direction: column;
 align-items: center;
 width: 100%;
 max-width: 270px;
-margin: 0 auto;
+margin: 10px;
 background-color: rgba(21, 21, 163, 0.8);
 border-radius: 10px;
 padding: 20px;
@@ -430,7 +437,7 @@ text-align: center;
 
 .plans-container .plan:hover,
 .plans-container .logos img:hover {
-transform: scale(1.05);
+transform: scale(1.10);
 }
 
 .plans-container .logos img {
@@ -485,6 +492,11 @@ font-size: 14px;
     .plans-container .plans {
     flex: 1 1 100px;    
     width: 100%;
+    margin: 10px;
+    }
+
+    .plans-container .plan {
+        margin: 10px auto;
     }
 
     .plans-container .plan img{
@@ -510,7 +522,7 @@ cursor: pointer;
 button.assine:hover {
 background-color: #246ECC;
 color: #fff;
-transform: scale(1.05);
+transform: scale(1.10);
 }
 
 /* Estilo da Seção de Autoatendimento */
@@ -584,13 +596,12 @@ width: 100%;
     }
 
     .about-text {
-        width: 80%;
+        width: 90%;
         padding: 50px;
         margin: 0; /* Remove margem para centralizar no layout mobile */
         text-align: justify;
         z-index: 2; /* Garante que o texto fique acima do background */
         position: relative;
-        background-color: rgba(255, 255, 255, 0.8); /* Adiciona um fundo branco semitransparente */
     }
 
     .container-about img,
@@ -651,7 +662,6 @@ width: 100%;
     padding: 70px;
     border-radius: 8px;
     text-align: center;
-    cursor: pointer;
 }
 
 .auto-atendimento h1 {
@@ -664,14 +674,16 @@ width: 100%;
 .auto-atendimento img {
     width: 150px;
     height: auto;
+    margin: 5px;
     background-color: #10107A;
     border-radius: 8px;
-    padding: 25px;
+    padding: 25px 25px;
+    cursor:pointer;
 }
 
 .auto-atendimento img:hover {
     background-image: linear-gradient(#F1D213);
-    transform: scale(1.05);
+    transform: scale(1.10);
 }
 
 
@@ -737,7 +749,7 @@ transition: transform 0.3s ease, background-image 0.3s ease;
 
 .form button[type="submit"]:hover {
     background-color: #0056b3;
-    transform: scale(1.05);
+    transform: scale(1.10);
 }
 
 @media (max-width: 768px) {
@@ -923,11 +935,11 @@ ao melhor conteúdo do streaming!</h2></p>
     <br>
     <h3>Valores</h3>
     <br>
-    <h2><p></p>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.</p>
-        <p>- Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.</p>
-    <p>- Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.</p>
-    <p>- Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.</p>
-    <br>
+    <h2><p></p>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.</p><br>
+        <p>- Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.</p><br>
+    <p>- Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.</p><br>
+    <p>- Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.</p><br>
+    
     Na Feitosa Telecom, acreditamos que a tecnologia é um caminho para a transformação, e estamos empenhados em ser parte dessa mudança, conectando você ao futuro.</h2>
 </div>
 
