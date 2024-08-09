@@ -509,12 +509,122 @@ transform: scale(1.05);
 .container-auto {
 width: 100%;
 }
+
+/*Estilo da Seção Sobre nós */
+
 .container-about {
     display: flex;
-    background-image: url("./assets/bg-auto_.png");
+    justify-content: space-between;
+    align-items: center;
     height: 768px;
-    width: 100%;
+    padding: 0;
+    text-align: justify;
 }
+
+.container-about h1 {
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    margin-bottom: 0;
+    font-size: 25px;
+}
+
+.container-about h2 {
+    color: #10107A;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.container-about img {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    border-bottom-left-radius: 300%;
+    border-top-left-radius: 300%;
+    max-height: 100%;
+}
+
+.about-text {
+    width: 50%;
+    padding: 40px 40px 0;
+    font-family: "Aller", sans-serif;
+}
+
+@media (max-width: 768px) {
+.container-about {
+flex-direction: column;
+position: relative;
+}
+
+.about-text {
+width: 100%;
+padding: 20px;
+position: relative;
+z-index: 1;
+}
+
+.about-bar-lateral {
+max-width: 100%;
+margin-top: 0;
+position: absolute;
+top: 0;
+right: 0;
+z-index: -1;
+opacity: 0.5;
+}
+
+.overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: transparent;
+cursor: not-allowed;
+}
+
+.image-wrapper {
+position: relative;
+display: inline-block;
+}
+}
+
+/*Fim estilo da Seção Sobre Nós*/
+
+.fale-conosco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 768px;
+    padding: 0;
+    text-align: left;
+}
+
+.fale-conosco h1 {
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    margin-bottom: 0;
+    font-size: 50px;
+}
+
+.fale-conosco p {
+    color: #10107A;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.fale-conosco img {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    border-bottom-left-radius: 300%;
+    border-top-left-radius: 300%;
+    max-height: 100%;
+}
+
+.form {
+    width: 50%;
+    padding: 40px 40px 0;
+    font-family: "Aller", sans-serif;
+}
+
+/*Fim da seção Sobre nós*/
+
 .atm-container  {    
     background-image: url("./assets/bg-auto_.png");
 }
@@ -532,7 +642,7 @@ width: 100%;
 }
 
 .auto-atendimento h1 {
-    font-size: 34px;
+    font-size: 34px;    
     text-align: center;
     display: flex;
     justify-content: center;
@@ -678,7 +788,7 @@ display: inline-block;
 <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
 <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
 <a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
-<a href="#" data-page="Sobre nós">SOBRE NÓS</a>
+<a href="#container-about" data-page="Sobre nós">QUEM SOMOS</a>
 <button href="#auto-atendimento" class="button" data-page="Área cliente">ÁREA DO CLIENTE</button>
 </div>
 </div>
@@ -786,7 +896,29 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <div class="container-about" id="container-about">
 
-<!-- Inserir conteúdo about -->
+<div class="about-text" id="about-text">
+
+    <h1>Quem somos</h1>
+    <br>
+    <h2>A Feitosa Telecom iniciou sua operação em Tacima-PB e rapidamente expandiu seus serviços para Dona Inês-PB, tornando-se referência em conectividade na região. Somos um provedor de internet banda larga 100% fibra óptica, oferecendo soluções de alta qualidade tanto para residências quanto para empresas. Nossa infraestrutura robusta garante uma conexão estável, rápida e segura, proporcionando a melhor experiência online para nossos clientes.
+    <br><br>
+    Além dos planos de internet, oferecemos uma gama completa de entretenimento, com pacotes de TV que incluem canais Sky, além de serviços de streaming como HBO Max. Também disponibilizamos uma vasta seleção de aplicativos para música, leitura, nutrição, esportes, e muito mais, garantindo que você tenha acesso ao melhor conteúdo onde e quando quiser.</h2>
+    <br>
+    <h3>Missão</h3>
+    <br>
+    <h2>Nossa missão é conectar pessoas e empresas através de soluções tecnológicas de alta qualidade, promovendo o desenvolvimento social e econômico das comunidades onde atuamos. Buscamos sempre a excelência no atendimento ao cliente, oferecendo serviços que vão além das expectativas.</h2>
+    <br>
+    <h3>Valores</h3>
+    <br>
+    <h2><p></p>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.</p>
+        <p>- Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.</p>
+    <p>- Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.</p>
+    <p>- Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.</p>
+    <br>
+    Na Feitosa Telecom, acreditamos que a tecnologia é um caminho para a transformação, e estamos empenhados em ser parte dessa mudança, conectando você ao futuro.</h2>
+</div>
+
+<img class="bar-about" src="./assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
 
 </div>
 
