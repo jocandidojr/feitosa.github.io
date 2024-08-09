@@ -510,9 +510,17 @@ transform: scale(1.05);
 width: 100%;
 }
 
-/*Estilo da Seção Sobre nós */
+/* Estilo da Imagem Lateral */
 
-/* Estilo da Seção Sobre nós */
+.about-bar-lateral {
+    position: absolute;
+    left: 0; /* Alinha a imagem à esquerda da página */
+    top: 50%; /* Centraliza verticalmente a imagem */
+    transform: translateY(-50%); /* Ajusta para a centralização exata */
+    max-height: 100%;
+    z-index: 1; /* Garante que a imagem fique acima do conteúdo principal */
+}
+
 .container-about {
     display: flex;
     justify-content: space-between;
@@ -520,6 +528,7 @@ width: 100%;
     height: 768px;
     padding: 0;
     text-align: justify;
+    position: relative; /* Necessário para posicionar a imagem relativa ao container */
 }
 
 .container-about h1 {
@@ -541,19 +550,19 @@ width: 100%;
 
 .container-about img {
     background-image: linear-gradient(to right, #246ECC, #1515A3);
-    border-bottom-left-radius: 300%;
-    border-top-left-radius: 300%;
+    border-bottom-right-radius: 300%;
+    border-top-right-radius: 300%;
     max-height: 100%;
     max-width: 50%; /* Limita a largura da imagem a 50% */
     margin-left: auto; /* Empurra a imagem para a direita */
 }
 
 .about-text {
-    width: 50%;
-    color: #10107A;
-    padding: 40px 40px 0;
+    width: 70%;
+    color: #10107A;    
     font-family: "Aller", sans-serif;
-    margin-right: auto; /* Alinha o texto à esquerda */
+    margin-left: auto; /* Alinha o texto à esquerda */
+    text-align: justify;
 }
 
 @media (max-width: 768px) {
@@ -575,10 +584,16 @@ width: 100%;
         margin: 20px 0; /* Adiciona espaço ao redor da imagem */
         max-width: 100%;
     }
+
+    .about-bar-lateral {
+        position: static;
+        width: 100%;
+        height: auto;
+        transform: none; /* Remove centralização em mobile */
+        margin-bottom: 20px; /* Adiciona espaço abaixo da imagem */
+    }
 }
-
-
-/*Fim estilo da Seção Sobre Nós*/
+/*Fim estilo da Seção Sobre Nós*/    
 
 .fale-conosco {
     display: flex;
