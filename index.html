@@ -66,11 +66,12 @@
     font-size: 14px;
     line-height: 50px;
     white-space: nowrap; /* Evita quebra de linha */
+    transition: transform 0.3s ease;
 }
 
 .main-navbar .menu-pc a:hover { 
     background-color: #0056b3;
-    transform: scale(1.10);
+    transform: scale(1.1);
     border: none;
     padding: 0px 20px;
     color: white;
@@ -90,11 +91,12 @@
     cursor: pointer;
     display: inline-block;
     white-space: nowrap; /* Evita quebra de linha */
+    transition: transform 0.3s ease;
 }
 
 .main-navbar .button:hover {    
     background-color: #0056b3;
-    transform: scale(1.10);
+    transform: scale(1.1);
     padding: 20px 30px;
     border-radius: 100px;
 }
@@ -102,16 +104,18 @@
 @media (max-width: 480px) {
     .main-navbar .menu-pc a {
         font-size: 14px;
+        transition: transform 0.3s ease;
     }
 
     .main-navbar .button {
         font-size: 14px;
         padding: 8px 15px;
+        transition: transform 0.3s ease;
     }
 
     .main-navbar .button:hover {
         background-color: #0056b3;
-        transform: scale(1.10);
+        transform: scale(1.1);
     }
 
 }
@@ -168,11 +172,12 @@
     border-radius: 7px;
     cursor: pointer;
     margin-left: auto; /* Move o botão para a direita */
+    transition: transform 0.3s ease;
 }
 
 .menu-toggle:hover {
     background-color: #0056b3;
-    transform: scale(1.10); 
+    transform: scale(1.1); 
 }
 
 /* Exibe o menu móvel e esconde o menu padrão em telas menores */
@@ -208,15 +213,18 @@
 /* Fim do estilo do Menu e Menu-Toggle */
 
 /* Estilos gerais para a seção de slideshow */
-.slideshow,
-    .slideshow img {
+.slideshow {
     position: relative;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;    
-    background-image: linear-gradient(to right, #1515A3, #10107A);  
-    
+    overflow: hidden
+
 }
+    .slide-pc,
+    .slide-mobile img {
+        background-image: linear-gradient(to right, #1515A3, #10107A);  
+        width: 100%;
+    }
 
 /* Estilos específicos para slide-pc e slide-mobile */
 .slide-pc,
@@ -249,15 +257,50 @@
 }
 
 .slide-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    width: 35px;
+    height: 7px;
+    border-radius: 50px;
     background-color: #ccc;
 }
 
 .slide-indicator.active {
     background-color: #007bff;
 }
+
+/* Estilos para os botões de navegação */
+.slide-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Especifica a posição dos botões "Anterior" e "Próximo" */
+.prev-slide {
+    left: 10px;
+}
+
+.next-slide {
+    right: 10px;
+}
+
+/* Estiliza as imagens dentro dos botões */
+.slide-nav-button img {
+    width: 50px;  /* Tamanho desejado do botão */
+    height: 50px;
+    transition: transform 0.3s ease;  /* Animação suave para hover */
+}
+
+/* Efeito de hover para as imagens do botão */
+.slide-nav-button:hover img {
+    transform: scale(1.1);  /* Aumenta ligeiramente o tamanho ao passar o mouse */
+}
+    
+
 
 /* Fim da Seção de Slides*/
 
@@ -342,10 +385,11 @@ color: white;
 
 .footer-column ul li a:hover {
 text-decoration: underline;
+transition: transform 0.3s ease;
 }
 
 .footer-column img:hover{
-    transform: scale(1.10);
+    transform: scale(1.1);
 }
 
 
@@ -372,11 +416,12 @@ text-decoration: underline;
 .up-button img {
     width: 30px;
     height: 30px;
+    transition: transform 0.3s ease;
 }
 
 .up-button:hover {
     background-color: #0056b3;
-    transform: scale(1.10);
+    transform: scale(1.1);
 }
 
 /* Estilo da nova seção de planos */
@@ -429,11 +474,12 @@ background-color: rgba(21, 21, 163, 0.8);
 border-radius: 10px;
 padding: 20px;
 text-align: center;
+transition: transform 0.3s ease;
 }
 
 .plans-container .plan:hover,
 .plans-container .logos img:hover {
-transform: scale(1.10);
+transform: scale(1.1);
 }
 
 .plans-container .logos img {
@@ -513,12 +559,13 @@ padding: 10px 20px;
 border: none;
 border-radius: 100px;
 cursor: pointer;
+transition: transform 0.3s ease;
 }
 
 button.assine:hover {
 background-color: #246ECC;
 color: #fff;
-transform: scale(1.10);
+transform: scale(1.1);
 }
 
 /* Estilo da Seção de Autoatendimento */
@@ -675,11 +722,12 @@ width: 100%;
     border-radius: 8px;
     padding: 25px 25px;
     cursor:pointer;
+    transition: transform 0.3s ease;
 }
 
 .auto-atendimento img:hover {
     background-image: linear-gradient(#F1D213);
-    transform: scale(1.10);
+    transform: scale(1.1);
 }
 
 
@@ -745,7 +793,7 @@ transition: transform 0.3s ease, background-image 0.3s ease;
 
 .form button[type="submit"]:hover {
     background-color: #0056b3;
-    transform: scale(1.10);
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
@@ -837,6 +885,10 @@ display: inline-block;
             <div class="slide-indicator"></div>
             <div class="slide-indicator"></div>    
         </div>
+
+            <!-- Botões de navegação -->
+    <button id="prevSlide" class="slide-nav-button prev-slide"><img src="./assets/bt-voltar.png"></button>
+    <button id="nextSlide" class="slide-nav-button next-slide"><img src="./assets/bt-avancar.png"></button>
 
 </div>
 
