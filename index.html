@@ -539,17 +539,19 @@ font-size: 14px;
 
 @media (max-width: 768px) {
     .plans-container .plans {
-    flex: 1 1 100px;    
+    flex: 1 1 50px;    
     width: 100%;
+    max-height: 30%;
     margin: 10px;
     }
 
     .plans-container .plan {
-        margin: 10px auto;
+        margin: 0 auto;
+        width: 40%;
     }
 
     .plans-container .plan img{
-    max-width: 200px;
+    max-width: auto;
     width: 100%;
     }
 
@@ -654,54 +656,20 @@ width: 100%;
         position: relative;
     }
 
+    .about-text h1, 
+    .about-text h3 {
+        text-align: center;
+    }
+
     .container-about img,
     .about-bar-lateral {
         display: none; /* Oculta as imagens em telas menores */
     }
+    
 }
 
 /*Fim estilo da Seção Sobre Nós*/  
 
-/* Combinação das regras de .fale-conosco */
-.fale-conosco {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 768px;
-    padding: 0;
-    text-align: left;
-}
-
-.fale-conosco h1 {
-    font-family: "Aller", sans-serif;
-    color: #10107A;
-    margin-bottom: 0;
-    font-size: 50px;
-}
-
-.fale-conosco p {
-    color: #10107A;
-    font-size: 22px;
-    margin-top: 10px;
-}
-
-.fale-conosco img {
-    background-image: linear-gradient(to right, #246ECC, #1515A3);
-    border-bottom-left-radius: 300%;
-    border-top-left-radius: 300%;
-    max-height: 100%;
-}
-
-/* Correção de sintaxe na classe plans-container */
-.plans-container .plans {
-    margin: 20px;
-}
-
-.form {
-    width: 50%;
-    padding: 40px 40px 0;
-    font-family: "Aller", sans-serif;
-}
 
 /*Fim da seção Sobre nós*/
 
@@ -768,7 +736,7 @@ width: 100%;
     margin-top: 10px;
 }
 
-.fale-conosco img {
+.fale-conosco img.bar-lateral {
     background-image: linear-gradient(to right, #246ECC, #1515A3);
     border-bottom-left-radius: 300%;
     border-top-left-radius: 300%;
@@ -785,23 +753,23 @@ width: 100%;
 .form input[type="tel"],
 .form input[type="email"],
 .form textarea {
-width: 100%;
-padding: 10px;
-margin-bottom: 10px;
-border-radius: 5px;
-border: 1px solid #ccc;
-font-size: 18px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 18px;
 }
 
 .form button[type="submit"] {
-padding: 10px 20px;
-background-color: #10107A;
-color: white;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-size: 18px;
-transition: transform 0.3s ease, background-image 0.3s ease;
+    padding: 10px 20px;
+    background-color: #10107A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .form button[type="submit"]:hover {
@@ -809,44 +777,51 @@ transition: transform 0.3s ease, background-image 0.3s ease;
     transform: scale(1.1);
 }
 
+.logo-fale {
+    max-width: 350px;
+    margin-top: 20px;
+    padding: 50px;
+}
+
+.logo-fale img {
+    
+    transition: transform 0.3s ease;
+}
+
+.logo-fale img:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+/* Estilos responsivos para telas menores que 768px */
 @media (max-width: 768px) {
-.fale-conosco {
-flex-direction: column;
-position: relative;
+    .fale-conosco {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+
+    .form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .fale-conosco img.bar-lateral {
+        max-width: 100%;
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+    .logo-fale {
+        margin-top: 20px;
+        order: 2;
+    }
 }
 
-.form {
-width: 100%;
-padding: 20px;
-position: relative;
-z-index: 1;
-}
-
-.bar-lateral {
-max-width: 100%;
-margin-top: 0;
-position: absolute;
-top: 0;
-right: 0;
-z-index: -1;
-opacity: 0.5;
-}
-
-.overlay {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: transparent;
-cursor: not-allowed;
-}
-
-.image-wrapper {
-position: relative;
-display: inline-block;
-}
-}
+/* Fim do estilo da seção Fale Conosco */
 </style>
 </head>
 
@@ -936,6 +911,37 @@ Suporte 24/7</p>
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
+
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+
+<br><br><h1>Planos para sua<p> empresa</p></h1><br>
+
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+
    
 <div class="plan">
 <img src="./assets/plan_250.png" class="picplan" alt="Plano 250mega">       
@@ -952,12 +958,32 @@ Suporte 24/7</p>
 </div>
 
 <div class="plan">
-<img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
-<img src="./assets/descri_plans_.png" class="Descrição">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
 <br>
 <button class="assine">Saiba mais!</button>
 </div>
 
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+<button class="assine">Saiba mais!</button>
+</div>
+
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+<button class="assine">Saiba mais!</button>
+    </div>
+
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição">
+    <br>
+<button class="assine">Saiba mais!</button>
+</div>
 </div>
 <br><br>
 
@@ -1043,6 +1069,9 @@ ao melhor conteúdo do streaming!</h2></p>
 </form>
 </div>
 <img class="bar-lateral" src="./assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">
+
+<img src="./assets/logo_top_color_.png" class="logo-fale">
+
 </div>
 
 <!-- Scripts adicionais -->
