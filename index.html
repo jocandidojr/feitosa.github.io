@@ -798,7 +798,9 @@ display: inline-block;
 <!-- Navbar com logotipo e menus -->
 <div class="main-navbar">
 <div class="logo">
-<img src="./assets/logo_top_color_.png" alt="Logotipo">
+    <a href="#">
+        <img src="./assets/logo_top_color_.png" alt="Logotipo">
+    </a>
 </div>
 
 <!-- Início navbar superior -->
@@ -894,7 +896,10 @@ Suporte 24/7</p>
 </div>
 <br><br>
 
-<h3>Consulte mais ofertas <b>aqui</b> ou   <button class="assine">assine agora!</button></h3>
+<h3>Consulte mais ofertas <b>aqui</b> ou
+    <a href="#planscontainer" >
+        <button class="assine">assine agora!</button></h3>
+    </a>
 
 <br><br>
 <div class="logos">
@@ -977,7 +982,7 @@ ao melhor conteúdo do streaming!</h2></p>
 
 <!-- Scripts adicionais -->
 <script>
-    
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu a, .menu .button');
     const currentPageText = document.getElementById('current-page');
