@@ -108,6 +108,11 @@
         padding: 8px 15px;
     }
 
+    .main-navbar .button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
 }
 
 /* Esconde o menu e exibe o botão de menu em telas pequenas */
@@ -180,11 +185,14 @@ display: flex;
     .main-navbar.menu-active .menu-pc a,
     .main-navbar.menu-active .menu-pc .button {
         display: block;
-        padding: 15px;
         color: #10107A;
         border: none;
         text-align: center;
     }
+    .main-navbar.menu-active .menu-pc .button {
+        color: #fff;
+    }
+
 }   
 
 /* Estilo da Seção de Slides */
@@ -368,7 +376,8 @@ text-decoration: underline;
 }
 
 .up-button:hover {
-background-color: #0056b3; /* Cor ao passar o mouse */
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 /* Estilo da nova seção de planos */
@@ -534,7 +543,7 @@ width: 100%;
     font-family: "Aller", sans-serif;
     color: #10107A;
     margin-bottom: 0;
-    font-size: 25px;
+    font-size: 30pxx;
 }
 
 .container-about h2 {
@@ -544,7 +553,7 @@ width: 100%;
 
 .container-about h3 {
     color: #10107A;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .container-about img {
@@ -559,6 +568,7 @@ width: 100%;
 .about-text {
     width: 70%;
     color: #10107A;
+    padding: 100px;
     font-family: "Aller", sans-serif;
     margin-left: auto; /* Alinha o texto à esquerda */
     text-align: justify;
