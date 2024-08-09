@@ -113,63 +113,46 @@
         background-color: #0056b3;
         transform: scale(1.10);
     }
-
 }
 
 /* Esconde o menu e exibe o botão de menu em telas pequenas */
-
 @media (max-width: 768px) {
     .main-navbar {
-    flex-direction: column;
-    padding: 10px;
+        flex-direction: row; /* Alinha o logo e o menu-toggle lado a lado */
+        justify-content: space-between; /* Espaça o logo e o menu-toggle */
+        align-items: center; /* Centraliza verticalmente */
+        padding: 10px;
     }
 
-.main-navbar .menu-pc {
-display: none;
-flex-direction: column;
-width: 100%;
-text-align: center;
-}
+    .main-navbar .menu-pc {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
 
-.main-navbar .menu-pc a {
-margin: 5px 0;
-}
+    .main-navbar .menu-pc a {
+        margin: 5px 0;
+    }
 
-.main-navbar .button {
-width: 100%;
-max-width: 200px;
-}
-}
+    .main-navbar .button {
+        width: 100%;
+        max-width: 200px;
+    }
 
-/* Exibe o menu ao clicar no botão de menu */
-
-.main-navbar.menu-active .menu-pc {
-display: flex;
-}
-
-/* Esconde o menu padrão em telas pequenas */
-.menu-pc {
-    display: none;
-}
-
-/* Estilo do menu móvel */
-.menu-toggle {
-    display: none;
-    background-color: #10107A;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 7px;
-    cursor: pointer;
-}
-.menu-toggle:hover {
-    background-color: #0056b3;
-    transform: scale(1.10); 
-}
-
-/* Exibe o menu móvel e esconde o menu padrão em telas menores */
-@media (max-width: 768px) {
     .menu-toggle {
         display: block;
+        background-color: #10107A;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 7px;
+        cursor: pointer;
+        text-align: right; /* Alinha o botão à direita */
+    }
+
+    .menu-toggle:hover {
+        background-color: #0056b3;
+        transform: scale(1.10); 
     }
 
     .main-navbar.menu-active .menu-pc {
@@ -190,10 +173,10 @@ display: flex;
         border: none;
         text-align: center;
     }
+    
     .main-navbar.menu-active .menu-pc .button {
         color: #fff;
     }
-
 }
 
 /* Fim do estilo do Menu e Menu-Toggle */
