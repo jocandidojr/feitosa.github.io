@@ -26,119 +26,117 @@
     align-items: center; /* Centraliza verticalmente */
     padding-left: 20px; /* Espaçamento à esquerda */
 }
+
 /* Estilo do Menu e Menu-Toggle */
 .main-navbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 120px;
-    width: 100%;
+    min-height: 100px;
+    max-height: 120px;
     background-color: #fff;
     color: #000;
-    position: relative; /* Necessário para o botão de menu */
+    padding: 0 10px;
+    max-width: 80%; /* Limita a largura a 80% em telas maiores */
+    margin: 0 auto; /* Centraliza o menu horizontalmente */
 }
+
 .main-navbar .logo {
     margin: 10px;
     max-height: 100px;
+    flex-shrink: 0; /* Garante que o logo não seja redimensionado */
 }
+
 .main-navbar .logo img {
-    height: auto;
     max-width: 180px;
     display: block;
 }
+
 .main-navbar .menu-pc {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Faz o menu ocupar o espaço disponível */
 }
+
 .main-navbar .menu-pc a {
     color: #10107A;
     text-decoration: none;
-    margin: 10px 20px;
-    padding: 0px 20px;
+    margin: 0 15px;
+    padding: 0 10px;
     font-size: 14px;
     line-height: 50px;
-    white-space: nowrap; /* Evita quebra de linha */
+    white-space: nowrap;
     transition: transform 0.3s ease;
 }
+
 .main-navbar .menu-pc a:hover { 
     background-color: #0056b3;
     transform: scale(1.1);
-    border: none;
-    padding: 0px 20px;
     color: white;
     border-radius: 100px;
-    display: inline-block;
 }
+
 .main-navbar .button {
-    margin-left: 0px;
     font-size: 14px;
     font-weight: bold;
     color: white;
     border: none;
     border-radius: 100px;
-    padding: 20px 30px;
+    padding: 20px 20px;
     background-color: #10107A;
     cursor: pointer;
-    display: inline-block;
-    white-space: nowrap; /* Evita quebra de linha */
     transition: transform 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha */
 }
+
 .main-navbar .button:hover {    
     background-color: #0056b3;
     transform: scale(1.1);
-    padding: 20px 30px;
-    border-radius: 100px;
 }
-@media (max-width: 480px) {
-    .main-navbar .menu-pc a {
-        font-size: 14px;
-        transition: transform 0.3s ease;
-    }
-    .main-navbar .button {
-        font-size: 14px;
-        padding: 8px 15px;
-        transition: transform 0.3s ease;
-    }
-    .main-navbar .button:hover {
-        background-color: #0056b3;
-        transform: scale(1.1);
-    }
-}
-/* Esconde o menu e exibe o botão de menu em telas pequenas */
+
+/* Ajustes para telas menores */
 @media (max-width: 768px) {
     .main-navbar {
         flex-direction: row;
         justify-content: space-between;
-        padding: 10px;
+        max-width: 100%; /* Remove limite de 80% em telas menores */
     }
+
     .main-navbar .menu-pc {
         display: none;
         flex-direction: column;
         width: 100%;
         text-align: center;
     }
+
     .main-navbar .menu-pc a {
         margin: 5px 0;
     }
+
     .main-navbar .button {
         width: 100%;
         max-width: 200px;
     }
-    .main-navbar .logo {
-        flex-grow: 1;
-    }
+
     .menu-toggle {
         display: block;
     }
 }
+
+@media (max-width: 480px) {
+    .main-navbar .menu-pc a,
+    .main-navbar .button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
 /* Exibe o menu ao clicar no botão de menu */
 .main-navbar.menu-active .menu-pc {
     display: flex;
 }
-/* Esconde o menu padrão em telas pequenas */
-.menu-pc {
-    display: none;
-}
+
 /* Estilo do menu móvel */
 .menu-toggle {
     display: none;
@@ -147,18 +145,20 @@
     padding: 10px 20px;
     border-radius: 7px;
     cursor: pointer;
-    margin-left: auto; /* Move o botão para a direita */
+    margin-left: auto;
     transition: transform 0.3s ease;
 }
+
 .menu-toggle:hover {
     background-color: #0056b3;
     transform: scale(1.1); 
 }
-/* Exibe o menu móvel e esconde o menu padrão em telas menores */
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
     }
+
     .main-navbar.menu-active .menu-pc {
         display: flex;
         flex-direction: column;
@@ -169,6 +169,7 @@
         background-color: #fff;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
+
     .main-navbar.menu-active .menu-pc a,
     .main-navbar.menu-active .menu-pc .button {
         display: block;
@@ -176,11 +177,15 @@
         border: none;
         text-align: center;
     }
+
     .main-navbar.menu-active .menu-pc .button {
         color: #fff;
     }
 }
+
 /* Fim do estilo do Menu e Menu-Toggle */
+
+    
 /* Estilos gerais para a seção de slideshow */
 .slideshow {
     position: relative;
@@ -705,6 +710,7 @@ width: 100%;
 <div class="top-navbar">
 <span id="current-page">Você está aqui:</span>
 </div>
+
 <!-- Navbar com logotipo e menus -->
 <div class="main-navbar">
 <div class="logo">
@@ -712,17 +718,23 @@ width: 100%;
         <img src="./assets/logo_top_color_.png" alt="Logotipo">
     </a>
 </div>
-<!-- Início navbar superior -->
+
 <div class="menu-toggle">☰ Menu</div>
 <div class="menu-pc">
+
 <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
 <a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
 <a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
 <a href="#container-about" data-page="Sobre nós">QUEM SOMOS</a>
 <button href="#auto-atendimento" class="button" data-page="Área cliente">ÁREA DO CLIENTE</button>
+
 </div>
 </div>
+
+<!-- Fim da navbar superior -->
+
 <!-- Início da Seção Slide Show -->
+
 <div class="slideshow" id="slideshow">
         <div class="slide-pc">
         <img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide-pc" style="display: block;">
@@ -908,7 +920,8 @@ Suporte 24/7</p>
 <img src="./assets/logo_top_color_.png" class="logo-fale" alt="logo-fale">
 
 </div>
-<!-- Scripts adicionais -->
+
+<!-- Scripts -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu a, .menu .button');
