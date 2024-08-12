@@ -490,14 +490,14 @@ width: 100%;
     left: 0; /* Alinha a imagem à esquerda da página */
     top: 50%; /* Centraliza verticalmente a imagem */
     transform: translateY(-50%); /* Ajusta para a centralização exata */
-    max-height: 100%;
+    max-width: 100%;
     z-index: 1; /* Garante que a imagem fique acima do conteúdo principal */
 }
 .container-about {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 768px;
+    height: auto;
     padding: 0;
     text-align: justify;
     position: relative; /* Necessário para posicionar a imagem relativa ao container */
@@ -520,7 +520,7 @@ width: 100%;
     background-image: linear-gradient(to right, #246ECC, #1515A3);
     border-bottom-right-radius: 300%;
     border-top-right-radius: 300%;
-    max-height: 100%;
+    height: auto;
     max-width: 50%; /* Limita a largura da imagem a 50% */
     margin-left: auto; /* Empurra a imagem para a direita */
 }
