@@ -108,8 +108,7 @@
 
             #formContainer {
                 position: fixed;
-                max-width: 440px;
-                width: 100%;
+                width: 450px;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
@@ -119,12 +118,19 @@
                 justify-content: center;
                 padding: 50px;
                 border-radius: 8px;
-                text-align: right;
+                text-align: center;
+            }
+            #formContainer img{
+                width: 200px;
             }
             
             #formContainer h3{
                 font-size: 12px;
                 font-size:x-small;
+            }
+
+            #formContainer h1 {
+                font-size: 25px;
             }
 
             .inputUser {
@@ -222,9 +228,10 @@
         <div class="container-atm" id="container-atm">
 
             <div class="formContainer" id="formContainer">
-                <h1>Área do Cliente</h1>
+                <img src="./assets/logo_vertical_feitosa_white_.png" alt="Logotipo">                
                 <br>
                 <form id="cpfForm">
+                    <h1>Central do Assinante</h1>
                     <div class="inputBox">
                         <input type="text" id="cpf" name="cpf" class="inputUser" required>
                         <label for="cpf" class="labelinput">Digite o CPF ou CNPJ:</label>
