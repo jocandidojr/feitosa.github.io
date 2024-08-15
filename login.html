@@ -243,7 +243,8 @@
             }
 
             li {
-                border: 1px solid #ccc; /* Cor da borda */
+                border: 2px solid #10107A; /* Cor da borda */
+                border-radius: 10px;
                 padding: 10px;
                 margin-bottom: 10px;
             }
@@ -255,7 +256,7 @@
                 }
 
                 li {
-                    border: 1px solid #ccc; /* Cor da borda */
+                    border: 2px solid #10107A; /* Cor da borda */
                     padding: 10px;
                     margin-bottom: 10px;
                 }
@@ -510,7 +511,8 @@
                 
                         const boletoContent = document.getElementById('boletoContent');
                         if (data.registros && data.registros.length > 0) {
-                            boletoContent.innerHTML = '<ul>' + data.registros.map(boleto => `<li class="textoModal">
+                            const resultadosLimitados = data.registros.slice(0, 6);
+                            boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => `<li class="textoModal">
                     <h4>
                         <span>Código:</span> ${boleto.id} &ndash; 
                         <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
@@ -678,8 +680,13 @@
                         console.log(data.registros);
                 
                         const ossContent = document.getElementById('ossContent');
+
                         if (data.registros && data.registros.length > 0) {
-                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li class="textoModal">
+                            // Limita o número de registros a 5
+                            const resultadosLimitados = data.registros.slice(0, 5);
+
+                            // Gera o HTML para os registros limitados
+                            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `<li class="textoModal">
                 <h4>
                     <span>Chamado:</span> ${oss.id} -
                     <span>Protocolo:</span> ${oss.protocolo} -
