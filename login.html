@@ -229,6 +229,19 @@
                 display: block;
             }
 
+            .textoModal h4 {
+                margin: 0; /* Remove a margem padrão do h4 */
+                padding: 0; /* Remove o preenchimento padrão do h4 */
+            }
+
+            .textoModal span {
+                display: inline; /* Garante que o span não quebre a linha */
+            }
+
+            .textoModal a {
+                display: inline; /* Garante que o link não quebre a linha */
+            }
+
             li {
                 border: 1px solid #ccc; /* Cor da borda */
                 padding: 10px;
@@ -497,7 +510,14 @@
                 
                         const boletoContent = document.getElementById('boletoContent');
                         if (data.registros && data.registros.length > 0) {
-                            boletoContent.innerHTML = '<ul>' + data.registros.map(boleto => `<li>Código: ${boleto.id} - Venc.: ${boleto.data_vencimento} - Valor: ${boleto.valor} - Fatura: <a href="${boleto.gateway_link}" target="_blank">Baixe aqui</a></li>`).join('') + '</ul>';
+                            boletoContent.innerHTML = '<ul>' + data.registros.map(boleto => `<li class="textoModal">
+                    <h4>
+                        <span>Código:</span> ${boleto.id} &ndash; 
+                        <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
+                        <span>Valor:</span> ${boleto.valor} &ndash; 
+                        <span>Fatura:</span> <a href="${boleto.gateway_link}" target="_blank">Baixe aqui</a>
+                    </h4>
+                </li>`).join('') + '</ul>';
                         } else {
                             boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
                         }
@@ -661,9 +681,9 @@
                         if (data.registros && data.registros.length > 0) {
                             ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li class="textoModal">
                 <h4>
-                    <span>Chamado:</span> ${oss.id}<br>
-                    <span>Protocolo:</span> ${oss.protocolo}<br>
-                    <span>Endereço:</span> ${oss.endereco}<br>
+                    <span>Chamado:</span> ${oss.id} -
+                    <span>Protocolo:</span> ${oss.protocolo} -
+                    <span>Endereço:</span> ${oss.endereco} -
                     <span>Mensagem:</span> ${oss.mensagem}
                 </h4>
             </li>`).join('') + '</ul>';
