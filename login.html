@@ -652,56 +652,58 @@
                     }
                 }
                 
-                // Função para buscar OSS
-                async function buscarOss() {
-                    try {
-                        console.log("Fazendo requisição para o servidor proxy...");
-                
-                        const clienteId = localStorage.getItem('clienteId');
-                
-                        if (!clienteId) {
-                            console.error('Cliente com o id não encontrado');
-                            return;
-                        }
-                
-                        const response = await fetch('http://localhost:3000/proxy/oss', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ clienteId })
-                        });
-                
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição");
-                        }
-                
-                        const data = await response.json();
-                        console.log(data.registros);
-                
-                        const ossContent = document.getElementById('ossContent');
+// Função para buscar OSS
+async function buscarOss() {
+    try {
+        console.log("Fazendo requisição para o servidor proxy...");
 
-                        if (data.registros && data.registros.length > 0) {
-                            // Limita o número de registros a 5
-                            const resultadosLimitados = data.registros.slice(0, 5);
+        const clienteId = localStorage.getItem('clienteId');
 
-                            // Gera o HTML para os registros limitados
-                            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `<li class="textoModal">
-                <h4>
-                    <span>Chamado:</span> ${oss.id} -
-                    <span>Protocolo:</span> ${oss.protocolo} -
-                    <span>Endereço:</span> ${oss.endereco} -
-                    <span>Mensagem:</span> ${oss.mensagem}
-                </h4>
-            </li>`).join('') + '</ul>';
-                        } else {
-                            ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
-                        }
-                
-                    } catch (error) {
-                        console.error("Erro ao buscar OSS:", error.message);
-                    }
-                }
+        if (!clienteId) {
+            console.error('Cliente com o id não encontrado');
+            return;
+        }
+
+        const response = await fetch('http://localhost:3000/proxy/oss', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        const ossContent = document.getElementById('ossContent');
+
+        if (data && data.length > 0) {
+            // Limita o número de registros a 5
+            const resultadosLimitados = data.slice(0, 5);
+
+            // Gera o HTML para os registros limitados
+            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `
+                <li class="textoModal">
+                    <h4>
+                        <span>Chamado:</span> ${oss.id} -
+                        <span>Protocolo:</span> ${oss.protocolo} -
+                        <span>Endereço:</span> ${oss.endereco} -
+                        <span>Mensagem:</span> ${oss.mensagem}
+                    </h4>
+                </li>`).join('') + '</ul>';
+        } else {
+            ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
+        }
+
+    } catch (error) {
+        console.error("Erro ao buscar OSS:", error.message);
+    }
+}
+
                 
                 // Fecha o modal quando o usuário clica no X
                 const span = document.querySelector('.close');
