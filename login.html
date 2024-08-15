@@ -218,6 +218,35 @@
                 cursor: pointer;
                 
             }
+
+            .textoModal {
+                font-size: 12px;
+                line-height: 1.5;
+            }
+
+            .textoModal span {
+                font-size: 10px;
+                display: block;
+            }
+
+            li {
+                border: 1px solid #ccc; /* Cor da borda */
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                    list-style-type: none; /* Remove os pontos dos itens da lista */
+                    padding: 0; /* Remove o padding padrão do <ul> */
+                    margin: 0; /* Remove a margin padrão do <ul> */
+                }
+
+                li {
+                    border: 1px solid #ccc; /* Cor da borda */
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
+
         </style>    
     </head>
     <body>
@@ -630,11 +659,14 @@
                 
                         const ossContent = document.getElementById('ossContent');
                         if (data.registros && data.registros.length > 0) {
-                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<p>Chamado: ${oss.id}</p>
-                                                                                        <p>Protocolo: ${oss.protocolo}</p>
-                                                                                        <p>Tipo: ${contrato.contrato}</p>
-                                                                                        <p>Endereço: ${oss.endereco}</p>
-                                                                                        <p>Mensagem: ${oss.mensagem}</p>`).join('') + '</ul>';
+                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li class="textoModal">
+                <h4>
+                    <span>Chamado:</span> ${oss.id}<br>
+                    <span>Protocolo:</span> ${oss.protocolo}<br>
+                    <span>Endereço:</span> ${oss.endereco}<br>
+                    <span>Mensagem:</span> ${oss.mensagem}
+                </h4>
+            </li>`).join('') + '</ul>';
                         } else {
                             ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
                         }
