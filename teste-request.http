@@ -1,9 +1,0 @@
-PUT https://feitosatelecom.com.br/webservice/v1/cliente_contrato/29
-Content-Type: application/json
-Authorization: `Basic ${Buffer.from(token).toString('base64')}`
-
-{
-    "desbloqueio_confianca": "S",
-    "desbloqueio_confianca_ativo": "N",
-    "restricao_auto_desbloqueio": "N"
-}
