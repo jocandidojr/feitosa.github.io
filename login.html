@@ -1,0 +1,590 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Área do Cliente</title>
+
+        <style>
+            /* Reset básico */
+            * {
+                font-family: "Aller", Helvetica, sans-serif;
+                padding: 0;
+                box-sizing: border-box;
+                height: auto;
+            }
+
+            /* Navbar superior */
+            .top-navbar {
+                background-image: linear-gradient(to right, #246ECC, #1515A3);
+                font-size: 10px;
+                justify-content: right;
+                height: 50px;
+                margin: 0;
+                color: white;
+                display: flex; /* Para centralizar o conteúdo */
+                display: none; /* Oculta a top-navbar por padrão */
+            }
+            .top-navbar.show {
+                display: flex; /* Exibe a top-navbar quando a classe show é adicionada */
+            }
+            .top-navbar button {
+                border: none;
+                padding: 10px;
+                color: white;
+                background-color: #10107A;
+            }
+
+            .container-atm, .formContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+            
+            .auto-atendimento {
+                display: none; /* Oculta a div auto-atendimento inicialmente */
+                color: #10107A;
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                max-width: 700px;
+                gap: 20px;
+                padding: 70px;
+                border-radius: 8px;
+                text-align: center;
+            }
+            .auto-atendimento h1 {
+                font-size: 30px;    
+                text-align: center;
+                display: flex;
+                justify-content: center;
+            }
+            .auto-atendimento img {
+                width: 150px;
+                height: auto;
+                margin: 5px;
+                background-color: #10107A;
+                border-radius: 8px;
+                padding: 25px 25px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+            .auto-atendimento img:hover {
+                transform: scale(1.1);
+            }
+
+            .auto-atendimento button {
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            .auto-atendimento button img {
+                display: block;
+                width: 150px; /* Altere conforme necessário */
+                height: auto; /* Mantém a proporção da imagem */
+                transition: transform 0.3s ease;
+                margin: 0 auto; /* Centraliza as imagens dentro dos botões */
+            }
+
+            .auto-atendimento button:hover img {
+                transform: scale(1.1);
+            }
+
+            .button-central {
+                margin: 20px;
+                padding: 10px 20px;
+                background-color: #10107A;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .button-central:hover {
+                background-color: #08085D;
+            }
+
+            #formContainer {
+                display: none; /* Oculta o formulário inicialmente */
+                width: 400px;
+                color: #fff;
+                background-color: #10107A;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            /* Estilos do Modal */
+            .modal {
+                display: none; /* Oculta o modal inicialmente */
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 30%;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.4);
+                justify-content: center;
+                align-items: center;
+            }
+            .modal-content {
+                background-color: #fefefe;
+                color: #10107A;
+                margin: auto;
+                font-size: 20px;
+                padding: 20px;
+                border: none;
+                border-radius: 30px;
+                width: 80%;
+                max-width: 600px;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="top-navbar" id="top-navbar">
+            <button class="logoutbutton">Sair</button>
+        </div>
+
+        <div class="container-atm" id="container-atm">
+
+            <button id="openForm" class="button-central">ÁREA DO CLIENTE</button>
+
+            <div class="formContainer" id="formContainer">
+                <h1>Área do Cliente</h1>
+                <br>
+                <form id="cpfForm">
+                    <label for="cpf">Digite o CPF ou CNPJ:</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                    <input type="text" id="pass-hidden" name="pass-hidden" placeholder="000.000.000-00" required>
+                    <!--<input type="text" id="pass" name="pass" placeholder="******" required>-->
+                    <button type="submit">Login</button>
+                </form>
+                <div id="result">
+                    <!-- O resultado da busca será exibido aqui -->
+                </div>
+            </div>
+
+            <div class="auto-atendimento" id="auto-atendimento">          
+
+                <div>
+                    <h1>Serviços disponíveis para você.</h1>
+                    <br>
+                    <button data-page="Contrato">
+                        <img src="./assets/a_contrato_.png" alt="Contrato">
+                    </button>
+                    
+                    <button data-page="Boleto">
+                        <img src="./assets/a_boleto_.png" alt="Boleto">
+                    </button>
+
+                    <button data-page="libera">
+                        <img src="./assets/a_desbloqueio_.png" alt="libera">
+                    </button>
+
+                    <button data-page="Oss">
+                        <img src="./assets/a_suporte_.png" alt="Oss">
+                    </button>
+
+                    <button data-page="Cadastro">
+                        <img src="./assets/a_cadastro_.png" alt="Cadastro">
+                    </button>
+
+                    <button data-page="Outros">
+                        <img src="./assets/a_outros_.png" alt="Outros">
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Modal -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">Fechar &times;</span>
+                    
+                    <div id="boletoContent">                    
+                        <!-- O conteúdo do boleto será exibido aqui -->
+                    </div>
+                    <div id="contratoContent">
+                        <!-- O conteúdo do boleto será exibido aqui -->
+                    </div>
+                    <div id="ossContent">
+                        <!-- O conteúdo do boleto será exibido aqui -->
+                    </div>
+                    <div id="bloqueioContent">
+                        <!-- O conteúdo do boleto será exibido aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttons = document.querySelectorAll('.auto-atendimento button');
+                const formContainer = document.getElementById('formContainer');
+                const autoAtendimento = document.getElementById('auto-atendimento');
+                const modal = document.getElementById('myModal');
+                const span = document.querySelector('.close');
+                const topNavbar = document.getElementById('top-navbar');
+
+                // Exibe o formulário ao clicar no botão
+                const openFormButton = document.getElementById('openForm');
+                if (openFormButton) {
+                    openFormButton.addEventListener('click', () => {
+                        formContainer.style.display = 'block';
+                        openFormButton.style.display = 'none';
+                    });
+                }
+                           
+                // Função para buscar dados do cliente
+                async function buscarClientes(cpf) {
+                    try {
+                        console.log("Fazendo requisição para o servidor proxy...");
+                
+                        const response = await fetch('http://localhost:3000/proxy/cliente', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                qtype: "cnpj_cpf",
+                                query: cpf,
+                                oper: "=",
+                                page: "1",
+                                rp: "20",
+                                sortname: "cliente.id",
+                                sortorder: "desc",
+                            })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição");
+                        }
+                
+                        const data = await response.json();
+                        const cliente = data.registros ? data.registros[0] : null;
+                        const clienteId = cliente ? cliente.id : null;
+                
+                        if (clienteId) {
+                            localStorage.setItem("clienteId", clienteId);
+                            exibirResultado(cliente);
+                            // Oculta o formulário após validação
+                            formContainer.style.display = 'none';
+                            // Exibe a top-navbar após login
+                            topNavbar.classList.add('show');
+                        } else {
+                            exibirResultado(null);
+                        }
+                    } catch (error) {
+                        console.error("Erro ao buscar clientes:", error.message);
+                    }
+                }
+                
+                // Função para exibir o resultado da busca
+                function exibirResultado(cliente) {
+                    const resultDiv = document.getElementById("result");
+                
+                    if (cliente) {
+                        resultDiv.innerHTML = `<h2>Encontrei! Boas vindas, ${cliente.razao}!</h2>`;
+                        autoAtendimento.style.display = 'flex';
+                    } else {
+                        resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
+                        autoAtendimento.style.display = 'none';
+                    }
+                }
+                
+                // Adiciona o listener ao formulário
+                const cpfForm = document.getElementById("cpfForm");
+                if (cpfForm) {
+                    cpfForm.addEventListener("submit", function(event) {
+                        event.preventDefault();
+                        const cpf = document.getElementById("cpf").value;
+                        buscarClientes(cpf);
+                    });
+                }
+                
+                // Adiciona o listener aos botões da auto-atendimento
+                buttons.forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const page = button.getAttribute('data-page');
+                        if (page) {
+                            modal.style.display = "block";
+                            if (page === 'Boleto') {
+                                await buscarBoletos();
+                            } else if (page === 'Contrato') {
+                                await buscarContratos();
+                            } else if (page === 'Oss') {
+                                await buscarOss();
+                            } else if (page === 'libera') {
+                                await editarContratos();
+                            }
+                        }
+                    });
+                });
+                
+                // Função para buscar boletos
+                async function buscarBoletos() {
+                    try {
+                        console.log("Fazendo requisição para o servidor proxy...");
+                
+                        const clienteId = localStorage.getItem('clienteId');
+                
+                        if (!clienteId) {
+                            console.error('Cliente com o id não encontrado');
+                            return;
+                        }
+                
+                        const response = await fetch('http://localhost:3000/proxy/boletos', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ clienteId })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição");
+                        }
+                
+                        const data = await response.json();
+                        console.log(data.registros);
+                
+                        const boletoContent = document.getElementById('boletoContent');
+                        if (data.registros && data.registros.length > 0) {
+                            boletoContent.innerHTML = '<ul>' + data.registros.map(boleto => `<li>Código: ${boleto.id} - Venc.: ${boleto.data_vencimento} - Valor: ${boleto.valor} - Fatura: <a href="${boleto.gateway_link}" target="_blank">Baixe aqui</a></li>`).join('') + '</ul>';
+                        } else {
+                            boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
+                        }
+                
+                    } catch (error) {
+                        console.error("Erro ao buscar boletos:", error.message);
+                    }
+                }
+                
+                // Função para buscar contratos
+                async function buscarContratos() {
+                    try {
+                        console.log("Fazendo requisição para o servidor proxy...");
+                
+                        const clienteId = localStorage.getItem('clienteId');
+                
+                        if (!clienteId) {
+                            console.error('Cliente com o id não encontrado');
+                            return;
+                        }
+                
+                        const response = await fetch('http://localhost:3000/proxy/contratos', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                qtype: "id_cliente",
+                                query: clienteId,
+                                oper: "=",
+                                page: "1",
+                                rp: "20",
+                                sortname: "cliente_contrato.id",
+                                sortorder: "desc",
+                            })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição");
+                        }
+                
+                        const data = await response.json();
+                        console.log(data.registros);
+                
+                        const contratoContent = document.getElementById('contratoContent');
+                        if (data.registros && data.registros.length > 0) {
+                            contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<li>ID: ${contrato.id} - Data Início: ${contrato.data_inicio} - Data Fim: ${contrato.data_fim} - Valor: ${contrato.valor}</li>`).join('') + '</ul>';
+                        } else {
+                            contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
+                        }
+                
+                    } catch (error) {
+                        console.error("Erro ao buscar contratos:", error.message);
+                    }
+                }
+                
+                // Função para editar contratos
+                async function editarContratos() {
+                    try {
+                        console.log("Fazendo requisição para editar contratos...");
+                
+                        const clienteId = localStorage.getItem('clienteId');
+                
+                        if (!clienteId) {
+                            console.error('Cliente com o id não encontrado');
+                            return;
+                        }
+                
+                        const response = await fetch('http://localhost:3000/proxy/contratos', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                qtype: "id_cliente",
+                                query: clienteId,
+                                oper: "=",
+                                page: "1",
+                                rp: "20",
+                                sortname: "cliente_contrato.id",
+                                sortorder: "desc",
+                            })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição");
+                        }
+                
+                        const data = await response.json();
+                        console.log(data.registros);
+                
+                        const contratoContent = document.getElementById('contratoContent');
+                        if (data.registros && data.registros.length > 0) {
+                            const contrato = data.registros[0]; // Pegando o primeiro contrato como exemplo
+                            
+                            // Verifica o status_internet e altera desbloqueio_confiança se necessário
+                            if (['CA', 'CM'].includes(contrato.status_internet)) {
+                                console.log("Status de internet é CA ou CM, atualizando desbloqueio_confiança...");
+                
+                                // Atualiza o contrato com desbloqueio_confiança alterado para "S"
+                                const updateResponse = await fetch('http://localhost:3000/proxy/editar-contrato', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        id: contrato.id,
+                                        desbloqueio_confianca: 'S',
+                                    })
+                                });
+                
+                                if (!updateResponse.ok) {
+                                    throw new Error("Erro ao atualizar contrato");
+                                }
+                
+                                contratoContent.innerHTML = '<p>Desbloqueio de confiança realizado com sucesso!</p>';
+                            } else {
+                                contratoContent.innerHTML = '<p>Status de internet não requer atualização do desbloqueio de confiança.</p>';
+                            }
+                        } else {
+                            contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
+                        }
+                
+                    } catch (error) {
+                        console.error("Erro ao editar contratos:", error.message);
+                    }
+                }
+                
+                // Função para buscar OSS
+                async function buscarOss() {
+                    try {
+                        console.log("Fazendo requisição para o servidor proxy...");
+                
+                        const clienteId = localStorage.getItem('clienteId');
+                
+                        if (!clienteId) {
+                            console.error('Cliente com o id não encontrado');
+                            return;
+                        }
+                
+                        const response = await fetch('http://localhost:3000/proxy/oss', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                qtype: "cliente_id",
+                                query: clienteId,
+                                oper: "=",
+                                page: "1",
+                                rp: "20",
+                                sortname: "oss_chamado.id",
+                                sortorder: "desc",
+                            })
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição");
+                        }
+                
+                        const data = await response.json();
+                        console.log(data.registros);
+                
+                        const ossContent = document.getElementById('ossContent');
+                        if (data.registros && data.registros.length > 0) {
+                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li>ID: ${oss.id} - Status: ${oss.status} - Título: ${oss.titulo}</li>`).join('') + '</ul>';
+                        } else {
+                            ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
+                        }
+                
+                    } catch (error) {
+                        console.error("Erro ao buscar OSS:", error.message);
+                    }
+                }
+                
+                // Função para fazer logout
+                function logout() {
+                    localStorage.removeItem('clienteId');
+                    window.location.href = '/login'; // Redireciona para a tela de login
+                }
+                
+                // Adiciona o listener ao botão de logout
+                const logoutButton = document.getElementById('logoutbutton');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', logout);
+                }
+                
+                // Fecha o modal ao clicar no "X"
+                span.addEventListener('click', () => {
+                    modal.style.display = "none";
+                });
+
+                // Fecha o modal ao clicar fora dele
+                window.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            });
+
+            // Função para fazer logout
+                function logout() {
+                    localStorage.removeItem('clienteId');
+                    window.location.href = '/'; // Redireciona para a página inicial
+                }
+
+                // Adiciona o listener ao botão de logout
+                document.addEventListener('DOMContentLoaded', () => {
+                    const logoutButton = document.querySelector('.logoutbutton');
+                    if (logoutButton) {
+                        logoutButton.addEventListener('click', logout);
+                    }
+                });
+
+        </script>      
+        
+    </body>
+    </html>

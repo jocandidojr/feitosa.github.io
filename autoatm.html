@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feitosa Telecom - Em construção...</title>
+<link rel="icon" href="./assets/ico.png" type="image/png">
+<!--<link rel="preload" href="path/to/stylesheet.css" as="style">-->
+
+<style>
+/* Reset básico */
+* {
+    font-family: "Aller", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.atm-container  {    
+    background-image: url("./assets/bg-auto_.png");
+}
+.auto-atendimento {
+    display: flex;
+    color: #10107A;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 700px;
+    gap: 20px;
+    padding: 70px;
+    border-radius: 8px;
+    text-align: center;
+}
+.auto-atendimento h1 {
+    font-size: 34px;    
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.auto-atendimento img {
+    width: 150px;
+    height: auto;
+    margin: 5px;
+    background-color: #10107A;
+    border-radius: 8px;
+    padding: 25px 25px;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+.auto-atendimento img:hover {
+    transform: scale(1.1);
+}
+/* Estilo da Seção Fale conosco */
+.fale-conosco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 768px;
+    padding: 0;
+    text-align: left;
+}
+
+</style>
+</head>
+<body>
+<!-- Início Container de Autoatendimento --> 
+
+<div class="atm-container" id="atm-container">
+
+    <div class="auto-atendimento" id="auto-atendimento">
+        <div>
+        <h1>Autoatendimento para clientes</h1>
+        <p>Selecione o serviço desejado.</p>
+        <br>
+        <img src="./assets/a_cadastro_.png" alt="BCadastro">
+        <img src="./assets/a_boleto_.png" alt="BBoleto">
+        <img src="./assets/a_cartao_.png" alt="BCartao">
+        <img src="./assets/a_plano_.png" alt="BPlano">
+        <img src="./assets/a_suporte_.png" alt="BSuporte">
+        <img src="./assets/a_outros_.png" alt="BOutros">
+        </div>
+    </div>
+    
+    <h1>Buscar Cliente</h1>
+    <form id="cpfForm">
+      <label for="cpf">Digite o CPF:</label>
+      <input type="text" id="cpf" name="cpf" placeholder="029.535.834-32" required>
+      <button type="submit">Buscar</button>
+    </form>
+  
+    <div id="result">
+      <!-- O resultado da busca será exibido aqui -->
+    </div>
+
+<!-- Scripts adicionais -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.auto-atendimento img');
+    const modal = document.getElementById('formModal');
+    const closeBtn = document.querySelector('.close');
+
+    images.forEach(img => {
+        img.addEventListener('click', () => {
+            // Verifica se a imagem clicada tem o data-page igual a "Suporte"
+            if (img.getAttribute('data-page') === 'Suporte') {
+                modal.style.display = 'block'; // Abre o modal
+            }
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none'; // Fecha o modal
+    });
+
+    // Fecha o modal se o usuário clicar fora do conteúdo
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+async function buscarClientes(cpf) {
+    try {
+        console.log("Fazendo requisição para o servidor proxy...");
+
+        const response = await fetch('http://localhost:3000/proxy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                qtype: "cnpj_cpf",
+                query: cpf,
+                oper: "=",
+                page: "1",
+                rp: "20",
+                sortname: "cliente.id",
+                sortorder: "desc",
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        const cliente = data.registros ? data.registros[0] : null;
+        const clienteId = cliente ? cliente.id : null;
+
+        if (clienteId) {
+            localStorage.setItem("clienteId", clienteId);
+            exibirResultado(cliente);
+        } else {
+            exibirResultado(null);
+        }
+    } catch (error) {
+        console.error("Erro ao buscar clientes:", error.message);
+    }
+}
+
+function exibirResultado(cliente) {
+    const resultDiv = document.getElementById("result");
+    const autoModal = document.getElementById("auto-modal");
+
+    if (cliente) {
+        resultDiv.innerHTML = `
+            <h2>Cliente encontrado! O que deseja fazer agora?</h2>
+        `;
+        autoModal.style.display = 'flex'; // Exibe a div auto-modal
+    } else {
+        resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
+        autoModal.style.display = 'none'; // Oculta a div auto-modal
+    }
+}
+
+document.getElementById("cpfForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const cpf = document.getElementById("cpf").value;
+    buscarClientes(cpf);
+});
+</script>
+</body>
+</html>
