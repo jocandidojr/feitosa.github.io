@@ -285,7 +285,19 @@
                 const modal = document.getElementById('myModal');
                 const span = document.querySelector('.close');
                 const topNavbar = document.getElementById('top-navbar');
-
+                
+                // Função para fazer logout
+                function logout() {
+                    localStorage.removeItem('clienteId');
+                    window.location.href = '/index.html'; // Redireciona para a tela de login
+                }
+                
+                // Adiciona o listener ao botão de logout
+                const logoutButton = document.querySelector('.logoutbutton');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', logout);
+                }
+                
                 // Exibe o formulário ao clicar no botão
                 const openFormButton = document.getElementById('openForm');
                 if (openFormButton) {
@@ -294,7 +306,7 @@
                         openFormButton.style.display = 'none';
                     });
                 }
-                           
+                
                 // Função para buscar dados do cliente
                 async function buscarClientes(cpf) {
                     try {
@@ -526,9 +538,12 @@
                                     throw new Error("Erro ao atualizar contrato");
                                 }
                 
-                                contratoContent.innerHTML = '<p>Desbloqueio de confiança realizado com sucesso!</p>';
+                                const updatedData = await updateResponse.json();
+                                console.log(updatedData);
+                
+                                contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<li>ID: ${contrato.id} - Data Início: ${contrato.data_inicio} - Data Fim: ${contrato.data_fim} - Valor: ${contrato.valor}</li>`).join('') + '</ul>';
                             } else {
-                                contratoContent.innerHTML = '<p>Status de internet não requer atualização do desbloqueio de confiança.</p>';
+                                contratoContent.innerHTML = '<p>Não é necessário atualizar desbloqueio_confiança.</p>';
                             }
                         } else {
                             contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
@@ -556,15 +571,7 @@
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({
-                                qtype: "cliente_id",
-                                query: clienteId,
-                                oper: "=",
-                                page: "1",
-                                rp: "20",
-                                sortname: "oss_chamado.id",
-                                sortorder: "desc",
-                            })
+                            body: JSON.stringify({ clienteId })
                         });
                 
                         if (!response.ok) {
@@ -576,7 +583,7 @@
                 
                         const ossContent = document.getElementById('ossContent');
                         if (data.registros && data.registros.length > 0) {
-                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li>ID: ${oss.id} - Status: ${oss.status} - Título: ${oss.titulo}</li>`).join('') + '</ul>';
+                            ossContent.innerHTML = '<ul>' + data.registros.map(oss => `<li>ID: ${oss.id} - Data: ${oss.data} - Descrição: ${oss.descricao}</li>`).join('') + '</ul>';
                         } else {
                             ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
                         }
@@ -586,45 +593,20 @@
                     }
                 }
                 
-                // Função para fazer logout
-                function logout() {
-                    localStorage.removeItem('clienteId');
-                    window.location.href = '/login'; // Redireciona para a tela de login
+                // Fecha o modal quando o usuário clica no X
+                if (span) {
+                    span.addEventListener('click', () => {
+                        modal.style.display = 'none';
+                    });
                 }
                 
-                // Adiciona o listener ao botão de logout
-                const logoutButton = document.getElementById('logoutbutton');
-                if (logoutButton) {
-                    logoutButton.addEventListener('click', logout);
-                }
-                
-                // Fecha o modal ao clicar no "X"
-                span.addEventListener('click', () => {
-                    modal.style.display = "none";
-                });
-
-                // Fecha o modal ao clicar fora dele
+                // Fecha o modal quando o usuário clica fora dele
                 window.addEventListener('click', (event) => {
                     if (event.target === modal) {
-                        modal.style.display = "none";
+                        modal.style.display = 'none';
                     }
                 });
             });
-
-            // Função para fazer logout
-                function logout() {
-                    localStorage.removeItem('clienteId');
-                    window.location.href = '/'; // Redireciona para a página inicial
-                }
-
-                // Adiciona o listener ao botão de logout
-                document.addEventListener('DOMContentLoaded', () => {
-                    const logoutButton = document.querySelector('.logoutbutton');
-                    if (logoutButton) {
-                        logoutButton.addEventListener('click', logout);
-                    }
-                });
-
         </script>      
         
     </body>
