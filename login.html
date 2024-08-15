@@ -7,11 +7,12 @@
 
         <style>
             /* Reset básico */
-            * {
+            body {
                 font-family: "Aller", Helvetica, sans-serif;
                 padding: 0;
                 box-sizing: border-box;
                 height: auto;
+                margin: 0;
             }
 
             /* Navbar superior */
@@ -32,7 +33,7 @@
                 border: none;
                 border-radius: 50px;
                 margin-right: 20px;
-                padding: 10px;
+                padding: 10px 15px; 
                 width: 80px;
                 color: white;
                 background-color: #10107A;
@@ -59,12 +60,12 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                max-width: 700px;
+                max-width: 650px;
                 gap: 20px;
-                padding: 70px;
                 border-radius: 8px;
                 text-align: center;
             }
+
             .auto-atendimento h1 {
                 font-size: 30px;    
                 text-align: center;
@@ -248,7 +249,7 @@
 
             <div class="auto-atendimento" id="auto-atendimento">          
 
-                <div>
+                <div>                    
                     <h1>Serviços disponíveis para você.</h1>
                     <br>
                     <button data-page="Contrato">
