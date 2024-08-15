@@ -95,21 +95,13 @@
                 transform: scale(1.1);
             }
 
-            .button-central {
-                margin: 20px;
-                padding: 10px 20px;
-                background-color: #10107A;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .button-central:hover {
-                background-color: #08085D;
-            }
-
             #formContainer {
-                display: none; /* Oculta o formulário inicialmente */
+                position: fixed;
+                max-width: 440px;
+                width: 100%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 width: 400px;
                 color: #fff;
                 background-color: #10107A;
@@ -117,6 +109,49 @@
                 justify-content: center;
                 padding: 20px;
                 border-radius: 8px;
+            }
+
+            .inputUser {
+                background: none;
+                border: none;
+                border-bottom: 1px solid white;
+                outline: none;
+                color: white;
+                font-size: 15px;
+                width: 100%;
+                letter-spacing: 2px;
+            }
+
+            .inputBox{
+                    position: relative;
+            }
+            
+            .labelinput {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                pointer-events: none;
+                transition: .5s;
+            }
+            .inputUser:focus ~ .labelinput,
+            .inputUser:valid ~ .labelinput{
+                top: -20px;
+                font-size: 12px;    
+                color: dodgerblue;        
+            }
+
+            .formContainer button {
+                background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80,19,195));   
+                width: 100%;
+                border: none;
+                padding: 8px;
+                color: white;
+                font-size: 8px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .formContainer button:hover{
+                background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
             }
 
             /* Estilos do Modal */
@@ -167,15 +202,21 @@
 
         <div class="container-atm" id="container-atm">
 
-            <button id="openForm" class="button-central">ÁREA DO CLIENTE</button>
-
             <div class="formContainer" id="formContainer">
                 <h1>Área do Cliente</h1>
                 <br>
                 <form id="cpfForm">
-                    <label for="cpf">Digite o CPF ou CNPJ:</label>
-                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
-                    <input type="text" id="pass-hidden" name="pass-hidden" placeholder="000.000.000-00" required>
+                    <div class="inputBox">
+                        <input type="text" id="cpf" name="cpf" class="inputUser" required>
+                        <label for="cpf" class="labelinput">Digite o CPF ou CNPJ:</label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="inputBox">
+                        <input type="text" id="pass-hidden" name="pass-hidden" class="inputUser" required>
+                        <label for="pass-hidden" class="labelinput">Digite sua senha:</label>
+                    </div>
+                    <br>
                     <!--<input type="text" id="pass" name="pass" placeholder="******" required>-->
                     <button type="submit">Login</button>
                 </form>
