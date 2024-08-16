@@ -62,6 +62,7 @@
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 max-width: 60%;
+                width: 700px;
                 gap: 20px;
                 border-radius: 8px;
                 text-align: center;
@@ -433,7 +434,16 @@
                     const resultDiv = document.getElementById("result");
                 
                     if (cliente) {
-                        resultDiv.innerHTML = `<h2>Encontrei! Boas vindas, ${cliente.razao}!</h2>`;
+                        resultDiv.innerHTML = `<li class="textoModal">
+    <h2>
+        <span>Cliente:</span> ${cliente.razao} &ndash;
+        <span>Plano:</span> ${cliente.contrato} &ndash;
+        <span>Endereço de instalação:</span> ${cliente.endereco} &ndash;
+        <span>Contato:</span> ${cliente.telefone_celular} &ndash;
+        <span>Status da sua conexão:</span> ${cliente.status_internet}
+    </h2>
+</li>
+`;
                     } else {
                         resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
                         autoAtendimento.style.display = 'none';
