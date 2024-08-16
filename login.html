@@ -134,6 +134,29 @@
             #formContainer h1 {
                 font-size: 25px;
             }
+
+            #ossformContainer {
+                position: relative;
+                color: #fff;
+                background-color: #10107A;
+                border-radius: 8px;
+                text-align: center;
+                padding: 50px;
+                max-width: 40%;
+                width: 250px;   
+            }
+            #ossformContainer img {
+                width: 200px;
+            }
+            
+            #ossformContainer h3{
+                font-size: 12px;
+                font-size:x-small;
+            }
+        
+            #ossformContainer h1 {
+                font-size: 25px;
+            }
         
             .inputUser {
                 background: none;
@@ -176,6 +199,20 @@
                 border-radius: 5px;
             }
             .formContainer button:hover {
+                background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
+            }
+
+            .ossformContainer button {
+                background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80,19,195));   
+                width: 100%;
+                border: none;
+                padding: 10px;
+                color: white;
+                font-size: 12px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .ossformContainer button:hover {
                 background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
             }
         
@@ -371,8 +408,8 @@
                         <img src="./assets/a_suporte_.png" alt="Oss">
                     </button>
 
-                    <button data-page="abrirOss">
-                        <img src="./assets/a_cadastro_.png" alt="abrirOss">
+                    <button data-page="criarOss">
+                        <img src="./assets/a_cadastro_.png" alt="criarOss">
                     </button>
 
                     <button data-page="Outros">
@@ -398,11 +435,62 @@
                         <!-- O conteúdo do boleto será exibido aqui -->
                     </div>
 
-                    <div id="bloqueioContent">
+                    <div id="criarOssContent">
                         <!-- O conteúdo do boleto será exibido aqui -->
                     </div>
             </div>
         </div>
+
+        <div class="ossFormContainer" id="ossFormContainer" style="display: none;">
+            <form id="ossForm">
+              <div>
+                <label for="tipo">Tipo:</label>
+                <input type="text" id="tipo" name="tipo" value="C" required />
+              </div>
+              
+              <div>
+                <label for="id_assunto">ID Assunto:</label>
+                <input type="text" id="id_assunto" name="id_assunto" value="1" required />
+              </div>
+          
+              <div>
+                <label for="id_cliente">ID Cliente:</label>
+                <input type="text" id="id_cliente" name="id_cliente" required />
+              </div>
+          
+              <div>
+                <label for="id_filial">ID Filial:</label>
+                <input type="text" id="id_filial" name="id_filial" value="1" required />
+              </div>
+          
+              <div>
+                <label for="origem_endereco">Origem Endereço:</label>
+                <input type="text" id="origem_endereco" name="origem_endereco" value="M" required />
+              </div>
+          
+              <div>
+                <label for="prioridade">Prioridade:</label>
+                <input type="text" id="prioridade" name="prioridade" value="1" required />
+              </div>
+          
+              <div>
+                <label for="setor">Setor:</label>
+                <input type="text" id="setor" name="setor" value="1" required />
+              </div>
+          
+              <div>
+                <label for="status">Status:</label>
+                <input type="text" id="status" name="status" value="A" required />
+              </div>
+          
+              <div>
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem">Chamado de Teste de Rota</textarea>
+              </div>
+          
+              <button type="submit">Criar OSS</button>
+            </form>
+          </div>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {                
@@ -537,8 +625,8 @@
                                 await buscarContratos();
                             } else if (page === 'Oss') {
                                 await buscarOss();
-                            } else if (page === 'abrirOss') {
-                                await abrirOss();
+                            } else if (page === 'criarOss') {
+                                await criarOss();
                             }
                         }
                     });
@@ -707,8 +795,7 @@ async function buscarContratos() {
 }
 
 
-                
- 
+            
 // Função para buscar OSS
 async function buscarOss() {
     try {
@@ -760,38 +847,59 @@ async function buscarOss() {
     }
 }
 
+// Função para abrir OSS
+async function abrirOss() {
+    try {
+        console.log("Exibindo o formulário de OSS...");
+        
+        // Exibir o formulário no modal
+        document.getElementById('ossFormContainer').style.display = 'block';
 
-// Função para criar OSS
-async function criarOss() {
-  const clienteId = localStorage.getItem('clienteId');
+        // Adicionar um listener para o envio do formulário
+        document.getElementById('ossForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impedir o envio padrão do formulário
+            
+            console.log("Fazendo requisição para o servidor proxy...");
+            
+            const clienteId = localStorage.getItem('clienteId');
+            
+            if (!clienteId) {
+                console.error('Cliente com o id não encontrado');
+                return;
+            }
+            
+            const formData = new FormData(event.target);
+            const formObject = Object.fromEntries(formData.entries());
+            
+            const response = await fetch('http://localhost:3000/proxy/criar-oss', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formObject, clienteId })
+            });
+            
+            if (!response.ok) {
+                throw new Error("Erro na requisição");
+            }
+            
+            const data = await response.json();
+            console.log(data);
 
-  if (!clienteId) {
-    console.error('Cliente ID não encontrado no localStorage');
-    return;
-  }
+            if (data.success) {
+                alert('OSS criada com sucesso!');
+            } else {
+                alert('Erro ao criar OSS: ' + data.message);
+            }
 
-  try {
-    const response = await fetch('http://localhost:3000/proxy/criar-oss', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ clienteId })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erro: ${response.status}`);
+            // Ocultar o formulário após o envio
+            document.getElementById('ossFormContainer').style.display = 'none';
+        });
+        
+    } catch (error) {
+        console.error("Erro ao abrir OSS:", error.message);
     }
-
-    const data = await response.json();
-    console.log('OSS criada com sucesso:', data);
-  } catch (error) {
-    console.error('Erro ao criar OSS:', error.message);
-  }
 }
-
-// Chame a função quando necessário
-criarOss();
 
 
 // Função para limpar o conteúdo do modal
@@ -803,6 +911,7 @@ function limparModal() {
             if (boletoContent) boletoContent.innerHTML = '';
             if (contratoContent) contratoContent.innerHTML = '';
             if (ossContent) ossContent.innerHTML = '';
+            if (criarOssContent) criarOssContent.innerHTML = ''; 
         }
 
         // Fecha o modal quando o usuário clica no X
