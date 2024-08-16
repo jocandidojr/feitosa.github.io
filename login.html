@@ -257,9 +257,23 @@
                 margin: 0; /* Remove a margin padrão do <ul> */
             }
 
+            /* CSS para estilizar boletos */
+            .textoModal {
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                list-style-type: none;
+            }
+
             .vencido {
-                background-color: #f8d7da; /* Vermelho claro */
-                color: #721c24; /* Texto escuro para contraste */
+                background-color: #f8d7da; /* Exemplo de cor para vencido */
+                color: #721c24;
+            }
+
+            .pago {
+                background-color: #cce5ff; /* Cor azul para boletos pagos */
+                color: #004085;
             }
 
         </style> 
@@ -335,9 +349,18 @@
                 <div class="modal-content">
                     <span class="close"><h3>&times;</h3> </span>
                     
-                    <div id="boletoContent">                    
+                    <div id="boletoContent">  
+
                         <!-- O conteúdo do boleto será exibido aqui -->
+                        <div>
+                            <button id="btn-abertos">Abertos</button>
+                            <button id="btn-vencidos">Vencidos</button>
+                            <button id="btn-pagos">Pagos</button>
+                        </div>
+                        <div id="boletoContent"></div>
+                        
                     </div>
+
                     <div id="contratoContent">
                         <!-- O conteúdo do boleto será exibido aqui -->
                     </div>
@@ -346,13 +369,23 @@
                     </div>
                     <div id="bloqueioContent">
                         <!-- O conteúdo do boleto será exibido aqui -->
+                         <div>
+    <button id="btn-abertos">Abertos</button>
+    <button id="btn-vencidos">Vencidos</button>
+    <button id="btn-pagos">Pagos</button>
+</div>
+<div id="boletoContent"></div>
+
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', () => {                
+            document.addEventListener('DOMContentLoaded', () => {  
+            document.getElementById('btn-abertos').addEventListener('click', () => buscarBoletos('abertos'));
+            document.getElementById('btn-vencidos').addEventListener('click', () => buscarBoletos('vencidos'));
+            document.getElementById('btn-pagos').addEventListener('click', () => buscarBoletos('pagos'));              
                 const buttons = document.querySelectorAll('.auto-atendimento button');
                 const formContainer = document.getElementById('formContainer');
                 const autoAtendimento = document.getElementById('auto-atendimento');
@@ -493,60 +526,85 @@
                     });
                 });
                 
-        // Função para buscar boletos
-        async function buscarBoletos() {
-            try {
-                console.log("Fazendo requisição para o servidor proxy...");
+// Função para buscar boletos
+async function buscarBoletos(status) {
+    try {
+        console.log("Fazendo requisição para o servidor proxy...");
 
-                const clienteId = localStorage.getItem('clienteId');
+        const clienteId = localStorage.getItem('clienteId');
 
-                if (!clienteId) {
-                    console.error('Cliente com o id não encontrado');
-                    return;
-                }
-
-                const response = await fetch('http://localhost:3000/proxy/boletos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ clienteId })
-                });
-
-                if (!response.ok) {
-                    throw new Error("Erro na requisição");
-                }
-
-                const data = await response.json();
-                console.log(data.registros);
-
-                const boletoContent = document.getElementById('boletoContent');
-                if (data.registros && data.registros.length > 0) {
-                    const resultadosLimitados = data.registros.slice(0, 6);
-                    const hoje = new Date();
-
-                    boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
-                        const vencimento = new Date(boleto.data_vencimento);
-                        const classeVencido = vencimento < hoje ? 'vencido' : ''; // Adiciona a classe 'vencido' se a data for anterior a hoje
-
-                        return `
-                            <li class="textoModal ${classeVencido}">
-                                <h4>
-                                    <span>Fatura nº:</span> ${boleto.id} &ndash; 
-                                    <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
-                                    <span>Valor:</span> ${boleto.valor} &ndash; 
-                                    <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
-                                </h4>
-                            </li>`;
-                    }).join('') + '</ul>';
-                } else {
-                    boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
-                }
-
-            } catch (error) {
-                console.error("Erro ao buscar boletos:", error.message);
-            }
+        if (!clienteId) {
+            console.error('Cliente com o id não encontrado');
+            return;
         }
+
+        const response = await fetch('http://localhost:3000/proxy/boletos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        console.log(data.registros);
+
+        const boletoContent = document.getElementById('boletoContent');
+        if (data.registros && data.registros.length > 0) {
+            // Filtrar boletos com status baseado no parâmetro
+            const boletosFiltrados = data.registros.filter(boleto => {
+                if (status === 'abertos') {
+                    return boleto.status === 'A';
+                } else if (status === 'vencidos') {
+                    const vencimento = new Date(boleto.data_vencimento);
+                    return vencimento < new Date() && boleto.status === 'A';
+                } else if (status === 'pagos') {
+                    return boleto.status === 'R';
+                }
+                return false;
+            });
+
+            const resultadosLimitados = boletosFiltrados.slice(0, 12);
+            const hoje = new Date();
+
+            boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
+                const vencimento = new Date(boleto.data_vencimento);
+                let classeVencido = ''; 
+                let classePago = '';
+
+                // Lógica para considerar pago ou vencido
+                if (vencimento < hoje && boleto.status === "A") {
+                    classeVencido = 'vencido'; // Considera vencido se a data for anterior e status "A"
+                } else if (boleto.status === "R") {
+                    classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
+                }
+
+                return `
+                    <li class="textoModal ${classeVencido} ${classePago}">
+                        <h4>
+                            <span>Fatura nº:</span> ${boleto.id} &ndash; 
+                            <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
+                            <span>Valor:</span> ${boleto.valor} &ndash; 
+                            <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
+                        </h4>
+                    </li>`;
+            }).join('') + '</ul>';
+        } else {
+            boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
+        }
+
+    } catch (error) {
+        console.error("Erro ao buscar boletos:", error.message);
+    }
+}
+
+// Carregar boletos abertos por padrão
+buscarBoletos('abertos');
+
                 
                 // Função para buscar contratos
                 async function buscarContratos() {
