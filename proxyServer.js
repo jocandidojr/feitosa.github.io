@@ -28,14 +28,35 @@ app.post('/proxy/cliente', async (req, res) => {
 
 // Rota para buscar boletos
 app.post('/proxy/boletos', async (req, res) => {
+  const { clienteId } = req.body;
+
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
+
   try {
-    const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/fn_areceber', req.body, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-        ixcsoft: "listar",
+    console.log('Buscando boletos do Cliente...');
+
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/fn_areceber',
+      {
+        qtype: "id_cliente",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "fn_areceber.id",
+        sortorder: "desc",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
       }
-    });
+    );
+
     res.json(response.data);
   } catch (error) {
     console.error("Erro ao buscar boletos:", error.message);
@@ -69,7 +90,7 @@ app.post('/proxy/oss', async (req, res) => {
   }
 
   try {
-    console.log('Buscando OSS do Cliente...');
+    console.log('Buscando OSs do Cliente...');
 
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
@@ -79,7 +100,7 @@ app.post('/proxy/oss', async (req, res) => {
         oper: "=",
         page: "1",
         rp: "20",
-        sortname: "su_oss_chamado.id",
+        sortname: "su_oss_chamado",
         sortorder: "desc",
       },
       {
@@ -100,7 +121,6 @@ app.post('/proxy/oss', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
