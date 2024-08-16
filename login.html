@@ -436,13 +436,13 @@
                 
                     if (cliente) {
                         resultDiv.innerHTML = `<li class="textoModal">
-    <h2>
-        <span>Cliente:</span> ${cliente.razao} &ndash;
-        <span>Plano:</span> ${cliente.contrato} &ndash;
-        <span>Endereço de instalação:</span> ${cliente.endereco} &ndash;
-        <span>Contato:</span> ${cliente.telefone_celular} &ndash;
-        <span>Status da sua conexão:</span> ${cliente.status_internet}
-    </h2>
+    <h4>
+        <span>Cliente:</span> <p>${cliente.razao} &ndash;</p>
+        <span>Plano:</span> <p>${cliente.contrato} &ndash;</p>
+        <span>Endereço de instalação:</span> <p>${cliente.endereco} &ndash;</p>
+        <span>Contato:</span> <p>${cliente.telefone_celular} &ndash;</p>
+        <span>Status da sua conexão:</span><p>${cliente.status_internet}</p>
+    </h4>
 </li>
 `;
                     } else {
