@@ -622,11 +622,14 @@ async function buscarBoletos() {
                 
                         const contratoContent = document.getElementById('contratoContent');
                         if (data.registros && data.registros.length > 0) {
-                            contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<p>Contrato: ${contrato.id}</p>
-                                                                                                            <p>Tipo: ${contrato.tipo}</p>
-                                                                                                            <p>Meu plano: ${contrato.contrato}</p>
-                                                                                                            <p>Ativação: ${contrato.data_ativacao}</p>
-                                                                                                            </p>`).join('') + '</ul>';
+                                contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<li class="textoModal">
+    <h4>
+        <span>Contrato:</span> ${contrato.id} </p>
+        <p><span>Tipo:</span> ${contrato.tipo} </p>
+        <p><span>Meu plano:</span> ${contrato.contrato}</p>
+        <p><span>Ativação:</span> ${contrato.data_ativacao}</p>
+    </h4>
+</li>`).join('') + '</ul>';
                         } else {
                             contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
                         }
