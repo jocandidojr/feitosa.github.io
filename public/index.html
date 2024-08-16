@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feitosa Telecom - Em construção...</title>
+<link rel="icon" href="./assets/ico.png" type="image/png">
+<!--<link rel="preload" href="path/to/stylesheet.css" as="style">-->
+<style>
+/* Reset básico */
+* {
+    font-family: "Aller", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Navbar superior */
+.top-navbar {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    font-size: 10px;
+    text-align: left;
+    align-items: center;
+    color: white;
+    height: 30px;
+    display: flex; /* Para centralizar o conteúdo */
+    align-items: center; /* Centraliza verticalmente */
+    padding-left: 20px; /* Espaçamento à esquerda */
+}
+
+/* Estilo do Menu e Menu-Toggle */
+.main-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    max-height: 120px;
+    background-color: #fff;
+    color: #000;
+    padding: 0 10px;
+    max-width: 80%; /* Limita a largura a 80% em telas maiores */
+    margin: 0 auto; /* Centraliza o menu horizontalmente */
+}
+
+.main-navbar .logo {
+    margin: 10px;
+    max-height: 100px;
+    flex-shrink: 0; /* Garante que o logo não seja redimensionado */
+}
+
+.main-navbar .logo img {
+    max-width: 180px;
+    display: block;
+}
+
+.main-navbar .menu-pc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Faz o menu ocupar o espaço disponível */
+}
+
+.main-navbar .menu-pc a {
+    color: #10107A;
+    text-decoration: none;
+    margin: 0 auto;
+    padding: 0 15px;
+    font-size: 14px;
+    line-height: 50px;
+    white-space: nowrap;
+    transition: transform 0.3s ease;
+}
+
+.main-navbar .menu-pc a:hover { 
+    background-color: #0056b3;
+    transform: scale(1.1);
+    color: white;
+    border-radius: 100px;
+}
+
+.main-navbar .button {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 15px 20px;
+    background-color: #10107A;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+.main-navbar .button:hover {    
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .main-navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        max-width: 100%; /* Remove limite de 80% em telas menores */
+    }
+
+    .main-navbar .menu-pc {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-navbar .menu-pc a {
+        margin: 5px 0;
+    }
+
+    .main-navbar .button {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-navbar .menu-pc a,
+    .main-navbar .button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+/* Exibe o menu ao clicar no botão de menu */
+.main-navbar.menu-active .menu-pc {
+    display: flex;
+}
+
+/* Estilo do menu móvel */
+.menu-toggle {
+    display: none;
+    background-color: #10107A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: #0056b3;
+    transform: scale(1.1); 
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-navbar.menu-active .menu-pc {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-navbar.menu-active .menu-pc a,
+    .main-navbar.menu-active .menu-pc .button {
+        display: block;
+        color: #10107A;
+        border: none;
+        text-align: center;
+    }
+
+    .main-navbar.menu-active .menu-pc .button {
+        color: #fff;
+    }
+}
+
+/* Fim do estilo do Menu e Menu-Toggle */
+
+    
+/* Estilos gerais para a seção de slideshow */
+.slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden
+}
+    .slide-pc,
+    .slide-mobile img {
+        background-image: linear-gradient(to right, #1515A3, #10107A);  
+        width: 100%;
+    }
+/* Estilos específicos para slide-pc e slide-mobile */
+.slide-pc,
+.slide-mobile {
+    display: none;
+}
+/* Mostrar slide-pc em telas com largura a partir de 769px */
+@media (min-width: 769px) {
+    .slide-pc {
+        display: block;
+    }
+}
+/* Mostrar slide-mobile em dispositivos com até 768px de largura */
+@media (max-width: 768px) {
+    .slide-mobile {
+        display: block;
+    }
+}
+/* Estilos para os indicadores de progresso do slide */
+.slide-progress {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+.slide-indicator {
+    width: 35px;
+    height: 7px;
+    border-radius: 50px;
+    background-color: #ccc;
+}
+.slide-indicator.active {
+    background-color: #007bff;
+}
+/* Estilos para os botões de navegação */
+.slide-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+/* Especifica a posição dos botões "Anterior" e "Próximo" */
+.prev-slide {
+    left: 10px;
+}
+.next-slide {
+    right: 10px;
+}
+/* Estiliza as imagens dentro dos botões */
+.slide-nav-button img {
+    width: 35px;  /* Tamanho desejado do botão */
+    height: 35px;
+    margin: 20px;
+    opacity: 50%;    
+    transition: transform 0.3s ease;  /* Animação suave para hover */
+}
+/* Efeito de hover para as imagens do botão */
+.slide-nav-button:hover img {
+    transform: scale(1.10);  /* Aumenta ligeiramente o tamanho ao passar o mouse */
+    opacity: 100%;
+}
+    
+/* Fim da Seção de Slides*/
+/* Estilo da Seção de informações */
+.container-infor {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 160px;
+text-align: center;
+color: #10107A;
+}
+.container-infor h4 {
+font-size: 20px;
+color: #10107A;
+}
+.container-infor > div {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+width: 250px;
+text-align: center;
+border-right: 1px solid #ccc; /* Adiciona a borda vertical */
+}
+.container-infor > div:last-child {
+border-right: none; /* Remove a borda do último elemento */
+}
+/* Estilo do rodapé */
+.footer {
+background-image: linear-gradient(to right, #246ECC, #1515A3);
+display: flex;
+justify-content: center;
+text-align: left;
+justify-content: space-around;
+padding: 20px;
+color: white;
+}
+.footer-column {
+flex: 1;
+margin: 0 10px;
+}
+.footer-column img{
+    width: 80px;
+    padding: 20px;
+}
+.footer-column h3 {
+color: white;
+margin-bottom: 10px;
+font-size: 18px;
+}
+.footer-column p, .footer-column ul {
+color: white;
+font-size: 14px;
+}
+.footer-column ul {
+list-style: none;
+padding: 0;
+}
+.footer-column ul li {
+margin-bottom: 5px;
+}
+.footer-column ul li a {
+text-decoration: none;
+color: white;
+}
+.footer-column ul li a:hover {
+text-decoration: underline;
+transition: transform 0.3s ease;
+}
+.footer-column img:hover{
+    transform: scale(1.1);
+}
+/* Botão UP Flutuante */
+.up-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #0056b3; /* Cor de fundo */
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+.up-button img {
+    width: 30px;
+    height: 30px;
+    opacity: 50%;
+}
+.up-button:hover {
+    transform: scale(1.1);
+    opacity: 100%;
+}
+.up-button img:hover {
+    opacity: 100%;
+}
+/* Estilo da nova seção de planos */
+.plans-container {
+background: url('./assets/bg-plans.png') no-repeat center center,
+linear-gradient(to right, #1515A3, #10107A);
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background-size: cover;
+width: 100%;
+min-height: 768px;
+color: white;
+text-align: center;
+}
+
+.Planos-casa {
+    max-width: 250px;
+}
+.plans-container h1 {
+font-family: "Aller", sans-serif;
+margin-bottom: 30px;
+font-size: 50px;
+}
+.plans-container .plans,
+.plans-container .logos {
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0    auto;
+gap: 15px;
+flex-wrap: wrap;
+max-width: 100%;
+}
+.plans-container .plans{
+    margin: 20px;
+}
+.plans-container .plan {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 270px;
+margin: 10px;
+background-color: rgba(21, 21, 163, 0.8);
+border-radius: 10px;
+padding: 20px;
+text-align: center;
+transition: transform 0.3s ease;
+}
+.plans-container .plan:hover,
+.plans-container .logos img:hover {
+transform: scale(1.1);
+}
+.plans-container .logos img {
+max-width: 80px;
+border-radius: 5px;
+padding: 5px;
+}
+.plans-container h2 {
+font-size: 20px;
+}
+.plans-container .plan h3 {
+margin-bottom: 0;
+font-size: 110px;
+font-weight: bold;
+}
+.plans-container h4 {
+font-size: 75px;
+margin-top: -30px;
+font-weight: bold;
+}
+.plans-container .plan h6,
+.plans-container .plan h5 {
+text-align: center;
+}
+.plans-container .plan h5 {
+font-size: 40px;
+font: bold;
+}
+.plans-container .plan h6 {
+font-size: 14px;
+}
+.plans-container .plan img{
+    width: 100%;
+}
+.Descrição {
+    width: 260px;
+    height: auto;
+}
+@media (max-width: 768px) {
+    .plans-container .plans {
+    flex: 1 1 50px;    
+    width: 100%;
+    max-height: 30%;
+    margin: 10px;
+    }
+    .Planos-casa {
+    max-width: 150px;
+    height: auto;
+    }
+    .plans-container .plan {
+        margin: 0 auto;
+        width: 40%;
+    }
+    .plans-container .plan img{
+    width: auto;
+    width: 100%;
+    }
+    .plans-container .Descrição {
+    width: 100%;
+    }
+}
+button.assine {
+background-color: #F1D213;
+color: #10107A;
+font-size: 18px;
+padding: 10px 20px;
+border: none;
+border-radius: 100px;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+button.assine:hover {
+background-color: #246ECC;
+color: #fff;
+transform: scale(1.1);
+}
+/* Estilo da Seção de Autoatendimento */
+.container-auto {
+width: 100%;
+}
+/* Estilo da Imagem Lateral */
+.about-bar-lateral {
+    position: absolute;
+    left: 0; /* Alinha a imagem à esquerda da página */
+    top: 50%; /* Centraliza verticalmente a imagem */
+    transform: translateY(-50%); /* Ajusta para a centralização exata */
+    max-width: 100%;
+    z-index: 1; /* Garante que a imagem fique acima do conteúdo principal */
+}
+.container-about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 0;
+    text-align: justify;
+    position: relative; /* Necessário para posicionar a imagem relativa ao container */
+}
+.container-about h1 {
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    margin-bottom: 0;
+    font-size: 30px;
+}
+.container-about h2 {
+    color: #10107A;
+    font-size: 15px;
+}
+.container-about h3 {
+    color: #10107A;
+    font-size: 25px;
+}
+.container-about img {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    border-bottom-right-radius: 300%;
+    border-top-right-radius: 300%;
+    height: auto;
+    max-width: 50%; /* Limita a largura da imagem a 50% */
+    margin-left: auto; /* Empurra a imagem para a direita */
+}
+.about-text {
+    width: 70%;
+    color: #10107A;
+    padding: 100px;
+    font-family: "Aller", sans-serif;
+    margin-left: auto; /* Alinha o texto à esquerda */
+    text-align: justify;
+}
+@media (max-width: 768px) {
+    .container-about {
+        flex-direction: column;
+        align-items: center;
+        height: auto; /* Permite que a altura se ajuste ao conteúdo */
+        position: relative;
+        background: url('./assets/bar_lat_dir_fale_conosco_.png') no-repeat left top/cover; /* Coloca a imagem como background */
+    }
+    .about-text {
+        width: 90%;
+        padding: 50px;
+        margin: 0; /* Remove margem para centralizar no layout mobile */
+        text-align: justify;
+        z-index: 2; /* Garante que o texto fique acima do background */
+        position: relative;
+    }
+    .about-text h1, 
+    .about-text h3 {
+        text-align: center;
+    }
+    .container-about img,
+    .about-bar-lateral {
+        display: none; /* Oculta as imagens em telas menores */
+    }
+    
+}
+/*Fim estilo da Seção Sobre Nós*/  
+/*Fim da seção Sobre nós*/
+.atm-container  {    
+    background-image: url("./assets/bg-auto_.png");
+}
+.auto-atendimento {
+    display: flex;
+    color: #10107A;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 700px;
+    gap: 20px;
+    padding: 70px;
+    border-radius: 8px;
+    text-align: center;
+}
+.auto-atendimento h1 {
+    font-size: 34px;    
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.auto-atendimento img {
+    width: 150px;
+    height: auto;
+    margin: 5px;
+    background-color: #10107A;
+    border-radius: 8px;
+    padding: 25px 25px;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+.auto-atendimento img:hover {
+    transform: scale(1.1);
+}
+/* Estilo da Seção Fale conosco */
+.fale-conosco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 768px;
+    padding: 0;
+    text-align: left;
+}
+.fale-conosco h1 {
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    margin-bottom: 0;
+    font-size: 50px;
+}
+.fale-conosco p {
+    color: #10107A;
+    font-size: 22px;
+    margin-top: 10px;
+}
+.fale-conosco img.bar-lateral {
+    background-image: linear-gradient(to right, #246ECC, #1515A3);
+    border-bottom-left-radius: 300%;
+    border-top-left-radius: 300%;
+    max-height: 100%;
+}
+.form {
+    width: 50%;
+    padding: 40px 40px 0;
+    font-family: "Aller", sans-serif;
+}
+.form input[type="text"],
+.form input[type="tel"],
+.form input[type="email"],
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+.form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #10107A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.form button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+.logo-fale {
+    max-width: 350px;
+    margin-top: 20px;
+    padding: 50px;
+}
+.logo-fale img {
+    
+    transition: transform 0.3s ease;
+}
+.logo-fale img:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+/* Estilos responsivos para telas menores que 768px */
+@media (max-width: 768px) {
+    .fale-conosco {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+    .form {
+        width: 100%;
+        padding: 20px;
+    }
+    .fale-conosco img.bar-lateral {
+        max-width: 100%;
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        opacity: 0.5;
+    }
+    .logo-fale {
+        margin-top: 20px;
+        order: 2;
+    }
+}
+/* Fim do estilo da seção Fale Conosco */
+</style>
+</head>
+<body>
+<!-- Navbar superior -->
+<div class="top-navbar">
+<span id="current-page">Você está aqui:</span>
+</div>
+
+<!-- Navbar com logotipo e menus -->
+<div class="main-navbar">
+<div class="logo">
+    <a href="#">
+        <img src="./assets/logo_top_color_.png" alt="Logotipo">
+    </a>
+</div>
+
+<div class="menu-toggle">☰ Menu</div>
+<div class="menu-pc">
+
+<a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
+<a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>
+<a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
+<a href="#container-about" data-page="Sobre nós">QUEM SOMOS</a>
+<button class="button" onclick="window.location.href='./login.html'">ÁREA DO CLIENTE</button>
+
+</div>
+</div>
+
+<!-- Fim da navbar superior -->
+
+<!-- Início da Seção Slide Show -->
+
+<div class="slideshow" id="slideshow">
+        <div class="slide-pc">
+        <img src="./assets/bg-slide-one_.png" alt="Slide 1" class="slide-pc" style="display: block;">
+        <img src="./assets/bg-slide-two_.png" alt="Slide 2" class="slide-pc" style="display: none;">
+        <img src="./assets/bg-slide-three_.png" alt="Slide 3" class="slide-pc" style="display: none;">
+        </div>
+        <div class="slide-mobile">
+        <img src="./assets/bg-quadro1.png" alt="Slide 1" class="slide-mobile" style="display: block;">
+        <img src="./assets/bg-quadro2.png" alt="Slide 2" class="slide-mobile" style="display: none;">
+        <img src="./assets/bg-quadro1.png" alt="Slide 3" class="slide-mobile" style="display: none;">
+        </div>
+        <div class="slide-progress">
+            <div class="slide-indicator active"></div>
+            <div class="slide-indicator"></div>
+            <div class="slide-indicator"></div>    
+        </div>
+            <!-- Botões de navegação -->
+    <button id="prevSlide" class="slide-nav-button prev-slide"><img src="./assets/bt-voltar.png" alt="botão-voltar"></button>
+    <button id="nextSlide" class="slide-nav-button next-slide"><img src="./assets/bt-avancar.png" alt="botão-avançar"></button>
+</div>
+<!-- Início da Seção de Informações -->
+<div class="container-infor">
+<div class="infor"> 
+<h2>Cobertura</h2><p>
+Tacima/PB</p>
+</div>
+<div  class="infor">
+<h2>Atendimento</h2><p>
+Suporte 24/7</p>
+</div>
+<div  class="infor">
+<h2>Satisfação</h2><p>
++ 1000 Clientes</p>
+</div>
+</div>
+<!-- Início Seção Planos -->
+<div class="plans-container" id="plans-container">
+<h1>Planos para sua casa</h1>
+<div class="plans">
+<div class="plan">
+<img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+<img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+<br><br>
+    <img src="./assets/plan_titulo_casa.png" class="Planos-casa" alt="Descrição-planos-casa">
+<br>
+<div class="plan">
+    <img src="./assets/plan_150.png" class="picplan" alt="Plano 150mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+    <button class="assine">Saiba mais!</button>
+</div>
+   
+<div class="plan">
+<img src="./assets/plan_250.png" class="picplan" alt="Plano 250mega">       
+<img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+<img src="./assets/plan_350.png" class="picplan" alt="Plano 350mega">      
+<img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+<br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+<button class="assine">Saiba mais!</button>
+</div>
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+<button class="assine">Saiba mais!</button>
+    </div>
+<div class="plan">
+    <img src="./assets/plan_500.png" class="picplan" alt="Plano 500mega">       
+    <img src="./assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+    <br>
+<button class="assine">Saiba mais!</button>
+</div>
+</div>
+<br><br>
+<h3>Consulte mais ofertas <b>aqui</b> ou</h3>
+    <a href="#planscontainer">
+        <button class="assine">assine agora!</button>
+    </a>
+<br><br>
+<div class="logos">
+<h2>Contrate banda larga e receba acesso grátis<p>ao melhor conteúdo do streaming!</p></h2>
+<br>
+<img src="./assets/logo1.png" alt="Logotipo 1">
+<img src="./assets/logo2.png" alt="Logotipo 2">
+<img src="./assets/logo3.png" alt="Logotipo 3">
+<img src="./assets/logo4.png" alt="Logotipo 4">
+<img src="./assets/logo5.png" alt="Logotipo 5">
+<img src="./assets/logo6.png" alt="Logotipo 6">
+</div>
+</div>
+<!-- Início Seção Sobre Nós -->
+<div class="container-about" id="container-about">
+<div class="about-text" id="about-text">
+    <h1>Quem somos</h1>
+    <br>
+    <h2>A Feitosa Telecom iniciou sua operação em Tacima-PB e rapidamente expandiu seus serviços para Dona Inês-PB, tornando-se referência em conectividade na região. Somos um provedor de internet banda larga 100% fibra óptica, oferecendo soluções de alta qualidade tanto para residências quanto para empresas. Nossa infraestrutura robusta garante uma conexão estável, rápida e segura, proporcionando a melhor experiência online para nossos clientes.
+    <br><br>
+    Além dos planos de internet, oferecemos uma gama completa de entretenimento, com pacotes de TV que incluem canais Sky, além de serviços de streaming como HBO Max. Também disponibilizamos uma vasta seleção de aplicativos para música, leitura, nutrição, esportes, e muito mais, garantindo que você tenha acesso ao melhor conteúdo onde e quando quiser.</h2>
+    <br>
+    <h3>Missão</h3>
+    <br>
+    <h2>Nossa missão é conectar pessoas e empresas através de soluções tecnológicas de alta qualidade, promovendo o desenvolvimento social e econômico das comunidades onde atuamos. Buscamos sempre a excelência no atendimento ao cliente, oferecendo serviços que vão além das expectativas.</h2>
+    <br>
+    <h3>Valores</h3>
+    <br>
+    <h2>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.<br>
+    - Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.<br>
+    - Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.<br>
+- Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.<br>
+    
+    Na Feitosa Telecom, acreditamos que a tecnologia é um caminho para a transformação, e estamos empenhados em ser parte dessa mudança, conectando você ao futuro.</h2>
+</div>
+<!--<img class="about-bar-lateral" src="./assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">-->
+</div>
+<!-- Início Seção Fale conosco -->  
+<div class="fale-conosco" id="fale-conosco">
+<div class="form">
+<h1>Fale conosco</h1>
+<p>Estamos aqui para ajudar.</p>
+<form action="#" method="POST">
+<input type="text" name="nome" placeholder="Nome" required>
+<input type="tel" name="celular" placeholder="Celular" required>
+<input type="email" name="email" placeholder="E-mail" required>
+<textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
+<button type="submit">Enviar</button>
+</form>
+</div>
+<!--<img class="bar-lateral" src="./assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">-->
+
+<img src="./assets/logo_top_color_.png" class="logo-fale" alt="logo-fale">
+
+</div>
+
+<!-- Scripts adicionais -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuLinks = document.querySelectorAll('.menu a, .menu .button');
+    const currentPageText = document.getElementById('current-page');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNavbar = document.querySelector('.main-navbar');
+    const pcSlides = document.querySelectorAll('.slide-pc img');
+    const mobileSlides = document.querySelectorAll('.slide-mobile img');
+    const indicators = document.querySelectorAll('.slide-indicator');
+    let currentSlide = 0;
+
+    // Define "Página inicial" como o texto padrão
+    currentPageText.textContent = "Você está aqui: Página inicial";
+
+    // Atualiza o texto da navbar superior ao clicar em um link
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+            
+            const pageName = this.getAttribute('data-page');
+            currentPageText.textContent = `Você está aqui: ${pageName}`;
+            
+            // Rolagem suave para a seção desejada
+            const targetId = this.getAttribute('href').substring(1);
+            if (targetId) {
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Fechar o menu quando um item é clicado (para a versão desktop)
+            if (mainNavbar.classList.contains('menu-active')) {
+                mainNavbar.classList.remove('menu-active');
+            }
+        });
+    });
+
+    // Alterna a visibilidade do menu ao clicar no botão de menu
+    menuToggle.addEventListener('click', () => {
+        mainNavbar.classList.toggle('menu-active');
+        
+        // Verifica se o menu está ativo para mostrar ou ocultar os links
+        const isActive = mainNavbar.classList.contains('menu-active');
+        const menuPc = document.querySelector('.menu-pc');
+        
+        if (isActive) {
+            menuPc.style.display = 'flex';
+        } else {
+            menuPc.style.display = 'none';
+        }
+    });
+
+    // Função para mostrar o slide atual e atualizar o indicador
+    function showSlide(index) {
+        // Exibe o slide atual para PC
+        pcSlides.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+        
+        // Exibe o slide atual para Mobile
+        mobileSlides.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+        
+        // Atualiza os indicadores
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+        });
+    }
+
+    // Configuração do intervalo para alternar os slides a cada 5 segundos
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % pcSlides.length;
+        showSlide(currentSlide);
+    }, 5000);
+
+    // Inicializa o primeiro slide
+    showSlide(currentSlide);
+
+    // Previne o menu de contexto e o arrasto de imagens
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault(); 
+        }
+    });
+
+    // Função para rolar para o topo ao clicar no botão
+    document.querySelector('.up-button')?.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Rola suavemente para o topo
+        });
+    });
+
+    // Adiciona funcionalidade para os botões "Anterior" e "Próximo" nos slides
+    document.getElementById('nextSlide')?.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % pcSlides.length;
+        showSlide(currentSlide);
+    });
+
+    document.getElementById('prevSlide')?.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + pcSlides.length) % pcSlides.length;
+        showSlide(currentSlide);
+    });
+});
+
+</Script>
+<!-- Rodapé -->
+<footer class="footer">
+<div class="footer-column">
+<h3>Contato</h3>
+<p>Telefone: (00) 0000-0000</p>
+<p>Email: contato@feitosa.com.br</p>
+</div>
+<div class="footer-column">
+<h3>Links Úteis</h3>
+<ul>
+<li><a href="#">Política de Privacidade</a></li>
+<li><a href="#">Termos de Serviço</a></li>
+<li><a href="#">FAQ</a></li>
+</ul>
+</div>
+<div class="footer-column">
+<h3>Endereço</h3>
+<p>Rua Exemplo, 123</p>
+<p>Bairro Exemplo</p>
+<p>Tacima/PB, 00000-000</p>
+</div>
+<div class="footer-column">
+    <a href="https://google.com" target="_blank">
+        <img src="./assets/face_icon_.png" alt="icon-face">
+    </a>
+    <a href="https://www.instagram.com/feitosatelecom/" target="_blank">
+        <img src="./assets/insta_icon_.png" alt="icon-insta">
+    </a>
+    
+</div>
+</footer>
+<div class="up-button">
+<img src="./assets/up-icon.png" alt="Volte ao topo">
+</div>
+</body>
+</html>
