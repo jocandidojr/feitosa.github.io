@@ -371,8 +371,8 @@
                         <img src="./assets/a_suporte_.png" alt="Oss">
                     </button>
 
-                    <button data-page="Cadastro">
-                        <img src="./assets/a_cadastro_.png" alt="Cadastro">
+                    <button data-page="abrirOss">
+                        <img src="./assets/a_cadastro_.png" alt="abrirOss">
                     </button>
 
                     <button data-page="Outros">
@@ -537,8 +537,8 @@
                                 await buscarContratos();
                             } else if (page === 'Oss') {
                                 await buscarOss();
-                            } else if (page === 'libera') {
-                                await editarContratos();
+                            } else if (page === 'abrirOss') {
+                                await abrirOss();
                             }
                         }
                     });
@@ -759,6 +759,40 @@ async function buscarOss() {
         console.error("Erro ao buscar OSS:", error.message);
     }
 }
+
+
+// Função para criar OSS
+async function criarOss() {
+  const clienteId = localStorage.getItem('clienteId');
+
+  if (!clienteId) {
+    console.error('Cliente ID não encontrado no localStorage');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/proxy/criar-oss', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ clienteId })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('OSS criada com sucesso:', data);
+  } catch (error) {
+    console.error('Erro ao criar OSS:', error.message);
+  }
+}
+
+// Chame a função quando necessário
+criarOss();
+
 
 // Função para limpar o conteúdo do modal
 function limparModal() {
