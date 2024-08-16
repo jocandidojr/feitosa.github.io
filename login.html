@@ -458,7 +458,7 @@
         
                 <!-- Campos ocultos -->
                 <input type="hidden" id="id_filial" name="id_filial" value="1" />
-                <input type="hidden" id="origem_endereco" name="origem_endereco" value="CC" />
+                <input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
                 <input type="hidden" id="status" name="status" value="A" />
                 <input type="hidden" id="prioridade" name="prioridade" value="1" />
                 <input type="hidden" id="setor" name="setor" value="1" />
@@ -865,7 +865,7 @@ async function criarOss() {
 
                 <div style="display: none;">
                     <label for="origem_endereco">Origem Endereço:</label>
-                    <input type="text" id="origem_endereco" name="origem_endereco" value="CC" required />
+                    <input type="text" id="origem_endereco" name="origem_endereco" value="M" required />
                 </div>
 
                 <div style="display: none;">
@@ -922,7 +922,7 @@ async function criarOss() {
                 id_assunto: formObject.assunto || "1",
                 id_cliente: formObject.id_cliente || clienteId, // Garantir que id_cliente está preenchido
                 id_filial: formObject.id_filial || "1",
-                origem_endereco: formObject.origem_endereco || "C",
+                origem_endereco: formObject.origem_endereco || "M",
                 prioridade: formObject.prioridade || "1",
                 setor: formObject.setor || "1",
                 status: formObject.status || "A",
