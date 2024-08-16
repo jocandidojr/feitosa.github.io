@@ -6,7 +6,7 @@ const app = express();
 
 // Configuração do CORS
 app.use(cors({
-  origin: 'https://feitosa-github-io.vercel.app'
+  origin: 'https://feitosa-github-io.vercel.app/api'
 }));
 
 app.use(express.json());
