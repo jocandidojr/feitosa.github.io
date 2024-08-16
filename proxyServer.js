@@ -81,7 +81,7 @@ app.post('/proxy/contratos', async (req, res) => {
   }
 });
 
-// Nova Rota para buscar OSS filtradas
+// Nova Rota para buscar OSS
 app.post('/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
@@ -90,7 +90,7 @@ app.post('/proxy/oss', async (req, res) => {
   }
 
   try {
-    console.log('Buscando OSs do Cliente...');
+    console.log('Buscando OSS do Cliente...');
 
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
@@ -100,7 +100,7 @@ app.post('/proxy/oss', async (req, res) => {
         oper: "=",
         page: "1",
         rp: "20",
-        sortname: "su_oss_chamado",
+        sortname: "su_oss_chamado.id",
         sortorder: "desc",
       },
       {
@@ -112,10 +112,7 @@ app.post('/proxy/oss', async (req, res) => {
       }
     );
 
-    // Filtrar registros cujo id_cliente seja igual ao clienteId fornecido
-    const registrosFiltrados = response.data.registros.filter(oss => oss.id_cliente === clienteId);
-
-    res.json(registrosFiltrados);
+    res.json(response.data.registros);
   } catch (error) {
     console.error('Erro ao buscar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
