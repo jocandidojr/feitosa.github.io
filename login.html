@@ -193,6 +193,7 @@
                 align-items: center;
                 height: 80%;
             }
+
             .modal-content {
                 background-color: #0056b3;
                 color: #10107A;
@@ -204,16 +205,16 @@
                 width: 80%;
                 max-width: 600px;
             }
-        
+
             .close {
                 color: #1515A3;
                 text-align: right;
                 margin: 0;
                 font-size: 15px;
                 font-weight: bold;
-                transition: transform 0.3s ease;    
+                transition: transform 0.3s ease;
             }
-        
+
             .close:hover,
             .close:focus {
                 color: #ffffff;
@@ -221,77 +222,85 @@
                 text-decoration: none;
                 cursor: pointer;
             }
-        
+
             .textoModal {
                 font-size: 12px;
                 line-height: 1.5;
-                background-color: #20e354;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                list-style-type: none;
             }
+
             .textoProfile {
                 background-color: transparent;
                 text-align: left;
             }
-            
+
             .textoProfile h1 {
                 margin: -2px;
                 font-size: 20px;
                 text-align: left;
             }
-        
+
             .textoModal span {
-                font-size: 10px;
-                display: block;
+                font-size: 18px;
+                display: inline; /* Garante que o span não quebre a linha */
                 background-color: #0056b3;
-                width: 100%;
+                width: auto; /* Ajusta a largura do span para o conteúdo */
                 border-radius: 5px;
             }
-        
+
             .textoModal h4 {
                 font-size: 14px;
                 margin: 0; /* Remove a margem padrão do h4 */
                 padding: 0; /* Remove o preenchimento padrão do h4 */
             }
-        
-            .textoModal span {
-                display: inline; /* Garante que o span não quebre a linha */
-                font-size: 18px;
-            }
-        
+
             .textoModal a {
                 display: inline; /* Garante que o link não quebre a linha */
             }
-        
+
             li {
-                border: none; /* Cor da borda */
+                border: none; /* Remove a borda dos itens da lista */
                 border-radius: 10px;
                 padding: 10px;
                 margin-bottom: 10px;
             }
-        
+
             ul {
                 list-style-type: none; /* Remove os pontos dos itens da lista */
                 padding: 0; /* Remove o padding padrão do <ul> */
-                margin: 0; /* Remove a margin padrão do <ul> */
+                margin: 0; /* Remove a margem padrão do <ul> */
             }
 
-            /* CSS para estilizar boletos */
-            .textoModal {
+            /* Estilos gerais para os itens de boletos */
+            .textoModalBoletos {
                 padding: 10px;
                 margin-bottom: 10px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
                 list-style-type: none;
+                font-size: 15px;
             }
 
-            .vencido {
-                background-color: #f8d7da; /* Exemplo de cor para vencido */
-                color: #721c24;
+            /* Estilo para boletos vencidos */
+            .textoModalBoletos.vencido {
+                background-color: #f8d7da; /* Vermelho claro para vencidos */
+                color: #721c24; /* Texto escuro para contraste */
             }
 
-            .pago {
-                background-color: #cce5ff; /* Cor azul para boletos pagos */
-                color: #004085;
+            /* Estilo para boletos pagos */
+            .textoModalBoletos.pago {
+                background-color: #e2e3e5; /* Cinza claro para pagos */
+                color: #6c757d; /* Texto escuro para contraste */
             }
+
+            /* Estilo para boletos em outros status */
+            .textoModalBoletos {
+                background-color: #d4edda; /* Verde claro para outros status */
+                color: #155724; /* Texto escuro para contraste */
+}
 
         </style> 
     </head>
@@ -364,7 +373,7 @@
             <!-- Modal -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                    <span class="close"><h3>&times;</h3> </span>
+                    <span class="close"><h3>Fechar &times;</h3> </span>
                     
                     <div id="boletoContent">
                         <!-- O conteúdo do boleto será exibido aqui -->                      
@@ -474,7 +483,7 @@
                     if (cliente) {
                         resultDiv.innerHTML = `<ul><li class="textoProfile">
     
-        <h1>Olá,</h1>${cliente.razao}!
+        <h1>Olá,<p>${cliente.razao}!</p></h1>
         <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
         <p><span>Meu contato:</span> ${cliente.telefone_celular} </p>
         <p><span>Status da minha conexão:</span><p>${cliente.status_internet}</p>
@@ -525,6 +534,12 @@
                     });
                 });
                 
+// Função para formatar a data no formato dia/mês/ano
+function formatarData(data) {
+    const partes = data.split('-'); // Supondo que a data vem no formato yyyy-mm-dd
+    return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dia/mês/ano
+}
+
 // Função para buscar boletos
 async function buscarBoletos() {
     try {
@@ -564,23 +579,29 @@ async function buscarBoletos() {
 
             boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
                 const vencimento = new Date(boleto.data_vencimento);
+                const vencimentoFormatado = formatarData(boleto.data_vencimento); // Formata a data
                 let classeVencido = ''; 
                 let classePago = '';
+                let statusTexto = '';
 
-                // Lógica para considerar pago ou vencido
+                // Lógica para considerar vencido, pago ou aberto
                 if (vencimento < hoje && boleto.status === "A") {
                     classeVencido = 'vencido'; // Considera vencido se a data for anterior e status "A"
+                    statusTexto = 'Vencido'; // Define o texto "Vencido"
                 } else if (boleto.status === "R") {
                     classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
+                    statusTexto = 'Pago'; // Define o texto "Pago"
+                } else if (boleto.status === "A") {
+                    statusTexto = 'Aberto'; // Define o texto "Aberto"
                 }
 
                 return `
-                    <li class="textoModal ${classeVencido} ${classePago}">
+                    <li class="textoModalBoletos ${classeVencido} ${classePago}">
                         <h4>
                             <span>Fatura nº:</span> ${boleto.id} &ndash; 
-                            <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
+                            <span>Vencimento:</span> ${vencimentoFormatado} &ndash; 
                             <span>Valor:</span> ${boleto.valor} &ndash;
-                            <span>Situação:</span> ${boleto.status} &ndash;  
+                            <span>Situação:</span> ${statusTexto} &ndash;  
                             <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
                         </h4>
                     </li>`;
