@@ -411,11 +411,12 @@
                 const autoAtendimento = document.getElementById('auto-atendimento');
                 const modal = document.getElementById('myModal');
                 const topNavbar = document.getElementById('top-navbar');
+                const urlBase = 'feitosa-github-io.vercel.app/api';
                 
                 // Função para fazer logout
                 function logout() {
                     localStorage.removeItem('clienteId');
-                    window.location.href = 'feitosa.github.io/index.html'; // Redireciona para a tela de login
+                    window.location.href = './public/index.html'; // Redireciona para a tela de login
                 }
                 
                 // Adiciona o listener ao botão de logout
@@ -438,7 +439,7 @@
                     try {
                         console.log("Fazendo requisição para o servidor proxy...");
                 
-                        const response = await fetch('http://localhost:3000/proxy/cliente', {
+                        const response = await fetch('${urlBase}/cliente', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -562,7 +563,7 @@ async function buscarBoletos() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/boletos', {
+        const response = await fetch('${urlBase}/boletos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -649,7 +650,7 @@ async function buscarContratos() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/contratos', {
+        const response = await fetch('${urlBase}/contratos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -721,7 +722,7 @@ async function buscarOss() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/oss', {
+        const response = await fetch('${urlBase}/oss', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
