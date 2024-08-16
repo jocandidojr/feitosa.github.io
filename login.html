@@ -632,132 +632,72 @@ async function buscarBoletos() {
 }
 
                 
-                // Função para buscar contratos
-                async function buscarContratos() {
-                    try {
-                        console.log("Fazendo requisição para o servidor proxy...");
+// Função para buscar contratos
+async function buscarContratos() {
+    try {
+        console.log("Fazendo requisição para o servidor proxy...");
+        
+        const clienteId = localStorage.getItem('clienteId');
+        
+        if (!clienteId) {
+            console.error('Cliente com o id não encontrado');
+            return;
+        }
+
+        const response = await fetch('http://localhost:3000/proxy/contratos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                qtype: "id_cliente",
+                query: clienteId,
+                oper: "=",
+                page: "1",
+                rp: "20",
+                sortname: "cliente_contrato.id",
+                sortorder: "desc",
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        console.log(data.registros);
+
+        const contratoContent = document.getElementById('contratoContent');
+        if (data.registros && data.registros.length > 0) {
+            contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => {
+                // Definindo o tipo e status de conexão
+                const tipoContrato = contrato.tipo === "I" ? "Internet" : "Desconhecido";
+                const statusConexao = contrato.status_internet === "A" ? "Ativo" : 
+                                      contrato.status_internet === "CM" ? "Suspenso" : 
+                                      "Desconhecido";
+
+                return `
+                    <li class="textoModalBoletos">
+                        <h4>
+                            <p><span>Contrato:</span> ${contrato.id}</p>
+                            <p><span>Status:</span> ${contrato.status}</p>
+                            <p><span>Tipo:</span> ${tipoContrato}</p>
+                            <p><span>Status Conexão:</span> ${statusConexao}</p>
+                            <p><span>Meu plano:</span> ${contrato.contrato}</p>
+                        </h4>
+                    </li>`;
+            }).join('') + '</ul>';
+        } else {
+            contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
+        }
+
+    } catch (error) {
+        console.error("Erro ao buscar contratos:", error.message);
+    }
+}
+
                 
-                        const clienteId = localStorage.getItem('clienteId');
-                
-                        if (!clienteId) {
-                            console.error('Cliente com o id não encontrado');
-                            return;
-                        }
-                
-                        const response = await fetch('http://localhost:3000/proxy/contratos', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                qtype: "id_cliente",
-                                query: clienteId,
-                                oper: "=",
-                                page: "1",
-                                rp: "20",
-                                sortname: "cliente_contrato.id",
-                                sortorder: "desc",
-                            })
-                        });
-                
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição");
-                        }
-                
-                        const data = await response.json();
-                        console.log(data.registros);
-                
-                        const contratoContent = document.getElementById('contratoContent');
-                        if (data.registros && data.registros.length > 0) {
-                                contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<li class="textoModal">
-    <h4>
-        <span>Contrato:</span> ${contrato.id} </p>
-        <p><span>Tipo:</span> ${contrato.tipo} </p>
-        <p><span>Meu plano:</span> ${contrato.contrato}</p>
-        <p><span>Ativação:</span> ${contrato.data_ativacao}</p>
-    </h4>
-</li>`).join('') + '</ul>';
-                        } else {
-                            contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
-                        }
-                
-                    } catch (error) {
-                        console.error("Erro ao buscar contratos:", error.message);
-                    }
-                }
-                
-                // Função para editar contratos
-                async function editarContratos() {
-                    try {
-                        console.log("Fazendo requisição para editar contratos...");
-                
-                        const clienteId = localStorage.getItem('clienteId');
-                
-                        if (!clienteId) {
-                            console.error('Cliente com o id não encontrado');
-                            return;
-                        }
-                
-                        const response = await fetch('http://localhost:3000/proxy/contratos', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                qtype: "id_cliente",
-                                query: clienteId,
-                                oper: "=",
-                                page: "1",
-                                rp: "20",
-                                sortname: "cliente_contrato.id",
-                                sortorder: "desc",
-                            })
-                        });
-                
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição");
-                        }
-                
-                        const data = await response.json();
-                        console.log(data.registros);
-                
-                        const contratoContent = document.getElementById('contratoContent');
-                        if (data.registros && data.registros.length > 0) {
-                            const contrato = data.registros[0]; // Pegando o primeiro contrato como exemplo
-                            
-                            // Verifica o status_internet e altera desbloqueio_confiança se necessário
-                            if (['CA', 'CM'].includes(contrato.status_internet)) {
-                                const updateResponse = await fetch('http://localhost:3000/proxy/editar-contrato', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        id: contrato.id,
-                                        desbloqueio_confianca: 'S'
-                                    })
-                                });
-                
-                                if (!updateResponse.ok) {
-                                    throw new Error("Erro ao atualizar contrato");
-                                }
-                
-                                const updatedData = await updateResponse.json();
-                                console.log(updatedData);
-                
-                                contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => `<li>ID: ${contrato.id} - Data Início: ${contrato.data_inicio} - Data Fim: ${contrato.data_fim} - Valor: ${contrato.valor}</li>`).join('') + '</ul>';
-                            } else {
-                                contratoContent.innerHTML = '<p>Não é necessário atualizar desbloqueio_confiança.</p>';
-                            }
-                        } else {
-                            contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
-                        }
-                
-                    } catch (error) {
-                        console.error("Erro ao editar contratos:", error.message);
-                    }
-                }
-                
+ 
 // Função para buscar OSS
 async function buscarOss() {
     try {
