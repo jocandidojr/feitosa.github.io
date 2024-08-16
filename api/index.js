@@ -6,9 +6,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-app.post('/api/cliente', (req, res) => {
-
+  
 const token = '8:6ab19d7128d35b06a4db7768d24e72d458d61e6f5f90dab67aca8bedb8e15323';
 
 // Rota para buscar clientes

@@ -4,20 +4,9 @@
     { "src": "index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ]
-}
-
-{
-  "functions": {
-    "api/**/*.js": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
-  },
-  "headers": [
     {
-      "source": "/api/(.*)",
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
@@ -32,6 +21,16 @@
           "value": "Content-Type, Authorization"
         }
       ]
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 10,
+      "memory": 1024
+    }
+  }
 }
