@@ -53,8 +53,9 @@
                 align-items: center; /* Alinha as divs verticalmente ao centro */
                 padding: 20px;
                 gap: 25px;
-                margin-top: 80px;
+                margin-top: 20px;
                 max-width: 100%;
+                height: auto;
                 
             }
                             
@@ -64,7 +65,7 @@
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 max-width: 60%;
-                width: 700px;
+                width: 650px;
                 gap: 20px;
                 border-radius: 8px;
                 text-align: center;
@@ -78,7 +79,7 @@
             }
         
             .auto-atendimento img {
-                width: 150px;
+                max-width: 150px;
                 height: auto;
                 margin: 5px;
                 background-color: #10107A;
@@ -119,7 +120,7 @@
                 text-align: center;
                 padding: 50px;
                 max-width: 40%;
-                width: 300px;   
+                width: 250px;   
             }
             #formContainer img {
                 width: 200px;
@@ -190,6 +191,7 @@
                 overflow: auto;
                 justify-content: center;
                 align-items: center;
+                height: 80%;
             }
             .modal-content {
                 background-color: #0056b3;
@@ -224,6 +226,9 @@
                 font-size: 12px;
                 line-height: 1.5;
                 background-color: #20e354;
+            }
+            .textoProfile {
+                background-color: transparent;
             }
         
             .textoModal span {
@@ -457,14 +462,13 @@
                     const resultDiv = document.getElementById("result");
                 
                     if (cliente) {
-                        resultDiv.innerHTML = `<ul><li class="textoModal">
-    <h4>
-        <span>Olá,</span> <p>${cliente.razao}! &ndash;</p>
-        <span>Plano:</span> <p>${cliente.contrato} &ndash;</p>
-        <span>Endereço de instalação:</span> <p>${cliente.endereco} &ndash;</p>
-        <span>Contato:</span> ${cliente.telefone_celular} &ndash;   
-        <span>Status da sua conexão:</span><p>${cliente.status_internet}</p>
-    </h4>
+                        resultDiv.innerHTML = `<ul><li class="textoProfile">
+    
+        <h1>Olá,</h1>${cliente.razao}!
+        <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
+        <p><span>Meu contato:</span> ${cliente.telefone_celular} </p>
+        <p><span>Status da minha conexão:</span><p>${cliente.status_internet}</p>
+    
 </li></ul>
 `;
                     } else {
@@ -565,7 +569,8 @@ async function buscarBoletos() {
                         <h4>
                             <span>Fatura nº:</span> ${boleto.id} &ndash; 
                             <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
-                            <span>Valor:</span> ${boleto.valor} &ndash; 
+                            <span>Valor:</span> ${boleto.valor} &ndash;
+                            <span>Situação:</span> ${boleto.status} &ndash;  
                             <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
                         </h4>
                     </li>`;
