@@ -120,7 +120,8 @@ app.post('/proxy/oss', async (req, res) => {
 });
 
 // Nova Rota para criar OSS
-app.post('/proxy/criar-ossx', async (req, res) => {
+app.post('/proxy/criar-oss', async (req, res) => {
+  
   const { clienteId, tipo, id_assunto, id_filial, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
   if (!clienteId || !tipo || !id_assunto || !id_filial || !origem_endereco || !prioridade || !setor || !status) {

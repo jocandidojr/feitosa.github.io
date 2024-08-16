@@ -441,56 +441,32 @@
             </div>
         </div>
 
-        <div class="ossFormContainer" id="ossFormContainer" style="display: none;">
+        <div id="ossFormContainer" style="display: none;">
             <form id="ossForm">
-              <div>
-                <label for="tipo">Tipo:</label>
-                <input type="text" id="tipo" name="tipo" value="C" required />
-              </div>
-              
-              <div>
-                <label for="id_assunto">ID Assunto:</label>
-                <input type="text" id="id_assunto" name="id_assunto" value="1" required />
-              </div>
-          
-              <div>
-                <label for="id_cliente">ID Cliente:</label>
-                <input type="text" id="id_cliente" name="id_cliente" required />
-              </div>
-          
-              <div>
-                <label for="id_filial">ID Filial:</label>
-                <input type="text" id="id_filial" name="id_filial" value="1" required />
-              </div>
-          
-              <div>
-                <label for="origem_endereco">Origem Endereço:</label>
-                <input type="text" id="origem_endereco" name="origem_endereco" value="M" required />
-              </div>
-          
-              <div>
-                <label for="prioridade">Prioridade:</label>
-                <input type="text" id="prioridade" name="prioridade" value="1" required />
-              </div>
-          
-              <div>
-                <label for="setor">Setor:</label>
-                <input type="text" id="setor" name="setor" value="1" required />
-              </div>
-          
-              <div>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" value="A" required />
-              </div>
-          
-              <div>
-                <label for="mensagem">Mensagem:</label>
-                <textarea id="mensagem" name="mensagem">Chamado de Teste de Rota</textarea>
-              </div>
-          
-              <button type="submit">Criar OSS</button>
+                <div>
+                    <label for="assunto">Assunto:</label>
+                    <select id="assunto" name="assunto" required>
+                        <option value="8">Manutenção</option>
+                        <option value="6">Financeiro</option>
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" required></textarea>
+                </div>
+        
+                <!-- Campos ocultos -->
+                <input type="hidden" id="id_filial" name="id_filial" value="1" />
+                <input type="hidden" id="origem_endereco" name="origem_endereco" value="CC" />
+                <input type="hidden" id="status" name="status" value="A" />
+                <input type="hidden" id="prioridade" name="prioridade" value="1" />
+                <input type="hidden" id="setor" name="setor" value="1" />
+                <input type="hidden" id="tipo" name="tipo" value="C" />
+        
+                <button type="submit">Criar OSS</button>
             </form>
-          </div>
+        </div>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {                
@@ -847,36 +823,119 @@ async function buscarOss() {
     }
 }
 
-// Função para abrir OSS
-async function abrirOss() {
+// Função para Criar OSS
+async function criarOss() {
     try {
         console.log("Exibindo o formulário de OSS...");
+
+        // Obter o clienteId do localStorage
+        const clienteId = localStorage.getItem('clienteId');
         
-        // Exibir o formulário no modal
-        document.getElementById('ossFormContainer').style.display = 'block';
+        // Verificar se clienteId está disponível
+        if (!clienteId) {
+            console.error('Cliente com o id não encontrado');
+            return;
+        }
+
+        // Obter a div onde o formulário será exibido
+        const criarOssContent = document.getElementById('criarOssContent');
+        
+        // Criar o HTML do formulário
+        const formHtml = `
+            <form id="ossForm">
+                <div style="display: none;">
+                    <label for="tipo">Tipo:</label>
+                    <input type="text" id="tipo" name="tipo" value="C" required />
+                </div>
+                
+                <div style="display: none;">
+                    <label for="id_assunto">ID Assunto:</label>
+                    <input type="text" id="id_assunto" name="id_assunto" value="1" required />
+                </div>
+
+               <div style="display: none;">
+                    <label for="id_cliente">ID Cliente:</label>
+                    <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" required />
+                </div>
+
+                <div style="display: none;">
+                    <label for="id_filial">ID Filial:</label>
+                    <input type="text" id="id_filial" name="id_filial" value="1" required />
+                </div>
+
+                <div style="display: none;">
+                    <label for="origem_endereco">Origem Endereço:</label>
+                    <input type="text" id="origem_endereco" name="origem_endereco" value="CC" required />
+                </div>
+
+                <div style="display: none;">
+                    <label for="prioridade">Prioridade:</label>
+                    <input type="text" id="prioridade" name="prioridade" value="1" required />
+                </div>
+
+                <div style="display: none;">
+                    <label for="setor">Setor:</label>
+                    <input type="text" id="setor" name="setor" value="1" required />
+                </div>
+
+                <div style="display: none;">
+                    <label for="status">Status:</label>
+                    <input type="text" id="status" name="status" value="A" required />
+                </div>
+
+                <div>
+                    <label for="assunto">Assunto:</label>
+                    <select id="assunto" name="assunto" required>
+                        <option value="8">Manutenção</option>
+                        <option value="6">Financeiro</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" required>Chamado de Teste de Rota</textarea>
+                </div>
+
+                <button type="submit">Criar OSS</button>
+            </form>
+        `;
+
+        // Inserir o formulário no conteúdo da div
+        criarOssContent.innerHTML = formHtml;
+
+        // Exibir o modal
+        document.getElementById('myModal').style.display = 'block';
 
         // Adicionar um listener para o envio do formulário
         document.getElementById('ossForm').addEventListener('submit', async function(event) {
             event.preventDefault(); // Impedir o envio padrão do formulário
-            
+
             console.log("Fazendo requisição para o servidor proxy...");
-            
-            const clienteId = localStorage.getItem('clienteId');
-            
-            if (!clienteId) {
-                console.error('Cliente com o id não encontrado');
-                return;
-            }
-            
+
+            // Coletar dados do formulário
             const formData = new FormData(event.target);
             const formObject = Object.fromEntries(formData.entries());
             
+            // Ajustar o formato dos dados se necessário
+            const dataToSend = {
+                tipo: formObject.tipo || "C",
+                id_assunto: formObject.assunto || "1",
+                id_cliente: formObject.id_cliente || clienteId, // Garantir que id_cliente está preenchido
+                id_filial: formObject.id_filial || "1",
+                origem_endereco: formObject.origem_endereco || "C",
+                prioridade: formObject.prioridade || "1",
+                setor: formObject.setor || "1",
+                status: formObject.status || "A",
+                mensagem: formObject.mensagem || "",
+                clienteId // Incluindo clienteId no corpo da requisição
+            };
+
             const response = await fetch('http://localhost:3000/proxy/criar-oss', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formObject, clienteId })
+                body: JSON.stringify(dataToSend)
             });
             
             if (!response.ok) {
@@ -886,14 +945,21 @@ async function abrirOss() {
             const data = await response.json();
             console.log(data);
 
+            let resultHtml = '';
             if (data.success) {
-                alert('OSS criada com sucesso!');
+                resultHtml = `<p>OSS criada com sucesso!</p>`;
             } else {
-                alert('Erro ao criar OSS: ' + data.message);
+                resultHtml = `<p>Erro ao criar OSS: ${data.message}</p>`;
             }
 
-            // Ocultar o formulário após o envio
-            document.getElementById('ossFormContainer').style.display = 'none';
+            // Exibir o resultado no conteúdo da div
+            criarOssContent.innerHTML = resultHtml;
+
+            // Opcional: ocultar o modal após um certo tempo
+            // setTimeout(() => {
+            //     document.getElementById('myModal').style.display = 'none';
+            // }, 3000);
+            
         });
         
     } catch (error) {
@@ -957,6 +1023,10 @@ function limparModal() {
         cpfInput.value = formatCPF(cpfInput.value);
     });
 });
+
+const clienteId = localStorage.getItem('clienteId');
+console.log('clienteId do localStorage:', clienteId);
+
 
         </script>
 
