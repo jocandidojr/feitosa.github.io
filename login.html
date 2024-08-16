@@ -187,7 +187,8 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                max-width: 100%;
+                max-width: 600px;
+                width: 100%;
                 overflow: auto;
                 justify-content: center;
                 align-items: center;
@@ -281,6 +282,10 @@
                 border: 1px solid #ddd;
                 border-radius: 5px;
                 list-style-type: none;
+                font-size: 15px;
+            }
+
+            .textoModalBoletos h2 {
                 font-size: 15px;
             }
 
@@ -574,35 +579,46 @@ async function buscarBoletos() {
                 return ["A", "R", "P"].includes(boleto.status);
             });
 
-            const resultadosLimitados = boletosFiltrados.slice(0, 12);
+            // Ordenar boletos: não vencidos primeiro (ordenados pelo vencimento), depois vencidos
             const hoje = new Date();
+            const boletosOrdenados = boletosFiltrados.sort((a, b) => {
+                const vencimentoA = new Date(a.data_vencimento);
+                const vencimentoB = new Date(b.data_vencimento);
+
+                // Primeiro os não vencidos, ordenados por data de vencimento
+                if (vencimentoA >= hoje && vencimentoB >= hoje) {
+                    return vencimentoA - vencimentoB;
+                }
+                // Em seguida os vencidos, ordenados por data de vencimento
+                if (vencimentoA < hoje && vencimentoB < hoje) {
+                    return vencimentoA - vencimentoB;
+                }
+                // Coloca os não vencidos acima dos vencidos
+                return vencimentoA >= hoje ? -1 : 1;
+            });
+
+            const resultadosLimitados = boletosOrdenados.slice(0, 12);
 
             boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
                 const vencimento = new Date(boleto.data_vencimento);
-                const vencimentoFormatado = formatarData(boleto.data_vencimento); // Formata a data
                 let classeVencido = ''; 
                 let classePago = '';
-                let statusTexto = '';
 
-                // Lógica para considerar vencido, pago ou aberto
+                // Lógica para considerar pago ou vencido
                 if (vencimento < hoje && boleto.status === "A") {
                     classeVencido = 'vencido'; // Considera vencido se a data for anterior e status "A"
-                    statusTexto = 'Vencido'; // Define o texto "Vencido"
                 } else if (boleto.status === "R") {
                     classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
-                    statusTexto = 'Pago'; // Define o texto "Pago"
-                } else if (boleto.status === "A") {
-                    statusTexto = 'Aberto'; // Define o texto "Aberto"
                 }
 
                 return `
                     <li class="textoModalBoletos ${classeVencido} ${classePago}">
                         <h4>
-                            <span>Fatura nº:</span> ${boleto.id} &ndash; 
-                            <span>Vencimento:</span> ${vencimentoFormatado} &ndash; 
-                            <span>Valor:</span> ${boleto.valor} &ndash;
-                            <span>Situação:</span> ${statusTexto} &ndash;  
-                            <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
+                            <p><span>Fatura nº:</span> ${boleto.id} | 
+                                <span>Vencimento:</span> ${formatarData(boleto.data_vencimento)}</p>
+                            <p><h2><span>Mensalidade:</span> R$: ${boleto.valor}</h2></p>
+                            <p><span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}</p>  
+                            <p><span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
                         </h4>
                     </li>`;
             }).join('') + '</ul>';
