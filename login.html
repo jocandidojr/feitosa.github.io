@@ -14,7 +14,7 @@
                 height: auto;
                 margin: 0;
             }
-
+        
             /* Navbar superior */
             .top-navbar {
                 background-image: linear-gradient(to right, #246ECC, #1515A3);
@@ -39,39 +39,40 @@
                 background-color: #10107A;
                 transition: transform 0.3s ease;
             }
-
+        
             .top-navbar button:hover {
                 background-color:#0056b3;
                 transform: scale(1.1);
             }
-
-            .container-atm, .formContainer {
-                display: flex;
+        
+            /* Container principal */
+            .container-atm {
+                display: flex; /* Para organizar as divs lado a lado */
                 justify-content: center;
-                align-items: center;
+                align-items: center; /* Alinha as divs verticalmente ao centro */
                 padding: 20px;
                 gap: 25px;
+                margin-top: 80px;
             }
-            
+                            
             .auto-atendimento {
                 display: none; /* Oculta a div auto-atendimento inicialmente */
                 color: #10107A;
                 flex-wrap: wrap;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 650px;
+                justify-content: flex-start;
+                max-width: 60%;
                 gap: 20px;
                 border-radius: 8px;
                 text-align: center;
             }
-
+        
             .auto-atendimento h1 {
                 font-size: 30px;    
                 text-align: center;
                 display: flex;
                 justify-content: center;
             }
+        
             .auto-atendimento img {
                 width: 150px;
                 height: auto;
@@ -85,7 +86,7 @@
             .auto-atendimento img:hover {
                 transform: scale(1.1);
             }
-
+        
             .auto-atendimento button {
                 background: none;
                 border: none;
@@ -93,7 +94,7 @@
                 cursor: pointer;
                 margin: 5px;
             }
-
+        
             .auto-atendimento button img {
                 display: block;
                 width: 150px; /* Altere conforme necessário */
@@ -101,26 +102,22 @@
                 transition: transform 0.3s ease;
                 margin: 0 auto; /* Centraliza as imagens dentro dos botões */
             }
-
+        
             .auto-atendimento button:hover img {
                 transform: scale(1.1);
             }
-
+        
             #formContainer {
-                position: fixed;
-                width: 450px;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                position: relative;
                 color: #fff;
                 background-color: #10107A;
-                align-items: center;
-                justify-content: center;
-                padding: 50px;
                 border-radius: 8px;
                 text-align: center;
+                padding: 50px;
+                max-width: 40%;
+                width: 300px;
             }
-            #formContainer img{
+            #formContainer img {
                 width: 200px;
             }
             
@@ -128,11 +125,11 @@
                 font-size: 12px;
                 font-size:x-small;
             }
-
+        
             #formContainer h1 {
                 font-size: 25px;
             }
-
+        
             .inputUser {
                 background: none;
                 border: none;
@@ -143,11 +140,11 @@
                 max-width: 400px;
                 letter-spacing: 2px;
             }
-
-            .inputBox{
-                    position: relative;
-                }
-            
+        
+            .inputBox {
+                position: relative;
+            }
+        
             .labelinput {
                 position: absolute;
                 font-size: 12px;
@@ -157,12 +154,12 @@
                 transition: .5s;
             }
             .inputUser:focus ~ .labelinput,
-            .inputUser:valid ~ .labelinput{
+            .inputUser:valid ~ .labelinput {
                 top: -20px;
                 font-size: 12px;    
                 color: dodgerblue;        
             }
-
+        
             .formContainer button {
                 background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80,19,195));   
                 width: 100%;
@@ -173,10 +170,10 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
-            .formContainer button:hover{
+            .formContainer button:hover {
                 background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
             }
-
+        
             /* Estilos do Modal */
             .modal {
                 display: none; /* Oculta o modal inicialmente */
@@ -201,7 +198,7 @@
                 width: 80%;
                 max-width: 600px;
             }
-
+        
             .close {
                 color: #1515A3;
                 float: right;
@@ -209,59 +206,57 @@
                 font-weight: bold;
                 transition: transform 0.3s ease;    
             }
-
+        
             .close:hover,
             .close:focus {
                 color: #0056b3;
                 transform: scale(1.1);
                 text-decoration: none;
                 cursor: pointer;
-                
             }
-
+        
             .textoModal {
                 font-size: 12px;
                 line-height: 1.5;
             }
-
+        
             .textoModal span {
                 font-size: 10px;
                 display: block;
             }
-
+        
             .textoModal h4 {
                 margin: 0; /* Remove a margem padrão do h4 */
                 padding: 0; /* Remove o preenchimento padrão do h4 */
             }
-
+        
             .textoModal span {
                 display: inline; /* Garante que o span não quebre a linha */
             }
-
+        
             .textoModal a {
                 display: inline; /* Garante que o link não quebre a linha */
             }
-
+        
             li {
                 border: 2px solid #10107A; /* Cor da borda */
                 border-radius: 10px;
                 padding: 10px;
                 margin-bottom: 10px;
             }
-
+        
             ul {
-                    list-style-type: none; /* Remove os pontos dos itens da lista */
-                    padding: 0; /* Remove o padding padrão do <ul> */
-                    margin: 0; /* Remove a margin padrão do <ul> */
-                }
-
-                li {
-                    border: 2px solid #10107A; /* Cor da borda */
-                    padding: 10px;
-                    margin-bottom: 10px;
-                }
-
-        </style>    
+                list-style-type: none; /* Remove os pontos dos itens da lista */
+                padding: 0; /* Remove o padding padrão do <ul> */
+                margin: 0; /* Remove a margin padrão do <ul> */
+            }
+        
+            li {
+                border: 2px solid #10107A; /* Cor da borda */
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+        </style> 
     </head>
     <body>
         <div class="top-navbar" id="top-navbar">
@@ -414,9 +409,9 @@
                             // Verifica se a senha digitada é igual à senha do cliente
                             if (cliente.senha === senhaInput) {
                                 // Mostra a div auto-atendimento
-                                autoAtendimento.style.display = 'flex';
+                                autoAtendimento.style.display = 'flex';                                
                                 // Oculta o formulário após validação
-                                formContainer.style.display = 'none';
+                                cpfForm.style.display = 'none';
                                 // Exibe a top-navbar após login
                                 topNavbar.classList.add('show');
                                 exibirResultado(cliente);
