@@ -1,18 +1,16 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const serverless = require('serverless-http');
 const app = express();
+const port = 3000;
 
-// Configuração do CORS para permitir todas as origens
 app.use(cors());
-
 app.use(express.json());
 
 const token = '8:6ab19d7128d35b06a4db7768d24e72d458d61e6f5f90dab67aca8bedb8e15323';
 
 // Rota para buscar clientes
-app.post('/api/cliente', async (req, res) => {
+app.post('/proxy/cliente', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
       headers: {
@@ -29,7 +27,7 @@ app.post('/api/cliente', async (req, res) => {
 });
 
 // Rota para buscar boletos
-app.post('/api/boletos', async (req, res) => {
+app.post('/proxy/boletos', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -67,7 +65,7 @@ app.post('/api/boletos', async (req, res) => {
 });
 
 // Rota para buscar contratos
-app.post('/api/contratos', async (req, res) => {
+app.post('/proxy/contratos', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
       headers: {
@@ -84,7 +82,7 @@ app.post('/api/contratos', async (req, res) => {
 });
 
 // Nova Rota para buscar OSS
-app.post('/api/oss', async (req, res) => {
+app.post('/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -114,13 +112,13 @@ app.post('/api/oss', async (req, res) => {
       }
     );
 
-    res.json(response.data); // Ajustado para verificar o formato correto da resposta
+    res.json(response.data.registros);
   } catch (error) {
     console.error('Erro ao buscar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
 
-// Exporta a aplicação para o Vercel
-module.exports = app;
-module.exports.handler = serverless(app);
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});
