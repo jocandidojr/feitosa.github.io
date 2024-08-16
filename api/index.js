@@ -7,10 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.post('/api/cliente', (req, res) => {
+
 const token = '8:6ab19d7128d35b06a4db7768d24e72d458d61e6f5f90dab67aca8bedb8e15323';
 
 // Rota para buscar clientes
-app.post('/proxy/cliente', async (req, res) => {
+app.post('/api/cliente', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
       headers: {
@@ -27,7 +29,7 @@ app.post('/proxy/cliente', async (req, res) => {
 });
 
 // Rota para buscar boletos
-app.post('/proxy/boletos', async (req, res) => {
+app.post('/api/boletos', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -65,7 +67,7 @@ app.post('/proxy/boletos', async (req, res) => {
 });
 
 // Rota para buscar contratos
-app.post('/proxy/contratos', async (req, res) => {
+app.post('/api/contratos', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
       headers: {
@@ -82,7 +84,7 @@ app.post('/proxy/contratos', async (req, res) => {
 });
 
 // Nova Rota para buscar OSS
-app.post('/proxy/oss', async (req, res) => {
+app.post('/api/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -118,6 +120,10 @@ app.post('/proxy/oss', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
+
+app.use(cors({
+  origin: 'https://feitosa-github-5gnz5h9r5-jocandidojrs-projects.vercel.app'
+}));
 
 // Exporta a aplicação para o Vercel
 module.exports = app;
