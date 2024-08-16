@@ -4,9 +4,13 @@ const cors = require('cors');
 const serverless = require('serverless-http');
 const app = express();
 
-app.use(cors());
+// Configuração do CORS
+app.use(cors({
+  origin: 'https://feitosa-github-io.vercel.app'
+}));
+
 app.use(express.json());
-  
+
 const token = '8:6ab19d7128d35b06a4db7768d24e72d458d61e6f5f90dab67aca8bedb8e15323';
 
 // Rota para buscar clientes
@@ -112,16 +116,12 @@ app.post('/api/oss', async (req, res) => {
       }
     );
 
-    res.json(response.data.registros);
+    res.json(response.data); // Ajustado para verificar o formato correto da resposta
   } catch (error) {
     console.error('Erro ao buscar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
-
-app.use(cors({
-  origin: 'https://feitosa-github-io.vercel.app'
-}));
 
 // Exporta a aplicação para o Vercel
 module.exports = app;
