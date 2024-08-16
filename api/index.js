@@ -122,4 +122,3 @@ app.post('/proxy/oss', async (req, res) => {
 // Exporta a aplicação para o Vercel
 module.exports = app;
 module.exports.handler = serverless(app);
-  
