@@ -4,10 +4,8 @@ const cors = require('cors');
 const serverless = require('serverless-http');
 const app = express();
 
-// Configuração do CORS
-app.use(cors({
-  origin: 'https://feitosa-github-io.vercel.app/api'
-}));
+// Configuração do CORS para permitir todas as origens
+app.use(cors());
 
 app.use(express.json());
 
