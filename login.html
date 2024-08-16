@@ -234,12 +234,13 @@
             }
 
             .textoProfile {
+                width: 80%;
                 background-color: transparent;
                 text-align: left;
             }
 
             .textoProfile h1 {
-                margin: -2px;
+                margin: 0;
                 font-size: 20px;
                 text-align: left;
             }
@@ -283,10 +284,11 @@
                 border-radius: 5px;
                 list-style-type: none;
                 font-size: 15px;
+                text-align: justify;
             }
 
             .textoModalBoletos h2 {
-                font-size: 15px;
+                font-size: 16px;
             }
 
             /* Estilo para boletos vencidos */
@@ -305,7 +307,11 @@
             .textoModalBoletos {
                 background-color: #d4edda; /* Verde claro para outros status */
                 color: #155724; /* Texto escuro para contraste */
-}
+            }
+            .hr {
+                border: 1px solid #ddd; /* Exemplo de estilo */
+                margin: 10px 0; /* Espaçamento */
+            }
 
         </style> 
     </head>
@@ -488,10 +494,9 @@
                     if (cliente) {
                         resultDiv.innerHTML = `<ul><li class="textoProfile">
     
-        <h1>Olá,<p>${cliente.razao}!</p></h1>
+        <h1>Olá,<br>${cliente.razao}!</h1>
         <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
         <p><span>Meu contato:</span> ${cliente.telefone_celular} </p>
-        <p><span>Status da minha conexão:</span><p>${cliente.status_internet}</p>
     
 </li></ul>
 `;
@@ -616,7 +621,7 @@ async function buscarBoletos() {
                         <h4>
                             <p><span>Fatura nº:</span> ${boleto.id} | 
                                 <span>Vencimento:</span> ${formatarData(boleto.data_vencimento)}</p>
-                            <p><h2><span>Mensalidade:</span> R$: ${boleto.valor}</h2></p>
+                            <p><span>Mensalidade:</span> R$: ${boleto.valor}</p>
                             <p><span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}</p>  
                             <p><span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
                         </h4>
@@ -669,23 +674,28 @@ async function buscarContratos() {
 
         const contratoContent = document.getElementById('contratoContent');
         if (data.registros && data.registros.length > 0) {
-            contratoContent.innerHTML = '<ul>' + data.registros.map(contrato => {
+            contratoContent.innerHTML = '<ul>' + data.registros.map((contrato, index) => {
                 // Definindo o tipo e status de conexão
                 const tipoContrato = contrato.tipo === "I" ? "Internet" : "Desconhecido";
                 const statusConexao = contrato.status_internet === "A" ? "Ativo" : 
                                       contrato.status_internet === "CM" ? "Suspenso" : 
                                       "Desconhecido";
+                const statusContrato = contrato.status === "A" ? "Ativo" :  
+                                       contrato.status === "I" ? "Inativo/Cancelado" : 
+                                       "Desconhecido";
+                
+                // Adicionar <hr> entre os itens, exceto após o último item
+                const hrTag = index < data.registros.length - 1 ? '<hr>' : '';                                     
 
                 return `
                     <li class="textoModalBoletos">
                         <h4>
-                            <p><span>Contrato:</span> ${contrato.id}</p>
-                            <p><span>Status:</span> ${contrato.status}</p>
-                            <p><span>Tipo:</span> ${tipoContrato}</p>
-                            <p><span>Status Conexão:</span> ${statusConexao}</p>
+                            <p><span>Contrato ID:</span> ${contrato.id}  <span>Status do contrato:</span> ${statusContrato}</p>
+                            <p><span>Tipo de contrato:</span> ${tipoContrato}</p>
+                            <p><span>Status da internet:</span> ${statusConexao}</p>
                             <p><span>Meu plano:</span> ${contrato.contrato}</p>
                         </h4>
-                    </li>`;
+                    </li>${hrTag}`;
             }).join('') + '</ul>';
         } else {
             contratoContent.innerHTML = '<p>Nenhum contrato encontrado.</p>';
@@ -695,6 +705,7 @@ async function buscarContratos() {
         console.error("Erro ao buscar contratos:", error.message);
     }
 }
+
 
                 
  
@@ -732,14 +743,12 @@ async function buscarOss() {
             const resultadosLimitados = data.slice(0, 5);
 
             // Gera o HTML para os registros limitados
-            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `
-                <li class="textoModal">
+            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `<li class="textoModalBoletos">
                     <h4>
-                        <span>Chamado:</span> ${oss.id} -
-                        <span>Protocolo:</span> ${oss.protocolo} -
-                        <span>Endereço:</span> ${oss.endereco} -
-                        <span>Assunto:</span> ${oss.mensagem}
-                        <span>Solução:</span> ${oss.mensagem_resposta}
+                        <p><span>Ordem de serviço:</span> ${oss.id} | <span>Protocolo:</span> ${oss.protocolo}</p>
+                        <p><span>Endereço de atendimento:</span></p> <p>${oss.endereco}</p>
+                        <p><span>Resumo da solicitação:</span> ${oss.mensagem}</p>
+                        <p><h2><span>Solução:</span> ${oss.mensagem_resposta}</p></h2>
                     </h4>
                 </li>`).join('') + '</ul>';
         } else {
