@@ -411,7 +411,7 @@
                 const autoAtendimento = document.getElementById('auto-atendimento');
                 const modal = document.getElementById('myModal');
                 const topNavbar = document.getElementById('top-navbar');
-                const urlBase = 'https://feitosa-github-dwvcxlllv-jocandidojrs-projects.vercel.app/api';
+                const urlBase = 'https://feitosa-github-io.vercel.app/api';
                                 
                 // Função para fazer logout
                 function logout() {
@@ -439,7 +439,7 @@ async function buscarClientes(cpf) {
     try {
         console.log("Fazendo requisição para o servidor proxy...");
 
-        const response = await fetch(`https://feitosa-github-dwvcxlllv-jocandidojrs-projects.vercel.app/api/cliente`, {
+        const response = await fetch(`https://feitosa-github-io.vercel.app/api/cliente`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -563,7 +563,7 @@ async function buscarBoletos() {
             return;
         }
 
-        const response = await fetch('https://feitosa-github-dwvcxlllv-jocandidojrs-projects.vercel.app/api/boletos', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/boletos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -722,7 +722,7 @@ async function buscarOss() {
             return;
         }
 
-        const response = await fetch('https://feitosa-github-dwvcxlllv-jocandidojrs-projects.vercel.app/api/oss', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/oss', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

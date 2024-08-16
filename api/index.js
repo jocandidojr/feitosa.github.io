@@ -120,7 +120,7 @@ app.post('/api/oss', async (req, res) => {
 });
 
 app.use(cors({
-  origin: 'https://feitosa-github-5gnz5h9r5-jocandidojrs-projects.vercel.app'
+  origin: 'https://feitosa-github-io.vercel.app'
 }));
 
 // Exporta a aplicação para o Vercel
