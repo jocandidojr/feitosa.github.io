@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Área do Cliente</title>
+        <title>Central do Assinante</title>
 
         <style>
             /* Reset básico */
@@ -184,34 +184,35 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 100%;
+                max-width: 100%;
                 overflow: auto;
                 justify-content: center;
                 align-items: center;
             }
             .modal-content {
-                background-color: #dfe1e3;
+                background-color: #0056b3;
                 color: #10107A;
                 margin: auto;
-                font-size: 20px;
+                font-size: 30px;
                 padding: 20px;
                 border: none;
-                border-radius: 30px;
+                border-radius: 10px;
                 width: 80%;
                 max-width: 600px;
             }
         
             .close {
                 color: #1515A3;
-                float: right;
-                font-size: 20px;
+                text-align: right;
+                margin: 0;
+                font-size: 15px;
                 font-weight: bold;
                 transition: transform 0.3s ease;    
             }
         
             .close:hover,
             .close:focus {
-                color: #0056b3;
+                color: #ffffff;
                 transform: scale(1.1);
                 text-decoration: none;
                 cursor: pointer;
@@ -220,6 +221,7 @@
             .textoModal {
                 font-size: 12px;
                 line-height: 1.5;
+                background-color: #20e354;
             }
         
             .textoModal span {
@@ -228,12 +230,14 @@
             }
         
             .textoModal h4 {
+                font-size: 14px;
                 margin: 0; /* Remove a margem padrão do h4 */
                 padding: 0; /* Remove o preenchimento padrão do h4 */
             }
         
             .textoModal span {
                 display: inline; /* Garante que o span não quebre a linha */
+                font-size: 18px;
             }
         
             .textoModal a {
@@ -241,7 +245,7 @@
             }
         
             li {
-                border: 2px solid #10107A; /* Cor da borda */
+                border: none; /* Cor da borda */
                 border-radius: 10px;
                 padding: 10px;
                 margin-bottom: 10px;
@@ -252,12 +256,12 @@
                 padding: 0; /* Remove o padding padrão do <ul> */
                 margin: 0; /* Remove a margin padrão do <ul> */
             }
-        
-            li {
-                border: 2px solid #10107A; /* Cor da borda */
-                padding: 10px;
-                margin-bottom: 10px;
+
+            .vencido {
+                background-color: #f8d7da; /* Vermelho claro */
+                color: #721c24; /* Texto escuro para contraste */
             }
+
         </style> 
     </head>
     <body>
@@ -329,7 +333,7 @@
             <!-- Modal -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                    <span class="close">Fechar &times;</span>
+                    <span class="close"><h3>&times;</h3> </span>
                     
                     <div id="boletoContent">                    
                         <!-- O conteúdo do boleto será exibido aqui -->
@@ -435,15 +439,15 @@
                     const resultDiv = document.getElementById("result");
                 
                     if (cliente) {
-                        resultDiv.innerHTML = `<li class="textoModal">
+                        resultDiv.innerHTML = `<ul><li class="textoModal">
     <h4>
         <span>Olá,</span> <p>${cliente.razao}! &ndash;</p>
         <span>Plano:</span> <p>${cliente.contrato} &ndash;</p>
         <span>Endereço de instalação:</span> <p>${cliente.endereco} &ndash;</p>
-        <span>Contato:</span> <p>${cliente.telefone_celular} &ndash;</p>
+        <span>Contato:</span> ${cliente.telefone_celular} &ndash;   
         <span>Status da sua conexão:</span><p>${cliente.status_internet}</p>
     </h4>
-</li>
+</li></ul>
 `;
                     } else {
                         resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
@@ -489,52 +493,61 @@
                     });
                 });
                 
-                // Função para buscar boletos
-                async function buscarBoletos() {
-                    try {
-                        console.log("Fazendo requisição para o servidor proxy...");
-                
-                        const clienteId = localStorage.getItem('clienteId');
-                
-                        if (!clienteId) {
-                            console.error('Cliente com o id não encontrado');
-                            return;
-                        }
-                
-                        const response = await fetch('http://localhost:3000/proxy/boletos', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ clienteId })
-                        });
-                
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição");
-                        }
-                
-                        const data = await response.json();
-                        console.log(data.registros);
-                
-                        const boletoContent = document.getElementById('boletoContent');
-                        if (data.registros && data.registros.length > 0) {
-                            const resultadosLimitados = data.registros.slice(0, 6);
-                            boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => `<li class="textoModal">
-                    <h4>
-                        <span>Código:</span> ${boleto.id} &ndash; 
-                        <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
-                        <span>Valor:</span> ${boleto.valor} &ndash; 
-                        <span>Fatura:</span> <a href="${boleto.gateway_link}" target="_blank">Baixe aqui</a>
-                    </h4>
-                </li>`).join('') + '</ul>';
-                        } else {
-                            boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
-                        }
-                
-                    } catch (error) {
-                        console.error("Erro ao buscar boletos:", error.message);
-                    }
+        // Função para buscar boletos
+        async function buscarBoletos() {
+            try {
+                console.log("Fazendo requisição para o servidor proxy...");
+
+                const clienteId = localStorage.getItem('clienteId');
+
+                if (!clienteId) {
+                    console.error('Cliente com o id não encontrado');
+                    return;
                 }
+
+                const response = await fetch('http://localhost:3000/proxy/boletos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ clienteId })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro na requisição");
+                }
+
+                const data = await response.json();
+                console.log(data.registros);
+
+                const boletoContent = document.getElementById('boletoContent');
+                if (data.registros && data.registros.length > 0) {
+                    const resultadosLimitados = data.registros.slice(0, 6);
+                    const hoje = new Date();
+
+                    boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
+                        const vencimento = new Date(boleto.data_vencimento);
+                        const classeVencido = vencimento < hoje ? 'vencido' : ''; // Adiciona a classe 'vencido' se a data for anterior a hoje
+
+                        return `
+                            <li class="textoModal ${classeVencido}">
+                                <h4>
+                                    <span>Fatura nº:</span> ${boleto.id} &ndash; 
+                                    <span>Vencimento:</span> ${boleto.data_vencimento} &ndash; 
+                                    <span>Valor:</span> ${boleto.valor} &ndash; 
+                                    <span>Download:</span> <a href="${boleto.gateway_link}" target="_blank">Clique aqui para baixar</a>
+                                </h4>
+                            </li>`;
+                    }).join('') + '</ul>';
+                } else {
+                    boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
+                }
+
+            } catch (error) {
+                console.error("Erro ao buscar boletos:", error.message);
+            }
+        }
+
                 
                 // Função para buscar contratos
                 async function buscarContratos() {
