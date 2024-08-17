@@ -209,5 +209,3 @@ app.post('/proxy/criar-oss', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 };
-
-module.exports = app;
