@@ -999,11 +999,24 @@ async function desbloqueio() {
 
     const data = await response.json();
     console.log('Desbloqueio de confiança realizado com sucesso:', data);
-    return data; // Retornar o resultado para exibição
+
+    // Exibir o resultado na div com o id 'desbloqueioContent'
+    const desbloqueioContent = document.getElementById('desbloqueioContent');
+    if (data && data.success) {
+      desbloqueioContent.innerHTML = `<p>Desbloqueio de confiança realizado com sucesso!</p>`;
+    } else {
+      desbloqueioContent.innerHTML = `<p>Falha ao realizar desbloqueio de confiança.</p>`;
+    }
+    
+    // Mostrar o modal se necessário
+    modal.style.display = 'block';
   } catch (error) {
     console.error('Erro ao realizar desbloqueio de confiança:', error);
+    const desbloqueioContent = document.getElementById('desbloqueioContent');
+    desbloqueioContent.innerHTML = `<p style="color: red;">Erro ao realizar desbloqueio de confiança.</p>`;
   }
 }
+
 
 
 // Função para limpar o conteúdo do modal

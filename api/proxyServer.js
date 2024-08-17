@@ -215,8 +215,8 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
 });
 
 // Rota para desbloquear confiança
-app.post('/proxy/desbloqueio', async (req, res) => {
-  const { clienteId } = req.body;
+app.get('/proxy/desbloqueio', async (req, res) => {
+  const clienteId = req.query.clienteId; // Use query parameters em vez de body para GET requests
 
   if (!clienteId) {
     return res.status(400).json({ error: 'clienteId não fornecido' });
@@ -226,14 +226,14 @@ app.post('/proxy/desbloqueio', async (req, res) => {
     console.log('Desbloqueando confiança do Cliente...');
     
     // Enviar a requisição para a API externa para desbloquear confiança com o clienteId fornecido
-    const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/cliente_contrato',
-      { id: clienteId }, // Aqui estamos passando o ID do contrato que é o clienteId
+    const response = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`, 
       {
+        params: { id: clienteId },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar",
+          ixcsoft: "listar", // Confirme o valor correto para esta operação
         },
       }
     );
@@ -244,6 +244,5 @@ app.post('/proxy/desbloqueio', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio de Confiança" });
   }
 });
-
 
 module.exports = app;
