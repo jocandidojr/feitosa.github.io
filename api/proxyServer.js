@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const token = process.env.TOKEN; // Usar variável de ambiente para o token
+console.log('Token:', token);
 
 // Rota para buscar clientes
 app.post('/proxy/cliente', async (req, res) => {
