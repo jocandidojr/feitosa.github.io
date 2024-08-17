@@ -1,6 +1,9 @@
+require('dotenv').config(); // Carregar variáveis de ambiente
+
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+
 const app = express();
 const port = process.env.PORT || 3000;
 const token = process.env.TOKEN;
@@ -8,11 +11,10 @@ const token = process.env.TOKEN;
 app.use(cors());
 app.use(express.json());
 
-app.post('/proxy/cliente', async (req, res) => {
-
 // Rota para buscar clientes
-app.post('/proxy/cliente', async (req, res) => {
+app.post('/api/proxy/cliente', async (req, res) => {
   try {
+    console.log('Requisição recebida:', req.body); // Adicione logs para depuração
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
       headers: {
         "Content-Type": "application/json",
@@ -22,13 +24,13 @@ app.post('/proxy/cliente', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error("Erro ao buscar clientes:", error.message);
+    console.error("Erro ao buscar clientes:", error.message); // Log detalhado
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Clientes" });
   }
 });
 
 // Rota para buscar boletos
-app.post('/proxy/boletos', async (req, res) => {
+app.post('/api/proxy/boletos', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -37,7 +39,6 @@ app.post('/proxy/boletos', async (req, res) => {
 
   try {
     console.log('Buscando boletos do Cliente...');
-
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/fn_areceber',
       {
@@ -66,7 +67,7 @@ app.post('/proxy/boletos', async (req, res) => {
 });
 
 // Rota para buscar contratos
-app.post('/proxy/contratos', async (req, res) => {
+app.post('/api/proxy/contratos', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
       headers: {
@@ -83,7 +84,7 @@ app.post('/proxy/contratos', async (req, res) => {
 });
 
 // Rota para buscar OSS
-app.post('/proxy/oss', async (req, res) => {
+app.post('/api/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -92,7 +93,6 @@ app.post('/proxy/oss', async (req, res) => {
 
   try {
     console.log('Buscando OSS do Cliente...');
-
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
       {
@@ -120,9 +120,8 @@ app.post('/proxy/oss', async (req, res) => {
   }
 });
 
-// Nova Rota para criar OSS
-app.post('/proxy/criar-oss', async (req, res) => {
-  
+// Rota para criar OSS
+app.post('/api/proxy/criar-oss', async (req, res) => {
   const { clienteId, tipo, id_assunto, id_filial, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
   if (!clienteId || !tipo || !id_assunto || !id_filial || !origem_endereco || !prioridade || !setor || !status) {
@@ -131,7 +130,6 @@ app.post('/proxy/criar-oss', async (req, res) => {
 
   try {
     console.log('Criando OSS para o Cliente...');
-
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
       {
@@ -208,10 +206,6 @@ app.post('/proxy/criar-oss', async (req, res) => {
     console.error('Erro ao criar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
-});
-
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
 module.exports = app;
