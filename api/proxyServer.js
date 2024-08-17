@@ -208,4 +208,8 @@ app.post('/proxy/criar-oss', async (req, res) => {
     console.error('Erro ao criar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
-};
+});
+
+// Exporta a aplicação para o Vercel
+module.exports = app;
+module.exports.handler = serverless(app);
