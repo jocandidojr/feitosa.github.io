@@ -1,15 +1,30 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/proxyserver.js",
-      "use": "@vercel/node"
-    }
+    { "src": "api/proxyserver.js", "use": "@vercel/node" }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/proxyserver.js"
+      "src": "/api/proxy/(.*)",
+      "dest": "/api/proxyserver.js",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 }
