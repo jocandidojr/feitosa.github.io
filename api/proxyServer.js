@@ -2,12 +2,12 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Usar variável de ambiente para a porta
 
 app.use(cors());
 app.use(express.json());
 
-const token = '8:6ab19d7128d35b06a4db7768d24e72d458d61e6f5f90dab67aca8bedb8e15323';
+const token = process.env.TOKEN; // Usar variável de ambiente para o token
 
 // Rota para buscar clientes
 app.post('/proxy/cliente', async (req, res) => {
@@ -207,8 +207,6 @@ app.post('/proxy/criar-oss', async (req, res) => {
     console.error('Erro ao criar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
-});
+};
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
+module.exports = app;
