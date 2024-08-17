@@ -408,8 +408,8 @@
                         <img src="/assets/a_boleto_.png" alt="Boleto">
                     </button>
 
-                    <button data-page="libera">
-                        <img src="/assets/a_desbloqueio_.png" alt="libera">
+                    <button data-page="desbloqueio">
+                        <img src="/assets/a_desbloqueio_.png" alt="desbloqueio">
                     </button>
 
                     <button data-page="Oss">
@@ -444,6 +444,9 @@
                     </div>
 
                     <div id="criarOssContent">
+                        <!-- O conteúdo do boleto será exibido aqui -->
+                    </div>
+                    <div id="desbloqueioContent">
                         <!-- O conteúdo do boleto será exibido aqui -->
                     </div>
             </div>
@@ -612,6 +615,8 @@
                                 await buscarOss();
                             } else if (page === 'criarOss') {
                                 await criarOss();
+                            } else if (page === 'desbloqueio') {
+                                await desbloqueio();
                             }
                         }
                     });
@@ -778,8 +783,6 @@ async function buscarContratos() {
         console.error("Erro ao buscar contratos:", error.message);
     }
 }
-
-
             
 // Função para buscar OSS
 async function buscarOss() {
@@ -974,6 +977,32 @@ async function criarOss() {
     } catch (error) {
         console.error("Erro ao abrir OSS:", error.message);
     }
+}
+
+// Função para desbloqueio de confinaça
+async function desbloqueio() {
+  const clienteId = localStorage.getItem('clienteId');
+
+  if (!clienteId) {
+    console.error('clienteId não encontrado no localStorage');
+    return;
+  }
+
+  try {
+    const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ clienteId })
+    });
+
+    const data = await response.json();
+    console.log('Desbloqueio de confiança realizado com sucesso:', data);
+    return data; // Retornar o resultado para exibição
+  } catch (error) {
+    console.error('Erro ao realizar desbloqueio de confiança:', error);
+  }
 }
 
 
