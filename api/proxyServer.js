@@ -83,7 +83,7 @@ app.post('/api/proxy/contratos', async (req, res) => {
   }
 });
 
-app.post('/proxy/oss', async (req, res) => {
+app.post('/api/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {

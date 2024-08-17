@@ -389,9 +389,10 @@
             #ossForm select,
             #ossForm textarea {
                 background: none;
-                border-radius: 4px;
+                border-radius: 10px;
                 outline: none;
                 color: white;
+                background-color: #0056b3;
                 font-size: 15px;
                 width: calc(100% - 20px);
                 margin-bottom: 20px;
@@ -399,7 +400,8 @@
             }
 
             #ossForm select {
-                height: 40px;
+                height: 50px;
+                
             }
 
             #ossForm textarea {
@@ -421,6 +423,21 @@
             #ossForm button:hover {
                 background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
             }
+
+            @media (max-width: 768px) {
+    /* Ajustes para telas menores */
+    #formContainer, #ossformContainer {
+        max-width: 90%; /* Reduz a largura máxima */
+        width: auto; /* Ajusta a largura para ocupar o máximo permitido */
+        padding: 20px; /* Reduz o padding para economizar espaço */
+    }
+
+    .auto-atendimento {
+        max-width: 90%; /* Reduz a largura máxima */
+        width: auto; /* Ajusta a largura para ocupar o máximo permitido */
+        padding: 15px; /* Reduz o padding para economizar espaço */
+    }
+}
 
 
 
