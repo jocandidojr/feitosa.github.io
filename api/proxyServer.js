@@ -84,7 +84,7 @@ app.post('/api/proxy/contratos', async (req, res) => {
 });
 
 // Rota para buscar OSS
-app.post('/api/proxy/oss', async (req, res) => {
+app.post('/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -93,6 +93,8 @@ app.post('/api/proxy/oss', async (req, res) => {
 
   try {
     console.log('Buscando OSS do Cliente...');
+
+    // Enviar a requisição para a API externa com o clienteId fornecido
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
       {
@@ -113,12 +115,16 @@ app.post('/api/proxy/oss', async (req, res) => {
       }
     );
 
-    res.json(response.data.registros);
+    // Filtrar os registros retornados para garantir que apenas OSS com o id_cliente correto sejam retornados
+    const filteredRecords = response.data.registros.filter(record => record.id_cliente === clienteId);
+
+    res.json(filteredRecords);
   } catch (error) {
     console.error('Erro ao buscar OSS:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
+
 
 // Rota para criar OSS
 app.post('/api/proxy/criar-oss', async (req, res) => {
