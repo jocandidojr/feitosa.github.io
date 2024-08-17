@@ -502,7 +502,7 @@
                     try {
                         console.log("Fazendo requisição para o servidor proxy...");
                 
-                        const response = await fetch('http://localhost:3000/proxy/cliente', {
+                        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/cliente', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -626,7 +626,7 @@ async function buscarBoletos() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/boletos', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/apiproxy/boletos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -713,7 +713,7 @@ async function buscarContratos() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/contratos', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/contratos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -784,7 +784,7 @@ async function buscarOss() {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/proxy/oss', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/oss', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
