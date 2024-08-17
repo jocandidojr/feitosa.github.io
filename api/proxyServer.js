@@ -1,15 +1,14 @@
-require('dotenv').config({ path: './token.env' }); // Carregar o arquivo token.env
-
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3000; // Usar variável de ambiente para a porta
-const token = process.env.TOKEN; // Usar variável de ambiente para o token
-console.log('Token:', token);
+const port = process.env.PORT || 3000;
+const token = process.env.TOKEN;
 
 app.use(cors());
 app.use(express.json());
+
+app.post('/proxy/cliente', async (req, res) => {
 
 // Rota para buscar clientes
 app.post('/proxy/cliente', async (req, res) => {
