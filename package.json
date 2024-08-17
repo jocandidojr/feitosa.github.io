@@ -1,8 +1,8 @@
 {
   "name": "feitosa.github.io",
   "version": "1.0.0",
-  "start": "node api/proxyServer.js",
   "scripts": {
+    "start": "node api/proxyserver.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,7 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2"
   },
-  "main": "index.js",
+  "main": "api/proxyserver.js",
   "devDependencies": {},
   "description": ""
 }
