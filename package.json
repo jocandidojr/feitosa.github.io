@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node api/proxyserver.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon proxyServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
