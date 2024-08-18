@@ -1076,7 +1076,8 @@ async function criarOss() {
         console.error("Erro ao abrir OSS:", error.message);
     }
 }
-// Função para desbloqueio de confiança
+//FUNÇÃO PARA DESBLOQUEIO
+
 async function desbloqueio() {
   const clienteId = localStorage.getItem('clienteId');
 
@@ -1122,12 +1123,18 @@ async function desbloqueio() {
     // Considerar o primeiro contrato filtrado para o desbloqueio
     const contratoId = contratosFiltrados[0].id;
 
-    // Fazer a requisição GET para a rota de desbloqueio com o id do contrato como parâmetro
-    const desbloqueioResponse = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/desbloqueio?clienteId=${contratoId}`, {
-      method: 'GET',
+    // Armazenar o id do contrato no localStorage
+    localStorage.setItem('contratoId', contratoId);
+
+    // Fazer a requisição POST para a rota de desbloqueio com o contratoId como parâmetro de consulta
+    const desbloqueioResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({
+        id: contratoId
+      })
     });
 
     if (!desbloqueioResponse.ok) {
@@ -1139,25 +1146,27 @@ async function desbloqueio() {
 
     // Exibir o resultado na div com o id 'desbloqueioContent'
     const desbloqueioContent = document.getElementById('desbloqueioContent');
-    if (desbloqueioData && desbloqueioData.success) {
-      desbloqueioContent.innerHTML = `<p>Desbloqueio de confiança realizado com sucesso!</p>`;
-    } else {
-      desbloqueioContent.innerHTML = `<p>Falha ao realizar desbloqueio de confiança.</p>`;
-    }
-
-    // Mostrar o modal se necessário
-    const modal = document.getElementById('myModal');
-    if (modal) {
-      modal.style.display = 'block';
+    if (desbloqueioContent) {
+      if (desbloqueioData && desbloqueioData.success) {
+        desbloqueioContent.innerHTML = `<p>Desbloqueio de confiança realizado com sucesso!</p>`;
+      } else {
+        desbloqueioContent.innerHTML = `<p>Falha ao realizar desbloqueio de confiança.</p>`;
+      }
     }
   } catch (error) {
-    console.error('Erro ao realizar desbloqueio de confiança:', error);
+    console.error("Erro ao solicitar desbloqueio:", error.message);
     const desbloqueioContent = document.getElementById('desbloqueioContent');
     if (desbloqueioContent) {
-      desbloqueioContent.innerHTML = `<p style="color: red;">Erro ao realizar desbloqueio de confiança.</p>`;
+      desbloqueioContent.innerHTML = `<p style="color: red;">Erro ao solicitar desbloqueio: ${error.message}</p>`;
     }
   }
 }
+
+
+// Adicione um evento de clique ao botão para chamar a função de desbloqueio
+document.querySelector('#desbloquearButton').addEventListener('click', async () => {
+  await desbloqueio();
+});
 
 
 // Função para limpar o conteúdo do modal
@@ -1165,10 +1174,13 @@ function limparModal() {
             const boletoContent = document.getElementById('boletoContent');
             const contratoContent = document.getElementById('contratoContent');
             const ossContent = document.getElementById('ossContent');
+            const desbloqueioContent = document.getElementById('desbloqueioContent');
+            const criarOssContent = document.getElementById('criarOssContent');
 
             if (boletoContent) boletoContent.innerHTML = '';
             if (contratoContent) contratoContent.innerHTML = '';
             if (ossContent) ossContent.innerHTML = '';
+            if (desbloqueioContent) desbloqueioContent.innerHTML = ''; 
             if (criarOssContent) criarOssContent.innerHTML = ''; 
         }
 

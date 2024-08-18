@@ -212,7 +212,6 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
   }
 });
 
-// Rota para desbloquear confiança
 app.get('/api/proxy/desbloqueio', async (req, res) => {
   const clienteId = req.query.clienteId;
 
@@ -222,8 +221,6 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {
 
   try {
     console.log('Buscando cliente pelo clienteId...');
-
-    // Buscar o cliente pelo clienteId para obter o id do contrato
     const clienteResponse = await axios.get(
       'https://feitosatelecom.com.br/webservice/v1/cliente', 
       {
@@ -231,38 +228,34 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar" // Confirmar se este cabeçalho é necessário
+          ixcsoft: "listar",
         }
       }
     );
-
-    const cliente = clienteResponse.data?.registros?.[0];
-
-    if (!cliente || !cliente.id) {
-      return res.status(404).json({ error: 'Cliente não encontrado com o clienteId fornecido' });
+    
+    const cliente = clienteResponse.data;
+    if (!cliente || !cliente.id_contrato) {
+      return res.status(404).json({ error: 'Contrato não encontrado' });
     }
 
-    const contratoId = cliente.id; // Assumindo que cliente.id é o contratoId
+    const contratoId = cliente.id_contrato;
 
-    console.log('Desbloqueando confiança do contrato...');
-
-    // Desbloquear confiança usando o id do contrato
-    const desbloqueioResponse = await axios.get(
-      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca', 
+    console.log('Buscando contrato pelo contratoId...');
+    const contratoResponse = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/contrato/${contratoId}`,
       {
-        params: { id: contratoId },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar" // Confirmar se este cabeçalho é necessário
+          ixcsoft: "listar",
         }
       }
     );
 
-    res.json(desbloqueioResponse.data);
+    res.json(contratoResponse.data);
   } catch (error) {
-    console.error('Erro ao desbloquear confiança:', error.message);
-    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio de Confiança" });
+    console.error('Erro ao buscar desbloqueio:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio" });
   }
 });
 
