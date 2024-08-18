@@ -213,7 +213,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
 });
 
 // Rota para desbloquear confiança
-app.get('/api/proxy/desbloqueio', async (req, res) => {  // Ajuste a rota para '/api/proxy/desbloqueio'
+app.get('/api/proxy/desbloqueio', async (req, res) => {
   const clienteId = req.query.clienteId; // Usando query parameters
 
   if (!clienteId) {
@@ -221,13 +221,13 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {  // Ajuste a rota para '
   }
 
   try {
-    console.log('Desbloqueando confiança do Cliente...');
-    
-    // Enviar a requisição para a API externa
-    const response = await axios.get(
-      `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`, 
+    console.log('Buscando contrato vinculado ao Cliente...');
+
+    // Primeiro, obtenha o id do contrato usando o clienteId
+    const contratoResponse = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/cliente_contrato_15464`, 
       {
-        params: { id_contrato: clienteId }, // Certifique-se de que 'id_contrato' é o parâmetro correto
+        params: { cliente_id: clienteId }, // ou outro parâmetro apropriado para buscar contratos
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
@@ -236,7 +236,28 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {  // Ajuste a rota para '
       }
     );
 
-    res.json(response.data);
+    const contrato = contratoResponse.data?.registros?.[0]; // Assumindo que a resposta tem um array de registros
+
+    if (!contrato || !contrato.id) {
+      return res.status(404).json({ error: 'Contrato não encontrado para o clienteId fornecido' });
+    }
+
+    console.log('Desbloqueando confiança do contrato...');
+
+    // Agora, faça o desbloqueio usando o id do contrato
+    const desbloqueioResponse = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`, 
+      {
+        params: { id: contrato.id }, // Use o id do contrato como parâmetro
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar", // Verifique se este cabeçalho é necessário
+        },
+      }
+    );
+
+    res.json(desbloqueioResponse.data);
   } catch (error) {
     console.error('Erro ao desbloquear confiança:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio de Confiança" });
