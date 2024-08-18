@@ -167,6 +167,10 @@
     color: dodgerblue;
 }
 
+.ul {
+    list-style-type: none; 
+}
+
 .formContainer button, #ossFormContainer button {
     background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80,19,195));
     width: 100%;
@@ -271,17 +275,62 @@
                 list-style-type: none;
             }
 
-            .textoProfile {
-                width: 80%;
-                background-color: transparent;
-                text-align: left;
-            }
+.profile-info {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 400px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-            .textoProfile h1 {
-                margin: 0;
-                font-size: 20px;
-                text-align: left;
-            }
+.textoProfile {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    align-items: center;
+}
+
+.textoProfile h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.textoProfile ul {
+    list-style-type: none;
+}
+
+.textoProfile p {
+    font-size: 16px;
+    color: #fff;
+    margin: 8px 0;
+}
+
+.textoProfile p span {
+    font-weight: bold;
+    color: #fff;
+}
+
+.textoProfile p::before {
+    content: "• ";
+    color: #fff;
+    font-weight: bold;
+}
+
+.textoProfile h1::after {
+    content: "";
+    display: block;
+    background-color: #10107A;
+    border-radius: 2px;
+}
+
+ul.profile-info li:first-child {
+    margin-top: -20px; /* Espaço para a logo acima */
+    list-style-type: none; 
+}
+
 
             .textoModal span {
                 font-size: 18px;
@@ -427,14 +476,15 @@
             @media (max-width: 768px) {
     /* Ajustes para telas menores */
     #formContainer, #ossformContainer {
-        max-width: 90%; /* Reduz a largura máxima */
+        max-width: 100%; /* Reduz a largura máxima */
         width: auto; /* Ajusta a largura para ocupar o máximo permitido */
-        padding: 20px; /* Reduz o padding para economizar espaço */
+        padding: 15px; /* Reduz o padding para economizar espaço */
+        border-radius: 20px;
     }
 
     .auto-atendimento {
-        max-width: 90%; /* Reduz a largura máxima */
-        width: auto; /* Ajusta a largura para ocupar o máximo permitido */
+        max-width: 100%; /* Reduz a largura máxima */
+        width: 100%; /* Ajusta a largura para ocupar o máximo permitido */
         padding: 15px; /* Reduz o padding para economizar espaço */
     }
 }
@@ -455,7 +505,7 @@
                 <br>
                 <form id="cpfForm">
                     <h1>Central do Assinante</h1>
-                    <br>
+                    <br><br>
                     <div class="inputBox">
                         <input type="text" id="cpf" name="cpf" class="inputUser" required>
                         <label for="cpf" class="labelinput">Digite o CPF ou CNPJ:</label>
@@ -473,6 +523,8 @@
                     <h3><p>A senha para o primeiro acesso é 12345.</p></h3>
                     
                 </form>
+                <br>
+                <br>
                 <div id="result">
                     <!-- O resultado da busca será exibido aqui -->
                 </div>
