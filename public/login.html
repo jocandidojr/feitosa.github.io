@@ -1087,38 +1087,60 @@ async function desbloqueio() {
   }
 
   try {
-    // 1. Fazendo a requisição para buscar os contratos do cliente
-    const contratosResponse = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/buscar-contratos?clienteId=${clienteId}`, {
-      method: 'GET',
+    // 1. Fazer a requisição para buscar os contratos do cliente
+    const contratosResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/contratos', {
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        qtype: "id_cliente",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "cliente_contrato.id",
+        sortorder: "desc",
+      })
     });
+
+    if (!contratosResponse.ok) {
+      throw new Error("Erro na requisição de contratos");
+    }
 
     const contratosData = await contratosResponse.json();
 
-    // Verifica se há contratos e pega o id do primeiro contrato
-    if (!contratosData || contratosData.length === 0) {
-      console.error('Nenhum contrato encontrado para o clienteId fornecido.');
+    // Filtra os contratos com status_internet "CM" ou "CA"
+    const contratosFiltrados = contratosData.registros.filter(contrato =>
+      contrato.status_internet === 'CM' || contrato.status_internet === 'CA'
+    );
+
+    if (contratosFiltrados.length === 0) {
+      console.error('Nenhum contrato com status de bloqueio encontrado para o clienteId fornecido.');
       return;
     }
 
-    const id = contratosData[0].id; // Pegando o id do primeiro contrato. Ajuste conforme necessário.
+    // Considera o primeiro contrato filtrado para o desbloqueio
+    const contratoId = contratosFiltrados[0].id;
 
     // 2. Fazendo a requisição GET para a rota de desbloqueio com o id como query parameter
-    const response = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/desbloqueio?clienteId=${id}`, {
+    const desbloqueioResponse = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/desbloqueio?clienteId=${contratoId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
-    const data = await response.json();
-    console.log('Desbloqueio de confiança realizado com sucesso:', data);
+    if (!desbloqueioResponse.ok) {
+      throw new Error("Erro na requisição de desbloqueio");
+    }
+
+    const desbloqueioData = await desbloqueioResponse.json();
+    console.log('Desbloqueio de confiança realizado com sucesso:', desbloqueioData);
 
     // Exibir o resultado na div com o id 'desbloqueioContent'
     const desbloqueioContent = document.getElementById('desbloqueioContent');
-    if (data && data.success) {
+    if (desbloqueioData && desbloqueioData.success) {
       desbloqueioContent.innerHTML = `<p>Desbloqueio de confiança realizado com sucesso!</p>`;
     } else {
       desbloqueioContent.innerHTML = `<p>Falha ao realizar desbloqueio de confiança.</p>`;
@@ -1137,6 +1159,7 @@ async function desbloqueio() {
     }
   }
 }
+
 
 // Função para limpar o conteúdo do modal
 function limparModal() {
