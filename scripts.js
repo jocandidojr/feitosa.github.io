@@ -308,10 +308,10 @@ contratoContent.innerHTML = '<ul>' + data.registros.map((contrato, index) => {
     return `
         <li class="textoModalOutros">
             <h4>
-                <p><span>Contrato ID:</span> ${contrato.id}  <span>Status do contrato:</span> ${statusContrato}</p>
-                <p><span>Tipo de contrato:</span> ${tipoContrato}</p>
-                <p><span>Status da internet:</span> ${statusConexao}</p>
-                <p><span>Meu plano:</span> ${contrato.contrato}</p>
+                <p><span>Contrato nº:</span> ${contrato.id}  <span>Status do contrato:</span> ${statusContrato}</p>
+                <p><span>Serviço contratado:</span> ${tipoContrato}</p>
+                <p><span>Status da conexão:</span> ${statusConexao}</p>
+                <p><span>Plano de internet:</span> ${contrato.contrato}</p>
             </h4>
         </li>${hrTag}`;
 }).join('') + '</ul>';
@@ -401,7 +401,7 @@ const formHtml = `
     </div>
 
     <div>
-        <label for="assunto">Assunto:</label>
+        <label for="assunto">Sobre qual assunto deseja falar?</label>
         <select id="assunto" name="assunto" required>
             <option value="8">Manutenção</option>
             <option value="6">Financeiro</option>
@@ -409,11 +409,11 @@ const formHtml = `
     </div>
 
     <div>
-        <label for="mensagem">Mensagem:</label>
+        <label for="mensagem">Como podemos te ajudar?</label>
         <textarea id="mensagem" name="mensagem" required></textarea>
     </div>
 
-    <button type="submit">Criar OSS</button>
+    <button type="submit">Abrir novo chamado</button>
 </form>
 `;
 
