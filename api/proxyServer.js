@@ -212,12 +212,6 @@
     }
   });
 
-/// Middleware para adicionar o token de autenticação no header
-app.use((req, res, next) => {
-  req.headers['Authorization'] = `Bearer ${process.env.TOKEN}`;
-  next();
-});
-
 // Rota para buscar dados de contrato do cliente
 app.get('/proxy/cliente-contrato', async (req, res) => {
   try {
@@ -230,7 +224,7 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
     // Faz a requisição para a API da Feitosa Telecom usando o clienteId
     const response = await axios.get(`https://feitosatelecom.com.br/webservice/v1/cliente_contrato/${clienteId}`, {
       headers: {
-        'Authorization': `Bearer ${process.env.TOKEN}`,
+        'Authorization': `Basic ${Buffer.from(token).toString('base64')}`,
       }
     });
 
