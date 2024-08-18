@@ -651,13 +651,13 @@
                     const resultDiv = document.getElementById("result");
                 
                     if (cliente) {
-                        resultDiv.innerHTML = `<ul><li class="textoProfile">
+                        resultDiv.innerHTML = `<li class="textoProfile">
     
         <h1>Olá,<br>${cliente.razao}!</h1>
         <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
         <p><span>Meu contato:</span> ${cliente.telefone_celular} </p>
     
-</li></ul>
+</li>
 `;
                     } else {
                         resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
