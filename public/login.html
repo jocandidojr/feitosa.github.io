@@ -1088,10 +1088,11 @@ async function desbloqueio() {
 
   try {
     // Fazer a requisição para buscar os contratos do cliente
-    const contratosResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/contratos', {
+    const contratosResponse = await fetch('https://feitosatelecom.com.br/webservice/v1/cliente_contrato/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}` // Supondo que o token é armazenado no localStorage
       },
       body: JSON.stringify({
         qtype: "id_cliente",
@@ -1126,14 +1127,14 @@ async function desbloqueio() {
     // Armazenar o id do contrato no localStorage
     localStorage.setItem('contratoId', contratoId);
 
-    // Fazer a requisição POST para a rota de desbloqueio com o contratoId como parâmetro de consulta
-    const desbloqueioResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio', {
-      method: 'GET',
+    // Fazer a requisição POST para a rota de desbloqueio com o contratoId no corpo da requisição
+    const desbloqueioResponse = await fetch('/proxy/desbloqueio', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: contratoId
+        id: contratoId // Enviando o contratoId no corpo
       })
     });
 
@@ -1161,7 +1162,6 @@ async function desbloqueio() {
     }
   }
 }
-
 
 // Adicione um evento de clique ao botão para chamar a função de desbloqueio
 document.querySelector('#desbloquearButton').addEventListener('click', async () => {
