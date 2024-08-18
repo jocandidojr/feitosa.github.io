@@ -1076,7 +1076,6 @@ async function criarOss() {
         console.error("Erro ao abrir OSS:", error.message);
     }
 }
-
 // Função para desbloqueio de confiança
 async function desbloqueio() {
   const clienteId = localStorage.getItem('clienteId');
@@ -1087,7 +1086,7 @@ async function desbloqueio() {
   }
 
   try {
-    // 1. Fazer a requisição para buscar os contratos do cliente
+    // Fazer a requisição para buscar os contratos do cliente
     const contratosResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/contratos', {
       method: 'POST',
       headers: {
@@ -1110,7 +1109,7 @@ async function desbloqueio() {
 
     const contratosData = await contratosResponse.json();
 
-    // Filtra os contratos com status_internet "CM" ou "CA"
+    // Filtrar os contratos com status_internet "CM" ou "CA"
     const contratosFiltrados = contratosData.registros.filter(contrato =>
       contrato.status_internet === 'CM' || contrato.status_internet === 'CA'
     );
@@ -1120,10 +1119,10 @@ async function desbloqueio() {
       return;
     }
 
-    // Considera o primeiro contrato filtrado para o desbloqueio
+    // Considerar o primeiro contrato filtrado para o desbloqueio
     const contratoId = contratosFiltrados[0].id;
 
-    // 2. Fazendo a requisição GET para a rota de desbloqueio com o id como query parameter
+    // Fazer a requisição GET para a rota de desbloqueio com o id do contrato como parâmetro
     const desbloqueioResponse = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/desbloqueio?clienteId=${contratoId}`, {
       method: 'GET',
       headers: {
@@ -1145,9 +1144,9 @@ async function desbloqueio() {
     } else {
       desbloqueioContent.innerHTML = `<p>Falha ao realizar desbloqueio de confiança.</p>`;
     }
-    
+
     // Mostrar o modal se necessário
-    const modal = document.getElementById('myModal'); // Supondo que 'myModal' seja o id do modal
+    const modal = document.getElementById('myModal');
     if (modal) {
       modal.style.display = 'block';
     }

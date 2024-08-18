@@ -214,7 +214,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
 
 // Rota para desbloquear confiança
 app.get('/api/proxy/desbloqueio', async (req, res) => {
-  const clienteId = req.query.clienteId; // Usando query parameters
+  const clienteId = req.query.clienteId;
 
   if (!clienteId) {
     return res.status(400).json({ error: 'clienteId não fornecido' });
@@ -223,39 +223,39 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {
   try {
     console.log('Buscando cliente pelo clienteId...');
 
-    // Primeiro, buscar o cliente pelo clienteId para obter o id do contrato
+    // Buscar o cliente pelo clienteId para obter o id do contrato
     const clienteResponse = await axios.get(
-      `https://feitosatelecom.com.br/webservice/v1/cliente`, 
+      'https://feitosatelecom.com.br/webservice/v1/cliente', 
       {
-        params: { id: clienteId }, // Parâmetro para buscar o cliente pelo clienteId
+        params: { id: clienteId },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar", // Confirme se este cabeçalho é necessário para a operação
-        },
+          ixcsoft: "listar" // Confirmar se este cabeçalho é necessário
+        }
       }
     );
 
-    const cliente = clienteResponse.data?.registros?.[0]; // Assumindo que a resposta tem um array de registros
+    const cliente = clienteResponse.data?.registros?.[0];
 
     if (!cliente || !cliente.id) {
       return res.status(404).json({ error: 'Cliente não encontrado com o clienteId fornecido' });
     }
 
-    const contratoId = cliente.id; // Acessa o id do contrato associado ao cliente
+    const contratoId = cliente.id; // Assumindo que cliente.id é o contratoId
 
     console.log('Desbloqueando confiança do contrato...');
 
-    // Agora, faça o desbloqueio usando o id do contrato
+    // Desbloquear confiança usando o id do contrato
     const desbloqueioResponse = await axios.get(
-      `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`, 
+      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca', 
       {
-        params: { id: contratoId }, // Use o id do contrato como parâmetro
+        params: { id: contratoId },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar", // Verifique se este cabeçalho é necessário
-        },
+          ixcsoft: "listar" // Confirmar se este cabeçalho é necessário
+        }
       }
     );
 
