@@ -589,6 +589,7 @@
                 const modal = document.getElementById('myModal');
                 const topNavbar = document.getElementById('top-navbar');
                 const cpfInput = document.getElementById('cpf');
+                const closeBtn = document.querySelector('.close');
                 
                 // Função para fazer logout
                 function logout() {
@@ -844,13 +845,13 @@ async function buscarBoletos() {
                 });
             }
 
-            // Fecha o modal quando o usuário clica fora dele
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                    limparModal(); // Limpa o conteúdo ao fechar o modal
+            // Quando o usuário clica fora do conteúdo do modal, fecha o modal
+                    window.onclick = function(event) {
+                        if (event.target === modal) {
+                            closeModal();
+                            limparModal(); // Limpa o conteúdo ao fechar o moda                        }
+                    }
                 }
-            });
         });
                 
 // Função para buscar contratos
@@ -1076,6 +1077,7 @@ function limparModal() {
 
 // Fecha o modal quando o usuário clica no X
 const span = document.querySelector('.close');
+
 const modal = document.getElementById('myModal'); // Certifique-se de que o ID do modal está correto
 if (span && modal) {
     span.addEventListener('click', () => {
