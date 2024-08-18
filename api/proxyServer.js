@@ -213,7 +213,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
 });
 
 // Rota para desbloquear confiança
-app.get('/proxy/desbloqueio', async (req, res) => {
+app.get('api/proxy/desbloqueio', async (req, res) => {
   const clienteId = req.query.clienteId; // Use query parameters em vez de body para GET requests
 
   if (!clienteId) {
