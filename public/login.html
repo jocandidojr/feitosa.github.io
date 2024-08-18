@@ -1026,7 +1026,7 @@ async function criarOss() {
             const formData = new FormData(event.target);
             const formObject = Object.fromEntries(formData.entries());
 
-            const response = await fetch('http://localhost:3000/proxy/criar-oss', {
+            const response = await fetch('https://feitosatelecom.com.br/webservice/v1/api/proxy/criar-oss', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
