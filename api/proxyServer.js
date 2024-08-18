@@ -221,26 +221,28 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {
   }
 
   try {
-    console.log('Buscando contrato vinculado ao Cliente...');
+    console.log('Buscando cliente pelo clienteId...');
 
-    // Primeiro, obtenha o id do contrato usando o clienteId
-    const contratoResponse = await axios.get(
-      `https://feitosatelecom.com.br/webservice/v1/cliente_contrato_15464`, 
+    // Primeiro, buscar o cliente pelo clienteId para obter o id do contrato
+    const clienteResponse = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/cliente`, 
       {
-        params: { cliente_id: clienteId }, // ou outro parâmetro apropriado para buscar contratos
+        params: { id: clienteId }, // Parâmetro para buscar o cliente pelo clienteId
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "listar", // Verifique se este cabeçalho é necessário
+          ixcsoft: "listar", // Confirme se este cabeçalho é necessário para a operação
         },
       }
     );
 
-    const contrato = contratoResponse.data?.registros?.[0]; // Assumindo que a resposta tem um array de registros
+    const cliente = clienteResponse.data?.registros?.[0]; // Assumindo que a resposta tem um array de registros
 
-    if (!contrato || !contrato.id) {
-      return res.status(404).json({ error: 'Contrato não encontrado para o clienteId fornecido' });
+    if (!cliente || !cliente.id) {
+      return res.status(404).json({ error: 'Cliente não encontrado com o clienteId fornecido' });
     }
+
+    const contratoId = cliente.id; // Acessa o id do contrato associado ao cliente
 
     console.log('Desbloqueando confiança do contrato...');
 
@@ -248,7 +250,7 @@ app.get('/api/proxy/desbloqueio', async (req, res) => {
     const desbloqueioResponse = await axios.get(
       `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`, 
       {
-        params: { id: contrato.id }, // Use o id do contrato como parâmetro
+        params: { id: contratoId }, // Use o id do contrato como parâmetro
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
