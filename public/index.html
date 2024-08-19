@@ -37,7 +37,7 @@
     background-color: #fff;
     color: #000;
     padding: 0 10px;
-    max-width: 80%; /* Limita a largura a 80% em telas maiores */
+    max-width: 60%; /* Limita a largura a 80% em telas maiores */
     margin: 0 auto; /* Centraliza o menu horizontalmente */
 }
 
@@ -155,11 +155,12 @@
 }
 
 .menu-pc {
-    display: none; /* Esconde o menu por padrão */
+    display: none; /* Oculta o menu por padrão */
+    /* Adicione estilos adicionais conforme necessário */
 }
 
 .menu-pc.active {
-    display: block; /* Exibe o menu quando a classe 'active' é adicionada */
+    display: flex; /* Mostra o menu quando a classe 'active' é adicionada */
 }
 
 @media (min-width: 768px) {
@@ -643,6 +644,9 @@ width: 100%;
 /* Estilo da Seção Fale conosco */
 .fale-conosco {
     background-image: url("https://feitosa-github-io.vercel.app/assets/bg-fale_.png");
+    background-size: contain; /* Ajusta a imagem para caber dentro do contêiner */
+    background-position: center; /* Centraliza a imagem de fundo */
+    background-repeat: no-repeat; /* Não repete a imagem de fundo */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -650,11 +654,8 @@ width: 100%;
     padding: 0;
     text-align: center;
     transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.fale-conosco img {
-    max-width: 1920px;
-    width: 100%;
+    max-width: 1920px; /* Define a largura máxima do contêiner */
+    margin: 0 auto; /* Centraliza o contêiner */
 }
 
 .fale-conosco h1 {
@@ -888,7 +889,7 @@ width: 100%;
     </div>
     
  <div class="plan">
-    <img src="https://feitosa-github-io.vercel.app/assets/emp_350_.png" class="picplan" alt="Empresa 350mega">       
+    <img src="https://feitosa-github-io.vercel.app/assets/emp_350mb_.png" class="picplan" alt="Empresa 350mega">       
     <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
     <br>
 
@@ -1079,22 +1080,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.getElementById('contact-form').addEventListener('submit', function(event) {
+document.getElementById('contact-form')?.addEventListener('submit', function(event) {
     event.preventDefault(); // Previne o comportamento padrão do formulário
+    
     // Captura os dados do formulário
     const nome = event.target.nome.value;
-        const celular = event.target.celular.value;
-        const mensagem = event.target.mensagem.value;
-        
-        // Formata a mensagem para o WhatsApp
-        const formattedMessage = `Nome: ${nome}%0AContato: ${celular}%0AMensagem: ${mensagem}`;
-        
-        // URL para o WhatsApp
-        const whatsappUrl = `https://wa.me/5583999888759?text=${encodeURIComponent(formattedMessage)}`;
-        
-        // Redireciona para o WhatsApp
-        window.open(whatsappUrl, '_blank');
-    });
+    const celular = event.target.celular.value;
+    const mensagem = event.target.mensagem.value;
+    
+    // Formata a mensagem para o WhatsApp
+    const formattedMessage = `Nome: ${nome}%0AContato: ${celular}%0AMensagem: ${mensagem}`;
+    
+    // URL para o WhatsApp
+    const whatsappUrl = `https://wa.me/5583999888759?text=${encodeURIComponent(formattedMessage)}`;
+    
+    // Redireciona para o WhatsApp
+    window.open(whatsappUrl, '_blank');
+});
+
 
 </Script>
 <!-- Rodapé -->
