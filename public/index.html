@@ -154,6 +154,25 @@
     transform: scale(1.1); 
 }
 
+.menu-pc {
+    display: none; /* Esconde o menu por padrão */
+}
+
+.menu-pc.active {
+    display: block; /* Exibe o menu quando a classe 'active' é adicionada */
+}
+
+@media (min-width: 768px) {
+    .menu-pc {
+        display: block; /* Exibe o menu por padrão em telas maiores */
+    }
+    .menu-toggle {
+        display: none; /* Esconde o toggle em telas maiores */
+    }
+}
+
+
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -719,7 +738,7 @@ width: 100%;
     </a>
 </div>
 
-<div class="menu-toggle">☰ Menu</div>
+<div class="menu-toggle">☰</div>
 <div class="menu-pc">
 
 <a href="#plans-container" data-page="Para sua casa">PARA SUA CASA</a>
@@ -915,7 +934,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const pcSlides = document.querySelectorAll('.slide-pc img');
     const mobileSlides = document.querySelectorAll('.slide-mobile img');
     const indicators = document.querySelectorAll('.slide-indicator');
+    const menuPc = document.querySelector('.menu-pc');
     let currentSlide = 0;
+
+    menuToggle.addEventListener('click', function() {
+        menuPc.classList.toggle('active');
+    });
 
     // Define "Página inicial" como o texto padrão
     currentPageText.textContent = "Você está aqui: Página inicial";
