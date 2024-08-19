@@ -239,35 +239,32 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
 
 // Rota para desbloquear confiança
 app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
-  const { id } = req.body; // Obter o id do contrato
+  const { id } = req.body;
 
   if (!id) {
-    return res.status(400).json({ error: 'ID do contrato é obrigatório' });
+      return res.status(400).json({ error: 'ID do contrato é obrigatório' });
   }
 
   try {
-    console.log('Desbloqueando confiança para o contrato...');
-    const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
-      { id_cliente: clienteId,
-        id: contratoId
-       }, // Enviando o id no corpo da requisição
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "inserir",
-        }
-      }
-    );
+      console.log('Desbloqueando confiança para o Contrato...');
+      const response = await axios.post(
+          'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
+          { id }, // Enviando apenas o id do contrato
+          {
+              headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+                  ixcsoft: "inserir",
+              }
+          }
+      );
 
-    res.json(response.data);
+      res.json(response.data);
   } catch (error) {
-    console.error('Erro ao desbloquear confiança:', error.message);
-    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
+      console.error('Erro ao desbloquear confiança:', error.message);
+      res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor proxy rodando na porta ${port}`);
