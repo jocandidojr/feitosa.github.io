@@ -239,9 +239,12 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
 
 // Rota para desbloqueio de confiança
 app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
-  const { contratoId } = req.body;
+  const { id } = req.body;
 
-  if (!contratoId) {
+  console.log('Dados recebidos no backend:', req.body);
+
+  if (!id) {
+    console.error('ID do contrato não fornecido.');
     return res.status(400).json({ error: 'Contrato ID não fornecido' });
   }
 
@@ -249,9 +252,7 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
     console.log('Desbloqueando Confiança para o Contrato...');
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
-      {
-        id: contratoId
-      },
+      { id },
       {
         headers: {
           "Content-Type": "application/json",
@@ -260,12 +261,15 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
       }
     );
 
+    console.log('Resposta da API externa:', response.data);
     res.json(response.data);
   } catch (error) {
     console.error('Erro ao desbloquear confiança:', error.message);
+    console.error('Detalhes do erro:', error.response?.data);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor proxy rodando na porta ${port}`);
