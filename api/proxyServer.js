@@ -277,8 +277,7 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
     const desbloqueioResponse = await axios.post(
       `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`,
       {
-        id: contratoId,
-        desbloqueio_confianca: 'S'
+        id: contratoId
       },
       {
         headers: {
