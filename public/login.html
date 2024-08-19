@@ -238,7 +238,7 @@
             }
 
             .modal-content {
-                background-color: #0056b3;
+                background-color: #10107A;
                 color: #10107A;
                 margin: auto;
                 font-size: 30px;
@@ -718,26 +718,27 @@
         });
     }
     
-    // Adiciona o listener aos botões da auto-atendimento
-    buttons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const page = button.getAttribute('data-page');
-            if (page) {
-                modal.style.display = "block";
-                if (page === 'Boleto') {
-                    await buscarBoletos();
-                } else if (page === 'Contrato') {
-                    await buscarContratos();
-                } else if (page === 'Oss') {
-                    await buscarOss();
-                } else if (page === 'criarOss') {
-                    await criarOss();
-                } else if (page === 'desbloqueio') {
-                    await desbloqueio();
-                }
+   // Adiciona o listener aos botões da auto-atendimento
+buttons.forEach(button => {
+    button.addEventListener('click', async () => {
+        const page = button.getAttribute('data-page');
+        if (page) {
+            modal.style.display = "block";
+            if (page === 'Boleto') {
+                await buscarBoletos();
+            } else if (page === 'Contrato') {
+                await buscarContratos();
+            } else if (page === 'Oss') {
+                await buscarOss();
+            } else if (page === 'criarOss') {
+                await criarOss();
+            } else if (page === 'desbloqueio') {
+                await desbloqueio();
             }
-        });
+        }
     });
+});
+
     
 // Função para formatar a data no formato dia/mês/ano
 function formatarData(data) {
@@ -976,6 +977,7 @@ console.error("Erro ao buscar OSS:", error.message);
 }
 }
 
+// Função para Criar Oss
 async function criarOss() {
 try {
 console.log("Exibindo o formulário de OSS...");
@@ -1103,8 +1105,49 @@ cpfInput.value = formatCPF(cpfInput.value);
 });
 });
 
+//Função para desbloqueio de confiança
+async function desbloqueio() {
+    // Obtém o clienteId do localStorage
+    const clienteId = localStorage.getItem('clienteId');
+
+    if (!clienteId) {
+        alert('Cliente ID não encontrado.');
+        return;
+    }
+
+    try {
+        // Faz a requisição POST para o servidor proxy
+        const response = await fetch('/api/proxy/desbloqueio-confianca', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        // Verifica se a requisição foi bem-sucedida
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Erro ao desbloquear confiança:', errorData);
+            alert('Erro ao desbloquear confiança: ' + (errorData.error || response.statusText));
+            return;
+        }
+
+        // Processa a resposta
+        const result = await response.json();
+        console.log('Desbloqueio realizado com sucesso:', result);
+        alert('Desbloqueio de confiança realizado com sucesso!');
+
+    } catch (error) {
+        console.error('Erro ao realizar o desbloqueio de confiança:', error);
+        alert('Erro ao realizar o desbloqueio de confiança.');
+    }
+}
+
 const clienteId = localStorage.getItem('clienteId');
 console.log('clienteId do localStorage:', clienteId);
+
+
         </script>
 
     </body>

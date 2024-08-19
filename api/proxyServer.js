@@ -237,6 +237,65 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
   }
 });
 
+// Rota para desbloqueio de confiança
+app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
+  const { clienteId } = req.body;
+
+  if (!clienteId) {
+    return res.status(400).json({ error: 'clienteId é obrigatório' });
+  }
+
+  try {
+    // Obtendo o ID do contrato com base no clienteId
+    const contratoResponse = await axios.get(
+      `https://feitosatelecom.com.br/webservice/v1/cliente_contrato`,
+      {
+        params: {
+          qtype: 'cliente_contrato.id_cliente',
+          query: clienteId,
+          oper: '=',
+          page: 1,
+          rp: 1,
+          sortname: 'cliente_contrato.id',
+          sortorder: 'desc'
+        },
+        headers: {
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: 'listar'
+        }
+      }
+    );
+
+    const contratos = contratoResponse.data?.registros;
+    if (!contratos || contratos.length === 0) {
+      return res.status(404).json({ error: 'Contrato não encontrado para o clienteId fornecido' });
+    }
+
+    const contratoId = contratos[0].id;
+
+    // Liberando desbloqueio de confiança
+    const desbloqueioResponse = await axios.post(
+      `https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca`,
+      {
+        id: contratoId,
+        desbloqueio_confianca: 'S'
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: 'inserir'
+        }
+      }
+    );
+
+    res.json(desbloqueioResponse.data);
+  } catch (error) {
+    console.error('Erro ao desbloquear confiança:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: 'Erro ao conectar com a API de desbloqueio de confiança' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Servidor proxy rodando na porta ${port}`);
 });
