@@ -237,56 +237,37 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
   }
 });
 
-// Rota para desbloqueio de confiança
+// Rota para desbloquear confiança
 app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
-  const { clienteId } = req.body;
+  const { id } = req.body; // Obter o id do contrato
 
-  if (!clienteId) {
-    return res.status(400).json({ error: 'clienteId é obrigatório' });
+  if (!id) {
+    return res.status(400).json({ error: 'ID do contrato é obrigatório' });
   }
 
   try {
-    // Obtendo o ID do contrato
-    const contratoResponse = await axios.get('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', {
-      params: {
-        qtype: 'cliente_contrato.id_cliente',
-        query: clienteId,
-        oper: '=',
-        page: 1,
-        rp: 1,
-        sortname: 'cliente_contrato.id',
-        sortorder: 'desc'
-      },
-      headers: {
-        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-        ixcsoft: 'listar'
+    console.log('Desbloqueando confiança para o contrato...');
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
+      { id_cliente: clienteId,
+        id: contratoId
+       }, // Enviando o id no corpo da requisição
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
+        }
       }
-    });
+    );
 
-    const contratos = contratoResponse.data?.registros;
-    if (!contratos || contratos.length === 0) {
-      return res.status(404).json({ error: 'Contrato não encontrado para o clienteId fornecido' });
-    }
-
-    const contratoId = contratos[0].id;
-
-    // Liberando desbloqueio de confiança
-    const desbloqueioResponse = await axios.post('https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca', {
-      id: contratoId
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-        ixcsoft: 'inserir'
-      }
-    });
-
-    res.json(desbloqueioResponse.data);
+    res.json(response.data);
   } catch (error) {
     console.error('Erro ao desbloquear confiança:', error.message);
-    res.status(error.response?.status || 500).json(error.response?.data || { error: 'Erro ao conectar com a API de desbloqueio de confiança' });
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor proxy rodando na porta ${port}`);
