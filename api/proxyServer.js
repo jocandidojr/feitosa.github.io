@@ -246,7 +246,9 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   }
 
   try {
-      console.log('Desbloqueando confiança para o Contrato...');
+      console.log('Desbloqueando confiança para o Contrato...', id);
+
+      // Enviar a solicitação para a API externa
       const response = await axios.post(
           'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
           { id }, // Enviando apenas o id do contrato
@@ -259,10 +261,12 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
           }
       );
 
+      console.log('Resposta da API externa:', response.data);
       res.json(response.data);
   } catch (error) {
-      console.error('Erro ao desbloquear confiança:', error.message);
-      res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
+      console.error('Erro ao conectar com a API de desbloqueio de confiança:', error.message);
+      console.error('Detalhes do erro:', error.response?.data || error);
+      res.status(error.response?.status || 500).json({ error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
 });
 
