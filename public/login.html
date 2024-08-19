@@ -1129,7 +1129,7 @@ cpfInput.value = formatCPF(cpfInput.value);
 });
 });
 
-// Função para desbloquear confiança
+// Função para desbloqueio de confiança
 async function desbloqueio() {
     const desbloqueioContent = document.getElementById('desbloqueioContent');
 
@@ -1142,12 +1142,14 @@ async function desbloqueio() {
         }
 
         // Enviar o desbloqueio de confiança usando o contratoId
-        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio-confianca', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio-confianca', { // Usar o caminho relativo para a API proxy
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                // Adicionar cabeçalho de autorização se necessário
+                // 'Authorization': `Bearer ${seuToken}` 
             },
-            body: JSON.stringify({ id: contratoId }) // Enviando apenas o id do contrato
+            body: JSON.stringify({ contratoId }) // Enviando o id do contrato
         });
 
         if (!response.ok) {

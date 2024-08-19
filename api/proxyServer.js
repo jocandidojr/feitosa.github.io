@@ -237,36 +237,33 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
   }
 });
 
-// Rota para desbloquear confiança
+// Rota para desbloqueio de confiança
 app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
-  const { id } = req.body;
+  const { contratoId } = req.body;
 
-  if (!id) {
-      return res.status(400).json({ error: 'ID do contrato é obrigatório' });
+  if (!contratoId) {
+    return res.status(400).json({ error: 'Contrato ID não fornecido' });
   }
 
   try {
-      console.log('Desbloqueando confiança para o Contrato...', id);
+    console.log('Desbloqueando Confiança para o Contrato...');
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
+      {
+        id: contratoId
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+        }
+      }
+    );
 
-      // Enviar a solicitação para a API externa
-      const response = await axios.post(
-          'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
-          { id }, // Enviando apenas o id do contrato
-          {
-              headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-                  ixcsoft: "inserir",
-              }
-          }
-      );
-
-      console.log('Resposta da API externa:', response.data);
-      res.json(response.data);
+    res.json(response.data);
   } catch (error) {
-      console.error('Erro ao conectar com a API de desbloqueio de confiança:', error.message);
-      console.error('Detalhes do erro:', error.response?.data || error);
-      res.status(error.response?.status || 500).json({ error: "Erro ao conectar com a API de desbloqueio de confiança" });
+    console.error('Erro ao desbloquear confiança:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
 });
 
