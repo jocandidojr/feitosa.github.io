@@ -388,7 +388,7 @@ transition: transform 0.3s ease;
 }
 /* Estilo da nova seção de planos */
 .plans-container {
-background: url('https://feitosa-github-io.vercel.app/assets/bg-plans.png') no-repeat center center,
+background: url('https://feitosa-github-io.vercel.app/assets/bg-auto_.png') no-repeat center center,
 linear-gradient(to right, #1515A3, #10107A);
 position: relative;
 display: flex;
@@ -437,10 +437,12 @@ padding: 20px;
 text-align: center;
 transition: transform 0.3s ease;
 }
+
 .plans-container .plan:hover,
 .plans-container .logos img:hover {
 transform: scale(1.1);
 }
+
 .plans-container .logos img {
 max-width: 80px;
 border-radius: 5px;
@@ -478,6 +480,12 @@ font-size: 14px;
     height: auto;
 }
 
+.plan-empresa.custom-background {
+    background-color: #10107A; /* Altere essa cor para a que você desejar */
+    padding: 20px; /* Ajuste conforme necessário */
+    border-radius: 10px; /* Para bordas arredondadas, se desejar */
+}
+
 .valor {
             display: flex;
             align-items: center;
@@ -491,6 +499,8 @@ font-size: 14px;
     font-size: 25px;
     margin: 0 8px;
 }
+
+
 @media (max-width: 768px) {
     .plans-container .plans {
     flex: 1 1 50px;    
@@ -534,82 +544,84 @@ transform: scale(1.1);
 .container-auto {
 width: 100%;
 }
-/* Estilo da Imagem Lateral */
-.about-bar-lateral {
-    position: absolute;
-    left: 0; /* Alinha a imagem à esquerda da página */
-    top: 50%; /* Centraliza verticalmente a imagem */
-    transform: translateY(-50%); /* Ajusta para a centralização exata */
-    max-width: 100%;
-    z-index: 1; /* Garante que a imagem fique acima do conteúdo principal */
-}
+
+/* Estilo do Container Sobre Nós */
 .container-about {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: auto;
-    padding: 0;
-    text-align: justify;
-    position: relative; /* Necessário para posicionar a imagem relativa ao container */
+    align-items: flex-start;
+    padding: 50px;
+    background: url('https://feitosa-github-io.vercel.app/assets/bg-fale.png') no-repeat center center/cover; /* Imagem de fundo ajustada */
+    position: relative;
+    height: auto; /* Ajusta a altura conforme o conteúdo */
+    min-height: 600px; /* Define uma altura mínima para garantir a visibilidade do fundo */
 }
-.container-about h1 {
-    font-family: "Aller", sans-serif;
-    color: #10107A;
-    margin-bottom: 0;
-    font-size: 30px;
-}
-.container-about h2 {
-    color: #10107A;
-    font-size: 15px;
-}
-.container-about h3 {
-    color: #10107A;
-    font-size: 25px;
-}
-.container-about img {
-    background-image: linear-gradient(to right, #246ECC, #1515A3);
-    border-bottom-right-radius: 300%;
-    border-top-right-radius: 300%;
-    height: auto;
-    max-width: 50%; /* Limita a largura da imagem a 50% */
-    margin-left: auto; /* Empurra a imagem para a direita */
-}
+
+/* Estilo das Colunas de Texto */
 .about-text {
-    width: 70%;
-    color: #10107A;
-    padding: 100px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
     font-family: "Aller", sans-serif;
-    margin-left: auto; /* Alinha o texto à esquerda */
+    color: #10107A;
     text-align: justify;
 }
+
+.column {
+    flex: 1; /* Permite que as colunas ocupem espaço proporcional */
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente para melhor legibilidade */
+    border-radius: 10px; /* Bordas arredondadas nas colunas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destacar as colunas */
+    margin: 0 10px; /* Espaçamento entre as colunas */
+}
+
+.column:first-child {
+    flex: 2; /* Torna a coluna "Quem somos" mais larga */
+}
+
+.column h1 {
+    font-family: "Aller", sans-serif;
+    color: #10107A;
+    font-size: 24px; /* Ajusta o tamanho do título */
+    margin-bottom: 20px; /* Adiciona espaçamento abaixo do título */
+}
+
+.column h3 {
+    color: #10107A;
+    font-size: 20px; /* Ajusta o tamanho do subtítulo */
+    margin-bottom: 20px; /* Adiciona espaçamento abaixo do subtítulo */
+}
+
+.column p {
+    font-size: 16px; /* Ajusta o tamanho do corpo do texto */
+    line-height: 1.5; /* Melhora a legibilidade com espaçamento entre linhas */
+}
+
 @media (max-width: 768px) {
     .container-about {
         flex-direction: column;
         align-items: center;
-        height: auto; /* Permite que a altura se ajuste ao conteúdo */
-        position: relative;
-        background: url('https://feitosa-github-io.vercel.app/assets/bar_lat_dir_fale_conosco_.png') no-repeat left top/cover; /* Coloca a imagem como background */
+        padding: 20px;
+        background: url('https://feitosa-github-io.vercel.app/assets/bar_lat_dir_fale_conosco_.png') no-repeat center center/cover; /* Ajusta o fundo para centralizado */
     }
+
     .about-text {
-        width: 90%;
-        padding: 50px;
-        margin: 0; /* Remove margem para centralizar no layout mobile */
-        text-align: justify;
-        z-index: 2; /* Garante que o texto fique acima do background */
-        position: relative;
+        flex-direction: column;
+        width: 100%;
     }
-    .about-text h1, 
-    .about-text h3 {
-        text-align: center;
+
+    .column {
+        width: 100%;
+        margin-bottom: 20px; /* Adiciona espaçamento entre as colunas em telas menores */
     }
-    .container-about img,
-    .about-bar-lateral {
-        display: none; /* Oculta as imagens em telas menores */
-    }
-    
 }
-/*Fim estilo da Seção Sobre Nós*/  
-/*Fim da seção Sobre nós*/
+
+
+
+/* Fim do Estilo da Seção Sobre Nós */
 
 .auto-atendimento {
     display: flex;
@@ -643,9 +655,9 @@ width: 100%;
 }
 /* Estilo da Seção Fale conosco */
 .fale-conosco {
-    background-image: url("https://feitosa-github-io.vercel.app/assets/bg-fale_.png");
+    background-image: url("https://feitosa-github-io.vercel.app/assets/bar_lat_dir_fale_conosco_.png");
     background-size: contain; /* Ajusta a imagem para caber dentro do contêiner */
-    background-position: center; /* Centraliza a imagem de fundo */
+    background-position: right center; /* Alinha a imagem ao canto direito e centraliza verticalmente */
     background-repeat: no-repeat; /* Não repete a imagem de fundo */
     display: flex;
     justify-content: center;
@@ -657,6 +669,7 @@ width: 100%;
     max-width: 1920px; /* Define a largura máxima do contêiner */
     margin: 0 auto; /* Centraliza o contêiner */
 }
+
 
 .fale-conosco h1 {
     font-family: "Aller", sans-serif;
@@ -707,7 +720,7 @@ width: 100%;
     padding: 50px;
 }
 .logo-fale img {
-    
+    align-items: center;
     transition: transform 0.3s ease;
 }
 .logo-fale img:hover {
@@ -723,11 +736,12 @@ width: 100%;
     }
 
     .logo-fale {
-    display: block;
-    max-width: 350px;
-    margin-top: 20px;
-    padding: 50px;
-}
+        display: block;
+        align-items: center;
+        max-width: 350px;
+        margin-top: 20px;
+        padding: 50px;
+    }
     .form {
         width: 100%;
         padding: 20px;
@@ -746,6 +760,27 @@ width: 100%;
         order: 2;
     }
 }
+
+/* Estilo para centralizar o logo dentro do contêiner */
+.logo-hidden {
+    display: flex; /* Habilita o uso de flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+    max-width: 100%;
+}
+
+.logo-fale {    
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+        
+}
+
+.logo-fale:hover {
+    transform: scale(1.1); /* Aumenta o tamanho da imagem ao passar o mouse */
+}
+
+
 /* Fim do estilo da seção Fale Conosco */
 </style>
 </head>
@@ -808,12 +843,14 @@ width: 100%;
 </div>
 <div  class="infor">
 <h2>Atendimento</h2>
-<p>Suporte gratuito</p>
+<p>Suporte gratuido</p>
+<p> e especializado.</p>
 <p> </p>
 </div>
 <div  class="infor">
-<h2>Satisfação</h2><p>
-+ 1000 Clientes</p>
+<h2>Satisfação</h2>
+<p>+ 150 Clientes...</p>
+<p>... e crescendo!</p>
 </div>
 </div>
 <!-- Início Seção Planos -->
@@ -869,43 +906,43 @@ width: 100%;
     </a>
 </div>
 <div class="plan">
-    <img src="https://feitosa-github-io.vercel.app/assets/emp_200mb_.png" class="picplan" alt="Empresa 200mega">       
-    <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
-    <br>
-    <div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
-    <br>
-<a href="https://wa.me/5583999888759" target="_blank">
-    <button class="assine">Saiba mais!</button>
-    </a>
+<div class="plan-empresa custom-background" id="plan-empresa">
+        <img src="https://feitosa-github-io.vercel.app/assets/emp_200mb_.png" class="picplan" alt="Empresa 200mega">       
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <br>
+        <div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
+        <br>
+        <a href="https://wa.me/5583999888759" target="_blank">
+        <button class="assine">Saiba mais!</button>
+        </a>
+    </div>
 </div>
 <div class="plan">
-    <img src="https://feitosa-github-io.vercel.app/assets/emp_300mb_.png" class="picplan" alt="Empresa 300mega">       
-    <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
-    <div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
-    <br>
-<a href="https://wa.me/5583999888759" target="_blank">
-    <button class="assine">Saiba mais!</button>
-    </a>
+    <div class="plan-empresa custom-background" id="plan-empresa">
+        <img src="https://feitosa-github-io.vercel.app/assets/emp_300mb_.png" class="picplan" alt="Empresa 300mega">       
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
+        <br>
+        <a href="https://wa.me/5583999888759" target="_blank">
+        <button class="assine">Saiba mais!</button>
+        </a>
+        </div>
     </div>
     
  <div class="plan">
-    <img src="https://feitosa-github-io.vercel.app/assets/emp_350mb_.png" class="picplan" alt="Empresa 350mega">       
-    <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
-    <br>
+    <div class="plan-empresa custom-background" id="plan-empresa">
+        <img src="https://feitosa-github-io.vercel.app/assets/emp_350mb_.png" class="picplan" alt="Empresa 350mega">       
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <br>
 
-<div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
-    <br>
-    <a href="https://wa.me/5583999888759" target="_blank">
-    <button class="assine">Saiba mais!</button>
-    </a>
+        <div class="valor"><h2>R$</h2><h4>60,00</h4><h2>/mês</h2></div>
+        <br>
+        <a href="https://wa.me/5583999888759" target="_blank">
+        <button class="assine">Saiba mais!</button>
+        </a>
+    </div>
 </div>
-
 </div>
-<br><br>
-<h3>Consulte mais ofertas <b>aqui</b> ou</h3>
-    <a href="#planscontainer">
-        <button class="assine">assine agora!</button>
-    </a>
 <br><br>
 <div class="logos">
 <h2>Contrate banda larga e receba acesso grátis<p>ao melhor conteúdo do streaming!</p></h2>
@@ -917,36 +954,39 @@ width: 100%;
 <img src="https://feitosa-github-io.vercel.app/assets/logo5.png" alt="Logotipo 5">
 <img src="https://feitosa-github-io.vercel.app/assets/logo6.png" alt="Logotipo 6">
 </div>
+<br><br>
 </div>
+
 <!-- Início Seção Sobre Nós -->
 <div class="container-about" id="container-about">
-<div class="about-text" id="about-text">
-    <h1>Quem somos</h1>
-    <br>
-    <h2>A Feitosa Telecom iniciou sua operação em Tacima-PB e rapidamente expandiu seus serviços para Dona Inês-PB, tornando-se referência em conectividade na região. Somos um provedor de internet banda larga 100% fibra óptica, oferecendo soluções de alta qualidade tanto para residências quanto para empresas. Nossa infraestrutura robusta garante uma conexão estável, rápida e segura, proporcionando a melhor experiência online para nossos clientes.
-    <br><br>
-    Além dos planos de internet, oferecemos uma gama completa de entretenimento, com pacotes de TV que incluem canais Sky, além de serviços de streaming como HBO Max. Também disponibilizamos uma vasta seleção de aplicativos para música, leitura, nutrição, esportes, e muito mais, garantindo que você tenha acesso ao melhor conteúdo onde e quando quiser.</h2>
-    <br>
-    <h3>Missão</h3>
-    <br>
-    <h2>Nossa missão é conectar pessoas e empresas através de soluções tecnológicas de alta qualidade, promovendo o desenvolvimento social e econômico das comunidades onde atuamos. Buscamos sempre a excelência no atendimento ao cliente, oferecendo serviços que vão além das expectativas.</h2>
-    <br>
-    <h3>Valores</h3>
-    <br>
-    <h2>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.<br>
-    - Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.<br>
-    - Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.<br>
-- Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.<br>
-    
-    Na Feitosa Telecom, acreditamos que a tecnologia é um caminho para a transformação, e estamos empenhados em ser parte dessa mudança, conectando você ao futuro.</h2>
+    <div class="about-text" id="about-text">
+        <div class="column">
+            <h1>Quem somos</h1>
+            <p>A Feitosa Telecom iniciou sua operação em Tacima-PB e rapidamente expandiu seus serviços para Dona Inês-PB, tornando-se referência em conectividade na região. Somos um provedor de internet banda larga 100% fibra óptica, oferecendo soluções de alta qualidade tanto para residências quanto para empresas. Nossa infraestrutura robusta garante uma conexão estável, rápida e segura, proporcionando a melhor experiência online para nossos clientes.</p>
+            <p>Além dos planos de internet, oferecemos uma gama completa de entretenimento, com pacotes de TV que incluem canais Sky, além de serviços de streaming como HBO Max. Também disponibilizamos uma vasta seleção de aplicativos para música, leitura, nutrição, esportes, e muito mais, garantindo que você tenha acesso ao melhor conteúdo onde e quando quiser.</p>
+        </div>
+        <div class="column">
+            <h3>Missão</h3>
+            <p>Nossa missão é conectar pessoas e empresas através de soluções tecnológicas de alta qualidade, promovendo o desenvolvimento social e econômico das comunidades onde atuamos. Buscamos sempre a excelência no atendimento ao cliente, oferecendo serviços que vão além das expectativas.</p>
+        </div>
+        <div class="column">
+            <h3>Valores</h3>
+            <p>- Qualidade: Compromisso com a entrega de serviços de alta performance e confiabilidade.<br>
+            - Inovação: Investimos continuamente em tecnologia de ponta para oferecer as melhores soluções do mercado.<br>
+            - Compromisso: Atuamos com transparência e responsabilidade, sempre buscando o melhor para nossos clientes e colaboradores.<br>
+            - Proximidade: Valorizamos o relacionamento próximo com nossos clientes, entendendo suas necessidades e oferecendo suporte dedicado.</p>
+            <p>Na Feitosa Telecom, acreditamos que a tecnologia é um caminho para a transformação, e estamos empenhados em ser parte dessa mudança, conectando você ao futuro.</p>
+        </div>
+    </div>
 </div>
-<!--<img class="about-bar-lateral" src="https://feitosa-github-io.vercel.app/assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">-->
-</div>
+<!-- Fim Seção Sobre Nós -->
+
 <!-- Início Seção Fale conosco -->  
 <div class="fale-conosco" id="fale-conosco">
     <div class="form">
         <h1>Fale conosco</h1>
         <p>Estamos aqui para ajudar.</p>
+        <br>
         <form id="contact-form" action="#" method="POST">
             <input type="text" name="nome" placeholder="Nome" required>
             <input type="tel" name="celular" placeholder="Contato" required>
