@@ -314,7 +314,7 @@ border-right: none; /* Remove a borda do último elemento */
 }
 /* Estilo do rodapé */
 .footer {
-background-image: linear-gradient(to right, #246ECC, #1515A3);
+background-image: linear-gradient(to right, #1515A3, #246ECC);
 display: flex;
 justify-content: center;
 text-align: left;
@@ -742,6 +742,7 @@ width: 100%;
         flex-direction: column;
         text-align: center;
         height: auto;
+        max-width: 70%;
     }
 
     .logo-fale {
@@ -764,6 +765,10 @@ width: 100%;
         z-index: -1;
         opacity: 0.5;
     }
+
+    .fale-conosco img{
+        width: 250px;
+    }
     .logo-fale {
         margin-top: 20px;
         order: 2;
@@ -777,6 +782,10 @@ width: 100%;
     align-items: center; /* Centraliza verticalmente */
     width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
     max-width: 100%;
+}
+
+.logo-hidden img{
+    width: 450px;
 }
 
 .logo-fale {    
