@@ -358,8 +358,7 @@
                 text-align: justify;
             }
 
-            .textoModalBoletos h2 {
-                
+            .textoModalBoletos h2 {                
                 font-size: 16px;
             }
 
@@ -839,7 +838,7 @@ boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
                     <span>Vencimento:</span> ${formatarData(boleto.data_vencimento)}</p>
                 <p><span>Mensalidade:</span> R$: ${boleto.valor}</p>
                 <p><span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}</p>  
-                <p><span>Download:</span> <a href="${boleto.gateway_link}.pdf" target="_blank">Clique aqui para baixar</a>
+                <p><span>Download:</span> <a href="${boleto.gateway_link.pdf}" target="_blank">Clique aqui para baixar</a>
             </h4>
         </li>`;
 }).join('') + '</ul>';
