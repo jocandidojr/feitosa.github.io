@@ -649,6 +649,7 @@ width: 100%;
     height: 768px;
     padding: 0;
     text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .fale-conosco h1 {
@@ -937,17 +938,18 @@ width: 100%;
 </div>
 <!-- Início Seção Fale conosco -->  
 <div class="fale-conosco" id="fale-conosco">
-<div class="form">
-<h1>Fale conosco</h1>
-<p>Estamos aqui para ajudar.</p>
-<form action="#" method="POST">
-<input type="text" name="nome" placeholder="Nome" required>
-<input type="tel" name="celular" placeholder="Celular" required>
-<input type="email" name="email" placeholder="E-mail" required>
-<textarea name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
-<button type="submit">Enviar</button>
-</form>
+    <div class="form">
+        <h1>Fale conosco</h1>
+        <p>Estamos aqui para ajudar.</p>
+        <form id="contact-form" action="#" method="POST">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="tel" name="celular" placeholder="Contato" required>
+            <textarea name="mensagem" rows="4" placeholder="Descreva como podemos te ajudar"></textarea>
+            <button type="submit">Enviar mensagem</button>
+        </form>
+    </div>
 </div>
+
 <!--<img class="bar-lateral" src="https://feitosa-github-io.vercel.app/assets/bar_lat_dir_fale_conosco_.png" alt="Imagem lateral">-->
 <div class="logo-hidden">
 <img src="https://feitosa-github-io.vercel.app/assets/logo_top_color_.png" class="logo-fale" alt="logo-fale">
@@ -1071,6 +1073,23 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide);
     });
 });
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previne o comportamento padrão do formulário
+    // Captura os dados do formulário
+    const nome = event.target.nome.value;
+        const celular = event.target.celular.value;
+        const mensagem = event.target.mensagem.value;
+        
+        // Formata a mensagem para o WhatsApp
+        const formattedMessage = `Nome: ${nome}%0AContato: ${celular}%0AMensagem: ${mensagem}`;
+        
+        // URL para o WhatsApp
+        const whatsappUrl = `https://wa.me/5583999888759?text=${encodeURIComponent(formattedMessage)}`;
+        
+        // Redireciona para o WhatsApp
+        window.open(whatsappUrl, '_blank');
+    });
 
 </Script>
 <!-- Rodapé -->

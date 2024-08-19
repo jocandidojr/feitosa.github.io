@@ -37,7 +37,7 @@
                 width: 80px;
                 color: white;
                 background-color: #10107A;
-                transition: transform 0.3s ease;
+                transition: transform 0.3s ease, background-color 0.3s ease;
             }
         
             .top-navbar button:hover {
@@ -98,6 +98,7 @@
                 padding: 0;
                 cursor: pointer;
                 margin: 5px;
+                transition: transform 0.3s ease, background-color 0.3s ease;
             }
         
             .auto-atendimento button img {
@@ -106,6 +107,7 @@
                 height: auto; /* Mantém a proporção da imagem */
                 transition: transform 0.3s ease;
                 margin: 0 auto; /* Centraliza as imagens dentro dos botões */
+                transition: transform 0.3s ease, background-color 0.3s ease;
             }
         
             .auto-atendimento button:hover img {
@@ -168,7 +170,8 @@
     font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
-    text-decoration: none;  
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;  
 }
 
 .inputUser:focus ~ .labelinput,
@@ -191,6 +194,7 @@
     font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .formContainer button:hover, #ossFormContainer button:hover {
@@ -452,10 +456,12 @@
                 font-size: 12px;
                 cursor: pointer;
                 border-radius: 5px;
+                transition: transform 0.3s ease, background-color 0.3s ease;
             }
 
             #ossForm button:hover {
                 background-image: linear-gradient(to right, rgb(00, 21, 62), rgb(0, 36, 106));
+                transform: scale(1.1);
             }
 
             @media (max-width: 768px) {
@@ -538,7 +544,7 @@
                     </button>
 
                     <a href="https://wa.me/5583999888759">
-                    <button data-page="Outros" target="_blank">
+                    <button data-page="Outros">
                         <img src="/assets/a_outros_.png" alt="Outros">
                     </button>
                     </a>
@@ -935,7 +941,8 @@ async function buscarContratos() {
                 return `
                     <li class="textoModalOutros">
                         <h4>
-                            <p><span>Contrato nº:</span> ${contrato.id}  <span>Status do contrato:</span> ${statusContrato}</p>
+                            <p><span>Contrato nº:</span> ${contrato.id}</p>
+                            <p><span>Status do contrato:</span> ${statusContrato}</p>
                             <p><span>Serviço contratado:</span> ${tipoContrato}</p>
                             <p><span>Status da conexão:</span> ${statusConexao}</p>
                             <p><span>Plano de internet:</span> ${contrato.contrato}</p>
