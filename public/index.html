@@ -975,9 +975,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuPc = document.querySelector('.menu-pc');
     let currentSlide = 0;
 
-    menuToggle.addEventListener('click', function() {
-        menuPc.classList.toggle('active');
-    });
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('.main-navbar').classList.toggle('menu-active');
+});
+
 
     // Define "Página inicial" como o texto padrão
     currentPageText.textContent = "Você está aqui: Página inicial";
