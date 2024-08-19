@@ -358,7 +358,8 @@
                 text-align: justify;
             }
 
-            .textoModalBoletos h2 {                
+            .textoModalBoletos h2 {
+                
                 font-size: 16px;
             }
 
@@ -838,7 +839,7 @@ boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
                     <span>Vencimento:</span> ${formatarData(boleto.data_vencimento)}</p>
                 <p><span>Mensalidade:</span> R$: ${boleto.valor}</p>
                 <p><span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}</p>  
-                <p><span>Download:</span> <a href="${boleto.gateway_link.pdf}" target="_blank">Clique aqui para baixar</a>
+                <p><span>Download:</span> <a href="${boleto.gateway_link}.pdf" target="_blank">Clique aqui para baixar</a>
             </h4>
         </li>`;
 }).join('') + '</ul>';
@@ -1145,7 +1146,7 @@ async function desbloqueio() {
         const requestBody = JSON.stringify({ id: contratoId });
         console.log('Enviando requisição para desbloqueio de confiança com corpo:', requestBody);
 
-        const response = await fetch('/api/proxy/desbloqueio-confianca', {
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio-confianca', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1164,13 +1165,23 @@ async function desbloqueio() {
 
         const result = await response.json();
         console.log('Resultado do desbloqueio de confiança:', result);
-        desbloqueioContent.innerHTML = 'Desbloqueio de confiança realizado com sucesso!';
+
+        if (result.type === 'error') {
+            if (result.message.includes("Não é possível utilizar o botão 'Desbloqueio de confiança'")) {
+                desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
+            } else {
+                desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
+            }
+        } else {
+            desbloqueioContent.innerHTML = 'Desbloqueio de confiança realizado com sucesso! Lembre-se de efetuar o pagamento para continuar navegando!';
+        }
 
     } catch (error) {
-        console.error("Erro ao realizar desbloqueio de confiança:", error.message);
-        desbloqueioContent.innerHTML = 'Erro ao realizar desbloqueio de confiança.';
+        console.error("Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.", error.message);
+        desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
     }
 }
+
 
 
         </script>
