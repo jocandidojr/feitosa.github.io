@@ -159,6 +159,18 @@
     transition: .5s;
 }
 
+.retorno-site button {
+    background: white;
+    width: 100px;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;  
+}
+
 .inputUser:focus ~ .labelinput,
 .inputUser:valid ~ .labelinput {
     top: -20px;
@@ -393,7 +405,7 @@
                 position: relative;
                 color: #fff;
                 background-color: #10107A;
-                border-radius: 8px;
+                border-radius: 5px;
                 text-align: center;
                 padding: 30px;
                 max-width: 100%;
@@ -467,7 +479,6 @@
     </head>
     <body>
         <div class="top-navbar" id="top-navbar">
-            <button class="logoutbutton">Sair</button>
         </div>
 
         <div class="container-atm" id="container-atm">
@@ -484,9 +495,13 @@
                         <label for="cpf" class="labelinput">Para entrar, digite o seu CPF ou CNPJ:</label>
                     </div>
                     <br>
-                                      <br>
+                    <br>
                     <!--<input type="text" id="pass" name="pass" placeholder="******" required>-->
                     <button type="submit">Entrar na central</button>
+                    <br><br>
+                    <a href="/home.html" class="retorno-site">
+                        <button >Retornar ao site</button>
+                    </a>
                    
                 </form>
                 <br>
@@ -687,14 +702,24 @@ function exibirResultado(cliente) {
             <h1>Olá,<br>${cliente.razao}!</h1>
             <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
             <p><span>Meu contato:</span> ${cliente.telefone_celular}</p>
+        </div>
+        <div class="logoutbutton">
+            <button id="logoutButton">Sair</button>
         </div>`;
+
+        // Adiciona o manipulador de evento ao botão de logout
+        document.getElementById("logoutButton").addEventListener("click", () => {
+            // Remove o clienteId do localStorage
+            localStorage.removeItem("clienteId");
+            
+            // Redireciona para a tela de login
+            window.location.href = "login.html";
+        });
     } else {
         resultDiv.innerHTML = "<p>Cliente não encontrado.</p>";
         autoAtendimento.style.display = 'none';
     }
 }
-   
-
     // Função para exibir mensagens de erro
     function exibirErro(mensagem) {
         const resultDiv = document.getElementById("result");
