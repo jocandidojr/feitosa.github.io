@@ -762,6 +762,15 @@ width: 100%;
 
 
 /* Fim do estilo da seção Fale Conosco */
+
+.slide-planos img {
+    display: none;
+}
+
+.slide-planos img.active {
+    display: block;
+}
+
 </style>
 </head>
 <body>
@@ -837,7 +846,10 @@ width: 100%;
 
     <br><br>
     <div class="plan">
+    <div class="slide-planos" id="plan-img">
     <img src="https://feitosa-github-io.vercel.app/assets/plan_titulo_casa.png" class="Planos-casa" alt="Descrição-planos-casa">
+    <img src="https://feitosa-github-io.vercel.app/assets/plan_titulo_emp.png" class="Planos-empresa" alt="Descrição-planos-casa">
+</div>
 </div>
     <br>
 
@@ -887,7 +899,7 @@ width: 100%;
 <div class="plan">
 <div class="plan-empresa custom-background" id="plan-empresa">
         <img src="https://feitosa-github-io.vercel.app/assets/emp_200mb_.png" class="picplan" alt="Empresa 200mega">       
-        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_emp.png" class="Descrição" alt="Descrição-planos">
         <br>
         <div class="valor"><h2>R$</h2><h4>95,00</h4><h2>/mês</h2></div>
         <br>
@@ -899,7 +911,7 @@ width: 100%;
 <div class="plan">
     <div class="plan-empresa custom-background" id="plan-empresa">
         <img src="https://feitosa-github-io.vercel.app/assets/emp_300mb_.png" class="picplan" alt="Empresa 300mega">       
-        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_emp.png" class="Descrição" alt="Descrição-planos">
         <div class="valor"><h2>R$</h2><h4>105,00</h4><h2>/mês</h2></div>
         <br>
         <a href="https://wa.me/5583999888759" target="_blank">
@@ -911,7 +923,7 @@ width: 100%;
  <div class="plan">
     <div class="plan-empresa custom-background" id="plan-empresa">
         <img src="https://feitosa-github-io.vercel.app/assets/emp_350mb_.png" class="picplan" alt="Empresa 350mega">       
-        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_.png" class="Descrição" alt="Descrição-planos">
+        <img src="https://feitosa-github-io.vercel.app/assets/descri_plans_emp.png" class="Descrição" alt="Descrição-planos">
         <br>
 
         <div class="valor"><h2>R$</h2><h4>120,00</h4><h2>/mês</h2></div>
@@ -1099,6 +1111,22 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide);
     });
 
+    const images = document.querySelectorAll("#plan-img img");
+    let currentIndex = 0;
+
+    function showNextImage() {
+        images[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add("active");
+    }
+
+    // Inicializar a primeira imagem
+    images[currentIndex].classList.add("active");
+
+    // Alterar imagens a cada 3 segundos
+    setInterval(showNextImage, 3000);
+});
+
     // Formulário de contato
     document.getElementById('contact-form')?.addEventListener('submit', function(event) {
         event.preventDefault(); // Previne o comportamento padrão do formulário
@@ -1117,7 +1145,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Redireciona para o WhatsApp
         window.open(whatsappUrl, '_blank');
     });
-});
+
+
 
 </Script>
 <!-- Rodapé -->
