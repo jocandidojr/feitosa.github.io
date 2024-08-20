@@ -559,7 +559,7 @@
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close"><h3>Fechar &times;</h3></span>
-                    
+                    <br>
                     <div id="boletoContent">
                         <!-- O conteúdo do boleto será exibido aqui -->                      
                     </div> 
@@ -1152,7 +1152,7 @@ async function desbloqueio() {
 
         if (!contratoId) {
             console.error('ID do contrato não encontrado no localStorage.');
-            desbloqueioContent.innerHTML = 'ID do contrato não encontrado.';
+            desbloqueioContent.innerHTML = 'Consulte o status do seu plano. <p>Desbloqueio disponível apenas para serviço com status suspenso.</p>';
             return;
         }
 
@@ -1186,12 +1186,12 @@ async function desbloqueio() {
                 desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
             }
         } else {
-            desbloqueioContent.innerHTML = 'Desbloqueio de confiança realizado com sucesso! Lembre-se de efetuar o pagamento para continuar navegando!';
+            desbloqueioContent.innerHTML = 'Desbloqueio realizado com sucesso! <p>Lembre-se de efetuar o pagamento para continuar navegando!</p>';
         }
 
     } catch (error) {
         console.error("Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.", error.message);
-        desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
+        desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento.<p>Consulte nosso atendimento.</p>';
     }
 }
         </script>
