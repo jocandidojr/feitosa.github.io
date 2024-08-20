@@ -30,15 +30,16 @@
 /* Estilo do Menu e Menu-Toggle */
 .main-navbar {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between; /* Distribui espaço entre logo e botão de menu */
+    align-items: center; /* Alinha itens verticalmente no centro */
     min-height: 100px;
     max-height: 120px;
     background-color: #fff;
     color: #000;
     padding: 0 10px;
-    max-width: 60%; /* Limita a largura a 80% em telas maiores */
+    max-width: 60%; /* Limita a largura a 60% em telas maiores */
     margin: 0 auto; /* Centraliza o menu horizontalmente */
+    position: relative; /* Necessário para o menu toggle funcionar corretamente */
 }
 
 .main-navbar .logo {
@@ -53,7 +54,7 @@
 }
 
 .main-navbar .menu-pc {
-    display: flex;
+    display: flex; /* Garante que o menu esteja visível em telas grandes */
     align-items: center;
     justify-content: center;
     flex-grow: 1; /* Faz o menu ocupar o espaço disponível */
@@ -98,113 +99,57 @@
 /* Ajustes para telas menores */
 @media (max-width: 768px) {
     .main-navbar {
-        flex-direction: row;
-        justify-content: space-between;
-        max-width: 100%; /* Remove limite de 80% em telas menores */
+        flex-direction: column; /* Muda a direção do layout em telas menores */
+        max-width: 100%; /* Remove limite de largura em telas menores */
     }
 
     .main-navbar .menu-pc {
-        display: none;
+        display: none; /* Oculta o menu por padrão em dispositivos móveis */
         flex-direction: column;
         width: 100%;
         text-align: center;
-    }
-
-    .main-navbar .menu-pc a {
-        margin: 5px 0;
-    }
-
-    .main-navbar .button {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-navbar .menu-pc a,
-    .main-navbar .button {
-        font-size: 14px;
-        padding: 8px 15px;
-    }
-}
-
-/* Exibe o menu ao clicar no botão de menu */
-.main-navbar.menu-active .menu-pc {
-    display: flex;
-}
-
-/* Estilo do menu móvel */
-.menu-toggle {
-    display: none;
-    background-color: #10107A;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 7px;
-    cursor: pointer;
-    margin-left: auto;
-    transition: transform 0.3s ease;
-}
-
-.menu-toggle:hover {
-    background-color: #0056b3;
-    transform: scale(1.1); 
-}
-
-.menu-pc {
-    display: none; /* Oculta o menu por padrão */
-    /* Adicione estilos adicionais conforme necessário */
-}
-
-.menu-pc.active {
-    display: flex; /* Mostra o menu quando a classe 'active' é adicionada */
-}
-
-@media (min-width: 768px) {
-    .menu-pc {
-        display: block; /* Exibe o menu por padrão em telas maiores */
-    }
-    .menu-toggle {
-        display: none; /* Esconde o toggle em telas maiores */
-    }
-}
-
-
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .main-navbar.menu-active .menu-pc {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
         position: absolute;
         top: 100%;
         left: 0;
         background-color: #fff;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* Garante que o menu fique sobre outros conteúdos */
     }
 
-    .main-navbar.menu-active .menu-pc a,
-    .main-navbar.menu-active .menu-pc .button {
+    .menu-toggle {
+        display: block; /* Exibe o botão de menu em dispositivos móveis */
+        margin-left: auto; /* Alinha o botão de menu no canto direito */
+        align-self: center; /* Alinha verticalmente o botão de menu no centro */
+    }
+
+    .main-navbar.menu-active .menu-pc {
+        display: flex; /* Mostra o menu quando a classe 'menu-active' é adicionada ao contêiner principal */
+    }
+
+    .menu-pc a,
+    .menu-pc .button {
         display: block;
         color: #10107A;
         border: none;
         text-align: center;
+        padding: 10px;
     }
 
-    .main-navbar.menu-active .menu-pc .button {
+    .menu-pc .button {
         color: #fff;
     }
 }
 
-/* Fim do estilo do Menu e Menu-Toggle */
+/* Exibe o menu por padrão em telas maiores */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none; /* Esconde o botão de menu em telas maiores */
+    }
 
+    .menu-pc {
+        display: flex; /* Exibe o menu por padrão em telas maiores */
+    }
+}
     
 /* Estilos gerais para a seção de slideshow */
 .slideshow {
@@ -809,23 +754,20 @@ width: 100%;
 </div>
 
 <!-- Navbar com logotipo e menus -->
-<div class="main-navbar">
-<div class="logo">
-    <a href="#">
+<nav class="main-navbar">
+    <div class="logo">
+        <a href="#">
         <img src="https://feitosa-github-io.vercel.app/assets/logo_top_color_.png" alt="Logotipo">
     </a>
-</div>
-
-<div class="menu-toggle">☰</div>
-<div class="menu-pc">
-<!--<a href="#" data-page="Para sua empresa">PARA SUA EMPRESA</a>-->
-<a href="#container-about" data-page="Sobre nós">QUEM SOMOS</a>
-<a href="#plans-container" data-page="Para sua casa">NOSSOS PLANOS</a>
-<a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
-<button class="button" onclick="window.location.href='/login.html'">CENTRAL DO ASSINANTE</button>
-
-</div>
-</div>
+    </div>
+    <div class="menu-pc">
+        <a href="#container-about" data-page="container-about">QUEM SOMOS</a>
+        <a href="#plans-container" data-page="Para sua casa">NOSSOS PLANOS</a>
+        <a href="#fale-conosco" data-page="Fale conosco">FALE CONOSCO</a>
+        <button class="button" onclick="window.location.href='/login.html'">CENTRAL DO ASSINANTE</button>
+    </div>
+    <div class="menu-toggle">Menu</div>
+</nav>
 
 <!-- Fim da navbar superior -->
 
@@ -877,7 +819,9 @@ width: 100%;
 <div class="plans">
 
     <br><br>
+    <div class="plan">
     <img src="https://feitosa-github-io.vercel.app/assets/plan_titulo_casa.png" class="Planos-casa" alt="Descrição-planos-casa">
+</div>
     <br>
 
 <br>
@@ -1033,13 +977,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuPc = document.querySelector('.menu-pc');
     let currentSlide = 0;
 
-    document.querySelector('.menu-toggle').addEventListener('click', function() {
-    document.querySelector('.main-navbar').classList.toggle('menu-active');
-});
-
-
     // Define "Página inicial" como o texto padrão
-    currentPageText.textContent = "Você está aqui: Página inicial";
+    if (currentPageText) {
+        currentPageText.textContent = "Você está aqui: Página inicial";
+    }
 
     // Atualiza o texto da navbar superior ao clicar em um link
     menuLinks.forEach(link => {
@@ -1047,7 +988,9 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Impede o comportamento padrão do link
             
             const pageName = this.getAttribute('data-page');
-            currentPageText.textContent = `Você está aqui: ${pageName}`;
+            if (currentPageText) {
+                currentPageText.textContent = `Você está aqui: ${pageName}`;
+            }
             
             // Rolagem suave para a seção desejada
             const targetId = this.getAttribute('href').substring(1);
@@ -1056,7 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
             }
-            
+
             // Fechar o menu quando um item é clicado (para a versão desktop)
             if (mainNavbar.classList.contains('menu-active')) {
                 mainNavbar.classList.remove('menu-active');
@@ -1065,19 +1008,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Alterna a visibilidade do menu ao clicar no botão de menu
-    menuToggle.addEventListener('click', () => {
-        mainNavbar.classList.toggle('menu-active');
-        
-        // Verifica se o menu está ativo para mostrar ou ocultar os links
-        const isActive = mainNavbar.classList.contains('menu-active');
-        const menuPc = document.querySelector('.menu-pc');
-        
-        if (isActive) {
-            menuPc.style.display = 'flex';
-        } else {
-            menuPc.style.display = 'none';
-        }
-    });
+    if (menuToggle && mainNavbar) {
+        menuToggle.addEventListener('click', () => {
+            mainNavbar.classList.toggle('menu-active');
+            
+            // Verifica se o menu está ativo para mostrar ou ocultar os links
+            const isActive = mainNavbar.classList.contains('menu-active');
+            if (menuPc) {
+                menuPc.style.display = isActive ? 'flex' : 'none';
+            }
+        });
+    }
 
     // Função para mostrar o slide atual e atualizar o indicador
     function showSlide(index) {
@@ -1137,26 +1078,26 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlide = (currentSlide - 1 + pcSlides.length) % pcSlides.length;
         showSlide(currentSlide);
     });
-});
 
-document.getElementById('contact-form')?.addEventListener('submit', function(event) {
-    event.preventDefault(); // Previne o comportamento padrão do formulário
-    
-    // Captura os dados do formulário
-    const nome = event.target.nome.value;
-    const celular = event.target.celular.value;
-    const mensagem = event.target.mensagem.value;
-    
-    // Formata a mensagem para o WhatsApp
-    const formattedMessage = `Nome: ${nome}%0AContato: ${celular}%0AMensagem: ${mensagem}`;
-    
-    // URL para o WhatsApp
-    const whatsappUrl = `https://wa.me/5583999888759?text=${encodeURIComponent(formattedMessage)}`;
-    
-    // Redireciona para o WhatsApp
-    window.open(whatsappUrl, '_blank');
+    // Formulário de contato
+    document.getElementById('contact-form')?.addEventListener('submit', function(event) {
+        event.preventDefault(); // Previne o comportamento padrão do formulário
+        
+        // Captura os dados do formulário
+        const nome = event.target.nome.value;
+        const celular = event.target.celular.value;
+        const mensagem = event.target.mensagem.value;
+        
+        // Formata a mensagem para o WhatsApp
+        const formattedMessage = `Nome: ${nome}%0AContato: ${celular}%0AMensagem: ${mensagem}`;
+        
+        // URL para o WhatsApp
+        const whatsappUrl = `https://wa.me/5583999888759?text=${encodeURIComponent(formattedMessage)}`;
+        
+        // Redireciona para o WhatsApp
+        window.open(whatsappUrl, '_blank');
+    });
 });
-
 
 </Script>
 <!-- Rodapé -->
