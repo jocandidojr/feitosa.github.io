@@ -776,7 +776,7 @@ width: 100%;
 <body>
 <!-- Navbar superior -->
 <div class="top-navbar">
-<span id="current-page">Você está aqui:</span>
+<span id="current-page"></span>
 </div>
 
 <!-- Navbar com logotipo e menus -->
@@ -1011,7 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Define "Página inicial" como o texto padrão
     if (currentPageText) {
-        currentPageText.textContent = "Você está aqui: Página inicial";
+        currentPageText.textContent = "";
     }
 
     // Atualiza o texto da navbar superior ao clicar em um link
@@ -1021,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const pageName = this.getAttribute('data-page');
             if (currentPageText) {
-                currentPageText.textContent = `Você está aqui: ${pageName}`;
+                currentPageText.textContent = ``;
             }
             
             // Rolagem suave para a seção desejada
