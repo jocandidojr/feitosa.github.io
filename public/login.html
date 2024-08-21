@@ -1171,7 +1171,14 @@ async function desbloqueio() {
 
         if (!contratoId) {
             console.error('ID do contrato não encontrado no localStorage.');
-            desbloqueioContent.innerHTML = 'Consulte o status do seu plano. <p>Desbloqueio disponível apenas para serviço com status suspenso.</p>';
+            desbloqueioContent.innerHTML = `
+                                    <div class="textoModalOutros">
+                                        <h4><center>
+                                            <p>Consulte o status do seu plano.</p>
+                                            <p>Desbloqueio disponível apenas para serviço com status suspenso.</p>
+                                        </center></h4>
+                                    </div>
+                                `;
             return;
         }
 
@@ -1198,21 +1205,51 @@ async function desbloqueio() {
         const result = await response.json();
         console.log('Resultado do desbloqueio de confiança:', result);
 
-        if (result.type === 'error') {
-            if (result.message.includes("Não é possível utilizar o botão 'Desbloqueio de confiança'")) {
-                desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
-            } else {
-                desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.';
-            }
+            if (result.type === 'error') {
+        if (result.message.includes("Não é possível utilizar o botão 'Desbloqueio de confiança'")) {
+            desbloqueioContent.innerHTML = `
+                <div class="textoModalOutros">
+                    <h4><center>
+                        <p>Desbloqueio de confiança não está disponível no momento.</p>
+                        <p>Consulte nosso atendimento.</p>
+                    </center></h4>
+                </div>
+            `;
         } else {
-            desbloqueioContent.innerHTML = 'Desbloqueio realizado com sucesso! <p>Lembre-se de efetuar o pagamento para continuar navegando!</p>';
+            desbloqueioContent.innerHTML = `
+                <div class="textoModalOutros">
+                    <h4><center>
+                        <p>Desbloqueio de confiança não está disponível no momento.</p>
+                        <p>Consulte nosso atendimento.</p>
+                    </center></h4>
+                </div>
+            `;
         }
+    } else {
+        desbloqueioContent.innerHTML = `
+            <div class="textoModalOutros">
+                <h4><center>
+                    <p>Desbloqueio realizado com sucesso!</p>
+                    <p><span>Lembre-se de efetuar o pagamento para continuar navegando!</span></p>
+                </center></h4>
+            </div>
+        `;
+    }
 
     } catch (error) {
         console.error("Desbloqueio de confiança não está disponível no momento. Consulte nosso atendimento.", error.message);
-        desbloqueioContent.innerHTML = 'Desbloqueio de confiança não está disponível no momento.<p>Consulte nosso atendimento.</p>';
+        desbloqueioContent.innerHTML = `
+            <div class="textoModalOutros">
+                <h4><center>
+                    <p>Desbloqueio de confiança não está disponível no momento.</p>
+                    <p>Consulte nosso atendimento.</p>
+                </center></h4>
+            </div>
+        `;
     }
+
 }
+
         </script>
     </body>
     </html>
