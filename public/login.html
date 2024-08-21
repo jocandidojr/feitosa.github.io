@@ -221,7 +221,7 @@
 #ossFormContainer select,
 #ossFormContainer textarea {
     background: none;
-    border: 1px solid white;
+    border: 1px solid #10107A;
     border-radius: 4px;
     outline: none;
     color: white;
@@ -229,6 +229,10 @@
     width: calc(100% - 20px);
     margin-bottom: 20px;
     padding: 10px;
+}
+
+.placeholder {
+    color: white;
 }
 
 #ossFormContainer select {
@@ -398,8 +402,7 @@
              .textoModalOutros {
                 padding: 10px;
                 margin-bottom: 10px;
-                border: none;
-                
+                border: 2px solid;                
                 border-radius: 5px;
                 list-style-type: none;
                 font-size: 17px;
@@ -409,7 +412,7 @@
             }
 
             .textoModalOutros h2 {
-                font-size: 16px;
+                font-size: 20px;
             }
 
             #ossForm {
@@ -846,14 +849,18 @@ boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
 
     return `
         <li class="textoModalBoletos ${classeVencido} ${classePago}">
-            <h4>
-                <p><span>Fatura nº:</span> ${boleto.id} | 
-                    <span>Vencimento:</span> ${formatarData(boleto.data_vencimento)}</p>
-                <p><span>Mensalidade:</span> R$: ${boleto.valor}</p>
-                <p><span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}</p>  
-                <p><span>Download:</span> <a href="${boleto.gateway_link}.pdf" target="_blank">Clique aqui para baixar</a>
-            </h4>
-        </li>`;
+    <h4><center>
+        <span>Fatura nº:</span> ${boleto.id}
+        <span style="margin-left: 40px;">Venc.:</span> ${formatarData(boleto.data_vencimento)}
+    
+        <span style="margin-left: 40px;">Valor:</span> R$ ${boleto.valor}
+        <p>
+        <span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}
+        
+        <span style="margin-left: 30px;">  Download:</span> 
+        <a href="${boleto.gateway_link}.pdf" target="_blank">  Clique aqui</a>
+    </p></center></h4>
+</li>`;
 }).join('') + '</ul>';
 } else {
 boletoContent.innerHTML = '<p>Nenhum boleto encontrado.</p>';
@@ -944,13 +951,17 @@ async function buscarContratos() {
 
                 return `
                     <li class="textoModalOutros">
-                        <h4>
-                            <p><span>Contrato nº:</span> ${contrato.id}</p>
-                            <p><span>Status do contrato:</span> ${statusContrato}</p>
-                            <p><span>Serviço contratado:</span> ${tipoContrato}</p>
-                            <p><span>Status da conexão:</span> ${statusConexao}</p>
-                            <p><span>Plano de internet:</span> ${contrato.contrato}</p>
-                        </h4>
+                        <h4><center>
+                                <p>
+                                    <span>Contrato nº:</span> ${contrato.id} <span style="margin-left: 30px;">Status: ${statusContrato}</span>
+                                </p>
+                                <p>
+                                <span>Status conexão: ${statusConexao}</span>
+                                </p>
+                                <p>
+                                    Plano de internet: <h2>${contrato.contrato}</h2>
+                                </p></center>
+                            </h4>
                     </li>${hrTag}`;
             }).join('') + '</ul>';
         } else {
@@ -998,12 +1009,20 @@ const resultadosLimitados = data.slice(0, 5);
 
 // Gera o HTML para os registros limitados
 ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `<li class="textoModalOutros">
-        <h4>
-            <p><span>Ordem de serviço:</span> ${oss.id} | <span>Protocolo:</span> ${oss.protocolo}</p>
-            <p><span>Endereço de atendimento:</span></p> <p>${oss.endereco}</p>
-            <p><span>Resumo da solicitação:</span> ${oss.mensagem}</p>
-            <p><h2><span>Solução:</span> ${oss.mensagem_resposta}</p></h2>
-        </h4>
+        <h4><center>
+    <p>
+        <span>Chamado nº:</span> ${oss.id}
+        <span style="margin-left: 40px;">Protocolo:</span>
+        <h2 style="display: inline;">${oss.protocolo}</h2>
+    </p>
+    <p><span>Local atendimento:</span></p>
+    <p>${oss.endereco}</p>
+    Descrição:<p>${oss.mensagem}</p>
+    
+        Solução:
+                <p>${oss.mensagem_resposta}</p>
+        
+</center></h4>
     </li>`).join('') + '</ul>';
 } else {
 ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
@@ -1050,7 +1069,7 @@ const formHtml = `
 
     <div>
         <label for="mensagem">Como podemos te ajudar?</label>
-        <textarea id="mensagem" name="mensagem"  required></textarea>
+        <textarea id="mensagem" name="mensagem" required></textarea>
     </div>
 
     <button type="submit">Abrir novo chamado</button>
