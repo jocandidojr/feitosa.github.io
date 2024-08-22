@@ -110,6 +110,10 @@
         justify-content: center; /* Centraliza horizontalmente o logo */
     }
 
+    .logo img {
+       width: 200px;
+    }
+
     .main-navbar .menu-pc {
         display: none; /* Oculta o menu por padrão em dispositivos móveis */
         flex-direction: column;
@@ -842,8 +846,12 @@ width: 100%;
 
 /* Media Query para telas menores */
 @media (max-width: 768px) {
-    .faq-item {
-        width: 100%; /* Faz as perguntas ocuparem 100% da largura, empilhando uma sobre a outra */
+    .faq-item{
+        width: 80%; /* Faz as perguntas ocuparem 100% da largura, empilhando uma sobre a outra */
+    }
+    .FAQ {
+        width: 90%;
+        text-align: center;
     }
 }
 
