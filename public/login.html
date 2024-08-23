@@ -1175,7 +1175,7 @@ async function reiniciarConexao() {
     const reiniciarContent = document.getElementById('reiniciarContent');
 
     try {
-        // Aciona a função buscarContratos para obter o contratoId
+        // Obtém o clienteId do localStorage
         const clienteId = localStorage.getItem('clienteId');
         console.log('Cliente ID obtido do localStorage:', clienteId);
 
@@ -1192,45 +1192,33 @@ async function reiniciarConexao() {
             return;
         }
 
-        // Chama a função buscarContratos e aguarda o término
-        await buscarContratos(); // Certifique-se de que buscarContratos armazena o contratoId no localStorage
+        // Obtém o ID do login usando a rota para buscar logins
+        const usuariosResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
 
-        const contratoId = localStorage.getItem('contratoId');
-        console.log('Contrato ID obtido do localStorage:', contratoId);
+        console.log('Resposta da API para buscar usuários:', usuariosResponse);
 
-        if (!contratoId) {
-            console.error('ID do contrato não encontrado no localStorage.');
-            reiniciarContent.innerHTML = `
-                <div class="textoModalOutros">
-                    <h4><center>
-                        <p>ID do contrato não encontrado.</p>
-                        <p>Por favor, verifique se o contratoId está disponível no localStorage.</p>
-                    </center></h4>
-                </div>
-            `;
+        if (!usuariosResponse.ok) {
+            const errorData = await usuariosResponse.text(); 
+            console.error('Erro ao buscar usuários:', errorData);
+            reiniciarContent.innerHTML = 'Erro ao buscar usuários: ' + (errorData || usuariosResponse.statusText);
             return;
         }
 
-        // Usa o contratoId para obter os logins da tabela radusuarios
-        const loginsResponse = await fetch(`https://feitosa-github-io.vercel.app/api/proxy/cliente-logins?contratoId=${contratoId}`);
-        console.log('Resposta da API para buscar logins:', loginsResponse);
+        const usuariosResult = await usuariosResponse.json();
+        console.log('Usuários obtidos:', usuariosResult);
 
-        if (!loginsResponse.ok) {
-            const errorData = await loginsResponse.text(); 
-            console.error('Erro ao buscar logins:', errorData);
-            reiniciarContent.innerHTML = 'Erro ao buscar logins: ' + (errorData || loginsResponse.statusText);
-            return;
-        }
-
-        const loginsResult = await loginsResponse.json();
-        console.log('Logins obtidos:', loginsResult);
-
-        if (!loginsResult || loginsResult.length === 0) {
-            console.error('Nenhum login encontrado para o contrato.');
+        if (!usuariosResult || usuariosResult.length === 0) {
+            console.error('Nenhum usuário encontrado para o cliente.');
             reiniciarContent.innerHTML = `
                 <div class="textoModalOutros">
                     <h4><center>
-                        <p>Nenhum login encontrado para o contrato.</p>
+                        <p>Nenhum usuário encontrado para o cliente.</p>
                         <p>Por favor, consulte nosso atendimento.</p>
                     </center></h4>
                 </div>
@@ -1238,10 +1226,13 @@ async function reiniciarConexao() {
             return;
         }
 
-        const loginId = loginsResult[0].id; // Obtendo o ID do primeiro login
+        const loginId = usuariosResult[0].id; // Obtendo o ID do primeiro usuário
         console.log('ID do login obtido:', loginId);
 
-        // Aciona a rota para reiniciar a conexão usando o loginId
+        // Armazena o loginId no localStorage
+        localStorage.setItem('loginId', loginId);
+
+        // Envia a requisição para reiniciar a conexão usando o loginId
         const requestBody = JSON.stringify({ id: loginId });
         console.log('Enviando requisição para reinício de conexão com corpo:', requestBody);
 
@@ -1297,7 +1288,6 @@ async function reiniciarConexao() {
         `;
     }
 }
-
 
 // Função para desbloqueio de confiança
 async function desbloqueio() {
