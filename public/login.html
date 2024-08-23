@@ -639,13 +639,13 @@
                     });
 
                     document.addEventListener('DOMContentLoaded', () => {                
-    const buttons = document.querySelectorAll('.auto-atendimento button');
-    const formContainer = document.getElementById('formContainer');
-    const autoAtendimento = document.getElementById('auto-atendimento');
-    const modal = document.getElementById('myModal');
-    const topNavbar = document.getElementById('top-navbar');
-    const cpfInput = document.getElementById('cpf');
-    const span = document.querySelector('.close'); 
+                        const buttons = document.querySelectorAll('.auto-atendimento button');
+                        const formContainer = document.getElementById('formContainer');
+                        const autoAtendimento = document.getElementById('auto-atendimento');
+                        const modal = document.getElementById('myModal');
+                        const topNavbar = document.getElementById('top-navbar');
+                        const cpfInput = document.getElementById('cpf');
+                        const span = document.querySelector('.close'); 
     
     // Função para fazer logout
     function logout() {
@@ -762,26 +762,26 @@ function exibirResultado(cliente) {
     
    // Adiciona o listener aos botões da auto-atendimento
    buttons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const page = button.getAttribute('data-page');
-            if (page) {
-                modal.style.display = "block";
-                if (page === 'Boleto') {
-                    await buscarBoletos();
-                } else if (page === 'Contrato') {
-                    await buscarContratos();
-                } else if (page === 'Oss') {
-                    await buscarOss();
-                } else if (page === 'criarOss') {
-                    await criarOss();
-                } else if (page === 'Desconexao') {
-                    await desconectar(); // Chama a função desconectar
-                } else if (page === 'desbloqueio') {
-                    await desbloqueio();
+            button.addEventListener('click', async () => {
+                const page = button.getAttribute('data-page');
+                if (page) {
+                    modal.style.display = "block";
+                    if (page === 'Boleto') {
+                        await buscarBoletos();
+                    } else if (page === 'Contrato') {
+                        await buscarContratos();
+                    } else if (page === 'Oss') {
+                        await buscarOss();
+                    } else if (page === 'criarOss') {
+                        await criarOss();
+                    } else if (page === 'Desconexao') {
+                        await desconectarClientes();
+                    } else if (page === 'desbloqueio') {
+                        await desbloqueio();
+                    }
                 }
-            }
+            });
         });
-    });
 
     
 // Função para formatar a data no formato dia/mês/ano
@@ -789,6 +789,67 @@ function formatarData(data) {
 const partes = data.split('-'); // Supondo que a data vem no formato yyyy-mm-dd
 return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dia/mês/ano
 }
+
+// Função para desconectar
+async function desconectarClientes() {
+    try {
+        console.log("Fazendo requisição para desconectar clientes...");
+
+        const clienteId = localStorage.getItem('clienteId');
+
+        if (!clienteId) {
+            console.error('Cliente ID não encontrado');
+            return;
+        }
+
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desconectar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        console.log("Resposta da desconexão:", data);
+
+        // Exibe o resultado na div id="desbloqueioContent"
+        exibirResultado(data);
+    } catch (error) {
+        console.error("Erro ao desconectar clientes:", error.message);
+        exibirErro("Erro ao desconectar clientes.");
+    }
+}
+
+// Funções auxiliares
+function exibirResultado(resultado) {
+    const contentDiv = document.getElementById('desbloqueioContent');
+    if (contentDiv) {
+        contentDiv.innerHTML = `
+            <h3>Resultado da Desconexão</h3>
+            <pre>${JSON.stringify(resultado, null, 2)}</pre>
+        `;
+    } else {
+        console.error('Div id="desbloqueioContent" não encontrada.');
+    }
+}
+
+function exibirErro(erro) {
+    const contentDiv = document.getElementById('desbloqueioContent');
+    if (contentDiv) {
+        contentDiv.innerHTML = `
+            <h3>Erro</h3>
+            <p>${erro}</p>
+        `;
+    } else {
+        console.error('Div id="desbloqueioContent" não encontrada.');
+    }
+}
+
 
 // Função para buscar boletos
 async function buscarBoletos() {
@@ -1259,87 +1320,6 @@ async function desbloqueio() {
 
 
 
-// Função para desconectar clientes
-async function desconectar() {
-    const desconexaoContent = document.getElementById('desconexaoContent');
-
-    try {
-        // Obtém o ID do contrato do localStorage
-        const contratoId = localStorage.getItem('contratoId');
-        console.log('Contrato ID obtido do localStorage:', contratoId);
-
-        // Verifica se o ID do contrato está disponível
-        if (!contratoId) {
-            console.error('ID do contrato não encontrado no localStorage.');
-            desconexaoContent.innerHTML = `
-                <div class="textoModalOutros">
-                    <h4><center>
-                        <p>Consulte o status do seu plano.</p>
-                        <p>Desconexão disponível apenas para serviço com status específico.</p>
-                    </center></h4>
-                </div>
-            `;
-            return;
-        }
-
-        // Cria o corpo da requisição
-        const requestBody = JSON.stringify({ id: contratoId });
-        console.log('Enviando requisição para desconectar clientes com corpo:', requestBody);
-
-        // Faz a requisição para a rota do servidor proxy
-        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desconectar-clientes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: requestBody
-        });
-
-        // Verifica se a resposta é ok
-        if (!response.ok) {
-            const errorData = await response.text(); // Mudar para text() para melhor depuração
-            console.error('Erro ao desconectar clientes:', errorData);
-            desconexaoContent.innerHTML = 'Erro ao desconectar clientes: ' + (errorData || response.statusText);
-            return;
-        }
-
-        // Obtém o resultado da resposta
-        const result = await response.json();
-        console.log('Resultado da desconexão:', result);
-
-        // Atualiza o conteúdo do modal com base no resultado
-        if (result.type === 'error') {
-            desconexaoContent.innerHTML = `
-                <div class="textoModalOutros">
-                    <h4><center>
-                        <p>Desconexão não está disponível no momento.</p>
-                        <p>Consulte nosso atendimento.</p>
-                    </center></h4>
-                </div>
-            `;
-        } else {
-            desconexaoContent.innerHTML = `
-                <div class="textoModalOutros">
-                    <h4><center>
-                        <p>Desconexão realizada com sucesso!</p>
-                        <p><span>Verifique seu status e continue navegando.</span></p>
-                    </center></h4>
-                </div>
-            `;
-        }
-        
-    } catch (error) {
-        console.error("Desconexão não está disponível no momento. Consulte nosso atendimento.", error.message);
-        desconexaoContent.innerHTML = `
-            <div class="textoModalOutros">
-                <h4><center>
-                    <p>Desconexão não está disponível no momento.</p>
-                    <p>Consulte nosso atendimento.</p>
-                </center></h4>
-            </div>
-        `;
-    }
-}
 
 }
         </script>

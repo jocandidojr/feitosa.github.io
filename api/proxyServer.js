@@ -271,7 +271,7 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
 });
 
 // Nova rota para desconexão
-app.post('/api/proxy/desconectar-clientes', async (req, res) => {
+app.post('/api/proxy/desconectar', async (req, res) => {
   const contratoId = req.body.id;
   const url = 'https://feitosatelecom.com.br/webservice/v1/desconectar_clientes'; // URL da API
 
