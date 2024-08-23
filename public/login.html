@@ -761,27 +761,27 @@ function exibirResultado(cliente) {
     }
     
    // Adiciona o listener aos botões da auto-atendimento
-buttons.forEach(button => {
-    button.addEventListener('click', async () => {
-        const page = button.getAttribute('data-page');
-        if (page) {
-            modal.style.display = "block";
-            if (page === 'Boleto') {
-                await buscarBoletos();
-            } else if (page === 'Contrato') {
-                await buscarContratos();
-            } else if (page === 'Oss') {
-                await buscarOss();
-            } else if (page === 'criarOss') {
-                await criarOss();
-            } else if (page === 'Desconexao') {
-                await desconectar(); // Chama a função para desconectar
-            } else if (page === 'desbloqueio') {
-                await desbloqueio(); // Chama a função para desbloqueio
+   buttons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const page = button.getAttribute('data-page');
+            if (page) {
+                modal.style.display = "block";
+                if (page === 'Boleto') {
+                    await buscarBoletos();
+                } else if (page === 'Contrato') {
+                    await buscarContratos();
+                } else if (page === 'Oss') {
+                    await buscarOss();
+                } else if (page === 'criarOss') {
+                    await criarOss();
+                } else if (page === 'Desconexao') {
+                    await desconectar(); // Chama a função desconectar
+                } else if (page === 'desbloqueio') {
+                    await desbloqueio();
+                }
             }
-        }
+        });
     });
-});
 
     
 // Função para formatar a data no formato dia/mês/ano
@@ -1257,14 +1257,18 @@ async function desbloqueio() {
         `;
     }
 
-    // Função para desconexão
+
+
+// Função para desconectar clientes
 async function desconectar() {
     const desconexaoContent = document.getElementById('desconexaoContent');
 
     try {
+        // Obtém o ID do contrato do localStorage
         const contratoId = localStorage.getItem('contratoId');
         console.log('Contrato ID obtido do localStorage:', contratoId);
 
+        // Verifica se o ID do contrato está disponível
         if (!contratoId) {
             console.error('ID do contrato não encontrado no localStorage.');
             desconexaoContent.innerHTML = `
@@ -1278,9 +1282,11 @@ async function desconectar() {
             return;
         }
 
+        // Cria o corpo da requisição
         const requestBody = JSON.stringify({ id: contratoId });
         console.log('Enviando requisição para desconectar clientes com corpo:', requestBody);
 
+        // Faz a requisição para a rota do servidor proxy
         const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desconectar-clientes', {
             method: 'POST',
             headers: {
@@ -1289,8 +1295,7 @@ async function desconectar() {
             body: requestBody
         });
 
-        console.log('Resposta da API:', response);
-
+        // Verifica se a resposta é ok
         if (!response.ok) {
             const errorData = await response.text(); // Mudar para text() para melhor depuração
             console.error('Erro ao desconectar clientes:', errorData);
@@ -1298,9 +1303,11 @@ async function desconectar() {
             return;
         }
 
+        // Obtém o resultado da resposta
         const result = await response.json();
         console.log('Resultado da desconexão:', result);
 
+        // Atualiza o conteúdo do modal com base no resultado
         if (result.type === 'error') {
             desconexaoContent.innerHTML = `
                 <div class="textoModalOutros">
@@ -1320,7 +1327,7 @@ async function desconectar() {
                 </div>
             `;
         }
-
+        
     } catch (error) {
         console.error("Desconexão não está disponível no momento. Consulte nosso atendimento.", error.message);
         desconexaoContent.innerHTML = `
@@ -1333,10 +1340,6 @@ async function desconectar() {
         `;
     }
 }
-
-// Adicionar um event listener para o botão com data-page="Desconexao"
-document.querySelector('[data-page="Desconexao"]').addEventListener('click', desconectar);
-
 
 }
         </script>
