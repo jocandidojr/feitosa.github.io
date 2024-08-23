@@ -270,24 +270,6 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   }
 });
 
-// Nova rota para desconexão
-app.post('/api/proxy/desconectar', async (req, res) => {
-  const contratoId = req.body.id;
-  const url = 'https://feitosatelecom.com.br/webservice/v1/desconectar_clientes'; // URL da API
-
-  try {
-      // Requisição para a API externa
-      const response = await axios.get(url, {
-          params: { id: contratoId },
-          headers: { 'Authorization': `Bearer ${token}` } // Usando o token das variáveis de ambiente
-      });
-
-      res.json(response.data); // Retorna a resposta da API externa para o frontend
-  } catch (error) {
-      console.error('Erro ao conectar clientes:', error.message);
-      res.status(500).json({ type: 'error', message: 'Erro ao conectar clientes' });
-  }
-});
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
