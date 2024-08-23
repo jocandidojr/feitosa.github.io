@@ -1266,7 +1266,12 @@ async function acionarDesconexao() {
       // Verifique se o clienteId está disponível
       if (!clienteId) {
         console.error('Cliente ID não encontrado no localStorage');
-        desconexaoContent.innerHTML = 'Cliente ID não encontrado no localStorage';
+        desconexaoContent.innerHTML = `
+          <div class="textoModalOutros">
+            <h4><center>
+              <p>Cliente ID não encontrado no localStorage</p>
+            </center></h4>
+          </div>`;
         return;
       }
 
@@ -1276,11 +1281,33 @@ async function acionarDesconexao() {
         id_contrato: 'ID_DO_CONTRATO' // Adicione o ID do contrato de forma adequada
       });
 
-      // Exibir o resultado da operação na div desconexaoContent
-      desconexaoContent.innerHTML = `Desconexão realizada com sucesso. Detalhes: ${JSON.stringify(response.data)}`;
+      // Verifique o status da resposta
+      if (response.status === 200) {
+        desconexaoContent.innerHTML = `
+          <div class="textoModalOutros">
+            <h4><center>
+              <p>Desconexão realizada com sucesso!</p>
+              <p>Detalhes: ${JSON.stringify(response.data)}</p>
+            </center></h4>
+          </div>`;
+      } else {
+        desconexaoContent.innerHTML = `
+          <div class="textoModalOutros">
+            <h4><center>
+              <p>Erro ao realizar a desconexão.</p>
+              <p>Detalhes: ${response.statusText}</p>
+            </center></h4>
+          </div>`;
+      }
     } catch (error) {
       console.error('Erro ao realizar a desconexão:', error);
-      desconexaoContent.innerHTML = `Erro ao realizar a desconexão: ${error.message}`;
+      desconexaoContent.innerHTML = `
+        <div class="textoModalOutros">
+          <h4><center>
+            <p>Erro ao realizar a desconexão.</p>
+            <p>Detalhes: ${error.message}</p>
+          </center></h4>
+        </div>`;
     }
   });
 }
