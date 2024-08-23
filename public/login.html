@@ -1192,7 +1192,7 @@ async function reiniciarConexao() {
             return;
         }
 
-        // Obtém o ID do login usando a rota para buscar logins
+        // Faz a requisição para buscar os usuários
         const usuariosResponse = await fetch('https://feitosa-github-io.vercel.app/api/proxy/usuarios', {
             method: 'POST',
             headers: {
@@ -1213,7 +1213,9 @@ async function reiniciarConexao() {
         const usuariosResult = await usuariosResponse.json();
         console.log('Usuários obtidos:', usuariosResult);
 
-        if (!usuariosResult || usuariosResult.length === 0) {
+        // Acessa a lista de registros de usuários
+        const usuarios = usuariosResult.registros;
+        if (!usuarios || usuarios.length === 0) {
             console.error('Nenhum usuário encontrado para o cliente.');
             reiniciarContent.innerHTML = `
                 <div class="textoModalOutros">
@@ -1226,11 +1228,13 @@ async function reiniciarConexao() {
             return;
         }
 
-        const loginId = usuariosResult[0].id; // Obtendo o ID do primeiro usuário
+        // Obtém o ID do primeiro usuário
+        const loginId = usuarios[0].id;
         console.log('ID do login obtido:', loginId);
 
         // Armazena o loginId no localStorage
         localStorage.setItem('loginId', loginId);
+        console.log('loginId armazenado no localStorage:', localStorage.getItem('loginId'));
 
         // Envia a requisição para reiniciar a conexão usando o loginId
         const requestBody = JSON.stringify({ id: loginId });
