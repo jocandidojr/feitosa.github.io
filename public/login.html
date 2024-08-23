@@ -550,12 +550,16 @@
                         <img src="/assets/a_cadastro_.png" alt="criarOss">
                     </button>
 
+                    <button data-page="Desconexao">
+                        <img src="/assets/a_desconexao_.png" alt="Desconexao">
+                    </button>
+
                     <a href="https://wa.me/5583999888759">
                     <button data-page="Outros">
                         <img src="/assets/a_outros_.png" alt="Outros">
                     </button>
                     </a>
-                </div>
+                </div>  
             </div>
             
             <!-- Modal -->
@@ -580,6 +584,9 @@
                     </div>
                     
                     <div id="desbloqueioContent">
+                        <!-- O conteúdo de desbloqueio será exibido aqui -->
+                    </div>
+                    <div id="desconexaoContent">
                         <!-- O conteúdo de desbloqueio será exibido aqui -->
                     </div>
                 </div>
@@ -1245,6 +1252,40 @@ async function desbloqueio() {
             </div>
         `;
     }
+
+    // Função para acionar a rota de desconexão
+function acionarDesconexao() {
+    const button = document.querySelector('button[data-page="Desconexao"]');
+    const desconexaoContent = document.getElementById('desconexaoContent');
+
+    button.addEventListener('click', async () => {
+        try {
+            // Supondo que o clienteId esteja armazenado no localStorage
+            const clienteId = localStorage.getItem('clienteId');
+
+            // Verifique se o clienteId está disponível
+            if (!clienteId) {
+                console.error('Cliente ID não encontrado no localStorage');
+                return;
+            }
+
+            // Fazer a requisição para a rota de desconexão
+            const response = await axios.post('http://localhost:3000/proxy/desconexao', {
+                clienteId: clienteId
+            });
+
+            // Exibir o resultado da operação na div desconexaoContent
+            desconexaoContent.innerHTML = `Desconexão realizada com sucesso. Detalhes: ${JSON.stringify(response.data)}`;
+        } catch (error) {
+            console.error('Erro ao realizar a desconexão:', error);
+            desconexaoContent.innerHTML = `Erro ao realizar a desconexão: ${error.message}`;
+        }
+    });
+}
+
+// Chamar a função para configurar o listener
+acionarDesconexao();
+
 
 }
 

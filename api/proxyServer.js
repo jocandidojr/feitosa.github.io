@@ -83,6 +83,7 @@
     }
   });
 
+  //Rota para Criar Oss
   app.post('/api/proxy/oss', async (req, res) => {
     const { clienteId } = req.body;
 
@@ -268,6 +269,40 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
     console.error('Detalhes do erro:', error.response?.data);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de desbloqueio de confiança" });
   }
+});
+
+//Rota pra desconectar login
+app.post('/proxy/desconectarClientes', async (req, res) => {
+  const { id_cliente, id_contrato } = req.body;
+
+  if (!id_cliente || !id_contrato) {
+      return res.status(400).send({ error: 'id_cliente e id_contrato são obrigatórios' });
+  }
+
+  try {
+      const response = await axios({
+          method: 'PUT',
+          url: 'https://HOST/webservice/v1/radusuarios/desconectar',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Basic ${Buffer.from(token).toString('base64')}`
+          },
+          data: {
+              id_cliente: id_cliente,
+              id_contrato: id_contrato,
+              // Adicione outros campos necessários para a desconexão aqui
+          }
+      });
+
+      res.send(response.data);
+  } catch (error) {
+      console.error('Erro ao desconectar o cliente:', error);
+      res.status(500).send({ error: 'Erro ao desconectar o cliente' });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
 
 
