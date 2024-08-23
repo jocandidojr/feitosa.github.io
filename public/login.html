@@ -1,3 +1,4 @@
+@ -1,1254 +1,1254 @@
     <!DOCTYPE html>
     <html lang="pt-br">
     <head>
@@ -80,6 +81,7 @@
         
             .auto-atendimento img {
                 max-width: 150px;
+                max-width: 100px;
                 height: auto;
                 margin: 5px;
                 background-color: #10107A;
@@ -550,16 +552,12 @@
                         <img src="/assets/a_cadastro_.png" alt="criarOss">
                     </button>
 
-                    <button data-page="Desconexao">
-                        <img src="/assets/a_desconexao_.png" alt="Desconexao">
-                    </button>
-
                     <a href="https://wa.me/5583999888759">
                     <button data-page="Outros">
                         <img src="/assets/a_outros_.png" alt="Outros">
                     </button>
                     </a>
-                </div>  
+                </div>
             </div>
             
             <!-- Modal -->
@@ -585,9 +583,6 @@
                     
                     <div id="desbloqueioContent">
                         <!-- O conteúdo de desbloqueio será exibido aqui -->
-                    </div>
-                    <div id="desconexaoContent">
-                        
                     </div>
                 </div>
             </div>
@@ -639,13 +634,13 @@
                     });
 
                     document.addEventListener('DOMContentLoaded', () => {                
-                        const buttons = document.querySelectorAll('.auto-atendimento button');
-                        const formContainer = document.getElementById('formContainer');
-                        const autoAtendimento = document.getElementById('auto-atendimento');
-                        const modal = document.getElementById('myModal');
-                        const topNavbar = document.getElementById('top-navbar');
-                        const cpfInput = document.getElementById('cpf');
-                        const span = document.querySelector('.close'); 
+    const buttons = document.querySelectorAll('.auto-atendimento button');
+    const formContainer = document.getElementById('formContainer');
+    const autoAtendimento = document.getElementById('auto-atendimento');
+    const modal = document.getElementById('myModal');
+    const topNavbar = document.getElementById('top-navbar');
+    const cpfInput = document.getElementById('cpf');
+    const span = document.querySelector('.close'); 
     
     // Função para fazer logout
     function logout() {
@@ -761,27 +756,33 @@ function exibirResultado(cliente) {
     }
     
    // Adiciona o listener aos botões da auto-atendimento
-   buttons.forEach(button => {
-            button.addEventListener('click', async () => {
-                const page = button.getAttribute('data-page');
-                if (page) {
-                    modal.style.display = "block";
-                    if (page === 'Boleto') {
-                        await buscarBoletos();
-                    } else if (page === 'Contrato') {
-                        await buscarContratos();
-                    } else if (page === 'Oss') {
-                        await buscarOss();
-                    } else if (page === 'criarOss') {
-                        await criarOss()
-                    } else if (page === 'desbloqueio') {
-                        await desbloqueio();
-                    }
-                }
-            });
-        });
+buttons.forEach(button => {
+    button.addEventListener('click', async () => {
+        const page = button.getAttribute('data-page');
+        if (page) {
+            modal.style.display = "block";
+            if (page === 'Boleto') {
+                await buscarBoletos();
+            } else if (page === 'Contrato') {
+                await buscarContratos();
+            } else if (page === 'Oss') {
+                await buscarOss();
+            } else if (page === 'criarOss') {
+                await criarOss();
+            } else if (page === 'desbloqueio') {
+                await desbloqueio();
+            }
+        }
+    });
+});
 
     
+// Função para formatar a data no formato dia/mês/ano
+function formatarData(data) {
+const partes = data.split('-'); // Supondo que a data vem no formato yyyy-mm-dd
+return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dia/mês/ano
+}
+
 // Função para buscar boletos
 async function buscarBoletos() {
 try {
@@ -1126,14 +1127,12 @@ const contratoContent = document.getElementById('contratoContent');
 const ossContent = document.getElementById('ossContent');
 const desbloqueioContent = document.getElementById('desbloqueioContent');
 const criarOssContent = document.getElementById('criarOssContent');
-const desconexaoContent = document.getElementById('desconexaoContent');
 
 if (boletoContent) boletoContent.innerHTML = '';
 if (contratoContent) contratoContent.innerHTML = '';
 if (ossContent) ossContent.innerHTML = '';
 if (desbloqueioContent) desbloqueioContent.innerHTML = ''; 
-if (criarOssContent) criarOssContent.innerHTML = '';
-if (desconexaoContent) desconexaoContent.innerHTML = '';  
+if (criarOssContent) criarOssContent.innerHTML = ''; 
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1250,6 +1249,7 @@ async function desbloqueio() {
     }
 
 }
+
         </script>
     </body>
     </html>
