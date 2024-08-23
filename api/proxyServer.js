@@ -282,7 +282,7 @@ app.post('/proxy/desconectarClientes', async (req, res) => {
   try {
       const response = await axios({
           method: 'PUT',
-          url: 'https://HOST/webservice/v1/radusuarios/desconectar',
+          url: 'https://feitosatelecom.com.br/webservice/v1/radusuarios/desconectar',
           headers: {
               'Content-Type': 'application/json',
               'Authorization': `Basic ${Buffer.from(token).toString('base64')}`
@@ -305,9 +305,5 @@ app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
 
-
-app.listen(port, () => {
-  console.log(`Servidor proxy rodando na porta ${port}`);
-});
 
   module.exports = app;

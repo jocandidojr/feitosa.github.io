@@ -1254,7 +1254,7 @@ async function desbloqueio() {
     }
 
     // Função para acionar a rota de desconexão
-function acionarDesconexao() {
+    async function acionarDesconexao() {
     const button = document.querySelector('button[data-page="Desconexao"]');
     const desconexaoContent = document.getElementById('desconexaoContent');
 
@@ -1270,7 +1270,7 @@ function acionarDesconexao() {
             }
 
             // Fazer a requisição para a rota de desconexão
-            const response = await axios.post('http://localhost:3000/proxy/desconexao', {
+            const response = await axios.post('https://feitosa-github-io.vercel.app/api/proxy/desconexao', {
                 clienteId: clienteId
             });
 
