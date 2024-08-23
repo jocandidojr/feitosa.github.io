@@ -1253,39 +1253,40 @@ async function desbloqueio() {
         `;
     }
 
-    // Função para acionar a rota de desconexão
-    async function acionarDesconexao() {
-    const button = document.querySelector('button[data-page="Desconexao"]');
-    const desconexaoContent = document.getElementById('desconexaoContent');
+// Função para acionar a rota de desconexão
+async function acionarDesconexao() {
+  const button = document.querySelector('button[data-page="Desconexao"]');
+  const desconexaoContent = document.getElementById('desconexaoContent');
 
-    button.addEventListener('click', async () => {
-        try {
-            // Supondo que o clienteId esteja armazenado no localStorage
-            const clienteId = localStorage.getItem('clienteId');
+  button.addEventListener('click', async () => {
+    try {
+      // Supondo que o clienteId esteja armazenado no localStorage
+      const clienteId = localStorage.getItem('clienteId');
 
-            // Verifique se o clienteId está disponível
-            if (!clienteId) {
-                console.error('Cliente ID não encontrado no localStorage');
-                return;
-            }
+      // Verifique se o clienteId está disponível
+      if (!clienteId) {
+        console.error('Cliente ID não encontrado no localStorage');
+        desconexaoContent.innerHTML = 'Cliente ID não encontrado no localStorage';
+        return;
+      }
 
-            // Fazer a requisição para a rota de desconexão
-            const response = await axios.post('https://feitosa-github-io.vercel.app/api/proxy/desconexao', {
-                clienteId: clienteId
-            });
+      // Fazer a requisição para a rota de desconexão
+      const response = await axios.post('https://feitosa-github-io.vercel.app/api/proxy/desconectarClientes', {
+        id_cliente: clienteId, // Corrigido para enviar id_cliente
+        id_contrato: 'ID_DO_CONTRATO' // Adicione o ID do contrato de forma adequada
+      });
 
-            // Exibir o resultado da operação na div desconexaoContent
-            desconexaoContent.innerHTML = `Desconexão realizada com sucesso. Detalhes: ${JSON.stringify(response.data)}`;
-        } catch (error) {
-            console.error('Erro ao realizar a desconexão:', error);
-            desconexaoContent.innerHTML = `Erro ao realizar a desconexão: ${error.message}`;
-        }
-    });
+      // Exibir o resultado da operação na div desconexaoContent
+      desconexaoContent.innerHTML = `Desconexão realizada com sucesso. Detalhes: ${JSON.stringify(response.data)}`;
+    } catch (error) {
+      console.error('Erro ao realizar a desconexão:', error);
+      desconexaoContent.innerHTML = `Erro ao realizar a desconexão: ${error.message}`;
+    }
+  });
 }
 
 // Chamar a função para configurar o listener
 acionarDesconexao();
-
 
 }
 

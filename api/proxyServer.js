@@ -271,33 +271,32 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   }
 });
 
-//Rota pra desconectar login
+// Rota para desconectar login
 app.post('/proxy/desconectarClientes', async (req, res) => {
   const { id_cliente, id_contrato } = req.body;
 
   if (!id_cliente || !id_contrato) {
-      return res.status(400).send({ error: 'id_cliente e id_contrato são obrigatórios' });
+    return res.status(400).send({ error: 'id_cliente e id_contrato são obrigatórios' });
   }
 
   try {
-      const response = await axios({
-          method: 'PUT',
-          url: 'https://feitosatelecom.com.br/webservice/v1/radusuarios/desconectar',
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Basic ${Buffer.from(token).toString('base64')}`
-          },
-          data: {
-              id_cliente: id_cliente,
-              id_contrato: id_contrato,
-              // Adicione outros campos necessários para a desconexão aqui
-          }
-      });
+    const response = await axios({
+      method: 'PUT',
+      url: 'https://feitosatelecom.com.br/webservice/v1/radusuarios/desconectar',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${Buffer.from(token).toString('base64')}`
+      },
+      data: {
+        id_cliente: id_cliente,
+        id_contrato: id_contrato
+      }
+    });
 
-      res.send(response.data);
+    res.send(response.data);
   } catch (error) {
-      console.error('Erro ao desconectar o cliente:', error);
-      res.status(500).send({ error: 'Erro ao desconectar o cliente' });
+    console.error('Erro ao desconectar o cliente:', error);
+    res.status(500).send({ error: 'Erro ao desconectar o cliente' });
   }
 });
 
