@@ -272,7 +272,7 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
 });
 
 // Rota para desconectar login
-app.post('/proxy/desconectarClientes', async (req, res) => {
+app.post('/api/proxy/desconectarClientes', async (req, res) => {
   const { id_cliente, id_contrato } = req.body;
 
   if (!id_cliente || !id_contrato) {

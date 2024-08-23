@@ -587,7 +587,7 @@
                         <!-- O conteúdo de desbloqueio será exibido aqui -->
                     </div>
                     <div id="desconexaoContent">
-                        <!-- O conteúdo de desbloqueio será exibido aqui -->
+                        <!-- O conteúdo de desconexão será exibido aqui -->
                     </div>
                 </div>
             </div>
@@ -1132,12 +1132,14 @@ const contratoContent = document.getElementById('contratoContent');
 const ossContent = document.getElementById('ossContent');
 const desbloqueioContent = document.getElementById('desbloqueioContent');
 const criarOssContent = document.getElementById('criarOssContent');
+const desconexaoContent = document.getElementById('desconexaoContent');
 
 if (boletoContent) boletoContent.innerHTML = '';
 if (contratoContent) contratoContent.innerHTML = '';
 if (ossContent) ossContent.innerHTML = '';
 if (desbloqueioContent) desbloqueioContent.innerHTML = ''; 
-if (criarOssContent) criarOssContent.innerHTML = ''; 
+if (criarOssContent) criarOssContent.innerHTML = '';
+if (desconexaoContent) desconexaoContent.innerHTML = '';  
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1254,66 +1256,59 @@ async function desbloqueio() {
     }
 
 // Função para acionar a rota de desconexão
-async function acionarDesconexao() {
-  const button = document.querySelector('button[data-page="Desconexao"]');
-  const desconexaoContent = document.getElementById('desconexaoContent');
-
-  button.addEventListener('click', async () => {
+async function desconexao() {
     try {
-      // Supondo que o clienteId esteja armazenado no localStorage
-      const clienteId = localStorage.getItem('clienteId');
+        console.log("Fazendo requisição para o servidor proxy...");
 
-      // Verifique se o clienteId está disponível
-      if (!clienteId) {
-        console.error('Cliente ID não encontrado no localStorage');
-        desconexaoContent.innerHTML = `
-          <div class="textoModalOutros">
-            <h4><center>
-              <p>Cliente ID não encontrado no localStorage</p>
-            </center></h4>
-          </div>`;
-        return;
-      }
+        const clienteId = localStorage.getItem('clienteId');
 
-      // Fazer a requisição para a rota de desconexão
-      const response = await axios.post('https://feitosa-github-io.vercel.app/api/proxy/desconectarClientes', {
-        id_cliente: clienteId, // Corrigido para enviar id_cliente
-        id_contrato: 'ID_DO_CONTRATO' // Adicione o ID do contrato de forma adequada
-      });
+        if (!clienteId) {
+            console.error('Cliente ID não encontrado');
+            return;
+        }
 
-      // Verifique o status da resposta
-      if (response.status === 200) {
-        desconexaoContent.innerHTML = `
-          <div class="textoModalOutros">
-            <h4><center>
-              <p>Desconexão realizada com sucesso!</p>
-              <p>Detalhes: ${JSON.stringify(response.data)}</p>
-            </center></h4>
-          </div>`;
-      } else {
-        desconexaoContent.innerHTML = `
-          <div class="textoModalOutros">
-            <h4><center>
-              <p>Erro ao realizar a desconexão.</p>
-              <p>Detalhes: ${response.statusText}</p>
-            </center></h4>
-          </div>`;
-      }
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desconexao', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log('Dados da resposta:', data);
+
+        const desconexaoContent = document.getElementById('desconexaoContent');
+        if (data && data.length > 0) {
+            desconexaoContent.innerHTML = '<ul>' + data.map(desconexao => `
+                <li class="textoModalOutros">
+                    <h4><center>
+                        <p>
+                            <span>Chamado nº:</span> ${desconexao.id}
+                            <span style="margin-left: 40px;">Data:</span>
+                            <h2 style="display: inline;">${formatarData(desconexao.data)}</h2>
+                        </p>
+                        <p>
+                            <span>Status:</span> ${desconexao.status}
+                        </p>
+                        <p>
+                            Descrição:<p>${desconexao.mensagem}</p>
+                        </p>
+                    </center></h4>
+                </li>
+            `).join('') + '</ul>';
+        } else {
+            desconexaoContent.innerHTML = '<p>Nenhuma desconexão encontrada.</p>';
+        }
+
     } catch (error) {
-      console.error('Erro ao realizar a desconexão:', error);
-      desconexaoContent.innerHTML = `
-        <div class="textoModalOutros">
-          <h4><center>
-            <p>Erro ao realizar a desconexão.</p>
-            <p>Detalhes: ${error.message}</p>
-          </center></h4>
-        </div>`;
+        console.error("Erro ao buscar desconexões:", error.message);
     }
-  });
 }
-
-// Chamar a função para configurar o listener
-acionarDesconexao();
 
 }
 
