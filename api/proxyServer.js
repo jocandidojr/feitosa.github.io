@@ -238,6 +238,57 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
   }
 });
 
+
+// Rota para buscar dados de produtos do cliente
+app.get('/proxy/cliente-contrato', async (req, res) => {
+  try {
+    const clienteId = req.query.clienteId; // Obtendo clienteId da query string
+
+    if (!clienteId) {
+      return res.status(400).json({ error: 'Cliente ID não fornecido' });
+    }
+
+    // Faz a requisição para a API da Feitosa Telecom usando o clienteId
+    const response = await axios.get(`https://feitosatelecom.com.br/webservice/v1/radusuarios/${clienteId}`, {
+      headers: {
+        'Authorization': `Basic ${Buffer.from(token).toString('base64')}`,
+      }
+    });
+
+    // Retorna a resposta da API para o frontend
+    res.json(response.data);
+
+  } catch (error) {
+    console.error('Erro ao buscar contrato:', error.message);
+    res.status(500).json({ error: 'Erro ao buscar contrato do cliente' });
+  }
+});
+
+  // Rota para buscar logins vinculados ao contratoId associado ao clienteId
+  app.get('/api/proxy/cliente-logins', async (req, res) => {
+    const contratoId = req.query.contratoId;
+
+    if (!contratoId) {
+        return res.status(400).send('Contrato ID é necessário');
+    }
+
+    try {
+        // Lógica para buscar logins no banco de dados usando o contratoId
+        const logins = await buscarLoginsPorContratoId(contratoId); // Supondo que você tenha uma função que faça essa busca
+
+        if (!logins || logins.length === 0) {
+            return res.status(404).send('Nenhum login encontrado para o contrato.');
+        }
+
+        res.json(logins);
+    } catch (error) {
+        console.error('Erro ao buscar logins:', error);
+        res.status(500).send('Erro ao buscar logins');
+    }
+});
+
+
+
 // Rota para desbloqueio de confiança
 app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   const { id } = req.body;
@@ -269,6 +320,37 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio de Confiança" });
   }
 });
+
+// Rota para reiniciar a conexão do cliente
+app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: 'ID do contrato não fornecido' });
+  }
+
+  try {
+    console.log('Reiniciando conexão para o contrato...');
+
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/desconectar_clientes',
+      { id },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
+        }
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao reiniciar a conexão:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de reinício de conexão" });
+  }
+});
+
 
 
 app.listen(port, () => {
