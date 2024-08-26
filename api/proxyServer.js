@@ -338,6 +338,45 @@ app.post('/api/proxy/usuarios', async (req, res) => {
   }
 });
 
+// Rota para buscar dados de radusuarios com base no clienteId
+app.post('/api/proxy/radusuarios', async (req, res) => {
+  const { clienteId } = req.body;
+
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
+
+  try {
+    console.log('Buscando dados de radusuarios do Cliente...');
+
+    // Configura a requisição para a API de radusuarios
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/radusuarios',
+      {
+        qtype: "radusuarios.id",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "radusuarios.id",
+        sortorder: "desc"
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar radusuarios:', error.response ? error.response.data : error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de radusuarios" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
