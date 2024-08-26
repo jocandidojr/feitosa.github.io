@@ -1041,63 +1041,78 @@ async function buscarContratos() {
     }
 }
 
-
-// Função para buscar OSS
+// Função para buscar OSs
 async function buscarOss() {
-try {
-console.log("Fazendo requisição para o servidor proxy...");
+    try {
+        console.log("Fazendo requisição para o servidor proxy...");
 
-const clienteId = localStorage.getItem('clienteId');
+        const clienteId = localStorage.getItem('clienteId');
 
-if (!clienteId) {
-console.error('Cliente com o id não encontrado');
-return;
+        if (!clienteId) {
+            console.error('Cliente com o id não encontrado');
+            return;
+        }
+
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/oss', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ clienteId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro na requisição");
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        const ossContent = document.getElementById('ossContent');
+
+        if (data && data.length > 0) {
+            // Limita o número de registros a 5
+            const resultadosLimitados = data.slice(0, 5);
+
+            // Mapeamento de status para descrição
+            const statusMap = {
+                A: 'Em aberto',
+                AN: 'Em análise',
+                EN: 'Encaminhada',
+                AS: 'Assumida',
+                AG: 'Agendada',
+                DS: 'Em deslocamento',
+                EX: 'Em execução',
+                F: 'Finalizado',
+                RAG: 'Reagendar'
+            };
+
+            // Gera o HTML para os registros limitados
+            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => {
+                const statusDescricao = statusMap[oss.status] || oss.status; // Usa a descrição mapeada ou o status original
+                return `<li class="textoModalOutros">
+                    <h4><center>
+                        <p>
+                            <span>Chamado nº:</span> ${oss.id}
+                            <span style="margin-left: 40px;">Protocolo:</span>
+                            <h2 style="display: inline;">${oss.protocolo}</h2>
+                        </p>
+                        <h5 style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status: ${statusDescricao}<h5>
+                        <p>Descrição:</p><p>${oss.mensagem}</p>
+                        Solução:
+                        <p>${oss.mensagem_resposta}</p>
+                    </center></h4>
+                </li>`;
+            }).join('') + '</ul>';
+        } else {
+            ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
+        }
+
+    } catch (error) {
+        console.error("Erro ao buscar OSS:", error.message);
+    }
 }
 
-const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/oss', {
-method: 'POST',
-headers: {
-    'Content-Type': 'application/json',
-},
-body: JSON.stringify({ clienteId })
-});
-
-if (!response.ok) {
-throw new Error("Erro na requisição");
-}
-
-const data = await response.json();
-console.log(data);
-
-const ossContent = document.getElementById('ossContent');
-
-if (data && data.length > 0) {
-// Limita o número de registros a 5
-const resultadosLimitados = data.slice(0, 5);
-
-// Gera o HTML para os registros limitados
-ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => `<li class="textoModalOutros">
-        <h4><center>
-    <p>
-        <span>Chamado nº:</span> ${oss.id}
-        <span style="margin-left: 40px;">Protocolo:</span>
-        <h2 style="display: inline;">${oss.protocolo}</h2>
-    </p>
-    Descrição:<p>${oss.mensagem}</p>
-    
-        Solução:
-                <p>${oss.mensagem_resposta}</p>
-        
-</center></h4>
-    </li>`).join('') + '</ul>';
-} else {
-ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
-}
-
-} catch (error) {
-console.error("Erro ao buscar OSS:", error.message);
-}
-}
 
 // Função para Criar Oss
 async function criarOss() {
