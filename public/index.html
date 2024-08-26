@@ -288,30 +288,37 @@ justify-content: space-around;
 padding: 20px;
 color: white;
 }
+
 .footer-column {
 flex: 1;
 margin: 0 10px;
 }
+
 .footer-column img{
     width: 80px;
     padding: 20px;
 }
+
 .footer-column h3 {
 color: white;
 margin-bottom: 10px;
 font-size: 18px;
 }
+
 .footer-column p, .footer-column ul {
 color: white;
 font-size: 14px;
 }
+
 .footer-column ul {
 list-style: none;
 padding: 0;
 }
+
 .footer-column ul li {
 margin-bottom: 5px;
 }
+
 .footer-column ul li a {
 text-decoration: none;
 color: white;
@@ -323,6 +330,20 @@ transition: transform 0.3s ease;
 .footer-column img:hover{
     transform: scale(1.1);
 }
+
+/* Ajuste específico para telas pequenas */
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column; /* Muda a direção do layout para coluna */
+        align-items: center; /* Centraliza as colunas verticalmente */
+    }
+
+    .footer-column {
+        margin: 10px 0; /* Ajusta a margem para colunas em telas pequenas */
+        text-align: center; /* Garante que o texto esteja centralizado */
+    }
+}
+
 /* Botão UP Flutuante */
 .up-button {
     position: fixed;
