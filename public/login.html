@@ -517,6 +517,36 @@
             }
         }
 
+        /* Botão UP Flutuante */
+.up-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #0056b3; /* Cor de fundo */
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+.up-button img {
+    width: 30px;
+    height: 30px;
+    opacity: 50%;
+}
+.up-button:hover {
+    transform: scale(1.1);
+    opacity: 100%;
+}
+.up-button img:hover {
+    opacity: 100%;
+}
+
         </style> 
     </head>
     <body>
@@ -1413,5 +1443,8 @@ async function desbloqueio() {
     }
 
         </script>
+        <div class="up-button">
+            <img src="https://feitosa-github-io.vercel.app/assets/atm_ico_.png" alt="Volte ao topo">
+            </div>
     </body>
     </html>
