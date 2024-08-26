@@ -365,7 +365,7 @@
             .textoModalBoletos {
                 padding: 10px;
                 margin-bottom: 10px;
-                border: 1px solid #ddd;
+                border: 1px solid #10107A;
                 border-radius: 5px;
                 list-style-type: none;
                 font-size: 15px;
@@ -391,11 +391,11 @@
 
             /* Estilo para boletos em outros status */
             .textoModalBoletos {
-                background-color: #d4edda; /* Verde claro para outros status */
-                color: #155724; /* Texto escuro para contraste */
+                background-color: #009245; /* Verde claro para outros status */
+                color: #fff; /* Texto escuro para contraste */
             }
             .hr {
-                border: 1px solid #ddd; /* Exemplo de estilo */
+                border: 1px solid #10107A; /* Exemplo de estilo */
                 margin: 10px 0; /* Espaçamento */
             }
 
@@ -1024,7 +1024,7 @@ async function buscarContratos() {
                                     <span>Contrato nº:</span> ${contrato.id} <span style="margin-left: 30px;">Status: ${statusContrato}</span>
                                 </p>
                                 <p>
-                                <span>Status conexão: ${statusConexao}</span>
+                                <span style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status conexão: ${statusConexao}</span>
                                 </p>
                                 <p>
                                     Plano de internet: <h2>${contrato.contrato}</h2>
