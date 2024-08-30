@@ -928,6 +928,9 @@ boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
         <span style="margin-left: 30px;">  Download:</span> 
         <a href="${boleto.gateway_link}.pdf" target="_blank">  Clique aqui</a>
     </p></center></h4>
+    <p><center><span>Linha digitável:</span></p>
+    <p id="linhaDigitavel${boleto.id}" style="cursor: pointer; color: blue;" onclick="copiarLinhaDigitavel('linhaDigitavel${boleto.id}')">${boleto.linha_digitavel}</p>
+
 </li>`;
 }).join('') + '</ul>';
 } else {
@@ -939,6 +942,26 @@ console.error("Erro ao buscar boletos:", error.message);
 }
 }
 
+// Função para copiar linha digitável
+function copiarLinhaDigitavel(id) {
+    const element = document.getElementById(`linhaDigitavel${id}`);
+    const linhaDigitavel = element.textContent;
+
+    // Criar um elemento temporário para seleção do texto
+    const tempInput = document.createElement('input');
+    tempInput.value = linhaDigitavel;
+    document.body.appendChild(tempInput);
+
+    // Selecionar o conteúdo do elemento temporário
+    tempInput.select();
+    document.execCommand('copy');
+
+    // Remover o elemento temporário
+    document.body.removeChild(tempInput);
+
+    // Alerta de confirmação
+    alert('Linha digitável copiada para a área de transferência!');
+}
 
 // Função para formatar o CPF
 function formatCPF(cpf) {
@@ -1477,8 +1500,7 @@ async function desbloqueio() {
     }
 
     }
-
-        </script>
+    </script>
         <div class="up-button">
             <a href="https://wa.me/5583999999999">
             <img src="https://feitosa-github-io.vercel.app/assets/atm_ico_.png" alt="Volte ao topo">
