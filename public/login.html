@@ -926,10 +926,10 @@ boletoContent.innerHTML = '<ul>' + resultadosLimitados.map(boleto => {
         <span>Status:</span> ${boleto.status === "A" ? "Aberto" : boleto.status === "R" ? "Pago" : "Vencido"}
         
         <span style="margin-left: 30px;">  Download:</span> 
-        <a href="${boleto.gateway_link}.pdf" target="_blank">  Clique aqui</a>
+        <a href="${boleto.gateway_link}.pdf" target="_blank" style="color: #17357D;">  Clique aqui</a>
     </p></center></h4>
     <p><center><span>Linha digitável:</span></p>
-    <p id="linhaDigitavel${boleto.id}" style="cursor: pointer; color: blue;" onclick="copiarLinhaDigitavel('linhaDigitavel${boleto.id}')">${boleto.linha_digitavel}</p>
+    <p id="linhaDigitavel${boleto.id}" style="cursor: pointer; color: #17357D;" onclick="copiarLinhaDigitavel('linhaDigitavel${boleto.id}')">${boleto.linha_digitavel}</p>
 
 </li>`;
 }).join('') + '</ul>';
