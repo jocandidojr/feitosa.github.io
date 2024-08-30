@@ -1071,48 +1071,69 @@ async function buscarOss() {
         const ossContent = document.getElementById('ossContent');
 
         if (data && data.length > 0) {
+            // Filtra OSS com status diferente de "F"
+            const ossFiltradas = data.filter(oss => oss.status !== 'F');
+
             // Limita o número de registros a 5
-            const resultadosLimitados = data.slice(0, 5);
+            const resultadosLimitados = ossFiltradas.slice(0, 5);
 
-            // Mapeamento de status para descrição
-            const statusMap = {
-                A: 'Em aberto',
-                AN: 'Em análise',
-                EN: 'Encaminhada',
-                AS: 'Assumida',
-                AG: 'Agendada',
-                DS: 'Em deslocamento',
-                EX: 'Em execução',
-                F: 'Finalizado',
-                RAG: 'Reagendar'
-            };
+            if (resultadosLimitados.length > 0) {
+                // Mapeamento de status para descrição
+                const statusMap = {
+                    A: 'Em aberto',
+                    AN: 'Em análise',
+                    EN: 'Encaminhada',
+                    AS: 'Assumida',
+                    AG: 'Agendada',
+                    DS: 'Em deslocamento',
+                    EX: 'Em execução',
+                    F: 'Finalizado',
+                    RAG: 'Reagendar'
+                };
 
-            // Gera o HTML para os registros limitados
-            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => {
-                const statusDescricao = statusMap[oss.status] || oss.status; // Usa a descrição mapeada ou o status original
-                return `<li class="textoModalOutros">
+                // Gera o HTML para os registros limitados
+                ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => {
+                    const statusDescricao = statusMap[oss.status] || oss.status; // Usa a descrição mapeada ou o status original
+                    return `<li class="textoModalOutros">
+                        <h4><center>
+                            <p>
+                                <span>Chamado nº:</span> ${oss.id}
+                                <span style="margin-left: 40px;">Protocolo:</span>
+                                <h2 style="display: inline;">${oss.protocolo}</h2>
+                            </p>
+                            <h5 style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status: ${statusDescricao}</h5>
+                            <p>Descrição:</p><p>${oss.mensagem}</p>
+                            <p>Solução:</p><p>${oss.mensagem_resposta}</p>
+                        </center></h4>
+                    </li>`;
+                }).join('') + '</ul>';
+            } else {
+                // Mensagem quando não há OSSs para exibir
+                ossContent.innerHTML = `
+                    <div class="textoModalOutros">
                     <h4><center>
-                        <p>
-                            <span>Chamado nº:</span> ${oss.id}
-                            <span style="margin-left: 40px;">Protocolo:</span>
-                            <h2 style="display: inline;">${oss.protocolo}</h2>
-                        </p>
-                        <h5 style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status: ${statusDescricao}<h5>
-                        <p>Descrição:</p><p>${oss.mensagem}</p>
-                        Solução:
-                        <p>${oss.mensagem_resposta}</p>
+                        <p>No momento, não há atendimentos em aberto para você.</p>
+                        <p>Se você precisa de ajuda, abra um novo chamado ou fale com a gente através do Whatsapp.</p>
                     </center></h4>
-                </li>`;
-            }).join('') + '</ul>';
+                </div>
+                `;
+            }
         } else {
-            ossContent.innerHTML = '<p>Nenhuma OSS encontrada.</p>';
+            // Mensagem para quando não há OSSs retornadas
+            ossContent.innerHTML = `
+                <div class="textoModalOutros">
+                    <h4><center>
+                        <p>No momento, não há atendimentos em aberto para você.</p>
+                        <p>Se você precisa de ajuda, abra um novo chamado ou fale com a gente através do Whatsapp.</p>
+                    </center></h4>
+                </div>
+                `;
         }
 
     } catch (error) {
         console.error("Erro ao buscar OSS:", error.message);
     }
 }
-
 
 // Função para Criar Oss
 async function criarOss() {
