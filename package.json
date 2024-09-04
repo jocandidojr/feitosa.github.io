@@ -1,9 +1,9 @@
 {
-  "name": "feitosa.github.io",
+  "name": "Central APP",
   "version": "1.0.0",
   "scripts": {
-    "start": "node api/proxyserver.js",
-    "dev": "nodemon proxyServer.js",
+    "start": "node api/proxyServerCentralAPP.js",
+    "dev": "nodemon proxyServerCentralAPP.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +15,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
   },
-  "main": "api/proxyserver.js",
+  "main": "api/proxyServerCentralAPP.js",
   "devDependencies": {
     "nodemon": "^3.1.4"
   },
