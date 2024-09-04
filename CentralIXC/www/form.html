@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #0056b3;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+    
+}
+
+.form-group {
+    margin-bottom: 15px;
+    
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    
+}
+
+.form-group input, .form-group textarea {
+    width: 80%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"] {
+    font-size: 16px;
+    text-align: center;
+    
+}
+
+.form-group input[type="submit"],
+.form-group button {
+    background-color: #10107A;
+            width: 100%;
+            border: none;
+            padding: 15px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80%;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input[type="submit"]:hover,
+.form-group button:hover {
+    background-color: #1ea30d;
+            transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <br>
+        <img src="/assets/logo_app_.png" alt="Logotipo">
+        <br>
+        <form id="registrationForm">
+            <div class="form-group" style="text-align: center; font-weight: bold; font-size: 25px; width: 100%;">
+                Preencha o formulário e aguarde o nosso contato.
+            </div>
+            <div class="form-group">
+                <label for="nome" style="text-align: left; margin-left: 40px;">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="cpfcnpj"style="text-align: left; margin-left: 40px;">CPF/CNPJ:</label>
+                <input type="text" id="cpfcnpj" name="cpfcnpj" required>
+            </div>
+            <div class="form-group">
+                <label for="email"style="text-align: left; margin-left: 40px;">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="celular"style="text-align: left; margin-left: 40px;">Celular:</label>
+                <input type="text" id="celular" name="celular" required>
+            </div>
+            <div class="form-group">
+                <label for="datanasc"style="text-align: left; margin-left: 40px;">Data de Nascimento:</label>
+                <input type="date" id="datanasc" name="datanasc" required>
+            </div>
+            <div class="form-group">
+                <label for="logradouro"style="text-align: left; margin-left: 40px;">Logradouro:</label>
+                <input type="text" id="logradouro" name="logradouro" required>
+            </div>
+            <div class="form-group">
+                <label for="numero"style="text-align: left; margin-left: 40px;">Número:</label>
+                <input type="text" id="numero" name="numero" required>
+            </div>
+            <div class="form-group">
+                <label for="bairro"style="text-align: left; margin-left: 40px;">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" required>
+            </div>
+            <div class="form-group">
+                <label for="cidade"style="text-align: left; margin-left: 40px;">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" required>
+            </div>
+            <div class="form-group">
+                <label for="cep"style="text-align: left; margin-left: 40px;">CEP:</label>
+                <input type="text" id="cep" name="cep" required>
+            </div>
+            <div class="form-group">
+                <label for="uf"style="text-align: left; margin-left: 40px;">UF:</label>
+                <input type="text" id="uf" name="uf" required>
+            </div>
+            <div class="form-group">
+                <label for="pais">País:</label>
+                <input type="text" id="pais" name="pais" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Enviar</button>
+            </div>
+            <div class="form-group">
+                <a href="index.html">
+                <button type="button" style="background-color: #1ea30d;">Voltar</button>
+            </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const formData = new FormData(this);
+            const data = {
+                app: 'CentralAPP',
+                token: '38f3c81b-21d0-483d-b3b8-2237d02dc75e', // Token fixo para o teste
+                nome: formData.get('nome'),
+                cpfcnpj: formData.get('cpfcnpj'),
+                email: formData.get('email'),
+                celular: formData.get('celular'),
+                datanasc: formData.get('datanasc'),
+                logradouro: formData.get('logradouro'),
+                numero: formData.get('numero'),
+                bairro: formData.get('bairro'),
+                cidade: formData.get('cidade'),
+                cep: formData.get('cep'),
+                uf: formData.get('uf'),
+                pais: formData.get('pais')
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/proxy/precadastro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Erro ${response.status}: ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log('Resposta do servidor:', result);
+                alert('Pré-cadastro realizado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao enviar os dados:', error);
+                alert(`Erro ao realizar o pré-cadastro: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
