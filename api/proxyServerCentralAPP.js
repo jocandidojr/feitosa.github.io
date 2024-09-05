@@ -3,6 +3,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const router = express.Router();
 
 // Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
@@ -112,7 +113,7 @@ app.post('/api/proxy/titulos', async (req, res) => {
     }
 });
 
-
+// Rota pra pré-cadastro
 app.post('/api/proxy/precadastro', async (req, res) => {
     console.log('Recebendo requisição para /api/proxy/precadastro');
     console.log('Corpo da requisição:', req.body);
@@ -144,6 +145,39 @@ app.post('/api/proxy/precadastro', async (req, res) => {
         res.status(500).json({ error: 'Erro ao realizar a requisição', details: error.message });
     }
 });
+
+// Rota para extrato de consumo
+router.post('/proxy/extrato-uso', async (req, res) => {
+    const { cpfcnpj, senha, contrato, ano, mes } = req.body;
+  
+    try {
+      const data = new FormData();
+      data.append('cpfcnpj', cpfcnpj);
+      data.append('senha', senha);
+      data.append('contrato', contrato);
+      data.append('ano', ano);
+      data.append('mes', mes);
+  
+      const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://demo.sgp.net.br/api/central/extratouso/',
+        headers: {
+          ...data.getHeaders(),
+          'Authorization': `Bearer ${process.env.TOKEN}` // token do .env
+        },
+        data: data
+      };
+  
+      const response = await axios(config);
+      res.json(response.data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Erro ao buscar extrato de uso.' });
+    }
+  });
+  
+  module.exports = router;
 
 // Inicia o servidor
 const PORT = process.env.PORT || 3000;
