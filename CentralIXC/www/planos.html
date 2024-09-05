@@ -201,6 +201,13 @@ button.assine:hover {
     }
 }
 
+.slide-planos img {
+        display: none;
+    }
+
+    .slide-planos img.active {
+        display: block;
+    }
 </style>    
 </head>
 <body>
@@ -215,6 +222,7 @@ button.assine:hover {
                 <div class="swiper-slide">
                     <div class="plan">
                         <img src="/assets/plan_titulo_casa.png" class="Planos-casa" alt="Descrição-planos-casa">
+                        <!--<img src="/assets/plan_titulo_emp.png" class="Planos-empresa" alt="Descrição-planos-casa">-->
                         <br>
                         <a href="https://wa.me/5583999999999" target="_blank">
                             <button class="assine" style="color: #1515A3; font-size: 15px;">Saiba mais!</button>
@@ -292,6 +300,31 @@ button.assine:hover {
                 prevEl: '.swiper-button-prev',
             },
         });
+
+        
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.slide-planos img');
+        const totalImages = images.length;
+
+        function changeImage() {
+            // Remove the 'active' class from the current image
+            images[currentIndex].classList.remove('active');
+
+            // Update the index to the next image (loop back to 0 if at the end)
+            currentIndex = (currentIndex + 1) % totalImages;
+
+            // Add the 'active' class to the next image
+            images[currentIndex].classList.add('active');
+        }
+
+        // Set the first image as active
+        images[currentIndex].classList.add('active');
+
+        // Change the image every 3 seconds
+        setInterval(changeImage, 3000);
+    });
+
     </script>
 </body>
 </html>
