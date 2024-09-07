@@ -1,308 +1,384 @@
+require('dotenv').config(); // Carregar variáveis de ambiente
+
 const express = require('express');
 const axios = require('axios');
-const FormData = require('form-data');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const multer = require('multer');
 const cors = require('cors');
 
-dotenv.config();
-
 const app = express();
-const upload = multer();
+const port = process.env.PORT || 3000;
+const token = process.env.TOKEN;
 
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
+app.use(express.json());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Rota para buscar clientes
+app.post('/api/proxy/cliente', async (req, res) => {
+  try {
+    console.log('Requisição recebida:', req.body); // Adicione logs para depuração
+    const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+        ixcsoft: "listar",
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Erro ao buscar clientes:", error.message); // Log detalhado
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Clientes" });
+  }
+});
 
-    // Rota para buscar contratos
-    app.post('/api/proxy/contratos', async (req, res) => {
-        console.log('Recebendo requisição para /api/proxy/contratos');
-        console.log('Corpo da requisição:', req.body);
-        
-        try {
-            const { cpfcnpj } = req.body;
+// Rota para buscar boletos
+app.post('/api/proxy/boletos', async (req, res) => {
+  const { clienteId } = req.body;
 
-            // Remove qualquer formatação do CPF/CNPJ para usar como senha
-            const senha = cpfcnpj.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
 
-            // Cria uma instância de FormData e adiciona os campos
-            const form = new FormData();
-            form.append('cpfcnpj', cpfcnpj);
-            form.append('senha', senha);
+  try {
+    console.log('Buscando boletos do Cliente...');
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/fn_areceber',
+      {
+        qtype: "id_cliente",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "fn_areceber.id",
+        sortorder: "desc",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+      }
+    );
 
-            // Configura o request para a API externa com autenticação
-            const config = {
-                method: 'post',
-                url: 'https://demo.sgp.net.br/api/central/contratos',
-                headers: {
-                    ...form.getHeaders(),
-                    'Authorization': `Bearer ${process.env.API_TOKEN}`, // Usa o token do arquivo .env
-                },
-                data: form,
-            };
+    res.json(response.data);
+  } catch (error) {
+    console.error("Erro ao buscar boletos:", error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Boletos" });
+  }
+});
 
-            // Faz a requisição
-            const response = await axios(config);
+// Rota para buscar contratos
+app.post('/api/proxy/contratos', async (req, res) => {
+  try {
+    const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+        ixcsoft: "listar",
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Erro ao buscar contratos:", error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Contratos" });
+  }
+});
 
-            console.log('Dados recebidos da API externa:', response.data);
+// Rota para criar OSS
+app.post('/api/proxy/oss', async (req, res) => {
+  const { clienteId } = req.body;
 
-            // Retorna os dados recebidos da API externa
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao realizar a requisição:', error.message);
-            console.error('Detalhes do erro:', error.response ? error.response.data : error.message);
-            res.status(500).json({ error: 'Erro ao realizar a requisição', details: error.message });
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
+
+  try {
+    console.log('Buscando OSS do Cliente...');
+
+    // Enviar a requisição para a API externa com o clienteId fornecido
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
+      {
+        qtype: "id_cliente",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "su_oss_chamado.id",
+        sortorder: "desc",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+      }
+    );
+
+    // Filtrar os registros retornados para garantir que apenas OSS com o id_cliente correto sejam retornados
+    const filteredRecords = response.data.registros.filter(record => record.id_cliente === clienteId);
+
+    res.json(filteredRecords);
+  } catch (error) {
+    console.error('Erro ao buscar OSS:', error.response ? error.response.data : error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
+  }
+});
+
+// Rota para criar OSS
+app.post('/api/proxy/criar-oss', async (req, res) => {
+  const { clienteId, tipo, id_assunto, id_filial, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+
+  if (!clienteId || !tipo || !id_assunto || !id_filial || !origem_endereco || !prioridade || !setor || !status) {
+    return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
+  }
+
+  try {
+    console.log('Criando OSS para o Cliente...');
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
+      {
+        tipo,
+        id_ticket: "",
+        protocolo: "",
+        id_assunto,
+        id_cliente: clienteId,
+        id_estrutura: "",
+        id_filial,
+        id_login: "",
+        id_contrato_kit: "",
+        origem_endereco,
+        origem_endereco_estrutura: "",
+        latitude: "",
+        longitude: "",
+        prioridade,
+        melhor_horario_agenda: "",
+        setor,
+        id_tecnico: "",
+        mensagem,
+        idx: "",
+        status,
+        gera_comissao: "",
+        liberado: "",
+        impresso: "",
+        preview: "",
+        id_wfl_param_os: "",
+        id_wfl_tarefa: "",
+        id_su_diagnostico: "",
+        regiao_manutencao: "",
+        origem_cadastro: "",
+        origem_change_endereco: "",
+        status_sla: "",
+        ultima_atualizacao: "",
+        id_cidade: "",
+        bairro: "",
+        endereco: "",
+        complemento: "",
+        referencia: "",
+        id_condominio: "",
+        bloco: "",
+        apartamento: "",
+        data_abertura: "",
+        data_inicio: "",
+        data_hora_analise: "",
+        data_agenda: "",
+        data_agenda_final: "",
+        data_hora_encaminhado: "",
+        data_hora_assumido: "",
+        data_hora_execucao: "",
+        data_final: "",
+        data_fechamento: "",
+        data_prazo_limite: "",
+        data_reservada: "",
+        data_reagendar: "",
+        data_prev_final: "",
+        mensagem_resposta: "",
+        justificativa_sla_atrasado: "",
+        valor_unit_comissao: "",
+        valor_total_comissao: ""
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
         }
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao criar OSS:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
+  }
+});
+
+// Rota para buscar dados de contrato do cliente
+app.get('/proxy/cliente-contrato', async (req, res) => {
+  try {
+    const clienteId = req.query.clienteId; // Obtendo clienteId da query string
+
+    if (!clienteId) {
+      return res.status(400).json({ error: 'Cliente ID não fornecido' });
+    }
+
+    // Faz a requisição para a API da Feitosa Telecom usando o clienteId
+    const response = await axios.get(`https://feitosatelecom.com.br/webservice/v1/cliente_contrato/${clienteId}`, {
+      headers: {
+        'Authorization': `Basic ${Buffer.from(token).toString('base64')}`,
+      }
     });
 
-    // Rota para listar boletos/títulos do cliente
-    app.post('/api/proxy/titulos', async (req, res) => {
-        console.log('Recebendo requisição para /api/proxy/titulos');
-        console.log('Corpo da requisição:', req.body);
+    // Retorna a resposta da API para o frontend
+    res.json(response.data);
 
-        try {
-            const { cpfcnpj } = req.body; // Não é necessário contratoId se não for utilizado
+  } catch (error) {
+    console.error('Erro ao buscar contrato:', error.message);
+    res.status(500).json({ error: 'Erro ao buscar contrato do cliente' });
+  }
+});
 
-            if (!cpfcnpj) {
-                return res.status(400).json({ error: 'CPF/CNPJ é obrigatório' });
-            }
+// Rota para desbloqueio de confiança
+app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
+  const { id } = req.body;
 
-            // Remove qualquer formatação do CPF/CNPJ para usar como senha
-            const senha = cpfcnpj.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+  console.log('Dados recebidos no backend:', req.body);
 
-            // Cria uma instância de FormData e adiciona os campos
-            const form = new FormData();
-            form.append('cpfcnpj', cpfcnpj);
-            form.append('senha', senha);
+  if (!id) {
+    console.error('ID do contrato não fornecido.');
+    return res.status(400).json({ error: 'Contrato ID não fornecido' });
+  }
 
-            // Configura o request para a API externa com autenticação
-            const config = {
-                method: 'post',
-                url: 'https://demo.sgp.net.br/api/central/titulos/',
-                headers: {
-                    ...form.getHeaders(),
-                    'Authorization': `Bearer ${process.env.API_TOKEN}`, // Usa o token do arquivo .env
-                },
-                data: form,
-            };
-
-            // Faz a requisição
-            const response = await axios(config);
-
-            console.log('Dados recebidos da API externa:', response.data);
-
-            // Retorna os dados recebidos da API externa
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao realizar a requisição:', error.message);
-            console.error('Detalhes do erro:', error.response ? error.response.data : error.message);
-            res.status(500).json({ error: 'Erro ao realizar a requisição', details: error.message });
+  try {
+    console.log('Desbloqueando Confiança para o Contrato...');
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
+      { id },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
         }
-    });
+      }
+    );
 
-    // Rota para pré-cadastro
-    app.post('/api/proxy/precadastro', async (req, res) => {
-        console.log('Recebendo requisição para /api/proxy/precadastro');
-        console.log('Corpo da requisição:', req.body);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao desbloquear confiança:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Desbloqueio de Confiança" });
+  }
+});
 
-        try {
-            const data = req.body;
+// Rota para reiniciar a conexão do cliente
+app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
+  const { id } = req.body;
 
-            // Configura a requisição para a API externa
-            const config = {
-                method: 'post',
-                url: 'https://demo.sgp.net.br/api/precadastro/F',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.API_TOKEN}`, // Token da variável de ambiente
-                },
-                data: JSON.stringify(data),
-            };
+  if (!id) {
+    return res.status(400).json({ error: 'ID do contrato não fornecido' });
+  }
 
-            // Faz a requisição
-            const response = await axios(config);
+  try {
+    console.log('Reiniciando conexão para o contrato...');
 
-            console.log('Dados recebidos da API externa:', response.data);
-
-            // Retorna os dados recebidos da API externa
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao realizar a requisição:', error.message);
-            console.error('Detalhes do erro:', error.response ? error.response.data : error.message);
-            res.status(500).json({ error: 'Erro ao realizar a requisição', details: error.message });
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/desconectar_clientes',
+      { id },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
         }
-    });
+      }
+    );
 
-    // Rota para desbloqueio de confiança
-    app.post('/api/proxy/desbloqueio', async (req, res) => {
-        const { cpfcnpj, senha, contrato } = req.body;
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao reiniciar a conexão:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de reinício de conexão" });
+  }
+});
 
-        // Verifica se os campos estão presentes
-        if (!cpfcnpj || !senha || !contrato) {
-            return res.status(400).json({ error: 'Campos obrigatórios não fornecidos.' });
-        }
+// Rota para buscar usuários relacionados ao cliente
+app.post('/api/proxy/usuarios', async (req, res) => {
+  const { clienteId } = req.body;
 
-        try {
-            const data = new FormData();
-            data.append('cpfcnpj', cpfcnpj);
-            data.append('senha', senha);
-            data.append('contrato', contrato);
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
 
-            const response = await axios.post('https://demo.sgp.net.br/api/central/promessapagamento/', data, {
-                headers: {
-                    ...data.getHeaders()
-                }
-            });
+  try {
+    console.log('Buscando usuários do Cliente...');
 
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao realizar a requisição:', error);
-            res.status(500).json({ error: 'Erro ao realizar a requisição ao serviço externo.' });
-        }
-    });
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/radusuarios',
+      {
+        qtype: "id_cliente",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "radusuarios.id",
+        sortorder: "desc",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+      }
+    );
 
-    // Rota para extrato de conexão
-    app.post('/api/proxy/extrato', async (req, res) => {
-        console.log('Recebendo requisição para /api/proxy/extrato');
-        console.log('Corpo da requisição:', req.body);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Usuários" });
+  }
+});
 
-        try {
-            const data = req.body;
+// Rota para buscar dados de radusuarios com base no clienteId
+app.post('/api/proxy/radusuarios', async (req, res) => {
+  const { clienteId } = req.body;
 
-            // Configura a requisição para a API externa
-            const config = {
-                method: 'post',
-                url: 'https://demo.sgp.net.br/api/central/extratouso/',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.API_TOKEN}`, // Token da variável de ambiente
-                },
-                data: JSON.stringify(data),
-            };
+  if (!clienteId) {
+    return res.status(400).json({ error: 'ClienteId não fornecido' });
+  }
 
-            // Faz a requisição
-            const response = await axios(config);
+  try {
+    console.log('Buscando dados de radusuarios do Cliente...');
 
-            console.log('Dados recebidos da API externa:', response.data);
+    // Configura a requisição para a API de radusuarios
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/radusuarios',
+      {
+        qtype: "radusuarios.id",
+        query: clienteId,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "radusuarios.id",
+        sortorder: "desc"
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+      }
+    );
 
-            // Retorna os dados recebidos da API externa
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao realizar a requisição:', error.message);
-            console.error('Detalhes do erro:', error.response ? error.response.data : error.message);
-            res.status(500).json({ error: 'Erro ao realizar a requisição', details: error.message });
-        }
-    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar radusuarios:', error.response ? error.response.data : error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de radusuarios" });
+  }
+});
 
-    // Adiciona uma rota POST para enviar o formulário preenchido
-    app.post('/proxy/enviar-chamado', async (req, res) => {
-        try {
-            // Cria uma nova instância do FormData
-            const data = new FormData();
-            data.append('cpfcnpj', req.body.cpfcnpj);
-            data.append('senha', req.body.senha);
-            data.append('contrato', req.body.contrato);
-            data.append('conteudo', req.body.conteudo);
-            data.append('contato', req.body.contato);
-            data.append('contato_numero', req.body.contato_numero);
-            data.append('motivoos', req.body.motivoos);
-            data.append('sem_os', req.body.sem_os);
-            data.append('ocorrenciatipo', req.body.ocorrenciatipo);
-            data.append('setor', req.body.setor);
-            data.append('os_tecnico_responsavel', req.body.os_tecnico_responsavel);
-            data.append('os_servico_prestado', req.body.os_servico_prestado);
-            data.append('os_prioridade', req.body.os_prioridade);
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
 
-            // Configura os headers para a requisição
-            const headers = {
-                ...data.getHeaders(),
-                'Authorization': `Bearer ${process.env.TOKEN}` // Adiciona o token de autenticação
-            };
-
-            // Envia a requisição para o endpoint externo
-            const response = await axios.post('https://demo.sgp.net.br/api/central/chamado/', data, { headers });
-
-            // Retorna a resposta do endpoint externo para o cliente
-            res.status(response.status).json(response.data);
-        } catch (error) {
-            // Trata erros e retorna uma resposta de erro
-            console.error('Erro ao enviar chamado:', error);
-            res.status(error.response?.status || 500).json({ error: error.message });
-        }
-    });
-
-    // Rota para enviar dados ao endpoint /chamado/list
-    app.post('/api/proxy/buscar-chamado', async (req, res) => {
-        try {
-            // Configura o corpo da requisição com JSON
-            const requestBody = {
-                cpfcnpj: req.body.cpfFormatado,
-                senha: req.body.cpfSemFormatacao,
-                contrato: req.body.contratoid
-            };
-
-            const headers = {
-                'Authorization': `Bearer ${process.env.TOKEN}`,
-                'Content-Type': 'application/json' // Adiciona o header Content-Type
-            };
-
-            // Faz a requisição para o endpoint externo
-            const response = await axios.post('https://demo.sgp.net.br/api/central/chamado/list/', requestBody, { headers });
-            res.status(response.status).json(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar chamado:', error);
-            res.status(error.response?.status || 500).json({ error: error.message });
-        }
-    });
-
-    // Rota para criar OSS
-    app.post('/api/proxy/abrir-chamado', upload.none(), async (req, res) => {
-        try {
-            const formData = new FormData();
-            
-            // Adicionando os dados ao FormData
-            formData.append('cpfcnpj', req.body.cpfcnpj);
-            formData.append('senha', req.body.senha);
-            formData.append('contrato', req.body.contrato);
-            formData.append('conteudo', req.body.conteudo);
-            formData.append('contato', req.body.contato);
-            formData.append('contato_numero', req.body.contato_numero);
-            formData.append('motivoos', req.body.motivoos);
-            formData.append('sem_os', req.body.sem_os);
-            formData.append('ocorrenciatipo', req.body.ocorrenciatipo);
-            formData.append('setor', req.body.setor);
-            formData.append('os_tecnico_responsavel', req.body.os_tecnico_responsavel);
-            formData.append('os_servico_prestado', req.body.os_servico_prestado);
-            formData.append('os_prioridade', req.body.os_prioridade);
-
-            const config = {
-                method: 'post',
-                url: 'https://demo.sgp.net.br/api/central/chamado/',
-                headers: {
-                    ...formData.getHeaders(),
-                },
-                data: formData
-            };
-
-            const response = await axios(config);
-
-            res.json(response.data);
-        } catch (error) {
-            console.error('Erro ao criar chamado:', error);
-            res.status(500).json({ message: 'Erro interno do servidor' });
-        }
-    });
-
-    // Inicializa o servidor
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => {
-        console.log(`Servidor rodando na porta ${port}`);
-    });
-
-    module.exports = app;
+module.exports = app;
