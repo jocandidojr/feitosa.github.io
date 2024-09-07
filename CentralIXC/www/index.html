@@ -76,7 +76,7 @@
     
         .auto-atendimento button img {
             display: block;
-            width: 150px; /* Altere conforme necessário */
+            width: 250px; /* Altere conforme necessário */
             height: auto; /* Mantém a proporção da imagem */
             transition: transform 0.3s ease;
             margin: 0 auto; /* Centraliza as imagens dentro dos botões */
@@ -360,17 +360,9 @@ font-weight: bold;
     margin: 0;
 }
 
-.boleto-status {
-    margin-bottom: 10px; /* Reduzido o espaçamento entre situação e resultado */
-}
 
-.boleto-pix-linha {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
 
-.boleto-pix, .boleto-linha {
+.boleto-linha {
     flex: 1;
     margin-right: 15px;
 }
@@ -414,8 +406,7 @@ font-weight: bold;
 
 
          /* Estilos gerais para os itens de Outros */
-         
-
+                  
         .textoModalOutros h2 {
             font-size: 20px;
         }
@@ -423,7 +414,7 @@ font-weight: bold;
         #ossForm {
             position: relative;
             color: #fff;
-            background-color: #10107A;
+            background-color: #e8e7e7;
             border-radius: 5px;
             text-align: center;
             padding: 30px;
@@ -444,7 +435,7 @@ font-weight: bold;
             border-radius: 10px;
             outline: none;
             color: white;
-            background-color: #0056b3;
+            background-color: #ccc;
             font-size: 15px;
             width: calc(100% - 20px);
             margin-bottom: 20px;
@@ -511,7 +502,17 @@ font-weight: bold;
             /* Reduz o padding para economizar espaço */
         }
 
-        
+        .faq-prov {
+            max-width: 700px;
+            width: 100%; /* Ajusta a largura para ocupar o máximo permitido */
+            padding: 20px;/* Reduz o padding para economizar espaço */
+        }
+
+        .faq-prov img {
+            max-width: 170px; /* Reduz a largura máxima */
+            width: 100%; /* Ajusta a largura para ocupar o máximo permitido */
+            padding: 0;/* Reduz o padding para economizar espaço */
+        }
 
         .textoProfile {
             max-width: 300px;
@@ -631,6 +632,15 @@ opacity: 100%;
     color: #10107A; /* Cor do texto igual ao estilo de boletos */
 }
 
+    .textoModalOutros h3 {
+        background-color: #bbbbbb;
+        font-size: 10px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0;
+    }
+
 .cliente-titulo {
     font-size: 24px; /* Tamanho da fonte */
     color: #10107A; /* Cor do texto */
@@ -653,6 +663,7 @@ opacity: 100%;
     border-radius: 10px; /* Bordas arredondadas */
     border: 1px solid #ddd; /* Borda suave */
     max-width: 500px; /* Largura máxima */
+    width: 100%;
     margin: auto; /* Centraliza horizontalmente */
 }
 
@@ -662,10 +673,6 @@ opacity: 100%;
     margin-bottom: 15px; /* Espaçamento abaixo do título */
 }
 
-.cliente-info {
-    font-size: 16px; /* Tamanho da fonte */
-    color: #10107A; /* Cor do texto */
-}
 
 .info-item {
     margin-bottom: 10px; /* Espaçamento entre itens */
@@ -723,22 +730,33 @@ opacity: 100%;
 }
 
 .info-value {
-    color: #333;
+    color: #1515A3;
     font-weight: bold;
 }
 
 .faq-prov {
     background-color: #0056b3;
-    padding: 20px;
     color: #1515A3;
-    max-width: 60%;
-    width: 410px;
+    max-width: 70%;
+    width: 650px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+}
+
+.faq-button {
+    padding: 10px; /* Remove o padding do botão */
+    border: none; /* Remove a borda do botão */
+    background: none; /* Remove o fundo do botão */
+    display: inline-block; /* Ajusta o botão para se ajustar ao tamanho do conteúdo */
+}
+
+.faq-image {
+    width: 250px; /* Define a largura da imagem */
+    height: auto; /* Mantém a proporção da imagem */
 }
 
 /* Estilos para o fundo e contêiner da FAQ */
@@ -759,7 +777,7 @@ opacity: 100%;
 }
 
 .FAQ h2 {
-    font-size: 20px; /* Ajustado para uma melhor visibilidade */
+    font-size: 22px; /* Ajustado para uma melhor visibilidade */
     color: #10107A;
     text-align: center;
 }
@@ -815,6 +833,151 @@ h3 {
 #duvidasContent {
     width: 100%;
 }
+
+.large-image {
+    width: 100%; /* Ajuste o valor conforme necessário */
+    max-width: 300px    ;
+    height: auto;
+}
+
+.boleto-info {
+        margin-bottom: 10px;
+    }
+
+   .boleto-pix-linha {
+        display: flex;
+        align-items: center; /* Alinha verticalmente ao centro */
+        justify-content: space-between; /* Distribui o espaço entre os itens */
+        gap: 10px; /* Espaçamento entre os itens */
+        max-width: 600px; /* Largura máxima do contêiner */
+        width: 100%; /* Ocupa 100% da largura disponível */
+    }
+
+    .boleto-pix, .boleto-baixar, .boleto-status, .boleto-valor, .boleto-vencimento {
+        display: flex;
+        align-items: center; /* Alinha verticalmente ao centro */
+        margin: 0; /* Remove margem padrão */
+    }
+
+    .pix-img, .btn-boleto-img {
+        max-width: 50px; /* Ajuste o tamanho máximo das imagens conforme necessário */
+        width: 100%;
+        height: auto; /* Mantém a proporção da imagem */
+    }
+
+    .boleto-status p, .boleto-valor p, .boleto-vencimento p {
+        background-color: #bbb;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0;
+    }
+
+    .textoModalOutros {
+        display: flex;
+        align-items: center; /* Alinha a imagem e o texto verticalmente */
+        gap: 10px; /* Espaçamento entre a imagem e o texto */
+        padding: 10px;
+    }
+
+    .textoModalOutros h3 {
+        background-color: #bbbbbb;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .textoModalOutros img {
+        width: 50px; /* Define a largura da imagem */
+        height: auto; /* Mantém a proporção da imagem */
+    }
+
+    .textoModalOutros p {
+        margin: 0; /* Remove a margem padrão do parágrafo */
+    }
+
+    .cliente-info {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        width: 100%;
+        gap: 10px; /* Espaçamento entre os itens */
+    }
+
+    .textoModalOutros {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-item {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.info-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.info-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-img {
+    width: 30px;
+    height: auto;
+}
+
+.info p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.status {
+    background: #009245;
+    color: white;
+    padding: 10px;
+    max-width: 150px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+
+    .info p {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .info-value {
+        font-size: 16px;
+        color: #333; /* Ajuste a cor conforme necessário */
+    }
+
+
     </style> 
 </head>
 <body>
@@ -875,14 +1038,13 @@ h3 {
                 <button data-page="extratoConexao">
                     <img src="/assets/a_extrato_.png" alt="extrato">
                 </button>
-
-                <!-- FAQ Section -->
-            <div class="faq-prov">
-                <button data-page="faq-prov">
-                    <img src="/assets/a_faq_.png" alt="duvidas">
-                </button>
             </div>
-            </div>
+                            <!-- FAQ Section -->
+                            <div class="faq-prov">
+                                <button data-page="faq-prov" class="faq-button">
+                                    <img src="/assets/a_faq_.png" alt="duvidas" class="large-image">
+                                </button>
+                            </div>
         </div>
 
         <!-- Modal -->
@@ -1203,24 +1365,23 @@ function mostrarContrato() {
     };
 
     // Cria o conteúdo HTML dinamicamente usando os valores reais da variável 'cliente'
-    const contratoContent = `<div class="textoModalOutros">
-    <div class="cliente-info">
-        <p class="info-item">
-            <strong style="color: #10107A;">Plano de Internet:</strong><br>
+    const contratoContent = `<div class="textoModalOutros" style="color: #10107A;">
+    <div class="cliente-info" style="padding: -10px;">
+        <div class="info-item" style="display: flex; align-items: center; margin-bottom: 10px; gap: 0;">
+            <img src="/assets/plano_internet_.png" alt="Plano de Internet" style="margin-right: 10px;"> <!-- Substitua pelo ícone apropriado -->
             <span class="info-value">${cliente.planointernet}</span>
-        </p>
-        <p class="info-item">
-            <strong style="color: #10107A;">Plano de TV:</strong><br>
+        </div>
+        <div class="info-item" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <img src="/assets/plano_tv_.png" alt="Plano de TV" style="margin-right: 10px;"> <!-- Substitua pelo ícone apropriado -->
             <span class="info-value">${cliente.planotv}</span>
-        </p>
-        <p class="info-item">
-            <strong style="color: #10107A;">Mensalidade:</strong><br>
+        </div>
+        <div class="info-item" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <img src="/assets/plano_mensalidade_.png" alt="Mensalidade" style="margin-right: 10px;"> <!-- Substitua pelo ícone apropriado -->
             <span class="info-value">R$ ${cliente.planointernet_valor.toFixed(2)}</span>
-        </p>
+        </div>
     </div>
 </div>
-
-    `;
+`;
 
     // Insere o conteúdo na div contratoContent dentro do modal
     document.getElementById('contratoContent').innerHTML = contratoContent;
@@ -1245,7 +1406,7 @@ function duvidas() {
     <div class="faq-background" id="faq-background">
         <div class="FAQ" id="FAQ">
             <h2>Dúvidas Frequentes (FAQ)</h2>
-            <br><br>
+            <br>
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">Como posso solicitar a instalação do serviço?</div>
@@ -1264,9 +1425,9 @@ function duvidas() {
                     <div class="faq-answer">
                         Se você estiver sem conexão, siga os passos abaixo:
                         <ul><br>
-                            <p><b>1.</b> Verifique se todos os cabos estão conectados corretamente.</p><br>
-                            <p><b>2.</b> Reinicie seu roteador desligando-o por 10 segundos e ligando-o novamente.</p><br>
-                            <p><b>3.</b> Certifique-se de que sua conta está em dia.</p><br>
+                            <p><b>1.</b> Verifique se todos os cabos estão conectados corretamente.</p>
+                            <p><b>2.</b> Reinicie seu roteador desligando-o por 10 segundos e ligando-o novamente.</p>
+                            <p><b>3.</b> Certifique-se de que sua conta está em dia.</p>
                             <p><b>4.</b> Se o problema persistir, entre em contato com nosso suporte técnico.</p>
                         </ul>
                     </div>
@@ -1276,9 +1437,9 @@ function duvidas() {
                     <div class="faq-answer">
                         Para melhorar a qualidade da conexão, siga estas dicas:
                         <ul><br>
-                            <p><b>1.</b> Posicione o roteador em uma área central da casa, longe de obstáculos.</p><br>
-                            <p><b>2.</b> Evite o uso de micro-ondas e telefones sem fio próximos ao roteador.</p><br>
-                            <p><b>3.</b> Verifique se o firmware do roteador está atualizado.</p><br>
+                            <p><b>1.</b> Posicione o roteador em uma área central da casa, longe de obstáculos.</p>
+                            <p><b>2.</b> Evite o uso de micro-ondas e telefones sem fio próximos ao roteador.</p>
+                            <p><b>3.</b> Verifique se o firmware do roteador está atualizado.</p>
                             <p><b>4.</b> Limite o número de dispositivos conectados simultaneamente.</p>
                         </ul>
                     </div>
@@ -1288,7 +1449,7 @@ function duvidas() {
                     <div class="faq-answer">Sim, você pode mudar de plano a qualquer momento. Basta entrar em contato com nossa equipe para fazer a alteração desejada.</div>
                 </div>
             </div>
-            <br><br>
+            <br>
             <h3>Se ainda precisar de ajuda, fale com nosso time.</h3>
         </div>
     </div>`;
@@ -1333,65 +1494,72 @@ function duvidas() {
 }
 
 // Função para desbloqueio de confiança
-        async function desbloqueioConfianca() {
-            // Coletar dados do localStorage
-            const cpfcnpj = localStorage.getItem('cpfSemFormatacao');
-            const senha = localStorage.getItem('senha');
-            const contrato = localStorage.getItem('contratoId');
+async function desbloqueioConfianca() {
+    // Coletar dados do localStorage
+    const cpfcnpj = localStorage.getItem('cpfSemFormatacao');
+    const senha = localStorage.getItem('senha');
+    const contrato = localStorage.getItem('contratoId');
 
-            if (!cpfcnpj || !senha || !contrato) {
-                alert('Dados necessários não encontrados no localStorage.');
-                return;
-            }
+    if (!cpfcnpj || !senha || !contrato) {
+        alert('Dados necessários não encontrados no localStorage.');
+        return;
+    }
 
-            // Criar o corpo da requisição
-            const data = {
-                cpfcnpj: cpfcnpj,
-                senha: senha,
-                contrato: contrato
-            };
+    // Criar o corpo da requisição
+    const data = {
+        cpfcnpj: cpfcnpj,
+        senha: senha,
+        contrato: contrato
+    };
 
-            try {
-                // Fazer a requisição POST para o proxy
-                const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
+    try {
+        // Fazer a requisição POST para o proxy
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/desbloqueio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
-                // Checar se a resposta foi ok
-                if (!response.ok) {
-                    throw new Error(`Erro na requisição: ${response.statusText}`);
-                }
-
-                // Processar a resposta
-                const result = await response.json();
-                const mensagem = result.msg || 'Nenhuma mensagem disponível';
-
-                // Exibir a mensagem no modal
-                document.getElementById('desbloqueioContent').innerHTML = `
-                    <div class="textoModalOutros">
-                        <h3>Desbloqueio de Confiança</h3>
-                        <p>${mensagem}.</p>
-                    </div>
-                `;
-                document.getElementById('myModal').style.display = 'block';
-            } catch (error) {
-                console.error('Erro ao realizar desbloqueio de confiança:', error);
-                document.getElementById('desbloqueioContent').innerHTML = `<p>Erro: ${error.message}</p>`;
-                document.getElementById('myModal').style.display = 'block';
-            }
+        // Checar se a resposta foi ok
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.statusText}`);
         }
 
-        // Adicionar o listener para o botão
-        document.querySelector('button[data-page="desbloqueioConfianca"]').addEventListener('click', desbloqueioConfianca);
+        // Processar a resposta
+        const result = await response.json();
+
+        // Verificar o valor do campo "liberado" na resposta
+        let mensagem;
+        if (result.liberado === true) {
+            mensagem = 'Liberação realizada com sucesso!';
+        } else if (result.liberado === false) {
+            mensagem = 'Não foi possível realizar a liberação.';
+        } else {
+            mensagem = 'Nenhuma mensagem disponível';
+        }
+
+        // Exibir a mensagem no modal
+        document.getElementById('desbloqueioContent').innerHTML = `
+            <div class="textoModalOutros" style="height: 100px; display: flex; align-items: center; margin-bottom: 10px; max-width: 300px; width: 100%; padding: 20px;">
+                <img src="/assets/plano_liberacao_.png" alt="Plano Liberação">
+                <p>${mensagem}</p>
+            </div>`;
+        document.getElementById('myModal').style.display = 'block';
+    } catch (error) {
+        console.error('Erro ao realizar desbloqueio de confiança:', error);
+        document.getElementById('desbloqueioContent').innerHTML = `<p>Erro: ${error.message}</p>`;
+        document.getElementById('myModal').style.display = 'block';
+    }
+}
+
+
 
     // Função para carregar contrato
     async function carregarContrato() {
         try {
-            const response = await fetch('/proxy/contrato', { method: 'GET' });
+            const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/contrato', { method: 'GET' });
             const data = await response.json();
             document.getElementById('contratoContent').innerHTML = JSON.stringify(data);
             modal.style.display = 'block';
@@ -1399,8 +1567,33 @@ function duvidas() {
             console.error('Erro ao carregar contrato:', error);
         }
     }
+    
+    function copiarTexto(id) {
+        // Obtém o elemento pelo ID
+        const textoElement = document.getElementById(id);
 
-           // Função para carregar boletos
+        // Verifica se o elemento existe
+        if (textoElement) {
+            // Cria um elemento de input temporário para usar o método execCommand
+            const tempInput = document.createElement('input');
+            tempInput.value = textoElement.textContent || textoElement.innerText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            // Copia o texto selecionado
+            document.execCommand('copy');
+            
+            // Remove o elemento temporário
+            document.body.removeChild(tempInput);
+            
+            // Opcional: Exibe uma mensagem de confirmação
+            alert('Texto copiado para a área de transferência!');
+        } else {
+            console.error('Elemento não encontrado:', id);
+        }
+    }
+
+// Função para carregar boletos
 async function carregarBoleto() {
     try {
         const cpfFormatado = localStorage.getItem('cpfFormatado');
@@ -1448,37 +1641,31 @@ async function carregarBoleto() {
                     classeStatus = 'vencido';
                 }
 
-                return `
-                    <div class="textoModalBoletos ${classeStatus}">
-    <div class="boleto-info">
-        <div class="info-col">
-            <p><strong>ID:</strong></p>
-            <p>${boleto.numero_documento || 'Não disponível'}</p>
-        </div>
-        <div class="info-col">
-            <p><strong>Valor:</strong></p>
-            <p>R$ ${boleto.valor.toFixed(2)}</p>
-        </div>
-        <div class="info-col">
-            <p><strong>Vencimento:</strong></p>
-            <p>${vencimentoFormatado}</p>
-        </div>
-    </div>
-    <div class="boleto-status">
-        <p><strong>Status do pagamento:</strong></p>
-        <p style="background-color: #bbb; font-size: 17px; font-weight: bold; padding: 10px; border-radius: 5px;">${boleto.status || 'Não disponível'}</p>
-    </div>
+                return `<div class="textoModalBoletos ${classeStatus}">
+    
     <div class="boleto-pix-linha">
         <div class="boleto-pix">
-            <p><strong>Pix Copia e Cola:</strong></p>
-            <p>${boleto.codigopix || 'Não disponível'}</p>
-        </div><br>
-        <div class="boleto-linha">
-            <p><strong>Linha Digitável:</strong></p>
-            <p>${boleto.linhadigitavel || 'Não disponível'}</p>
+            <a href="javascript:void(0)" onclick="copiarTexto('pixCode')">
+                <img src="/assets/a_pix_.png" alt="Código PIX" class="pix-img">
+            </a>
         </div>
+        <div class="boleto-baixar">
+            <strong>
+                <a href="${boleto.link}.pdf" target="_blank">
+                    <img src="/assets/a_bar-code_.png" alt="Baixar Boleto" class="btn-boleto-img">
+                </a>
+            </strong>
+        </div>
+        <div class="boleto-status">
+        <p>Status: ${boleto.status || 'Não disponível'}</p>
     </div>
-    <p><strong><a href="${boleto.link}.pdf" class="btn-boleto" target="_blank">Baixe o boleto aqui</a></strong></p>
+    <div class="boleto-valor">
+        <p>Valor: R$ ${boleto.valor.toFixed(2)}</p>
+    </div>
+    <div class="boleto-vencimento">
+        <p>Venc.: ${vencimentoFormatado}</p>
+    </div>
+    </div>    
 </div>`;
             }).join('');
         } else {
@@ -1567,24 +1754,28 @@ async function extratoConexao() {
 
         // Consolidar e exibir os resultados
         const extratoContent = document.getElementById('extratoContent');
-        extratoContent.innerHTML = results.map(result => `
-            <div class="textoModalOutros">
-                <h3>Extrato para ${result.mes}/${result.ano}</h3>
-                <div class="consumo-total">
-                    <p><strong style="color: #10107A;">Consumo total:</strong><br><br>
-                    <span class="info-value">${result.total.toFixed(2)}</span></p>
-                </div>
-                <div class="detalhes-consumo">
-                    <strong style="color: #10107A;">Detalhes de consumo:</strong>
-                    <ul>
-                        ${result.list.length > 0 ? result.list.map(item => `
-                            <li class="item-consumo">${JSON.stringify(item)}</li>
-                        `).join('') : '<li>Nenhum item disponível</li>'}
-                    </ul>
-                </div>
-                <hr>
-            </div>
-        <br>`).join('');
+        extratoContent.innerHTML = results.map(result => `<div class="textoModalOutros" style="display: block; margin: 0; text-align: center; width: 100%">
+    <h3>Extrato para ${result.mes}/${result.ano}</h3>
+    
+    <div class="consumo-total" style="margin-bottom: 20px;">
+        <p style="margin: 0;">
+            <strong style="color: #10107A;">Consumo total:</strong><br><br>
+            <span class="info-value">${result.total.toFixed(2)}</span>
+        </p>
+    </div>
+    
+    <div class="detalhes-consumo">
+        <strong style="color: #10107A; display: block; margin-bottom: 10px;">Detalhes de consumo:</strong>
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            ${result.list.length > 0 ? result.list.map(item => `
+                <li class="item-consumo" style="margin-bottom: 5px;">${JSON.stringify(item)}</li>
+            `).join('') : '<li>Nenhum item disponível</li>'}
+        </ul>
+    </div>
+    
+    <hr style="margin: 20px 0;">
+</div><br>
+`).join('');
         document.getElementById('myModal').style.display = 'block';
     } catch (error) {
         console.error('Erro ao carregar extrato de conexão:', error);
@@ -1642,20 +1833,38 @@ function exibirChamadosNoModal(data) {
             const resultadosLimitados = data.slice(0, 5);
 
             // Gera o HTML para os registros limitados
-            ossContent.innerHTML = '<ul>' + resultadosLimitados.map(chamado => {
-                return `<li class="textoModalOutros">
-                    <h4><center>
-                        <p>
-                            <span>Protocolo:</span> ${chamado.oc_protocolo}
-                            <span style="margin-left: 40px;">Tipo:</span>
-                            <h2 style="display: inline;">${chamado.oc_tipo_descricao}</h2>
-                        </p>
-                        <h5 style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status: ${chamado.oc_status_descricao}</h5>
-                        <p>Detalhes:</p><p>${chamado.oc_conteudo}</p>
-                        <p>Serviço realizado:</p><p>${chamado.os_servicoprestado}</p>
-                    </center></h4>
-                </li><br>`;
-            }).join('') + '</ul>';
+ossContent.innerHTML = `<ul>
+    ${resultadosLimitados.map(chamado => {
+        return `
+            <li class="info-item" style="background-color: #e8e7e7; color: #10107A;">
+                <br>
+                <div class="info-top">
+                    <div class="info">
+                        <img src="/assets/os_protocolo_.png" alt="Protocolo" class="info-img">
+                        <p><strong>Protocolo:</strong> ${chamado.oc_protocolo}</p>
+                    </div>
+                    <div class="info">
+                        <img src="/assets/os_tipo_.png" alt="Tipo" class="info-img">
+                        <p><strong>Tipo:</strong> ${chamado.oc_tipo_descricao}</p>
+                    </div>
+                </div>
+                <div class="info-bottom">
+                    <div class="info">
+                        <img src="/assets/os_detalhes_.png" alt="Detalhes" class="info-img">
+                        <p><strong>Detalhes:</strong> ${chamado.oc_conteudo}</p>
+                    </div>
+                    <div class="info">
+                        <img src="/assets/os_servico_.png" alt="Serviço realizado" class="info-img">
+                        <p><strong>Serviço realizado:</strong> ${chamado.os_servicoprestado}</p>
+                    </div>
+                    <h5 class="status" style="width: 100%; max-width: 500px; text-align: center;">Status: ${chamado.oc_status_descricao}</h5>
+                </div>
+            </li>
+        `;
+    }).join('')}
+</ul>
+`;
+;
         } else {
             // Mensagem quando não há chamados para exibir
             ossContent.innerHTML = `
@@ -1732,19 +1941,19 @@ async function criarOss() {
                 <input type="hidden" id="os_prioridade" name="os_prioridade" value="1" />
             </div>
 
-            <div>
-                <label for="contato">Contato:</label>
-                <input type="text" id="contato" name="contato" />
+            <div class="inputBox">
+                <input type="text" id="contato" name="contato" class="inputUser" style="color: #10107A;" required>
+                <label for="contato" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">Nome:</label>
             </div>
-
-            <div>
-                <label for="contato_numero">Número de Contato:</label>
-                <input type="text" id="contato_numero" name="contato_numero" />
+            <br>
+            <div class="inputBox">
+                <input type="text" id="contato_numero" name="contato_numero" class="inputUser" style="color: #10107A;" required>
+                <label for="contato_numero" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">Celular/WhatsApp:</label>
             </div>
-
-            <div>
-                <label for="conteudo">Como podemos te ajudar?</label>
-                <textarea id="conteudo" name="conteudo" required></textarea>
+            <br>
+            <div class="inputBox">
+                <label for="conteudo" class="labelinput" style="text-align: center; color: #10107A;"></label>
+                <textarea id="conteudo" name="conteudo" class="inputUser" style="color: #10107A; font-size: 16px;" placeholder="Descreva como podemos te ajudar." required></textarea>
             </div>
 
             <button type="submit">Abrir novo chamado</button>
