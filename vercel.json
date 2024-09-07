@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/proxyServer.js"
+      "dest": "/api/proxyServerCentralAPP.js"
     },
     {
       "src": "/feitosa/(.*)",
