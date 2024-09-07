@@ -1,6 +1,6 @@
 {
     "version": 2,
     "routes": [
-      { "src": "/api/(.*)", "dest": "/api/proxyServer.js" }
+      { "src": "/feitosa/(.*)", "dest": "/feitosa/proxyServer.js" }
     ]
   }
