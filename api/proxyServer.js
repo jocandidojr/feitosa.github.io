@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Rota para buscar clientes
-app.post('/feitosa/proxy/cliente', async (req, res) => {
+app.post('/api/proxy/cliente', async (req, res) => {
   try {
     console.log('Requisição recebida:', req.body); // Adicione logs para depuração
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
@@ -30,7 +30,7 @@ app.post('/feitosa/proxy/cliente', async (req, res) => {
 });
 
 // Rota para buscar boletos
-app.post('/feitosa/proxy/boletos', async (req, res) => {
+app.post('/api/proxy/boletos', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -67,7 +67,7 @@ app.post('/feitosa/proxy/boletos', async (req, res) => {
 });
 
 // Rota para buscar contratos
-app.post('/feitosa/proxy/contratos', async (req, res) => {
+app.post('/api/proxy/contratos', async (req, res) => {
   try {
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
       headers: {
@@ -84,7 +84,7 @@ app.post('/feitosa/proxy/contratos', async (req, res) => {
 });
 
 // Rota para criar OSS
-app.post('/feitosa/proxy/oss', async (req, res) => {
+app.post('/api/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -126,7 +126,7 @@ app.post('/feitosa/proxy/oss', async (req, res) => {
 });
 
 // Rota para criar OSS
-app.post('/feitosa/proxy/criar-oss', async (req, res) => {
+app.post('/api/proxy/criar-oss', async (req, res) => {
   const { clienteId, tipo, id_assunto, id_filial, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
   if (!clienteId || !tipo || !id_assunto || !id_filial || !origem_endereco || !prioridade || !setor || !status) {
@@ -239,7 +239,7 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
 });
 
 // Rota para desbloqueio de confiança
-app.post('/feitosa/proxy/desbloqueio-confianca', async (req, res) => {
+app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   const { id } = req.body;
 
   console.log('Dados recebidos no backend:', req.body);
@@ -271,7 +271,7 @@ app.post('/feitosa/proxy/desbloqueio-confianca', async (req, res) => {
 });
 
 // Rota para reiniciar a conexão do cliente
-app.post('/feitosa/proxy/reiniciar-conexao', async (req, res) => {
+app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
   const { id } = req.body;
 
   if (!id) {
@@ -301,7 +301,7 @@ app.post('/feitosa/proxy/reiniciar-conexao', async (req, res) => {
 });
 
 // Rota para buscar usuários relacionados ao cliente
-app.post('/feitosa/proxy/usuarios', async (req, res) => {
+app.post('/api/proxy/usuarios', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
@@ -339,7 +339,7 @@ app.post('/feitosa/proxy/usuarios', async (req, res) => {
 });
 
 // Rota para buscar dados de radusuarios com base no clienteId
-app.post('/feitosa/proxy/radusuarios', async (req, res) => {
+app.post('/api/proxy/radusuarios', async (req, res) => {
   const { clienteId } = req.body;
 
   if (!clienteId) {
