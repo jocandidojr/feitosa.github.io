@@ -8,11 +8,12 @@
         <style>
             /* Reset básico */
             body {
-                font-family: "Aller", Helvetica, sans-serif;
+                font-family: "Arial", Helvetica, sans-serif;
                 padding: 0;
                 box-sizing: border-box;
                 height: auto;
-                margin: 0;
+                margin: 0;            
+                background-color: #10107A;
             }
         
             /* Navbar superior */
@@ -550,7 +551,71 @@
     opacity: 100%;
 }
 
-        </style> 
+.background-dinamico {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Fica atrás de outros elementos */
+}
+
+.elemento {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    opacity: 0.8;
+    animation: moverElementos 10s infinite linear;
+}
+
+.elemento:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.elemento:nth-child(2) {
+    top: 30%;
+    left: 60%;
+    animation-delay: 2s;
+}
+
+.elemento:nth-child(3) {
+    top: 70%;
+    left: 40%;
+    animation-delay: 4s;
+}
+
+.elemento:nth-child(4) {
+    top: 50%;
+    left: 70%;
+    animation-delay: 6s;
+}
+
+.elemento:nth-child(5) {
+    top: 20%;
+    left: 80%;
+    animation-delay: 8s;
+}
+
+.elemento:nth-child(6) {
+    top: 80%;
+    left: 10%;
+    animation-delay: 10s;
+}
+
+@keyframes moverElementos {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: translateY(0) rotate(360deg) scale(1);
+    }
+}
+
+</style> 
     </head>
     <body>
         <div class="top-navbar" id="top-navbar">
@@ -602,7 +667,9 @@
                     <button data-page="desbloqueio">
                         <img src="/assets/a_desbloqueio_.png" alt="desbloqueio">
                     </button>
-
+                    <button data-page="informarPagamento">
+                        <img src="/assets/a_desbloqueio_.png" alt="informarPagamento">
+                    </button>
                     <button data-page="Oss">
                         <img src="/assets/a_suporte_.png" alt="Oss">
                     </button>
@@ -647,7 +714,9 @@
                     <div id="desbloqueioContent">
                         <!-- O conteúdo de desbloqueio será exibido aqui -->
                     </div>
-
+                    <div id="pagamentoContent">
+                        <!-- O conteúdo de desbloqueio será exibido aqui -->
+                    </div>
                     <div id="reiniciarContent">
                         <!-- O conteúdo de desbloqueio será exibido aqui -->
                     </div>
@@ -680,6 +749,28 @@
                 <button type="submit">Abrir novo chamado</button>
             </form>
         </div>
+        <div class="background-dinamico">
+            <svg class="elemento" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#0056b3"></circle>
+            </svg>
+            <svg class="elemento" viewBox="0 0 100 100">
+                <rect x="10" y="10" width="80" height="80" fill="#10107A"></rect>
+            </svg>
+            <svg class="elemento" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="orange"></circle>
+            </svg>
+            <svg class="elemento" viewBox="0 0 100 100">
+                <polygon points="50,15 60,85 40,85" fill="#F1D213"></polygon>
+            </svg>
+            <svg class="elemento" viewBox="0 0 100 100">
+                <rect x="10" y="45" width="80" height="10" fill="#1515A3"></rect>
+                <rect x="45" y="10" width="10" height="80" fill="#1515A3"></rect>
+            </svg>
+            <svg class="elemento" viewBox="0 0 100 100">
+                <polygon points="30,10 70,10 50,90" fill="#008FFD"></polygon>
+            </svg>
+        </div>
+    </div>
         <script>
             // Fecha o modal quando o usuário clica no X
                     const span = document.querySelector('.close');
@@ -838,6 +929,8 @@ buttons.forEach(button => {
                 await criarOss();
             } else if (page === 'desbloqueio') {
                 await desbloqueio();
+            } else if (page === 'informarPagamento') {
+                await informarPagamento();
             } else if (page === 'reiniciar') {
                 await reiniciarConexao();
             }
@@ -1254,6 +1347,7 @@ const boletoContent = document.getElementById('boletoContent');
 const contratoContent = document.getElementById('contratoContent');
 const ossContent = document.getElementById('ossContent');
 const desbloqueioContent = document.getElementById('desbloqueioContent');
+const pagamentoContent = document.getElementById('pagamentoContent');
 const criarOssContent = document.getElementById('criarOssContent');
 const reiniciarContent= document.getElementById('reiniciarContent');
 
@@ -1261,6 +1355,7 @@ if (boletoContent) boletoContent.innerHTML = '';
 if (contratoContent) contratoContent.innerHTML = '';
 if (ossContent) ossContent.innerHTML = '';
 if (desbloqueioContent) desbloqueioContent.innerHTML = ''; 
+if (pagamentoContent) pagamentoContent.innerHTML = ''; 
 if (criarOssContent) criarOssContent.innerHTML = '';
 if (reiniciarContent) reiniciarContent.innerHTML = ''; 
 }
@@ -1503,6 +1598,85 @@ async function desbloqueio() {
     }
 
     }
+
+
+// Função para informar pagamento
+async function informarPagamento() {
+    const pagamentoContent = document.getElementById('pagamentoContent');
+
+    try {
+        const contratoId = localStorage.getItem('contratoId');
+        console.log('Contrato ID obtido do localStorage:', contratoId);
+
+        if (!contratoId) {
+            console.error('ID do contrato não encontrado no localStorage.');
+            pagamentoContent.innerHTML = `
+                                    <div class="textoModalOutros">
+                                        <h4><center>
+                                            <p>Consulte o status do seu plano.</p>
+                                            <p>Pagamento disponível apenas para contratos válidos.</p>
+                                        </center></h4>
+                                    </div>
+                                `;
+            return;
+        }
+
+        const requestBody = JSON.stringify({ id: contratoId });
+        console.log('Enviando requisição para informar pagamento com corpo:', requestBody);
+
+        const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/informar-pagamento', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: requestBody
+        });
+
+        console.log('Resposta da API:', response);
+
+        if (!response.ok) {
+            const errorData = await response.text(); // Mudar para text() para melhor depuração
+            console.error('Erro ao informar pagamento:', errorData);
+            pagamentoContent.innerHTML = 'Erro ao informar pagamento: ' + (errorData || response.statusText);
+            return;
+        }
+
+        const result = await response.json();
+        console.log('Resultado do informar pagamento:', result);
+
+        if (result.type === 'error') {
+            pagamentoContent.innerHTML = `
+                <div class="textoModalOutros">
+                    <h4><center>
+                        <p>Informação de pagamento não está disponível no momento.</p>
+                        <p>Consulte nosso atendimento.</p>
+                    </center></h4>
+                </div>
+            `;
+        } else {
+            pagamentoContent.innerHTML = `
+                <div class="textoModalOutros">
+                    <h4><center>
+                        <p>Pagamento informado com sucesso!</p>
+                        <p><span>O pagamento foi registrado com sucesso. Obrigado!</span></p>
+                    </center></h4>
+                </div>
+            `;
+        }
+
+    } catch (error) {
+        console.error("Informação de pagamento não está disponível no momento. Consulte nosso atendimento.", error.message);
+        pagamentoContent.innerHTML = `
+            <div class="textoModalOutros">
+                <h4><center>
+                    <p>Informação de pagamento não está disponível no momento.</p>
+                    <p>Consulte nosso atendimento.</p>
+                </center></h4>
+            </div>
+        `;
+    }
+}
+
     </script>
         <div class="up-button">
             <a href="https://wa.me/5583999999999">

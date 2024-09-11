@@ -338,6 +338,41 @@ app.post('/api/proxy/usuarios', async (req, res) => {
   }
 });
 
+// Rota para informar pagamento
+app.post('/api/proxy/informar-pagamento', async (req, res) => {
+  const { id } = req.body;
+
+  console.log('Dados recebidos no backend:', req.body);
+
+  if (!id) {
+    console.error('ID do contrato não fornecido.');
+    return res.status(400).json({ error: 'Contrato ID não fornecido' });
+  }
+
+  try {
+    console.log('Informando Pagamento para o Contrato...');
+
+    // Fazendo a requisição ao endpoint correto da API
+    const response = await axios.post(
+      'https://feitosatelecom.com.br/webservice/v1/cliente_contrato_btn_lib_temp_24722', // Endpoint para informar pagamento
+      { id }, // Dados enviados para o endpoint
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`, // Autorização
+          ixcsoft: "inserir", // Header necessário para a API
+        }
+      }
+    );
+
+    // Retorno da resposta da API
+    res.json(response.data);
+  } catch (error) {
+    console.error('Erro ao informar pagamento:', error.message);
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Informar Pagamento" });
+  }
+});
+
 // Rota para buscar dados de radusuarios com base no clienteId
 app.post('/api/proxy/radusuarios', async (req, res) => {
   const { clienteId } = req.body;
