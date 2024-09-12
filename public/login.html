@@ -1665,7 +1665,7 @@ async function informarPagamento() {
         }
 
     } catch (error) {
-        console.error("Informação de pagamento não está disponível no momento. Consulte nosso atendimento.", error.message);
+        console.error("Hum... Parece que essa opção não está disponível no momento. Clique no botão de ajuda e fale com um de nossos atendentes.", error.message);
         pagamentoContent.innerHTML = `
             <div class="textoModalOutros">
                 <h4><center>
