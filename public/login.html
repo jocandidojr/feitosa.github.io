@@ -1512,7 +1512,7 @@ classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
 }
 
 return `<li class="textoModalBoletos ${classeVencido} ${classePago}">
-    <div class="boleto-pix-linha" style="color: #10107A; justify-content: right;">
+    <div class="boleto-pix-linha" style="color: #10107A; justify-content: center;">
         <div style="text-align: right; font-weight: bold;">Boleto ou pix:</div>
         <div class="boleto-baixar">
             <strong>
@@ -1882,7 +1882,8 @@ if (boletoContent) boletoContent.innerHTML = '';
 if (contratoContent) contratoContent.innerHTML = '';
 if (ossContent) ossContent.innerHTML = '';
 if (desbloqueioContent) desbloqueioContent.innerHTML = ''; 
-if (pagamentoContent) pagamentoContent.innerHTML = ''; 
+if (pagamentoContent) pagamentoContent.innerHTML = '';
+if (duvidasContent) duvidasContent.innerHTML = '';  
 if (criarOssContent) criarOssContent.innerHTML = '';
 if (reiniciarContent) reiniciarContent.innerHTML = ''; 
 }
@@ -2014,8 +2015,9 @@ reiniciarContent.innerHTML = `
 `;
 } else {
 reiniciarContent.innerHTML = `
-<div class="textoModalOutros">
+<div class="textoModalOutros" style="justify-content: center;">
 <h4><center>
+    <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
     <p>Conexão reiniciada com sucesso!</p>
     <p><span>Aguarde 2(dois) minutos e verifique sua conexão.</span></p>
     <p>Se o problema persistir, abra um novo chamado.</p>
