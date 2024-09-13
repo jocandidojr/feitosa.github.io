@@ -995,161 +995,165 @@ ul {
 </style> 
     </head>
     <body>
-        <div class="top-navbar" id="top-navbar">
-        </div>
-<!---->
-        <div class="container-atm" id="container-atm">
-
-            <div class="formContainer" id="formContainer">
-                <img src="/assets/logo_vertical_feitosa_white_.png" alt="Logotipo">                
-                <br>
-                <form id="cpfForm">
+        <body>
+            <div class="top-navbar" id="top-navbar">
+            </div>
+    <!---->
+            <div class="container-atm" id="container-atm">
+    
+                <div class="formContainer" id="formContainer">
+                    <img src="/assets/logo_vertical_feitosa_white_.png" alt="Logotipo">                
                     <br>
-                    <h1>Central do Assinante</h1>
+                    <form id="cpfForm">
+                        <br>
+                        <h1>Central do Assinante</h1>
+                        <br>
+                        <div class="inputBox">
+                            <input type="text" id="cpf" name="cpf" class="inputUser" required>
+                            <label for="cpf" class="labelinput">Para entrar, digite o seu CPF ou CNPJ:</label>
+                        </div>
+                        <br>
+                        <br>
+                        <!--<input type="text" id="pass" name="pass" placeholder="******" required>-->
+                        <button type="submit">Entrar na central</button>
+                        <br><br>
+                        <a href="/index.html" class="retorno-site">
+                            <button type="button">Retornar ao site</button>
+                        </a>
+                       
+                    </form>
                     <br>
-                    <div class="inputBox">
-                        <input type="text" id="cpf" name="cpf" class="inputUser" required>
-                        <label for="cpf" class="labelinput">Para entrar, digite o seu CPF ou CNPJ:</label>
+                    <br>
+                    <div id="result">
+                        <!-- O resultado da busca será exibido aqui -->
                     </div>
-                    <br>
-                    <br>
-                    <!--<input type="text" id="pass" name="pass" placeholder="******" required>-->
-                    <button type="submit">Entrar na central</button>
-                    <br><br>
-                    <a href="/index.html" class="retorno-site">
-                        <button type="button">Retornar ao site</button>
-                    </a>
-                   
+                </div>
+    
+                <div class="auto-atendimento" id="auto-atendimento">          
+                    <div id="bemVindo">                
+                        <h1>Serviços disponíveis para você.</h1>
+                        <br>
+                        <button data-page="Contrato">
+                            <img src="/assets/a_contrato_.png" alt="Contrato">
+                        </button>
+                        
+                        <button data-page="Boleto">
+                            <img src="/assets/a_boleto_.png" alt="Boleto">
+                        </button>
+                
+                        <button data-page="desbloqueio">
+                            <img src="/assets/a_desbloqueio_.png" alt="desbloqueio">
+                        </button>
+                        <button data-page="informarPagamento">
+                            <img src="/assets/a_pag_confirm_.png" alt="informarPagamento">
+                        </button>
+                        <button data-page="Oss">
+                            <img src="/assets/a_suporte_.png" alt="Oss">
+                        </button>
+                
+                        <button data-page="criarOss">
+                            <img src="/assets/a_cadastro_.png" alt="criarOss">
+                        </button>
+                
+                        <button data-page="reiniciar">
+                            <img src="/assets/a_desconexao_.png" alt="reiniciar">
+                        </button>
+    
+                        <button data-page="faq-prov" class="faq-button">
+                            <img src="/assets/a_faq_.png" alt="duvidas">
+                        </button>
+        
+                    </div>
+                </div>
+                
+               
+                <!-- Modal -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close"><h3>Fechar &times;</h3></span>
+                        <br>
+                        <div id="boletoContent">
+                            <!-- O conteúdo do boleto será exibido aqui -->                      
+                        </div> 
+                
+                        <div id="contratoContent">
+                            <!-- O conteúdo do contrato será exibido aqui -->
+                        </div>
+                
+                        <div id="ossContent">
+                            <!-- O conteúdo de OSS será exibido aqui -->
+                        </div>
+                
+                        <div id="criarOssContent">
+                            <!-- O conteúdo de criar OSS será exibido aqui -->
+                        </div>
+                        
+                        <div id="desbloqueioContent">
+                            <!-- O conteúdo de desbloqueio será exibido aqui -->
+                        </div>
+                        <div id="pagamentoContent">
+                            <!-- O conteúdo de desbloqueio será exibido aqui -->
+                        </div>
+                        <div id="reiniciarContent">
+                            <!-- O conteúdo de desbloqueio será exibido aqui -->
+                        </div>
+    
+                        <div id="duvidasContent">
+                            <!-- O conteúdo de extrato será exibido aqui -->
+                        </div>
+                    </div>
+                </div>
+            <div id="ossFormContainer" style="display: none;">
+                <form id="ossForm">
+    
+                    <div class="">
+                        <label for="assunto">Primeiro, selecione um assunto:</label>
+                        <select id="assunto" name="assunto" required>
+                            <option value="8">Suporte técnico</option>
+                            <option value="6">Financeiro</option>
+                        </select>
+                    </div>
+            
+                    <div>
+                        <label for="mensagem">Como podemos te ajudar?</label>
+                        <textarea id="mensagem" name="mensagem" placeholder="Descreva como podemos te ajudar" required></textarea>
+                    </div>
+            
+                    <!-- Campos ocultos -->
+                    <input type="hidden" id="id_filial" name="id_filial" class="inputUser" value="1" />
+                    <input type="hidden" id="origem_endereco" name="origem_endereco" class="inputUser" value="M" />
+                    <input type="hidden" id="status" name="status" class="inputUser" value="A" />
+                    <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="1" />
+                    <input type="hidden" id="setor" name="setor" class="inputUser" value="1" />
+                    <input type="hidden" id="tipo" name="tipo" class="inputUser" value="C" />
+            
+                    <button type="submit">Abrir novo chamado</button>
                 </form>
-                <br>
-                <br>
-                <div id="result">
-                    <!-- O resultado da busca será exibido aqui -->
-                </div>
             </div>
-
-            <div class="auto-atendimento" id="auto-atendimento">          
-
-                <div id="bemVindo">                
-                    <h1>Serviços disponíveis para você.</h1>
-                    <br>
-                    <button data-page="Contrato">
-                        <img src="/assets/a_contrato_.png" alt="Contrato">
-                    </button>
-                    
-                    <button data-page="Boleto">
-                        <img src="/assets/a_boleto_.png" alt="Boleto">
-                    </button>
-
-                    <button data-page="desbloqueio">
-                        <img src="/assets/a_desbloqueio_.png" alt="desbloqueio">
-                    </button>
-                    <button data-page="informarPagamento">
-                        <img src="/assets/a_pag_confirm_.png" alt="informarPagamento">
-                    </button>
-                    <button data-page="Oss">
-                        <img src="/assets/a_suporte_.png" alt="Oss">
-                    </button>
-
-                    <button data-page="criarOss">
-                        <img src="/assets/a_cadastro_.png" alt="criarOss">
-                    </button>
-
-                    <button data-page="reiniciar">
-                        <img src="/assets/a_desconexao_.png" alt="reiniciar">
-                    </button>
-
-                    <!--<a href="https://wa.me/5583999999999">
-                    <button data-page="Outros">
-                        <img src="/assets/a_outros_.png" alt="Outros">
-                    </button>
-                    </a>-->
-                </div>
+            <div class="background-dinamico">
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="#0056b3"></circle>
+                </svg>
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <rect x="10" y="10" width="80" height="80" fill="#10107A"></rect>
+                </svg>
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="orange"></circle>
+                </svg>
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <polygon points="50,15 60,85 40,85" fill="#F1D213"></polygon>
+                </svg>
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <rect x="10" y="45" width="80" height="10" fill="#1515A3"></rect>
+                    <rect x="45" y="10" width="10" height="80" fill="#1515A3"></rect>
+                </svg>
+                <svg class="elemento" viewBox="0 0 100 100">
+                    <polygon points="30,10 70,10 50,90" fill="#008FFD"></polygon>
+                </svg>
             </div>
-            
-            <!-- Modal -->
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close"><h3>Fechar &times;</h3></span>
-                    <br>
-                    <div id="boletoContent">
-                        <!-- O conteúdo do boleto será exibido aqui -->                      
-                    </div> 
-            
-                    <div id="contratoContent">
-                        <!-- O conteúdo do contrato será exibido aqui -->
-                    </div>
-            
-                    <div id="ossContent">
-                        <!-- O conteúdo de OSS será exibido aqui -->
-                    </div>
-            
-                    <div id="criarOssContent">
-                        <!-- O conteúdo de criar OSS será exibido aqui -->
-                    </div>
-                    
-                    <div id="desbloqueioContent">
-                        <!-- O conteúdo de desbloqueio será exibido aqui -->
-                    </div>
-                    <div id="pagamentoContent">
-                        <!-- O conteúdo de desbloqueio será exibido aqui -->
-                    </div>
-                    <div id="reiniciarContent">
-                        <!-- O conteúdo de desbloqueio será exibido aqui -->
-                    </div>
-                </div>
-            </div>
-        <div id="ossFormContainer" style="display: none;">
-            <form id="ossForm">
-
-                <div class="">
-                    <label for="assunto">Primeiro, selecione um assunto:</label>
-                    <select id="assunto" name="assunto" required>
-                        <option value="8">Suporte técnico</option>
-                        <option value="6">Financeiro</option>
-                    </select>
-                </div>
-        
-                <div>
-                    <label for="mensagem">Como podemos te ajudar?</label>
-                    <textarea id="mensagem" name="mensagem" placeholder="Descreva como podemos te ajudar" required></textarea>
-                </div>
-        
-                <!-- Campos ocultos -->
-                <input type="hidden" id="id_filial" name="id_filial" class="inputUser" value="1" />
-                <input type="hidden" id="origem_endereco" name="origem_endereco" class="inputUser" value="M" />
-                <input type="hidden" id="status" name="status" class="inputUser" value="A" />
-                <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="1" />
-                <input type="hidden" id="setor" name="setor" class="inputUser" value="1" />
-                <input type="hidden" id="tipo" name="tipo" class="inputUser" value="C" />
-        
-                <button type="submit">Abrir novo chamado</button>
-            </form>
         </div>
-        <div class="background-dinamico">
-            <svg class="elemento" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="#0056b3"></circle>
-            </svg>
-            <svg class="elemento" viewBox="0 0 100 100">
-                <rect x="10" y="10" width="80" height="80" fill="#10107A"></rect>
-            </svg>
-            <svg class="elemento" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="orange"></circle>
-            </svg>
-            <svg class="elemento" viewBox="0 0 100 100">
-                <polygon points="50,15 60,85 40,85" fill="#F1D213"></polygon>
-            </svg>
-            <svg class="elemento" viewBox="0 0 100 100">
-                <rect x="10" y="45" width="80" height="10" fill="#1515A3"></rect>
-                <rect x="45" y="10" width="10" height="80" fill="#1515A3"></rect>
-            </svg>
-            <svg class="elemento" viewBox="0 0 100 100">
-                <polygon points="30,10 70,10 50,90" fill="#008FFD"></polygon>
-            </svg>
-        </div>
-    </div>
-        <script>
-            // Fecha o modal quando o usuário clica no X
+<script>
+// Fecha o modal quando o usuário clica no X
 const span = document.querySelector('.close');
 
 const modal = document.getElementById('myModal'); // Certifique-se de que o ID do modal está correto
@@ -1252,12 +1256,13 @@ const resultDiv = document.getElementById("result");
 
 if (cliente) {
 resultDiv.innerHTML = `<div class="textoProfile">
-<h1>Olá,<br>${cliente.razao}!</h1>
+<h1>Boas vindas,<br>${cliente.razao}!</h1>
 <p><span>Meu endereço de instalação:</span> ${cliente.endereco}</p>
 <p><span>Meu contato:</span> ${cliente.telefone_celular}</p>
 </div>
 <div class="logoutbutton">
 <button id="logoutButton">Sair</button>
+
 </div>`;
 
 // Adiciona o manipulador de evento ao botão de logout
@@ -1308,6 +1313,8 @@ await criarOss();
 await desbloqueio();
 } else if (page === 'informarPagamento') {
 await informarPagamento();
+} else if (page === 'faq-prov') {
+    await duvidas();
 } else if (page === 'reiniciar') {
 await reiniciarConexao();
 }
@@ -1390,7 +1397,7 @@ classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
 
 return `<li class="textoModalBoletos ${classeVencido} ${classePago}">
     <div class="boleto-pix-linha" style="color: #10107A; justify-content: right;">
-        <div style="text-align: right; font-weight: bold;">Clique para boleto ou pix:</div>
+        <div style="text-align: right; font-weight: bold;">Boleto ou pix:</div>
         <div class="boleto-baixar">
             <strong>
                 <a href="${boleto.gateway_link}.pdf" target="_blank">
@@ -1599,27 +1606,42 @@ RAG: 'Reagendar'
 // Gera o HTML para os registros limitados
 ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => {
 const statusDescricao = statusMap[oss.status] || oss.status; // Usa a descrição mapeada ou o status original
-return `<li class="textoModalOutros">
-    <h4><center>
-        <p>
-            <span>Chamado nº:</span> ${oss.id}
-            <span style="margin-left: 40px;">Protocolo:</span>
-            <h2 style="display: inline;">${oss.protocolo}</h2>
-        </p>
-        <h5 style="background: #009245; padding:10px; max-width: 150px; border-radius: 8px;">Status: ${statusDescricao}</h5>
-        <p>Descrição:</p><p>${oss.mensagem}</p>
-        <p>Solução:</p><p>${oss.mensagem_resposta}</p>
-    </center></h4>
-</li>`;
+return `<li class="info-item" style="background-color: #e8e7e7; color: #10107A;">
+    <br>
+    <div class="info-top">
+        <div class="info">
+            <img src="/assets/os_protocolo_.png" alt="Protocolo" class="info-img">
+            <p><strong>Protocolo:</strong> ${oss.protocolo}</p>
+        </div>
+        <div class="info">
+            <img src="/assets/os_tipo_.png" alt="Tipo" class="info-img">
+            <p><strong>Tipo:</strong> ${oss.tipo_descricao}</p>
+        </div>
+    </div>
+    <div class="info-bottom">
+        <div class="info">
+            <img src="/assets/os_detalhes_.png" alt="Detalhes" class="info-img">
+            <p><strong>Detalhes:</strong> ${oss.mensagem}</p>
+        </div>
+        <div class="info">
+            <img src="/assets/os_servico_.png" alt="Serviço realizado" class="info-img">
+            <p><strong>Serviço realizado:</strong> ${oss.mensagem_resposta}</p>
+        </div>
+        <h5 class="status" style="width: 100%; max-width: 500px; text-align: center; background: #009245; padding:10px; border-radius: 8px;">
+            Status: ${statusDescricao}
+        </h5>
+    </div>
+</li>
+`;
 }).join('') + '</ul>';
 } else {
 // Mensagem quando não há OSSs para exibir
-ossContent.innerHTML = `
-<div class="textoModalOutros">
-<h4><center>
-    <p>No momento, não há atendimentos em aberto para você.</p>
-    <p>Se você precisa de ajuda, abra um novo chamado ou fale com a gente através do Whatsapp.</p>
-</center></h4>
+ossContent.innerHTML = `<div class="textoModalOutros">
+    <h4><center>
+        <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
+        <p>No momento, não há atendimentos em aberto para você.</p>
+        <p>Se você precisa de ajuda, abra um novo chamado ou fale com a gente através do Whatsapp.</p>
+    </center></h4>
 </div>
 `;
 }
@@ -1653,35 +1675,37 @@ return;
 
 const criarOssContent = document.getElementById('criarOssContent');
 
-const formHtml = `
-<form id="ossForm">
-<div style="display: none;">
-<input type="hidden" id="tipo" name="tipo" value="C" />
-<input type="hidden" id="id_assunto" name="id_assunto" value="1" />
-<input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
-<input type="hidden" id="id_filial" name="id_filial" value="1" />
-<input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
-<input type="hidden" id="prioridade" name="prioridade" value="1" />
-<input type="hidden" id="setor" name="setor" value="1" />
-<input type="hidden" id="status" name="status" value="A" />
-</div>
+const formHtml = `<form id="ossForm">
+    <div style="display: none;">
+        <input type="hidden" id="tipo" name="tipo" value="C" />
+        <input type="hidden" id="id_assunto" name="id_assunto" value="1" />
+        <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
+        <input type="hidden" id="id_filial" name="id_filial" value="1" />
+        <input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
+        <input type="hidden" id="prioridade" name="prioridade" value="1" />
+        <input type="hidden" id="setor" name="setor" value="1" />
+        <input type="hidden" id="status" name="status" value="A" />
+    </div>
 
-<div>
-<label for="assunto">Sobre qual assunto deseja falar?</label>
-<select id="assunto" name="assunto" required>
-<option value="8">Suporte técnico</option>
-<option value="6">Financeiro</option>
-</select>
-</div>
-
-<div>
-<label for="mensagem">Como podemos te ajudar?</label>
-<textarea id="mensagem" name="mensagem" required></textarea>
-</div>
-
-<button type="submit">Abrir novo chamado</button>
-</form>
-`;
+    <div class="inputBox">
+        <label for="assunto" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
+            Sobre qual assunto deseja falar?
+        </label><br>
+        <select id="assunto" name="assunto" class="inputUser" style="color: #10107A;" required>
+            <option value="8">Suporte técnico</option>
+            <option value="6">Financeiro</option>
+        </select>
+    </div>
+    <div class="inputBox">
+        <label for="mensagem" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
+            Como podemos te ajudar?
+        </label><br>
+        <textarea id="mensagem" name="mensagem" class="inputUser" style="color: #10107A; font-size: 16px;" placeholder="" required></textarea>
+    </div>
+    <button type="submit" style="background-color: #10107A; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+        Abrir novo chamado
+    </button>
+</form>`;
 
 criarOssContent.innerHTML = formHtml;
 document.getElementById('myModal').style.display = 'block';
@@ -1734,6 +1758,7 @@ const contratoContent = document.getElementById('contratoContent');
 const ossContent = document.getElementById('ossContent');
 const desbloqueioContent = document.getElementById('desbloqueioContent');
 const pagamentoContent = document.getElementById('pagamentoContent');
+const duvidasContent = document.getElementById('duvidasContent');
 const criarOssContent = document.getElementById('criarOssContent');
 const reiniciarContent= document.getElementById('reiniciarContent');
 
@@ -2038,7 +2063,101 @@ pagamentoContent.innerHTML = `<div class="textoModalOutros" style="height: 100px
                 </div>`;
 }
 }
-    </script>
+
+// Função para exibir seção de dúvidas
+function duvidas() {
+    // Conteúdo de FAQ
+    const faqContent = `
+    <div class="faq-background" id="faq-background">
+        <div class="FAQ" id="FAQ">
+            <h2>Dúvidas Frequentes (FAQ)</h2>
+            <br>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">Como posso solicitar a instalação do serviço?</div>
+                    <div class="faq-answer">Basta entrar em contato conosco através de nossos canais de atendimento. A instalação é gratuita e será agendada para a data mais conveniente para você.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">A cobertura do serviço está disponível na minha área?</div>
+                    <div class="faq-answer">Oferecemos cobertura em diversas regiões. Para verificar se o serviço está disponível na sua área, entre em contato com nossa equipe ou consulte o mapa de cobertura em nosso site.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">O suporte técnico é gratuito?</div>
+                    <div class="faq-answer">Sim, oferecemos suporte técnico gratuito para todos os nossos clientes. Nossa equipe está disponível 24 horas por dia para ajudar a resolver quaisquer problemas.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Estou sem conexão, o que posso fazer?</div>
+                    <div class="faq-answer">
+                        Se você estiver sem conexão, siga os passos abaixo:
+                        <ul><br>
+                            <p><b>1.</b> Verifique se todos os cabos estão conectados corretamente.</p>
+                            <p><b>2.</b> Reinicie seu roteador desligando-o por 10 segundos e ligando-o novamente.</p>
+                            <p><b>3.</b> Certifique-se de que sua conta está em dia.</p>
+                            <p><b>4.</b> Se o problema persistir, entre em contato com nosso suporte técnico.</p>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Como posso melhorar a qualidade da minha conexão?</div>
+                    <div class="faq-answer">
+                        Para melhorar a qualidade da conexão, siga estas dicas:
+                        <ul><br>
+                            <p><b>1.</b> Posicione o roteador em uma área central da casa, longe de obstáculos.</p>
+                            <p><b>2.</b> Evite o uso de micro-ondas e telefones sem fio próximos ao roteador.</p>
+                            <p><b>3.</b> Verifique se o firmware do roteador está atualizado.</p>
+                            <p><b>4.</b> Limite o número de dispositivos conectados simultaneamente.</p>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Posso mudar de plano após a instalação?</div>
+                    <div class="faq-answer">Sim, você pode mudar de plano a qualquer momento. Basta entrar em contato com nossa equipe para fazer a alteração desejada.</div>
+                </div>
+            </div>
+            <br>
+            <h3>Se ainda precisar de ajuda, fale com nosso time.</h3>
+        </div>
+    </div>`;
+
+    // Insere o conteúdo de FAQ no modal
+    document.getElementById('duvidasContent').innerHTML = faqContent;
+
+    // Exibe o modal
+    const modal = document.getElementById('myModal');
+    modal.style.display = 'block';
+
+    // Adiciona comportamento para alternar a visibilidade das respostas
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function () {
+            // Fecha todas as respostas
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            allAnswers.forEach(answer => {
+                answer.style.display = 'none';
+            });
+
+            // Remove classe 'active' de todos os itens
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Alterna a exibição da resposta correspondente
+            const parentItem = this.parentElement;
+            const answer = parentItem.querySelector('.faq-answer');
+
+            // Exibe a resposta da pergunta clicada
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';  // Se já estiver visível, oculta
+                parentItem.classList.remove('active');
+            } else {
+                answer.style.display = 'block'; // Caso contrário, exibe
+                parentItem.classList.add('active');
+            }
+        });
+    });
+}
+</script>
         <div class="up-button">
             <a href="https://wa.me/5583999999999">
             <img src="./assets/atm_ico_.png" alt="Volte ao topo">
