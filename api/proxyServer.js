@@ -127,9 +127,9 @@ app.post('/api/proxy/oss', async (req, res) => {
 
 // Rota para criar OSS
 app.post('/api/proxy/criar-oss', async (req, res) => {
-  const { clienteId, tipo, id_assunto, id_filial, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+  const { clienteId, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
-  if (!clienteId || !tipo || !id_assunto || !id_filial || !origem_endereco || !prioridade || !setor || !status) {
+  if (!clienteId || !tipo || !id_assunto || !id_filial || id_atendente || !origem_endereco || !prioridade || !setor || !status) {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
