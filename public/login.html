@@ -1762,7 +1762,6 @@ async function criarOss() {
     const formHtml = `<form id="ossForm">
       <div style="display: none;">
           <input type="hidden" id="tipo" name="tipo" value="C" />
-          <input type="hidden" id="id_assunto" name="id_assunto" value="1" />
           <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
           <input type="hidden" id="id_filial" name="id_filial" value="1" />
           <input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
@@ -1775,7 +1774,7 @@ async function criarOss() {
           <label for="assunto" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
               Sobre qual assunto deseja falar?
           </label><br>
-          <select id="assunto" name="assunto" class="inputUser" style="color: #10107A;" required>
+          <select id="id_assunto" name="id_assunto" class="inputUser" style="color: #10107A;" required>
               <option value="8">Suporte técnico</option>
               <option value="6">Financeiro</option>
           </select>
@@ -1818,7 +1817,7 @@ async function criarOss() {
         status: formObject.status
       };
 
-      const response = await fetch('http://localhost:3000/api/proxy/criar-oss', {
+      const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/criar-oss', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
