@@ -1206,7 +1206,7 @@ h3 {
                 <input type="hidden" id="id_filial" name="id_filial" class="inputUser" value="1" />
                 <input type="hidden" id="origem_endereco" name="origem_endereco" class="inputUser" value="M" />
                 <input type="hidden" id="status" name="status" class="inputUser" value="A" />
-                <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="1" />
+                <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="p" />
                 <input type="hidden" id="setor" name="setor" class="inputUser" value="1" />
                 <input type="hidden" id="tipo" name="tipo" class="inputUser" value="C" />
         
@@ -1634,6 +1634,8 @@ console.error("Erro ao buscar contratos:", error.message);
 }
 }
 
+
+
 // Função para buscar OSs
 async function buscarOss() {
 try {
@@ -1743,92 +1745,109 @@ console.error("Erro ao buscar OSS:", error.message);
 }
 }
 
-// Função para Criar Oss
+
+//ROTA PARA CRIAR OSS
 async function criarOss() {
-try {
-console.log("Exibindo o formulário de OSS...");
+  try {
+    console.log("Exibindo o formulário de OSS...");
 
-const clienteId = localStorage.getItem('clienteId');
-if (!clienteId) {
-console.error('Cliente com o id não encontrado');
-return;
-}
+    const clienteId = localStorage.getItem('clienteId');
+    if (!clienteId) {
+      console.error('Cliente com o id não encontrado');
+      return;
+    }
 
-const criarOssContent = document.getElementById('criarOssContent');
+    const criarOssContent = document.getElementById('criarOssContent');
 
-const formHtml = `<form id="ossForm">
-<div style="display: none;">
-    <input type="hidden" id="tipo" name="tipo" value="C" />
-    <input type="hidden" id="id_assunto" name="id_assunto" value="1" />
-    <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
-    <input type="hidden" id="id_filial" name="id_filial" value="1" />
-    <input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
-    <input type="hidden" id="prioridade" name="prioridade" value="1" />
-    <input type="hidden" id="setor" name="setor" value="1" />
-    <input type="hidden" id="status" name="status" value="A" />
-</div>
+    const formHtml = `<form id="ossForm">
+      <div style="display: none;">
+          <input type="hidden" id="tipo" name="tipo" value="C" />
+          <input type="hidden" id="id_assunto" name="id_assunto" value="1" />
+          <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
+          <input type="hidden" id="id_filial" name="id_filial" value="1" />
+          <input type="hidden" id="origem_endereco" name="origem_endereco" value="M" />
+          <input type="hidden" id="prioridade" name="prioridade" value="N" /> <!-- Ajuste o valor para "N" se for esperado -->
+          <input type="hidden" id="setor" name="setor" value="1" />
+          <input type="hidden" id="status" name="status" value="A" />
+      </div>
 
-<div class="inputBox">
-    <label for="assunto" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
-        Sobre qual assunto deseja falar?
-    </label><br>
-    <select id="assunto" name="assunto" class="inputUser" style="color: #10107A;" required>
-        <option value="8">Suporte técnico</option>
-        <option value="6">Financeiro</option>
-    </select>
-</div>
-<div class="inputBox">
-    <label for="mensagem" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
-        Como podemos te ajudar?
-    </label><br>
-    <textarea id="mensagem" name="mensagem" class="inputUser" style="color: #10107A; font-size: 16px;" placeholder="" required></textarea>
-</div>
-<button type="submit" style="background-color: #10107A; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-    Abrir novo chamado
-</button>
-</form>`;
+      <div class="inputBox">
+          <label for="assunto" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
+              Sobre qual assunto deseja falar?
+          </label><br>
+          <select id="assunto" name="assunto" class="inputUser" style="color: #10107A;" required>
+              <option value="8">Suporte técnico</option>
+              <option value="6">Financeiro</option>
+          </select>
+      </div>
+      <div class="inputBox">
+          <label for="mensagem" class="labelinput" style="text-align: center; color: #10107A; font-size: 16px; padding: 10px; font-weight: bold;">
+              Como podemos te ajudar?
+          </label><br>
+          <textarea id="mensagem" name="mensagem" class="inputUser" style="color: #10107A; font-size: 16px;" placeholder="" required></textarea>
+      </div>
+      <button type="submit" style="background-color: #10107A; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+          Abrir novo chamado
+      </button>
+    </form>`;
 
-criarOssContent.innerHTML = formHtml;
-document.getElementById('myModal').style.display = 'block';
+    criarOssContent.innerHTML = formHtml;
+    document.getElementById('myModal').style.display = 'block';
 
-document.getElementById('ossForm').addEventListener('submit', async function(event) {
-event.preventDefault();
+    document.getElementById('ossForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
 
-console.log("Fazendo requisição para o servidor proxy...");
+      console.log("Fazendo requisição para o servidor proxy...");
 
-const formData = new FormData(event.target);
-const formObject = Object.fromEntries(formData.entries());
+      const formData = new FormData(event.target);
+      const formObject = Object.fromEntries(formData.entries());
 
-const response = await fetch('https://feitosa-github-io.vercel.app/api/proxy/criar-oss', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-},
-body: JSON.stringify(formObject)
-});
+      // Adicionar log para verificar os dados antes de enviá-los
+      console.log("Dados enviados:", formObject);
 
-if (!response.ok) {
-const errorText = await response.text();
-console.error("Erro na requisição:", errorText);
-throw new Error("Erro na requisição");
-}
+      // Mapear e ajustar os dados conforme esperado pelo backend
+      const payload = {
+        tipo: formObject.tipo,
+        id_assunto: formObject.assunto, // Mapeia para id_assunto no backend
+        id_cliente: formObject.id_cliente,
+        id_filial: formObject.id_filial,
+        origem_endereco: formObject.origem_endereco,
+        prioridade: formObject.prioridade === 'P' ? 'N' : formObject.prioridade, // Ajuste aqui se necessário
+        setor: formObject.setor,
+        mensagem: formObject.mensagem,
+        status: formObject.status
+      };
 
-const data = await response.json();
-console.log("Resposta do servidor:", data);
+      const response = await fetch('http://localhost:3000/api/proxy/criar-oss', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
 
-let resultHtml = '';
-if (data.success) {
-resultHtml = `<p>OSS criada com sucesso!</p>`;
-} else {
-resultHtml = `<p>Erro ao criar OSS: ${data.message}</p>`;
-}
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Erro na requisição:", errorText);
+        throw new Error("Erro na requisição");
+      }
 
-criarOssContent.innerHTML = resultHtml;
-});
+      const data = await response.json();
+      console.log("Resposta do servidor:", data);
 
-} catch (error) {
-console.error("Erro ao abrir OSS:", error.message);
-}
+      let resultHtml = '';
+      if (data.success) {
+        resultHtml = `<p>OSS criada com sucesso!</p>`;
+      } else {
+        resultHtml = `<p>Erro ao criar OSS: ${data.message}</p>`;
+      }
+
+      criarOssContent.innerHTML = resultHtml;
+    });
+
+  } catch (error) {
+    console.error("Erro ao abrir OSS:", error.message);
+  }
 }
 
 

@@ -83,7 +83,7 @@ app.post('/api/proxy/contratos', async (req, res) => {
   }
 });
 
-// Rota para criar OSS
+// Rota para buscar OSS
 app.post('/api/proxy/oss', async (req, res) => {
   const { clienteId } = req.body;
 
@@ -212,6 +212,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
+
 
 // Rota para buscar dados de contrato do cliente
 app.get('/proxy/cliente-contrato', async (req, res) => {
