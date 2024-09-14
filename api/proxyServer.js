@@ -160,6 +160,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
         status,
         gera_comissao: "",
         liberado: "",
+        id_atendente: "1", // Valor obrigatório
         impresso: "",
         preview: "",
         id_wfl_param_os: "",
@@ -212,7 +213,6 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
   }
 });
-
 
 // Rota para buscar dados de contrato do cliente
 app.get('/proxy/cliente-contrato', async (req, res) => {
