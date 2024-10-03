@@ -139,12 +139,22 @@ app.post('/api/proxy/oss', async (req, res) => {
   }
 });
 
-// Rota para criar OSS
 app.post('/api/proxy/criar-oss', async (req, res) => {
-  const { id_cliente, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+  const {
+    id_cliente,
+    tipo,
+    id_assunto,
+    id_filial,
+    id_atendente,
+    origem_endereco,
+    prioridade,
+    setor,
+    mensagem,
+    status
+  } = req.body;
 
-  // Corrigido a verificação dos campos obrigatórios
-  if (!id_cliente || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !status) {
+  // Verificação dos campos obrigatórios
+  if (!id_cliente || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !status || !mensagem) {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
@@ -176,7 +186,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
         status,
         gera_comissao: "",
         liberado: "",
-        id_atendente: "1", // Valor obrigatório
+        id_atendente, // Agora pega o valor do body
         impresso: "",
         preview: "",
         id_wfl_param_os: "",
