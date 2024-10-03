@@ -141,14 +141,16 @@ app.post('/api/proxy/oss', async (req, res) => {
 
 // Rota para criar OSS
 app.post('/api/proxy/criar-oss', async (req, res) => {
-  const { clienteId, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+  const { id_cliente, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
-  if (!clienteId || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !status) {
+  // Corrigido a verificação dos campos obrigatórios
+  if (!id_cliente || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !status) {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
   try {
     console.log('Criando OSS para o Cliente...');
+
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
       {
@@ -156,7 +158,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
         id_ticket: "",
         protocolo: "",
         id_assunto,
-        id_cliente: clienteId,
+        id_cliente,
         id_estrutura: "",
         id_filial,
         id_login: "",
