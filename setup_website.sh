@@ -1,7 +1,24 @@
 #!/bin/bash
 
+# Função para buscar o IP local automaticamente
+obter_ip_local() {
+    hostname -I | awk '{print $1}'  # Obtém o primeiro IP da interface de rede
+}
+
+# Pergunta ao usuário se deseja inserir o IP manualmente
+echo "Deseja inserir o IP manualmente? (s/n)"
+read resposta
+
+if [ "$resposta" == "s" ] || [ "$resposta" == "S" ]; then
+    echo "Por favor, insira o IP do servidor:"
+    read IP_LOCAL
+else
+    # Se não, busca o IP local automaticamente
+    IP_LOCAL=$(obter_ip_local)
+    echo "IP local detectado: $IP_LOCAL"
+fi
+
 # Variáveis
-IP_LOCAL="172.30.121.211"  # Defina o IP local aqui ou peça como entrada
 PASTA_ROOT="/root/website"
 NGINX_CONF="/etc/nginx/sites-available/default"
 HTML_DIR="/var/www/html"
