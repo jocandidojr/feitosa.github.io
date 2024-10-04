@@ -1204,9 +1204,10 @@ h3 {
         
                 <!-- Campos ocultos -->
                 <input type="hidden" id="id_filial" name="id_filial" class="inputUser" value="1" />
+                <input type="hidden" id="id_atendente" name="id_atendente" value="1" />
                 <input type="hidden" id="origem_endereco" name="origem_endereco" class="inputUser" value="M" />
                 <input type="hidden" id="status" name="status" class="inputUser" value="A" />
-                <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="p" />
+                <input type="hidden" id="prioridade" name="prioridade" class="inputUser" value="N" />
                 <input type="hidden" id="setor" name="setor" class="inputUser" value="1" />
                 <input type="hidden" id="tipo" name="tipo" class="inputUser" value="C" />
         
@@ -1810,12 +1811,15 @@ async function criarOss() {
         id_assunto: formObject.id_assunto,
         id_cliente: formObject.id_cliente,
         id_filial: formObject.id_filial,
-        origem_endereco: formObject.orig_n_endereco,
+        origem_endereco: formObject.origem_endereco,
         prioridade: formObject.prioridade,
         setor: formObject.setor,
         mensagem: formObject.mensagem,
-        status: formObject.status
+        status: formObject.status,
+        id_atendente: '1'
       };
+
+      console.log("Payload que está sendo enviado:", JSON.stringify(payload));
 
       try {
         const response = await fetch('http://localhost:3000/api/proxy/criar-oss', {
@@ -1836,16 +1840,34 @@ async function criarOss() {
         console.log("Resposta do servidor:", data);
 
         let resultHtml = '';
-        if (data.success) {
-          resultHtml = `<p>OSS criada com sucesso!</p>`;
+        if (data.type === 'success') {
+          resultHtml = `
+            <div class="textoModalOutros" style="justify-content: center;">
+              <h4><center>
+                <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
+                <p>Seu atendimento foi registrado sob o código ${data.id}. Nosso time retornará o contato em até 24h.</p>
+                </center></h4>
+            </div>`;
         } else {
-          resultHtml = `<p>Erro ao criar OSS: ${data.message}</p>`;
+          resultHtml = `
+            <div class="textoModalOutros" style="justify-content: center;">
+              <h4><center>
+                <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
+                <p>Não foi possível registrar seu atendimento: ${data.message || data.error} Solicite ajuda através dos nossos canais.</p>
+                </center></h4>
+            </div>`;
         }
 
         criarOssContent.innerHTML = resultHtml;
       } catch (error) {
         console.error("Erro ao criar OSS:", error.message);
-        criarOssContent.innerHTML = `<p>Erro ao criar OSS: ${error.message}</p>`;
+        criarOssContent.innerHTML = `
+          <div class="textoModalOutros" style="justify-content: center;">
+            <h4><center>
+              <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
+              <p>Não foi possível registrar seu atendimento: ${error.message}. Solicite ajuda através dos nossos canais.</p>
+              </center></h4>
+          </div>`;
       }
     });
 
@@ -1853,7 +1875,6 @@ async function criarOss() {
     console.error("Erro ao abrir OSS:", error.message);
   }
 }
-
 
 // Função para limpar o conteúdo do modal
 function limparModal() {

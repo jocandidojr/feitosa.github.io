@@ -134,92 +134,56 @@ app.post('/api/proxy/oss', async (req, res) => {
   }
 });
 
-// Rota para criar OSS
+// Rota para criar OS
 app.post('/api/proxy/criar-oss', async (req, res) => {
-  const { clienteId, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+  console.log('Recebendo requisição para criar OSS...'); // Log de entrada
 
-  if (!clienteId || !tipo || !id_assunto || !id_filial || id_atendente || !origem_endereco || !prioridade || !setor || !status) {
+  const { id_cliente, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
+
+  // Log dos dados recebidos
+  console.log('Dados recebidos:', req.body);
+
+  // Verifica se os dados obrigatórios estão presentes
+  if (!id_cliente || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !mensagem || !status) {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
-  try {
-    console.log('Criando OSS para o Cliente...');
-    const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
-      {
-        tipo,
-        id_ticket: "",
-        protocolo: "",
-        id_assunto,
-        id_cliente: clienteId,
-        id_estrutura: "",
-        id_filial,
-        id_login: "",
-        id_contrato_kit: "",
-        origem_endereco,
-        origem_endereco_estrutura: "",
-        latitude: "",
-        longitude: "",
-        prioridade,
-        melhor_horario_agenda: "",
-        setor,
-        id_tecnico: "",
-        mensagem,
-        idx: "",
-        status,
-        gera_comissao: "",
-        liberado: "",
-        id_atendente: "1", // Valor obrigatório
-        impresso: "",
-        preview: "",
-        id_wfl_param_os: "",
-        id_wfl_tarefa: "",
-        id_su_diagnostico: "",
-        regiao_manutencao: "",
-        origem_cadastro: "",
-        origem_change_endereco: "",
-        status_sla: "",
-        ultima_atualizacao: "",
-        id_cidade: "",
-        bairro: "",
-        endereco: "",
-        complemento: "",
-        referencia: "",
-        id_condominio: "",
-        bloco: "",
-        apartamento: "",
-        data_abertura: "",
-        data_inicio: "",
-        data_hora_analise: "",
-        data_agenda: "",
-        data_agenda_final: "",
-        data_hora_encaminhado: "",
-        data_hora_assumido: "",
-        data_hora_execucao: "",
-        data_final: "",
-        data_fechamento: "",
-        data_prazo_limite: "",
-        data_reservada: "",
-        data_reagendar: "",
-        data_prev_final: "",
-        mensagem_resposta: "",
-        justificativa_sla_atrasado: "",
-        valor_unit_comissao: "",
-        valor_total_comissao: ""
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "inserir",
-        }
-      }
-    );
+  // Define as opções para a requisição
+  const options = {
+    method: 'POST',
+    url: 'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
+    headers: {
+      'Content-Type': 'application/json',
+      'ixcsoft': 'inserir', // Incluindo o cabeçalho necessário
+      Authorization: 'Basic ' + Buffer.from(token).toString('base64'), // Usa o token aqui
+    },
+    data: {
+      tipo: tipo,
+      id_cliente: id_cliente, // Use id_cliente aqui
+      id_assunto: id_assunto,
+      id_filial: id_filial,
+      id_atendente: id_atendente,
+      origem_endereco: origem_endereco,
+      prioridade: prioridade,
+      setor: setor,
+      mensagem: mensagem,
+      status: status,
+    },
+  };
 
-    res.json(response.data);
+  try {
+    const response = await axios(options);
+    console.log('Resposta da API:', response.data); // Loga a resposta da API
+    res.json(response.data); // Retorna a resposta para o frontend
   } catch (error) {
-    console.error('Erro ao criar OSS:', error.message);
-    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de OSS" });
+    console.error("Erro ao criar OSS:", error.message);
+    
+    if (error.response) {
+      console.error("Detalhes do erro:", error.response.data);
+      res.status(error.response.status).json(error.response.data);
+    } else {
+      res.status(500).json({ error: "Erro ao conectar com a API de criação de OSS" });
+    }
   }
 });
 
