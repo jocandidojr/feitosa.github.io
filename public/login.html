@@ -1767,10 +1767,11 @@ async function criarOss() {
     const criarOssContent = document.getElementById('criarOssContent');
 
     const formHtml = `<form id="ossForm">
-      <div style="font-weight: bold; background-color: #2c66c5; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-          <p>Mudou de número?</p>
+      <div style="font-weight: bold; background-color: #2c66c5; color: #ffffff; padding: 10px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+          <p style="font-size:25px">Mudou de número?</p>
           <p>Adicione na descrição. </p>
       </div>
+      <br>
       <div style="display: none;">
           <input type="hidden" id="tipo" name="tipo" value="C" />
           <input type="hidden" id="id_cliente" name="id_cliente" value="${clienteId}" />
