@@ -1,4 +1,4 @@
-require('dotenv').config(); // Corrigido para carregar as variáveis de ambiente
+require('dotenv').config();
 
 const express = require('express');
 const axios = require('axios');
@@ -13,31 +13,26 @@ app.use(express.json());
 
 // Rota para buscar clientes
 app.post('/api/proxy/cliente', async (req, res) => {
+  console.log('Requisição recebida para /api/proxy/cliente:', req.body); // Log do corpo da requisição
   try {
-    console.log('Requisição recebida:', req.body); // Adicione logs para depuração
-    
-    // Verifique se req.body está correto
-    if (!req.body) {
-      return res.status(400).json({ error: 'Corpo da requisição não pode estar vazio.' });
-    }
-
     const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${Buffer.from(token).toString('base64')}`, // Verifique se 'token' está definido
+        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
         ixcsoft: "listar",
       }
     });
 
+    console.log("Resposta da API:", response.data); // Log da resposta da API
     res.json(response.data);
   } catch (error) {
-    console.error("Erro ao buscar clientes:", error.message); // Log detalhado
-    
-    // Para debugar melhor, adicione mais informações sobre o erro
+    console.error("Erro ao buscar clientes:", error.message);
+
     if (error.response) {
       console.error("Detalhes do erro:", error.response.data);
       res.status(error.response.status).json(error.response.data);
     } else {
+      console.error("Erro genérico:", error);
       res.status(500).json({ error: "Erro ao conectar com a API de Clientes" });
     }
   }

@@ -1287,48 +1287,49 @@ openFormButton.style.display = 'none';
 
 // Função para buscar dados do cliente e validar login
 async function buscarClientes(cpf) {
-try {
-console.log("Fazendo requisição para o servidor proxy...");
+  try {
+    console.log("Fazendo requisição para o servidor proxy...");
 
-const response = await fetch('http://localhost:3000/api/proxy/cliente', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-},
-body: JSON.stringify({
-qtype: "cnpj_cpf",
-query: cpf,
-oper: "=",
-page: "1",
-rp: "20",
-sortname: "cliente.id",
-sortorder: "desc",
-})
-});
+    const response = await fetch('http://localhost:3000/api/proxy/cliente', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        qtype: "cnpj_cpf",
+        query: cpf,
+        oper: "=",
+        page: "1",
+        rp: "20",
+        sortname: "cliente.id",
+        sortorder: "desc",
+      }),
+    });
 
-if (!response.ok) {
-throw new Error("Erro na requisição");
-}
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Erro na requisição: ${errorData.message || "Erro desconhecido"}`);
+    }
 
-const data = await response.json();
-const cliente = data.registros ? data.registros[0] : null;
-const clienteId = cliente ? cliente.id : null;
+    const data = await response.json();
+    const cliente = data.registros ? data.registros[0] : null;
+    const clienteId = cliente ? cliente.id : null;
 
-if (clienteId) {
-localStorage.setItem("clienteId", clienteId);
+    if (clienteId) {
+      localStorage.setItem("clienteId", clienteId);
 
-// Mostra a div auto-atendimento
-autoAtendimento.style.display = 'flex';
-// Oculta o formulário após validação
-cpfForm.style.display = 'none';
-exibirResultado(cliente);
-} else {
-exibirResultado(null);
-}
-} catch (error) {
-console.error("Erro ao buscar clientes:", error.message);
-exibirErro("Erro ao buscar cliente.");
-}
+      // Mostra a div auto-atendimento
+      autoAtendimento.style.display = 'flex';
+      // Oculta o formulário após validação
+      cpfForm.style.display = 'none';
+      exibirResultado(cliente);
+    } else {
+      exibirResultado(null);
+    }
+  } catch (error) {
+    console.error("Erro ao buscar clientes:", error.message);
+    exibirErro("Erro ao buscar cliente.");
+  }
 }
 
 // Função para exibir o resultado da busca
@@ -1805,18 +1806,16 @@ async function criarOss() {
       console.log("Dados enviados:", formObject);
 
       const payload = {
-            tipo: formObject.tipo,
-            id_assunto: formObject.id_assunto,
-            id_cliente: formObject.id_cliente,
-            id_filial: formObject.id_filial,
-            origem_endereco: formObject.origem_endereco,
-            prioridade: formObject.prioridade,
-            setor: formObject.setor,
-            mensagem: formObject.mensagem,
-            status: formObject.status,
-            id_atendente: formObject.id_atendente // Adiciona este campo ao payload
-            };
-
+        tipo: formObject.tipo,
+        id_assunto: formObject.id_assunto,
+        id_cliente: formObject.id_cliente,
+        id_filial: formObject.id_filial,
+        origem_endereco: formObject.orig_n_endereco,
+        prioridade: formObject.prioridade,
+        setor: formObject.setor,
+        mensagem: formObject.mensagem,
+        status: formObject.status
+      };
 
       try {
         const response = await fetch('http://localhost:3000/api/proxy/criar-oss', {
