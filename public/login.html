@@ -1480,7 +1480,7 @@ classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
 
 return `<li class="textoModalBoletos ${classeVencido} ${classePago}">
 <div class="boleto-pix-linha" style="color: #10107A; justify-content: center;">
-    <div style="text-align: right; font-weight: bold;">Boleto ou pix:</div>
+    <div style="text-align: right; font-weight: bold;"></div>
     <div class="boleto-baixar">
         <strong>
             <a href="${boleto.gateway_link}.pdf" target="_blank">
@@ -1865,7 +1865,7 @@ async function criarOss() {
           <div class="textoModalOutros" style="justify-content: center;">
             <h4><center>
               <img src="/assets/a_atencao_.png" alt="Ícone de ajuda" class="ajuda-img" style="margin-bottom: 10px;">
-              <p>Não foi possível registrar seu atendimento: ${error.message}. Solicite ajuda através dos nossos canais.</p>
+              <p>Não foi possível registrar seu atendimento. Solicite ajuda através dos nossos canais.</p>
               </center></h4>
           </div>`;
       }
