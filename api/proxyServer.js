@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' }); // Carregar variáveis de ambiente
+require('dotenv').config(); // Corrigido para carregar as variáveis de ambiente
 
 const express = require('express');
 const axios = require('axios');
@@ -139,28 +139,16 @@ app.post('/api/proxy/oss', async (req, res) => {
   }
 });
 
+// Rota para criar OSS
 app.post('/api/proxy/criar-oss', async (req, res) => {
-  const {
-    id_cliente,
-    tipo,
-    id_assunto,
-    id_filial,
-    id_atendente,
-    origem_endereco,
-    prioridade,
-    setor,
-    mensagem,
-    status
-  } = req.body;
+  const { clienteId, tipo, id_assunto, id_filial, id_atendente, origem_endereco, prioridade, setor, mensagem, status } = req.body;
 
-  // Verificação dos campos obrigatórios
-  if (!id_cliente || !tipo || !id_assunto || !id_filial || !id_atendente || !origem_endereco || !prioridade || !setor || !status || !mensagem) {
+  if (!clienteId || !tipo || !id_assunto || !id_filial || id_atendente || !origem_endereco || !prioridade || !setor || !status) {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
   try {
     console.log('Criando OSS para o Cliente...');
-
     const response = await axios.post(
       'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
       {
@@ -168,7 +156,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
         id_ticket: "",
         protocolo: "",
         id_assunto,
-        id_cliente,
+        id_cliente: clienteId,
         id_estrutura: "",
         id_filial,
         id_login: "",
@@ -186,7 +174,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
         status,
         gera_comissao: "",
         liberado: "",
-        id_atendente, // Agora pega o valor do body
+        id_atendente: "1", // Valor obrigatório
         impresso: "",
         preview: "",
         id_wfl_param_os: "",

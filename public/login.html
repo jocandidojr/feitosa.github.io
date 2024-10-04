@@ -1285,54 +1285,50 @@ openFormButton.style.display = 'none';
 });
 }
 
+// Função para buscar dados do cliente e validar login
 async function buscarClientes(cpf) {
-    try {
-        console.log("Fazendo requisição para o servidor proxy...");
+try {
+console.log("Fazendo requisição para o servidor proxy...");
 
-        const response = await fetch('http://localhost:3000/api/proxy/cliente', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                qtype: "cnpj_cpf",
-                query: cpf,
-                oper: "=",
-                page: "1",
-                rp: "20",
-                sortname: "cliente.id",
-                sortorder: "desc",
-            })
-        });
+const response = await fetch('http://localhost:3000/api/proxy/cliente', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+qtype: "cnpj_cpf",
+query: cpf,
+oper: "=",
+page: "1",
+rp: "20",
+sortname: "cliente.id",
+sortorder: "desc",
+})
+});
 
-        if (!response.ok) {
-            throw new Error("Erro na requisição");
-        }
+if (!response.ok) {
+throw new Error("Erro na requisição");
+}
 
-        const data = await response.json();
+const data = await response.json();
+const cliente = data.registros ? data.registros[0] : null;
+const clienteId = cliente ? cliente.id : null;
 
-        // Verifica se o objeto data contém registros e se registros é um array
-        const cliente = data && Array.isArray(data.registros) && data.registros.length > 0
-            ? data.registros[0]
-            : null;
+if (clienteId) {
+localStorage.setItem("clienteId", clienteId);
 
-        const clienteId = cliente ? cliente.id : null;
-
-        if (clienteId) {
-            localStorage.setItem("clienteId", clienteId);
-
-            // Mostra a div auto-atendimento
-            autoAtendimento.style.display = 'flex';
-            // Oculta o formulário após validação
-            cpfForm.style.display = 'none';
-            exibirResultado(cliente);
-        } else {
-            exibirResultado(null); // Exibe mensagem caso cliente não seja encontrado
-        }
-    } catch (error) {
-        console.error("Erro ao buscar clientes:", error.message);
-        exibirErro("Erro ao buscar cliente.");
-    }
+// Mostra a div auto-atendimento
+autoAtendimento.style.display = 'flex';
+// Oculta o formulário após validação
+cpfForm.style.display = 'none';
+exibirResultado(cliente);
+} else {
+exibirResultado(null);
+}
+} catch (error) {
+console.error("Erro ao buscar clientes:", error.message);
+exibirErro("Erro ao buscar cliente.");
+}
 }
 
 // Função para exibir o resultado da busca
