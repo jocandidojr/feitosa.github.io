@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '/root/website/.env' });
 
 const express = require('express');
 const axios = require('axios');
