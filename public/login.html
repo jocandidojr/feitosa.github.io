@@ -1669,10 +1669,10 @@ const ossContent = document.getElementById('ossContent');
 
 if (data && data.length > 0) {
 // Filtra OSS com status diferente de "F"
-const ossFiltradas = data.filter(oss => oss.status !== 'F');
+const ossFiltradas = data.filter(oss => oss.status !== 'FG');
 
 // Limita o número de registros a 5
-const resultadosLimitados = ossFiltradas.slice(0, 5);
+const resultadosLimitados = ossFiltradas.slice(0, 3);
 
 if (resultadosLimitados.length > 0) {
 // Mapeamento de status para descrição
@@ -1691,32 +1691,35 @@ RAG: 'Reagendar'
 // Gera o HTML para os registros limitados
 ossContent.innerHTML = '<ul>' + resultadosLimitados.map(oss => {
 const statusDescricao = statusMap[oss.status] || oss.status; // Usa a descrição mapeada ou o status original
-return `<li class="info-item" style="background-color: #e8e7e7; color: #10107A;">
-<br>
-<div class="info-top">
-    <div class="info">
-        <img src="/assets/os_protocolo_.png" alt="Protocolo" class="info-img">
-        <p><strong>Protocolo:</strong> ${oss.protocolo}</p>
+return `<li class="info-item" style="background-color: #e8e7e7; color: #10107A; width: 100%; box-sizing: border-box;">
+    <br>
+    <div class="info-top" style="display: flex; justify-content: space-between; width: 100%; box-sizing: border-box;">
+        <div class="info" style="flex: 1; text-align: center;">
+            <img src="/assets/os_protocolo_.png" alt="Protocolo" class="info-img">
+            <p><strong>Protocolo:</strong> ${oss.id} ${oss.protocolo}</p>
+        </div>
+        <div class="info" style="flex: 1; text-align: center;">
+            <img src="/assets/os_tipo_.png" alt="Tipo" class="info-img">
+            <p><strong>Tipo:</strong> ${oss.tipo}</p>
+        </div>
     </div>
-    <div class="info">
-        <img src="/assets/os_tipo_.png" alt="Tipo" class="info-img">
-        <p><strong>Tipo:</strong> ${oss.tipo_descricao}</p>
+    <div class="info-bottom" style="display: flex; justify-content: space-between; width: 100%; box-sizing: border-box; margin-top: 10px;">
+        <div class="info" style="flex: 1; text-align: center;">
+            <img src="/assets/os_detalhes_.png" alt="Detalhes" class="info-img">
+            <p><strong>Detalhes:</strong> ${oss.mensagem}</p>
+        </div>
+        <div class="info" style="flex: 1; text-align: center;">
+            <img src="/assets/os_servico_.png" alt="Serviço realizado" class="info-img">
+            <p><strong>Serviço realizado:</strong> ${oss.mensagem_resposta}</p>
+        </div>
     </div>
-</div>
-<div class="info-bottom">
-    <div class="info">
-        <img src="/assets/os_detalhes_.png" alt="Detalhes" class="info-img">
-        <p><strong>Detalhes:</strong> ${oss.mensagem}</p>
+    <div class="status" style="width: 100%; max-width: 500px; box-sizing: border-box; text-align: center; background-color: #009245; padding: 10px; border-radius: 8px; margin-top: 10px;">
+        <h5 style="color: white; margin: 0; display: inline-block;">
+            Status: ${statusDescricao}
+        </h5>
     </div>
-    <div class="info">
-        <img src="/assets/os_servico_.png" alt="Serviço realizado" class="info-img">
-        <p><strong>Serviço realizado:</strong> ${oss.mensagem_resposta}</p>
-    </div>
-    <h5 class="status" style="width: 100%; max-width: 500px; text-align: center; background: #009245; padding:10px; border-radius: 8px;">
-        Status: ${statusDescricao}
-    </h5>
-</div>
 </li>
+
 `;
 }).join('') + '</ul>';
 } else {
