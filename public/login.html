@@ -1480,7 +1480,14 @@ classePago = 'pago'; // Adiciona classe 'pago' para boletos com status "R"
 
 return `<li class="textoModalBoletos ${classeVencido} ${classePago}" style="background-color: ${boleto.status === 'A' ? '#e2e3e5' : boleto.status === 'R' ? '#808080' : 'transparent'};">
     <div class="boleto-pix-linha" style="color: #10107A; justify-content: space-between; display: flex; align-items: center;">
-        <div style="text-align: right; font-weight: bold; flex-grow: 1; text-align: center;">2via:</div>
+        
+        <div class="boleto-baixar" style="flex-grow: 1; text-align: center;">
+            <strong>
+                <a href="${boleto.gateway_link}.pdf" target="_blank">
+                    <img src="/assets/a_pix_.png" alt="Copiar PIX" class="pix-img">
+                </a>
+            </strong>
+        </div>
         <div class="boleto-baixar" style="flex-grow: 1; text-align: center;">
             <strong>
                 <a href="${boleto.gateway_link}.pdf" target="_blank">
