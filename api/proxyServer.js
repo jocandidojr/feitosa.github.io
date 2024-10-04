@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/root/feitosa/.env' }); // Carregar variáveis de ambiente
+require('dotenv').config({ path: '/root/website/.env' }); // Carregar variáveis de ambiente
 
 const express = require('express');
 const axios = require('axios');
