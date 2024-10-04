@@ -372,7 +372,7 @@
             /* Estilos gerais para os itens de Outros */
                 
         .textoModalOutros h2 {
-            font-size: 20px;
+            font-size: 15px;
         }
 
         
@@ -1289,7 +1289,7 @@ openFormButton.style.display = 'none';
 // Função para buscar dados do cliente e validar login
 async function buscarClientes(cpf) {
   try {
-    console.log("Fazendo requisição para o servidor proxy...");
+    console.log("Validando usuário de acesso...");
 
     const response = await fetch('http://localhost:3000/api/proxy/cliente', {
       method: 'POST',
@@ -1415,7 +1415,7 @@ return `${partes[2]}/${partes[1]}/${partes[0]}`; // Formato dia/mês/ano
 // Função para buscar boletos
 async function buscarBoletos() {
 try {
-console.log("Fazendo requisição para o servidor proxy...");
+console.log("Buscando boletos...");
 
 const clienteId = localStorage.getItem('clienteId');
 
@@ -1568,7 +1568,7 @@ cpfInput.value = formatCPF(cpfInput.value);
 // Função para buscar contratos e armazenar contratoId
 async function buscarContratos() {
 try {
-console.log("Fazendo requisição para o servidor proxy...");
+console.log("Consultando dados do contrato...");
 
 const clienteId = localStorage.getItem('clienteId');
 
@@ -1651,7 +1651,7 @@ console.error("Erro ao buscar contratos:", error.message);
 // Função para buscar OSs
 async function buscarOss() {
 try {
-console.log("Fazendo requisição para o servidor proxy...");
+console.log("Consultando histórico de atendimentos...");
 
 const clienteId = localStorage.getItem('clienteId');
 
@@ -1816,7 +1816,7 @@ async function criarOss() {
     document.getElementById('ossForm').addEventListener('submit', async function(event) {
       event.preventDefault();
 
-      console.log("Fazendo requisição para o servidor proxy...");
+      console.log("Registrando o chamado...");
 
       const formData = new FormData(event.target);
       const formObject = Object.fromEntries(formData.entries());
