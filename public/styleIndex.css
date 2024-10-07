@@ -533,10 +533,15 @@ width: 100%;
     justify-content: space-between;
     align-items: flex-start;
     padding: 50px;
-    background: url('/assets/bg-fale.png') no-repeat center center/cover; /* Imagem de fundo ajustada */
     position: relative;
     height: auto; /* Ajusta a altura conforme o conteúdo */
     height: auto; /* Define uma altura mínima para garantir a visibilidade do fundo */
+}
+
+.container-about-background {
+
+    background: url('/assets/bg-fale.png') no-repeat center center/cover; /* Imagem de fundo ajustada */
+
 }
 
 /* Estilo das Colunas de Texto */

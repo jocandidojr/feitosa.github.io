@@ -1,5 +1,5 @@
-//require('dotenv').config({ path: '/root/website/.env' });
-require('dotenv').config();
+require('dotenv').config({ path: '/root/website/.env' });
+//require('dotenv').config();
 
 const express = require('express');
 const axios = require('axios');
@@ -11,6 +11,7 @@ const token = process.env.TOKEN;
 
 app.use(cors());
 app.use(express.json());
+
 
 // Rota para buscar clientes
 app.post('/api/proxy/cliente', async (req, res) => {
