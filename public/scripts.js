@@ -974,9 +974,13 @@ function duvidas() {
 // Conteúdo de FAQ
 const faqContent = `
 <div class="faq-container">
+<div class="FAQ" id="FAQ">
+    <h2>Dúvidas Frequentes (FAQ)</h2>
+    <br><br>
+    <div class="faq-container">
         <div class="faq-item">
             <div class="faq-question">Como faço para contratar?</div>
-            <div class="faq-answer">Basta entrar em contato conosco através de nossos canais de atendimento. A instalação é gratuita e será agendada para a data mais conveniente para você.</div>
+            <div class="faq-answer">Entre em contato conosco através de nossos canais de atendimento. A instalação é gratuita e será agendada para a data mais conveniente para você.</div>
         </div>
         <div class="faq-item">
             <div class="faq-question">Qual a área de cobertura?</div>
@@ -984,7 +988,7 @@ const faqContent = `
         </div>
         <div class="faq-item">
             <div class="faq-question">O suporte técnico é gratuito?</div>
-            <div class="faq-answer">Sim, oferecemos suporte técnico gratuito aos nossos clientes. Nossa equipe está disponível 24 horas por dia para ajudar a resolver quaisquer problemas.</div>
+            <div class="faq-answer">Sim, oferecemos suporte técnico gratuito aos nossos clientes. Nossa equipe está disponível de segunda a sábado para ajudar a resolver quaisquer problemas.</div>
         </div>
         <div class="faq-item">
             <div class="faq-question">Estou sem conexão, o que posso fazer?</div>
@@ -999,7 +1003,7 @@ const faqContent = `
             </div>
         </div>
         <div class="faq-item">
-            <div class="faq-question">Dicas para melhorar a conexão:</div>
+            <div class="faq-question">Dicas para melhorar o sinal:</div>
             <div class="faq-answer">
                 Para melhorar a qualidade da conexão, siga estas dicas:
                 <ul><br>
@@ -1015,7 +1019,7 @@ const faqContent = `
             <div class="faq-answer">Sim, você pode mudar de plano a qualquer momento. Basta entrar em contato com nossa equipe para fazer a alteração desejada.</div>
         </div>
         </div>
-        <br>
+        <br><br>
         <h3>Não encontrou o que procurava? Fale com nosso time.</h3>
     </div>
 </div>`;
