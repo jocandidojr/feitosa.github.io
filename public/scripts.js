@@ -980,7 +980,7 @@ const faqContent = `
         </div>
         <div class="faq-item">
             <div class="faq-question">Qual a área de cobertura?</div>
-            <div class="faq-answer">Estamos crescendo! Atemdemos as regiões de Bilinguim, Tacima e Dona Inês. Para conferir se o serviço está disponível para sua casa ou empresa, entre em contato com nossa equipe.</div>
+            <div class="faq-answer">Estamos crescendo! Atendemos as regiões de Bilinguim, Tacima e Dona Inês. Para conferir se o serviço está disponível para sua casa ou empresa, entre em contato com nossa equipe.</div>
         </div>
         <div class="faq-item">
             <div class="faq-question">O suporte técnico é gratuito?</div>

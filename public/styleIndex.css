@@ -532,7 +532,7 @@ width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 50px;
+    padding: 20px;
     position: relative;
     height: auto; /* Ajusta a altura conforme o conteúdo */
     height: auto; /* Define uma altura mínima para garantir a visibilidade do fundo */
