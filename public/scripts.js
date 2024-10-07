@@ -1016,7 +1016,7 @@ const faqContent = `
         </div>
         </div>
         <br>
-        <h3>Se ainda precisar de ajuda, fale com nosso time.</h3>
+        <h3>Não encontrou o que procurava? Fale com nosso time.</h3>
     </div>
 </div>`;
 

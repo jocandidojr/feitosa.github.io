@@ -71,6 +71,15 @@ server {
 }
 EOL
 
+# Excluindo arquivos HTML de /var/www/html
+sudo rm -rf /var/www/html/assets
+sudo rm -rf /var/www/html/index.html
+sudo rm -rf /var/www/html/login.html
+sudo rm -rf /var/www/html/scripts.js
+sudo rm -rf /var/www/html/scriptIndex.js
+sudo rm -rf /var/www/html/styleLogin.css
+sudo rm -rf /var/www/html/styleIndex.css
+
 # Copiando arquivos HTML para /var/www/html
 sudo cp $PUBLIC_DIR/index.html $HTML_DIR/
 sudo cp $PUBLIC_DIR/login.html $HTML_DIR/
