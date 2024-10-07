@@ -74,6 +74,10 @@ EOL
 # Copiando arquivos HTML para /var/www/html
 sudo cp $PUBLIC_DIR/index.html $HTML_DIR/
 sudo cp $PUBLIC_DIR/login.html $HTML_DIR/
+sudo cp $PUBLIC_DIR/scriptIndex.js $HTML_DIR/
+sudo cp $PUBLIC_DIR/script.js $HTML_DIR/
+sudo cp $PUBLIC_DIR/styleIndex.css $HTML_DIR/
+sudo cp $PUBLIC_DIR/styleLogin.css $HTML_DIR/
 sudo mkdir -p $HTML_DIR/assets
 sudo cp -r $PUBLIC_DIR/assets/* $HTML_DIR/assets/
 
