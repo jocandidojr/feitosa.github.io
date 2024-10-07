@@ -973,51 +973,47 @@ pagamentoContent.innerHTML = `<div class="textoModalOutros" style="height: 100px
 function duvidas() {
 // Conteúdo de FAQ
 const faqContent = `
-<div class="faq-background" id="faq-background">
-    <div class="FAQ" id="FAQ">
-        <h2>Dúvidas Frequentes (FAQ)</h2>
-        <br>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">Como posso solicitar a instalação do serviço?</div>
-                <div class="faq-answer">Basta entrar em contato conosco através de nossos canais de atendimento. A instalação é gratuita e será agendada para a data mais conveniente para você.</div>
+<div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">Como faço para contratar?</div>
+            <div class="faq-answer">Basta entrar em contato conosco através de nossos canais de atendimento. A instalação é gratuita e será agendada para a data mais conveniente para você.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Qual a área de cobertura?</div>
+            <div class="faq-answer">Estamos crescendo! Atemdemos as regiões de Bilinguim, Tacima e Dona Inês. Para conferir se o serviço está disponível para sua casa ou empresa, entre em contato com nossa equipe.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">O suporte técnico é gratuito?</div>
+            <div class="faq-answer">Sim, oferecemos suporte técnico gratuito aos nossos clientes. Nossa equipe está disponível 24 horas por dia para ajudar a resolver quaisquer problemas.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Estou sem conexão, o que posso fazer?</div>
+            <div class="faq-answer">
+                Se você estiver sem conexão, siga os passos abaixo:
+                <ul><br>
+                    <p><b>1.</b> Verifique se todos os cabos estão conectados corretamente.</p><br>
+                    <p><b>2.</b> Reinicie seu roteador desligando-o por 10 segundos e ligando-o novamente.</p><br>
+                    <p><b>3.</b> Certifique-se de que sua conta está em dia.</p><br>
+                    <p><b>4.</b> Se o problema persistir, entre em contato com nosso suporte técnico.</p>
+                </ul>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">A cobertura do serviço está disponível na minha área?</div>
-                <div class="faq-answer">Oferecemos cobertura em diversas regiões. Para verificar se o serviço está disponível na sua área, entre em contato com nossa equipe ou consulte o mapa de cobertura em nosso site.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Dicas para melhorar a conexão:</div>
+            <div class="faq-answer">
+                Para melhorar a qualidade da conexão, siga estas dicas:
+                <ul><br>
+                    <p><b>1.</b> Posicione o roteador em uma área central da casa, longe de obstáculos.</p><br>
+                    <p><b>2.</b> Evite o uso de micro-ondas e telefones sem fio próximos ao roteador.</p><br>
+                    <p><b>3.</b> Verifique se o firmware do roteador está atualizado.</p><br>
+                    <p><b>4.</b> Limite o número de dispositivos conectados simultaneamente.</p>
+                </ul>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">O suporte técnico é gratuito?</div>
-                <div class="faq-answer">Sim, oferecemos suporte técnico gratuito para todos os nossos clientes. Nossa equipe está disponível 24 horas por dia para ajudar a resolver quaisquer problemas.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Estou sem conexão, o que posso fazer?</div>
-                <div class="faq-answer">
-                    Se você estiver sem conexão, siga os passos abaixo:
-                    <ul><br>
-                        <p><b>1.</b> Verifique se todos os cabos estão conectados corretamente.</p>
-                        <p><b>2.</b> Reinicie seu roteador desligando-o por 10 segundos e ligando-o novamente.</p>
-                        <p><b>3.</b> Certifique-se de que sua conta está em dia.</p>
-                        <p><b>4.</b> Se o problema persistir, entre em contato com nosso suporte técnico.</p>
-                    </ul>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Como posso melhorar a qualidade da minha conexão?</div>
-                <div class="faq-answer">
-                    Para melhorar a qualidade da conexão, siga estas dicas:
-                    <ul><br>
-                        <p><b>1.</b> Posicione o roteador em uma área central da casa, longe de obstáculos.</p>
-                        <p><b>2.</b> Evite o uso de micro-ondas e telefones sem fio próximos ao roteador.</p>
-                        <p><b>3.</b> Verifique se o firmware do roteador está atualizado.</p>
-                        <p><b>4.</b> Limite o número de dispositivos conectados simultaneamente.</p>
-                    </ul>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Posso mudar de plano após a instalação?</div>
-                <div class="faq-answer">Sim, você pode mudar de plano a qualquer momento. Basta entrar em contato com nossa equipe para fazer a alteração desejada.</div>
-            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Posso mudar de plano após a instalação?</div>
+            <div class="faq-answer">Sim, você pode mudar de plano a qualquer momento. Basta entrar em contato com nossa equipe para fazer a alteração desejada.</div>
+        </div>
         </div>
         <br>
         <h3>Se ainda precisar de ajuda, fale com nosso time.</h3>
