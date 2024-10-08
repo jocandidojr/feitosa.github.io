@@ -18,6 +18,10 @@ else
     echo "IP local detectado: $IP_LOCAL"
 fi
 
+# Pergunta ao usuário pelo domínio
+echo "Por favor, insira o domínio (ex: seu_dominio.com):"
+read DOMINIO
+
 # Variáveis
 PASTA_ROOT="/home/suporte/site/feitosa.github.io"  # Atualizado para o caminho correto
 NGINX_CONF="/etc/nginx/sites-available/default"
@@ -46,7 +50,7 @@ sudo rm -f $NGINX_CONF
 sudo tee $NGINX_CONF > /dev/null <<EOL
 server {
     listen 80;
-    server_name $IP_LOCAL;
+    server_name $DOMINIO;
 
     location / {
         root $HTML_DIR;
@@ -67,8 +71,19 @@ server {
         proxy_set_header Host \$host;
         proxy_cache_bypass \$http_upgrade;
     }
+
+    # Redirecionamento HTTP para HTTPS
+    error_page 497 https://\$host$request_uri;
 }
 EOL
+
+# Reiniciando o NGINX para aplicar as mudanças
+sudo systemctl restart nginx
+
+# Obtendo um certificado SSL com Certbot
+echo "Configurando HTTPS com Certbot..."
+sudo apt install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d $DOMINIO --non-interactive --agree-tos --email seu-email@dominio.com
 
 # Excluindo arquivos HTML de /var/www/html
 sudo rm -rf /var/www/html/assets
@@ -99,4 +114,4 @@ pm2 startup systemd
 pm2 save
 
 # Finalização
-echo "Configuração concluída. O site está disponível no IP: $IP_LOCAL"
+echo "Configuração concluída. O site está disponível em https://$DOMINIO"
