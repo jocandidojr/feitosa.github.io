@@ -5,6 +5,9 @@ obter_ip_local() {
     hostname -I | awk '{print $1}'  # Obtém o primeiro IP da interface de rede
 }
 
+# IP do servidor
+IP_SERVIDOR="170.84.150.254"
+
 # Pergunta ao usuário se deseja inserir o IP manualmente
 echo "Deseja inserir o IP manualmente? (s/n)"
 read resposta
@@ -13,13 +16,13 @@ if [ "$resposta" == "s" ] || [ "$resposta" == "S" ]; then
     echo "Por favor, insira o IP do servidor:"
     read IP_LOCAL
 else
-    # Se não, busca o IP local automaticamente
-    IP_LOCAL=$(obter_ip_local)
-    echo "IP local detectado: $IP_LOCAL"
+    # Se não, usa o IP do servidor definido
+    IP_LOCAL=$IP_SERVIDOR
+    echo "IP local definido: $IP_LOCAL"
 fi
 
 # Variáveis
-PASTA_ROOT="/root/website"  # Atualizado para o caminho correto
+PASTA_ROOT="/var/www/html/website"  # Atualizado para o caminho correto
 NGINX_CONF="/etc/nginx/sites-available/default"
 HTML_DIR="/var/www/html"
 API_DIR="$PASTA_ROOT/api"
@@ -68,24 +71,9 @@ server {
 }
 EOL
 
-# Excluindo arquivos HTML de /var/www/html
-sudo rm -rf /var/www/html/assets
-sudo rm -rf /var/www/html/index.html
-sudo rm -rf /var/www/html/login.html
-sudo rm -rf /var/www/html/scripts.js
-sudo rm -rf /var/www/html/scriptIndex.js
-sudo rm -rf /var/www/html/styleLogin.css
-sudo rm -rf /var/www/html/styleIndex.css
-
 # Copiando arquivos HTML para /var/www/html
-sudo cp $PUBLIC_DIR/index.html $HTML_DIR/
-sudo cp $PUBLIC_DIR/login.html $HTML_DIR/
-sudo cp $PUBLIC_DIR/scriptIndex.js $HTML_DIR/
-sudo cp $PUBLIC_DIR/scripts.js $HTML_DIR/
-sudo cp $PUBLIC_DIR/styleIndex.css $HTML_DIR/
-sudo cp $PUBLIC_DIR/styleLogin.css $HTML_DIR/
-sudo mkdir -p $HTML_DIR/assets
-sudo cp -r $PUBLIC_DIR/assets/* $HTML_DIR/assets/
+sudo rm -rf $HTML_DIR/*
+sudo cp -r /root/repositorio/* $PASTA_ROOT/
 
 # Ajustando permissões e propriedade
 sudo chown -R www-data:www-data $HTML_DIR  # Define www-data como proprietário

@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/root/website/.env' });
+require('dotenv').config({ path: '/var/www/html/website/.env' });
 //require('dotenv').config();
 
 const express = require('express');
