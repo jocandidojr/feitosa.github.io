@@ -23,7 +23,7 @@ echo "Por favor, insira o domínio (ex: seu_dominio.com):"
 read DOMINIO
 
 # Variáveis
-PASTA_ROOT="/home/suporte/site/feitosa.github.io"  # Atualizado para o caminho correto
+PASTA_ROOT="/root/website"  # Atualizado para o novo caminho correto
 NGINX_CONF="/etc/nginx/sites-available/default"
 HTML_DIR="/var/www/html"
 API_DIR="$PASTA_ROOT/api"
@@ -37,8 +37,6 @@ sudo apt install -y nginx nodejs npm git
 
 # Instalando PM2 para gerenciar o processo Node.js
 sudo npm install -g pm2
-
-# Remover a linha de clonagem, pois os arquivos já foram clonados
 
 # Instalando as dependências do Node.js no diretório API
 cd $API_DIR
