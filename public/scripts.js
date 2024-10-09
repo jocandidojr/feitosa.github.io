@@ -52,7 +52,7 @@ async function buscarClientes(cpf) {
   try {
     console.log("Validando usuário de acesso...");
 
-    const response = await fetch('http://170.84.150.254/api/proxy/cliente', {
+    const response = await fetch('https://feitosatelecom.com.br/api/proxy/cliente', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ console.error('Cliente com o id não encontrado');
 return;
 }
 
-const response = await fetch('http://170.84.150.254/api/proxy/boletos', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/boletos', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -338,7 +338,7 @@ console.error('Cliente ID não encontrado');
 return;
 }
 
-const response = await fetch('http://170.84.150.254/api/proxy/contratos', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/contratos', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -421,7 +421,7 @@ console.error('Cliente com o id não encontrado');
 return;
 }
 
-const response = await fetch('http://170.84.150.254/api/proxy/oss', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/oss', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -600,7 +600,7 @@ async function criarOss() {
       console.log("Payload que está sendo enviado:", JSON.stringify(payload));
 
       try {
-        const response = await fetch('http://170.84.150.254/api/proxy/criar-oss', {
+        const response = await fetch('https://feitosatelecom.com.br/api/proxy/criar-oss', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -724,7 +724,7 @@ return;
 }
 
 // Faz a requisição para buscar os usuários
-const usuariosResponse = await fetch('http://170.84.150.254/api/proxy/usuarios', {
+const usuariosResponse = await fetch('https://feitosatelecom.com.br/api/proxy/usuarios', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -771,7 +771,7 @@ console.log('loginId armazenado no localStorage:', localStorage.getItem('loginId
 const requestBody = JSON.stringify({ id: loginId });
 console.log('Enviando requisição para reinício de conexão com corpo:', requestBody);
 
-const response = await fetch('http://170.84.150.254/api/proxy/reiniciar-conexao', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/reiniciar-conexao', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -848,7 +848,7 @@ return;
 const requestBody = JSON.stringify({ id: contratoId });
 console.log('Enviando requisição para desbloqueio de confiança com corpo:', requestBody);
 
-const response = await fetch('http://170.84.150.254/api/proxy/desbloqueio-confianca', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/desbloqueio-confianca', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
@@ -926,7 +926,7 @@ return;
 const requestBody = JSON.stringify({ id: contratoId });
 console.log('Enviando requisição para informar pagamento com corpo:', requestBody);
 
-const response = await fetch('http://170.84.150.254/api/proxy/informar-pagamento', {
+const response = await fetch('https://feitosatelecom.com.br/api/proxy/informar-pagamento', {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json',
