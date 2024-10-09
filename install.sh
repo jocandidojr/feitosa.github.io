@@ -30,7 +30,7 @@ IMAGEM_DIR="$HTML_DIR/imagem"  # Caminho para a pasta imagem
 sudo apt update && sudo apt upgrade -y
 
 # Instalando dependências do sistema
-sudo apt install -y nginx nodejs npm git python3-certbot-nginx
+sudo apt install -y nginx nodejs npm git
 
 # Instalando PM2 para gerenciar o processo Node.js
 sudo npm install -g pm2
@@ -45,18 +45,7 @@ sudo rm -f $NGINX_CONF
 sudo tee $NGINX_CONF > /dev/null <<EOL
 server {
     listen 80;
-    server_name feitosatelecom.com.br $IP_LOCAL;
-
-    # Redireciona todo o tráfego HTTP para HTTPS
-    return 301 https://\$host\$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    server_name feitosatelecom.com.br $IP_LOCAL;
-
-    ssl_certificate /etc/letsencrypt/live/feitosatelecom.com.br/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/feitosatelecom.com.br/privkey.pem;
+    server_name $IP_LOCAL;
 
     location / {
         root $HTML_DIR;
@@ -107,14 +96,9 @@ sudo chmod -R 755 $IMAGEM_DIR  # Define permissões de leitura e execução
 # Ajustando permissões e propriedade
 sudo chown -R www-data:www-data $HTML_DIR  # Define www-data como proprietário
 sudo chmod -R 755 $HTML_DIR  # Define permissões de leitura e execução
-sudo chown -R www-data:www-data $HTML_DIR/assets  # Garantindo permissões para assets
-sudo chmod -R 755 $HTML_DIR/assets  # Permissões de leitura e execução para assets
 
 # Reiniciando o NGINX para aplicar as mudanças
 sudo systemctl restart nginx
-
-# Obter o Certificado SSL
-sudo certbot --nginx -d feitosatelecom.com.br
 
 # Iniciando a aplicação Node.js com PM2
 cd $API_DIR
@@ -123,4 +107,4 @@ pm2 startup systemd
 pm2 save
 
 # Finalização
-echo "Configuração concluída. O site está disponível em: https://feitosatelecom.com.br ou no IP: $IP_LOCAL"
+echo "Configuração concluída. O site está disponível no IP: $IP_LOCAL"
