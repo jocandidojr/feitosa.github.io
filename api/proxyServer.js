@@ -1,28 +1,33 @@
-require('dotenv').config({ path: '/root/website/.env' });
-//require('dotenv').config();
+require('dotenv').config();
+//require('dotenv').config({ path: '/root/website/.env' });
 
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const https = require('https');
 
 const app = express();
 const port = process.env.PORT || 3000;
 const token = process.env.TOKEN;
+const apiUrl = process.env.API_URL; // Usando a variável API_URL do .env
 
 app.use(cors());
 app.use(express.json());
 
+// Criar um agente para ignorar erros de SSL (auto-assinado ou sem SSL)
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 // Rota para buscar clientes
 app.post('/api/proxy/cliente', async (req, res) => {
   console.log('Requisição recebida para /api/proxy/cliente:', req.body); // Log do corpo da requisição
   try {
-    const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente', req.body, {
+    const response = await axios.post(`${apiUrl}/cliente`, req.body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
         ixcsoft: "listar",
-      }
+      },
+      httpsAgent: httpsAgent // Adicionando o agente para desativar verificação SSL
     });
 
     console.log("Resposta da API:", response.data); // Log da resposta da API
@@ -51,7 +56,7 @@ app.post('/api/proxy/boletos', async (req, res) => {
   try {
     console.log('Buscando boletos do Cliente...');
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/fn_areceber',
+      `${apiUrl}/fn_areceber`, // Usando a variável apiUrl
       {
         qtype: "id_cliente",
         query: clienteId,
@@ -67,6 +72,7 @@ app.post('/api/proxy/boletos', async (req, res) => {
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "listar",
         },
+        httpsAgent: httpsAgent // Desativando a verificação SSL
       }
     );
 
@@ -80,13 +86,18 @@ app.post('/api/proxy/boletos', async (req, res) => {
 // Rota para buscar contratos
 app.post('/api/proxy/contratos', async (req, res) => {
   try {
-    const response = await axios.post('https://feitosatelecom.com.br/webservice/v1/cliente_contrato', req.body, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-        ixcsoft: "listar",
+    const response = await axios.post(
+      `${apiUrl}/cliente_contrato`, // Usando a variável apiUrl
+      req.body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "listar",
+        },
+        httpsAgent: httpsAgent // Desativando a verificação SSL
       }
-    });
+    );
     res.json(response.data);
   } catch (error) {
     console.error("Erro ao buscar contratos:", error.message);
@@ -105,9 +116,9 @@ app.post('/api/proxy/oss', async (req, res) => {
   try {
     console.log('Buscando OSS do Cliente...');
 
-    // Enviar a requisição para a API externa com o clienteId fornecido
+    // Enviar a requisição para a API externa usando a variável apiUrl do .env
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
+      `${apiUrl}/su_oss_chamado`, // Usando a variável apiUrl do .env
       {
         qtype: "id_cliente",
         query: clienteId,
@@ -123,6 +134,7 @@ app.post('/api/proxy/oss', async (req, res) => {
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "listar",
         },
+        httpsAgent: httpsAgent // Desativando a verificação SSL
       }
     );
 
@@ -150,31 +162,31 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
     return res.status(400).json({ error: 'Dados obrigatórios não fornecidos' });
   }
 
-  // Define as opções para a requisição
-  const options = {
-    method: 'POST',
-    url: 'https://feitosatelecom.com.br/webservice/v1/su_oss_chamado',
-    headers: {
-      'Content-Type': 'application/json',
-      'ixcsoft': 'inserir', // Incluindo o cabeçalho necessário
-      Authorization: 'Basic ' + Buffer.from(token).toString('base64'), // Usa o token aqui
-    },
-    data: {
-      tipo: tipo,
-      id_cliente: id_cliente, // Use id_cliente aqui
-      id_assunto: id_assunto,
-      id_filial: id_filial,
-      id_atendente: id_atendente,
-      origem_endereco: origem_endereco,
-      prioridade: prioridade,
-      setor: setor,
-      mensagem: mensagem,
-      status: status,
-    },
-  };
-
   try {
-    const response = await axios(options);
+    const response = await axios.post(
+      `${apiUrl}/su_oss_chamado`, // Usando a variável apiUrl do .env
+      {
+        tipo: tipo,
+        id_cliente: id_cliente,
+        id_assunto: id_assunto,
+        id_filial: id_filial,
+        id_atendente: id_atendente,
+        origem_endereco: origem_endereco,
+        prioridade: prioridade,
+        setor: setor,
+        mensagem: mensagem,
+        status: status,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'ixcsoft': 'inserir',
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+        },
+        httpsAgent: httpsAgent // Desativando a verificação SSL
+      }
+    );
+
     console.log('Resposta da API:', response.data); // Loga a resposta da API
     res.json(response.data); // Retorna a resposta para o frontend
   } catch (error) {
@@ -190,7 +202,7 @@ app.post('/api/proxy/criar-oss', async (req, res) => {
 });
 
 // Rota para buscar dados de contrato do cliente
-app.get('/proxy/cliente-contrato', async (req, res) => {
+app.get('/api/proxy/cliente-contrato', async (req, res) => {
   try {
     const clienteId = req.query.clienteId; // Obtendo clienteId da query string
 
@@ -199,7 +211,7 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
     }
 
     // Faz a requisição para a API da Feitosa Telecom usando o clienteId
-    const response = await axios.get(`https://feitosatelecom.com.br/webservice/v1/cliente_contrato/${clienteId}`, {
+    const response = await axios.get(`${apiUrl}/cliente_contrato/${clienteId}`, { // Usando a variável apiUrl do .env
       headers: {
         'Authorization': `Basic ${Buffer.from(token).toString('base64')}`,
       }
@@ -207,7 +219,6 @@ app.get('/proxy/cliente-contrato', async (req, res) => {
 
     // Retorna a resposta da API para o frontend
     res.json(response.data);
-
   } catch (error) {
     console.error('Erro ao buscar contrato:', error.message);
     res.status(500).json({ error: 'Erro ao buscar contrato do cliente' });
@@ -228,14 +239,15 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   try {
     console.log('Desbloqueando Confiança para o Contrato...');
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/desbloqueio_confianca',
+      `${apiUrl}/desbloqueio_confianca`, // Usando a variável apiUrl do .env
       { id },
       {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "inserir",
-        }
+        },
+        httpsAgent: httpsAgent // Desativando a verificação SSL
       }
     );
 
@@ -258,14 +270,15 @@ app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
     console.log('Reiniciando conexão para o contrato...');
 
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/desconectar_clientes',
+      `${apiUrl}/desconectar_clientes`, // Usando a variável apiUrl do .env
       { id },
       {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "inserir",
-        }
+        },
+        httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
       }
     );
 
@@ -288,7 +301,7 @@ app.post('/api/proxy/usuarios', async (req, res) => {
     console.log('Buscando usuários do Cliente...');
 
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/radusuarios',
+      `${apiUrl}/radusuarios`, // Usando a variável apiUrl do .env
       {
         qtype: "id_cliente",
         query: clienteId,
@@ -304,6 +317,7 @@ app.post('/api/proxy/usuarios', async (req, res) => {
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "listar",
         },
+        httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
       }
     );
 
@@ -328,27 +342,25 @@ app.post('/api/proxy/informar-pagamento', async (req, res) => {
   try {
     console.log('Informando Pagamento para o Contrato...');
 
-    // Fazendo a requisição ao endpoint correto da API
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/cliente_contrato_btn_lib_temp_24722', // Endpoint para informar pagamento
-      { id }, // Dados enviados para o endpoint
+      `${apiUrl}/cliente_contrato_btn_lib_temp_24722`, // Usando a variável apiUrl do .env
+      { id },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(token).toString('base64')}`, // Autorização
-          ixcsoft: "inserir", // Header necessário para a API
-        }
+          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+          ixcsoft: "inserir",
+        },
+        httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
       }
     );
 
-    // Retorno da resposta da API
     res.json(response.data);
   } catch (error) {
     console.error('Erro ao informar pagamento:', error.message);
     res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de Informar Pagamento" });
   }
 });
-
 // Rota para buscar dados de radusuarios com base no clienteId
 app.post('/api/proxy/radusuarios', async (req, res) => {
   const { clienteId } = req.body;
@@ -362,9 +374,9 @@ app.post('/api/proxy/radusuarios', async (req, res) => {
 
     // Configura a requisição para a API de radusuarios
     const response = await axios.post(
-      'https://feitosatelecom.com.br/webservice/v1/radusuarios',
+      `${apiUrl}/radusuarios`, // Usando a variável apiUrl do .env
       {
-        qtype: "radusuarios.id",
+        qtype: "id_cliente", // Alterado para "id_cliente" para corresponder ao que você está buscando
         query: clienteId,
         oper: "=",
         page: "1",
@@ -378,6 +390,7 @@ app.post('/api/proxy/radusuarios', async (req, res) => {
           Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
           ixcsoft: "listar",
         },
+        httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
       }
     );
 
