@@ -258,36 +258,45 @@ app.post('/api/proxy/desbloqueio-confianca', async (req, res) => {
   }
 });
 
-// Rota para reiniciar a conexão do cliente
-app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
-  const { id } = req.body;
+  // Rota para reiniciar a conexão do cliente
+  app.post('/api/proxy/reiniciar-conexao', async (req, res) => {
+    const { id } = req.body;
 
-  if (!id) {
-    return res.status(400).json({ error: 'ID do contrato não fornecido' });
-  }
+    // Verifica se o ID foi fornecido
+    if (!id) {
+      console.error('ID do contrato não fornecido');
+      return res.status(400).json({ error: 'ID do contrato não fornecido' });
+    }
 
-  try {
-    console.log('Reiniciando conexão para o contrato...');
+    try {
+      console.log('Reiniciando conexão para o contrato com ID:', id);
 
-    const response = await axios.post(
-      `${apiUrl}/desconectar_clientes`, // Usando a variável apiUrl do .env
-      { id },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
-          ixcsoft: "inserir",
-        },
-        httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
-      }
-    );
+      const response = await axios.post(
+        `${apiUrl}/desconectar_clientes`, // Usando a variável apiUrl do .env
+        { id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${Buffer.from(token).toString('base64')}`,
+            ixcsoft: "inserir",
+          },
+          httpsAgent: httpsAgent // Desativando a verificação SSL, se necessário
+        }
+      );
 
-    res.json(response.data);
-  } catch (error) {
-    console.error('Erro ao reiniciar a conexão:', error.message);
-    res.status(error.response?.status || 500).json(error.response?.data || { error: "Erro ao conectar com a API de reinício de conexão" });
-  }
-});
+      // Log da resposta da API
+      console.log('Resposta da API de desconexão:', response.data);
+      res.json(response.data);
+    } catch (error) {
+      // Log do erro
+      console.error('Erro ao reiniciar a conexão:', error.message);
+      console.error('Detalhes do erro:', error.response?.data); // Logando os dados da resposta de erro, se disponíveis
+
+      res.status(error.response?.status || 500).json(
+        error.response?.data || { error: "Erro ao conectar com a API de reinício de conexão" }
+      );
+    }
+  });
 
 // Rota para buscar usuários relacionados ao cliente
 app.post('/api/proxy/usuarios', async (req, res) => {

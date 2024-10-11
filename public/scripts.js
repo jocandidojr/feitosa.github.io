@@ -52,7 +52,7 @@ async function buscarClientes(cpf) {
   try {
     console.log("Validando usuário de acesso...");
 
-    const response = await fetch('https:/feitosatelecom.com.br/api/proxy/cliente', {
+    const response = await fetch('https://feitosatelecom.com.br/api/proxy/cliente', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
